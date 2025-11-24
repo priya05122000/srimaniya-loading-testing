@@ -1,0 +1,169 @@
+src/
+│
+├── app/
+│   ├── layout.tsx            ← server layout
+│   ├── ClientLayout.tsx      ← client-side wrapper (Navbar, Footer)
+│   ├── globals.css
+│   ├── loading.tsx           ← global loader
+│   ├── page.tsx              ← Home page
+│   │
+│   ├── about-us/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── AboutUs.tsx
+│   │       ├── Facilities.tsx
+│   │       ├── OurStory.tsx
+│   │       ├── OurTeam.tsx
+│   │       ├── Testimonials.tsx
+│   │       ├── VisionMission.tsx
+│   │       └── NewFile.tsx
+│   │
+│   ├── career/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── ApplyNow.tsx
+│   │       └── CareerSection.tsx
+│   │
+│   ├── contact-us/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── Appointment.tsx
+│   │       └── Contact.tsx
+│   │
+│   ├── courses/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── CourseList.tsx
+│   │       ├── Header.tsx
+│   │       └── Table.tsx
+│   │
+│   ├── events-blog/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       └── EventBlog.tsx
+│   │
+│   ├── events-blog-view/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── BlogData.tsx
+│   │       ├── BlogDetails.tsx
+│   │       ├── BlogImage.tsx
+│   │       └── HotelManagement.tsx
+│   │
+│   ├── home/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── HeroSwiper.tsx
+│   │       ├── AboutStats.tsx
+│   │       ├── Courses.tsx
+│   │       ├── Awards.tsx
+│   │       ├── Partners.tsx
+│   │       ├── EventsBlogs.tsx
+│   │       ├── EnquireForm.tsx
+│   │       ├── ShowReel.tsx
+│   │       ├── Internship.tsx
+│   │       ├── CommitmentBanner.tsx
+│   │       ├── PlacementMap.tsx
+│   │       └── AlumniStories.tsx
+│   │
+│   ├── placements/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── PlacementInfo.tsx
+│   │       ├── PartTimeStudentsInfo.tsx
+│   │       ├── PlacedStudentsInfo.tsx
+│   │       ├── PlacementStats.tsx
+│   │       ├── PartPlacementPartners.tsx
+│   │       └── PartBanner.tsx
+│   │
+│   ├── privacy-policy/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       └── PrivacyPolicy.tsx
+│   │
+│   ├── registration-form/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── Form.tsx
+│   │       ├── Brochure.tsx
+│   │       └── districts.json
+│   │
+│   ├── scholarship/
+│   │   ├── page.tsx
+│   │   └── components/
+│   │       ├── ScholarBanner.tsx
+│   │       ├── ScholarContent.tsx
+│   │       └── ScholarForm.tsx
+│   │
+│   └── terms-and-conditions/
+│       ├── page.tsx
+│       └── components/
+│           └── TermsAndConditions.tsx
+│
+├── components/
+│   │
+│   ├── layout/
+│   │   ├── Navbar.tsx               ← header
+│   │   ├── Footer.tsx               ← footer
+│   │   └── FloatingContactButtons.tsx
+│   │
+│   ├── ui/
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   ├── Textarea.tsx
+│   │   ├── Select.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Radio.tsx
+│   │   ├── Label.tsx
+│   │   ├── ErrorMessage.tsx
+│   │   └── FormField.tsx         ← ⭐ important form wrapper
+│   │
+│   ├── common/
+│   │   ├── AnimatedText.tsx
+│   │   ├── Section.tsx
+│   │   ├── BackToTop.tsx
+│   │   ├── GridSection.tsx
+│   │   ├── LeftSpaceGridSection.tsx
+│   │   ├── RightSpaceGridSection.tsx
+│   │   ├── CollapsibleHTML.tsx
+│   │   └── Span.tsx
+│   │
+│   └── Loader.tsx     ← used inside loading.tsx
+│
+├── hooks/
+│   └── useSplitTextHeadingAnimation.ts
+│
+├── lib/
+│   ├── axios.ts
+│   ├── constants.ts
+│   ├── districts.json
+│   └── aos.d.ts
+│
+├── services/
+│   ├── alumniStoryService.js
+│   ├── appoinmentRequestService.js
+│   ├── authService.js
+│   ├── awardService.js
+│   ├── bannerService.js
+│   ├── blogPostService.js
+│   ├── categoryService.js
+│   ├── countriesService.js
+│   ├── courseService.js
+│   ├── fileService.js
+│   ├── internationalPatientService.js
+│   ├── jobAppointmentService.js
+│   ├── jobService.js
+│   ├── partnerService.js
+│   ├── placementService.js
+│   ├── siteInfoService.js
+│   ├── staffProfileService.js
+│   └── testimonialService.js
+│
+├── types/
+│   ├── index.ts
+│   └── splide.d.ts
+│
+└── utils/
+    ├── format.ts
+    ├── slug.ts
+    └── validate.ts

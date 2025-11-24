@@ -1,0 +1,478 @@
+/* ===================================================================
+   TAILWIND IMPORT
+   ------------------------------------------------------------------- */
+@import "tailwindcss";
+
+/* ===================================================================
+   ROOT VARIABLES
+   ------------------------------------------------------------------- */
+:root {
+  --foreground: #eeecea;
+  /* Overlay / Primary Text */
+  --white: #ffffff;
+  --dark: #323131;
+  --blue: #0b2351;
+  --yellow: #ffce54;
+  --black: #000000;
+  --grey: #c8c8c8;
+  --white-custom: #fbfffa;
+  --blue-overlay-custom: #0b235166;
+  --blue-overlay-strong: #0b23518a;
+  --blue-overlay-medium: #0b235152;
+  --blue-overlay-light: #0b2351b8;
+  --grey-custom: #c8c8c880;
+  --grey-light-custom: #323131cc;
+  --black-custom: #fffdfd0f;
+
+}
+
+/* Theme mapping for Tailwind */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ===================================================================
+   DARK MODE SUPPORT
+   ------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* ===================================================================
+   SCROLLBAR STYLES
+   ------------------------------------------------------------------- */
+
+/* Chrome, Safari, Opera */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Utility: .hide-scrollbar (apply on any element) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE, Edge, Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* ===================================================================
+   BODY BASE STYLES
+   ------------------------------------------------------------------- */
+
+/* html, body {
+  will-change: transform;
+} */
+
+
+body {
+  color: var(--foreground);
+  min-height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+/* ===================================================================
+   BACKGROUND LAYERS
+   ------------------------------------------------------------------- */
+
+/* Layer 1 — Grain Texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("/designs/grainy.svg") center center / cover no-repeat;
+  opacity: 1;
+}
+
+/* Layer 2 — Subtle Overlay Tint */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--foreground);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* -----------------------------------
+   Floating CTA Button
+----------------------------------- */
+.floating-cta-btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  background: #eeecea;
+  z-index: 10;
+  transition: all 0.4s ease-in-out;
+  top: 0;
+}
+
+.floating-cta-btn:hover::after {
+  top: auto;
+  bottom: 0;
+  height: 100%;
+}
+
+.floating-cta-btn .floating-cta-text {
+  position: relative;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.floating-cta-btn:hover .floating-cta-text {
+  color: #0b2351 !important;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* -----------------------------------
+   Marquee Animations & Styles
+----------------------------------- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: max-content;
+  /* ensures container doesn’t shrink */
+  animation: marquee 20s linear infinite;
+}
+
+.marquee {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 1.5em;
+  background: var(--white-custom);
+  color: var(--blue);
+}
+
+.marquee__inner {
+  display: inline-block;
+  min-width: 200%;
+  white-space: nowrap;
+  animation: marquee 4s linear infinite;
+  color: var(--blue);
+}
+
+.marquee-fade {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: linear-gradient(to right,
+      var(--white-custom) 0%,
+      rgba(251, 255, 250, 0.1) 10%,
+      rgba(251, 255, 250, 0.1) 80%,
+      var(--white-custom) 100%);
+}
+
+/* -----------------------------------
+   Swiper Styles
+----------------------------------- */
+.swiper-fade .swiper-slide {
+  background: transparent !important;
+}
+
+/* .mySwiper, .swiper-slide {
+  height: 500px;
+  min-height: 500px;
+  will-change: transform;
+  backface-visibility: hidden;
+} */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
+/* Swiper Pagination Bullets */
+.swiper-pagination-bullet,
+.swiper-pagination-bullet-active {
+  background: #ffff !important;
+}
+
+.splide__slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.splide__track,
+.splide__list {
+  display: flex;
+  align-items: center;
+}
+
+/* -----------------------------------
+   Miscellaneous
+----------------------------------- */
+.split {
+  will-change: transform;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Remove all @font-face blocks except for DM Sans.
+   DM Sans will be loaded via next/font/google in your layout.tsx. */
+
+/* Set DM Sans as the default font for all text elements */
+body,
+p,
+span,
+ul,
+li,
+a,
+button,
+input,
+textarea,
+label,
+select,
+option {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.partners-bg {
+  background-image: linear-gradient(rgba(200, 200, 200, 0.2) 0.1em,
+      transparent 0.1em),
+    linear-gradient(90deg, rgba(200, 200, 200, 0.2) 0.1em, transparent 0.1em);
+  background-size: 10em 5em;
+}
+
+.animate-spin-slow {
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add this to your CSS file */
+.fifth-card {
+  /* By default, show border */
+}
+
+.fifth-card.is-overlapped {
+  border-bottom: none !important;
+}
+
+.spin-circle {
+  animation: spin-circle 20s linear infinite;
+}
+
+@keyframes spin-circle {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add to your global CSS file */
+.navbar--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.reveal-section,
+.reveal-section iframe,
+.reveal-section svg {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.reveal-section {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  isolation: isolate;
+  /* 👈 ensures it has its own layer */
+}
+
+.fixed-logo {
+  position: fixed !important;
+  top: 80px;
+  /* 👈 below your 80px navbar height */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999 !important;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes gpu-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-test {
+  animation: gpu-spin 30s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout paint;
+}
+
+#rotating-logo {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.fade-transition {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fade-visible {
+  opacity: 1;
+}
+
+.settings:after {
+  content: "\2807";
+  font-size: 25px;
+  color: #4d4d4d;
+  cursor: pointer;
+}
+
+.icon:hover {
+  opacity: 0.7;
+}
+
+.list-square {
+  list-style-type: square;
+}
+
+.bg-blur-fix {
+  background: rgba(11, 35, 81, 0.3);
+  /* fallback for blur */
+  backdrop-filter: blur(6px);
+}
+
+.splide__slide {
+  width: auto !important;
+  /* Prevent Splide from applying inline calc width */
+  flex: 0 0 auto !important;
+  /* Prevent shrinking/stretching */
+}
+
+.splide__slide img {
+  width: 160px;
+  /* or whatever width you want */
+  height: auto;
+  object-fit: contain;
+  padding: 0 8px;
+}
+
+.horizontal-wrapper {
+  will-change: transform;
+}
+
+.sri-maniya-institute-heading span {
+  will-change: transform, opacity;
+}
+
+#smooth-wrapper,
+#smooth-content,
+[data-section],
+.course-card,
+.hero-content,
+.mySwiper,
+img {
+  will-change: transform;
+  transform: translateZ(0);
+}
