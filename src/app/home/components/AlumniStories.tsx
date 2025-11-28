@@ -1,25 +1,15 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/navigation";
-import { Autoplay, EffectFade, Navigation } from "swiper/modules";
-
-import Section from "@/components/common/Section";
-import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-
-import {
-  HiOutlineArrowNarrowLeft,
-  HiOutlineArrowNarrowRight,
-} from "react-icons/hi";
-import Image from "next/image";
-import { BiSolidQuoteLeft } from "react-icons/bi";
-
-import { getAllAlumniStories } from "@/services/alumniStoryService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import React, { useEffect, useState } from 'react';
+import { getAllAlumniStories } from '@/services/alumniStoryService';
+import Section from '@/components/common/Section';
+import { FaQuoteLeft } from 'react-icons/fa';
+import Paragraph from '@/components/common/Paragraph';
+import Heading from '@/components/common/Heading';
+import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import Image from 'next/image';
+import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
+import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
+import Span from '@/components/common/Span';
 
 // Types
 export type Alumni = {
@@ -37,237 +27,226 @@ export type Alumni = {
   status?: boolean;
 };
 
-export type QuoteBlockProps = Pick<
-  Alumni,
-  | "name"
-  | "batch_year"
-  | "course"
-  | "designation"
-  | "company"
-  | "country"
-  | "story"
-  | "location"
-  | "photo_url"
-  | "video_url"
->;
+// Utility: Get visible alumni for carousel (reusable)
+const getVisibleAlumni = (alumniData: Alumni[], current: number, isMobile: boolean): (Alumni | undefined)[] => {
+  const total = alumniData.length;
+  if (isMobile) {
+    // Only show the current alumni on mobile
+    return [alumniData[current]];
+  }
+  return Array.from({ length: 5 }, (_, i) => alumniData[(current + i - 2 + total) % total]);
+};
 
-/* ---------------------------------------------------
-    📌 PRELOAD IMAGES FUNCTION (Top-level to avoid hoisting issues)
------------------------------------------------------ */
-const preloadImages = (items: Alumni[]) => {
-  const promises = items.map((p) => {
+// Utility: Position and scale maps for carousel (reusable)
+const positionMap = ["-300px", "-180px", "0px", "180px", "300px"] as const;
+const scaleMapLg = ["1", "1.5", "1.25", "1.5", "1"] as const;
+// const scaleMapMd = ["1", "1.5", "1.25", "1.5", "1"] as const;
+
+// Reusable: Alumni image carousel item
+const AlumniImage: React.FC<{
+  alumni?: Alumni;
+  idx: number;
+  onClick: () => void;
+  imageBase: string;
+}> = ({ alumni, idx, onClick, imageBase }) => (
+  <div
+    className="absolute transition-all duration-500 ease-out cursor-pointer"
+    onClick={onClick}
+    style={{
+      transform: `translateX(${positionMap[idx]})  scale(${scaleMapLg[idx]})`,
+      zIndex: idx === 2 ? 10 : 1,
+    }}
+  >
+    <div
+      className={
+        idx === 2
+          ? "w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-(--blue) shadow-lg"
+          : "w-24 h-24 sm:w-20 sm:h-20 rounded-full overflow-hidden "
+      }
+    >
+      {alumni?.photo_url ? (
+        <Image
+          src={imageBase + alumni.photo_url}
+          alt={alumni.name}
+          width={idx === 2 ? 144 : 80}
+          height={idx === 2 ? 144 : 80}
+          className={`w-full h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"} `}
+          draggable={false}
+          style={{ borderRadius: '9999px' }}
+          priority={idx === 2}
+        />
+      ) : (
+        <div className="w-full h-full" />
+      )}
+    </div>
+  </div>
+);
+
+// Helper: Preload images and videos for alumni
+const preloadAlumniMedia = (alumniList: Alumni[]) => {
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    : '';
+  const imagePromises = alumniList.map((a) => {
+    if (!a.photo_url) return Promise.resolve();
     const img = new window.Image();
-    img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${p.photo_url}`;
-    return new Promise((resolve) => {
-      img.onload = resolve;
-      img.onerror = resolve;
+    img.src = base + a.photo_url;
+    return new Promise<void>((resolve) => {
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
     });
   });
-  return Promise.all(promises);
+  const videoPromises = alumniList
+    .filter((a) => a.video_url)
+    .map((a) => {
+      const video = document.createElement('video');
+      video.preload = 'auto';
+      video.src = a.video_url.includes('videos/') ? base + a.video_url : base + 'videos/' + a.video_url;
+      return new Promise<void>((resolve) => {
+        video.oncanplaythrough = () => resolve();
+        video.onerror = () => resolve();
+      });
+    });
+  return Promise.all([...imagePromises, ...videoPromises]);
 };
 
-/* ---------------------------------------------------
-    📌 REUSABLE MEDIA COMPONENT
------------------------------------------------------ */
-const AlumniMedia: React.FC<{
-  photoUrl: string;
-  videoUrl?: string;
-  name: string;
-}> = ({ photoUrl, videoUrl, name }) => {
-  const source = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${photoUrl}`;
-
-  return videoUrl ? (
-    <video controls className="w-full h-full object-cover rounded-lg">
-      <source
-        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${videoUrl}`}
-        type="video/mp4"
-      />
-    </video>
-  ) : (
-    <Image
-      src={source}
-      alt={name}
-      width={400}
-      height={400}
-      className="w-full h-full object-cover object-top"
-      unoptimized
-    />
-  );
-};
-
-/* ---------------------------------------------------
-    📌 QUOTE BLOCK COMPONENT
------------------------------------------------------ */
-const QuoteBlock: React.FC<{ alumni: QuoteBlockProps }> = ({ alumni }) => (
-  <div
-    className="flex-1 bg-(--blue)  py-8 px-6 sm:px-8 xl:px-20 text-(--white-custom) h-full sm:text-end"
-    data-section
-  >
-    <div className="h-full flex flex-col justify-start sm:justify-center ">
-      {/* Show AlumniMedia only on mobile */}
-      <div className="sm:hidden mb-4 h-24 w-24 ">
-        <AlumniMedia
-          photoUrl={alumni.photo_url}
-          videoUrl={alumni.video_url}
-          name={alumni.name}
-        />
-      </div>
-      <Heading level={4} className="uppercase">
-        {alumni.name}
-      </Heading>
-      <Paragraph
-        size="lg"
-        className="text-(--grey-custom) mt-2"
-      >
-        {alumni.batch_year} - {alumni.course}
-      </Paragraph>
-      <Paragraph
-        size="lg"
-        className="text-(--grey-custom) "
-      >
-        {alumni.designation} - {alumni.company}
-        {alumni.location && `, ${alumni.location}`}
-        {alumni.country && `, ${alumni.country}`}
-      </Paragraph>
-      <div className="flex items-start gap-4 pt-4 sm:pt-8">
-        <BiSolidQuoteLeft className="text-9xl text-(--yellow) h-auto" />
-        <div className="flex flex-col gap-2 text-(--white-custom)">
-          <div
-            className="text-sm lg:text-base"
-            dangerouslySetInnerHTML={{ __html: alumni.story }}
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-/* ---------------------------------------------------
-    📌 NAVIGATION BUTTONS
------------------------------------------------------ */
-const AlumniNavButtons: React.FC = () => (
-  <div className="flex flex-col items-end mt-4 gap-2 z-20 sm:px-10 lg:px-20 xl:px-30">
-    <Paragraph size="lg" className="text-(--blue)">
-      Prev/Nxt
-    </Paragraph>
-
-    <div className="flex gap-2">
-      <button className="alumni-prev">
-        <HiOutlineArrowNarrowLeft className="border-2 rounded-full text-(--blue) w-12 h-6" />
-      </button>
-
-      <button className="alumni-next">
-        <HiOutlineArrowNarrowRight className="border-2 rounded-full text-(--blue) w-12 h-6" />
-      </button>
-    </div>
-  </div>
-);
-
-/* ---------------------------------------------------
-    📌 MAIN COMPONENT
------------------------------------------------------ */
-const AlumniStories: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-
-
+const AlumniStories = () => {
   const [alumniData, setAlumniData] = useState<Alumni[]>([]);
+  const [current, setCurrent] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const { setLoading } = useGlobalLoader();
+  const total = alumniData.length;
+  const [isMobile, setIsMobile] = useState(false);
 
-  /* ---------------------------------------------------
-      📌 FIXED LOADING LOGIC INSIDE useEffect()
-  ----------------------------------------------------- */
+  const headingRef = React.useRef<HTMLHeadingElement | null>(null);
+  const paragraphRef = React.useRef<HTMLParagraphElement | null>(null);
+  const alumniRef = React.useRef<HTMLDivElement | null>(null);
+
+  useSplitTextHeadingAnimation({
+    trigger: alumniRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
+    enabled: !!alumniData.length,
+  });
+
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-
         const res = await getAllAlumniStories();
         const raw: Alumni[] = res?.data ?? [];
-
         const active = raw.filter((a) => a.status);
         setAlumniData(active);
-
-        // Preload images before slider shows
-        await preloadImages(active);
+        await preloadAlumniMedia(active);
       } catch (err) {
-        console.error("Failed to load alumni stories:", err);
+        setAlumniData([]);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [setLoading]);
 
+  useEffect(() => {
+    // Responsive check for mobile
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [current, isHovered, total]);
+
+  const goTo = (steps: number) => setCurrent((prev) => (prev + steps + total) % total);
+  const prevSlide = () => goTo(-1);
+  const nextSlide = () => goTo(1);
+
+  if (!alumniData.length) {
+    return <div style={{ textAlign: 'center', padding: '40px 0' }}>Loading...</div>;
+  }
+
+  const visible = getVisibleAlumni(alumniData, current, isMobile);
+  const currentAlumni = alumniData[current];
+  const imageBase = process.env.NEXT_PUBLIC_API_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    : '';
+
   return (
-    <div className="space-y-10 py-10 sm:py-20">
-      <Section ref={sectionRef}>
-        <div className="sm:px-10 lg:px-20 xl:px-30">
-          <Paragraph
-            size="lg"
-            className="text-(--blue) font-bold alumni-title"
-          >
-            The Proof
-          </Paragraph>
-          <Heading
-            level={4}
-            className="text-(--blue) uppercase mt-2 proof-title"
-          >
-            Alumni Stories
-          </Heading>
+    <div ref={alumniRef}>
+      <div className="pt-10 sm:pt-20 relative w-full">
+        <Section>
+          <div>
+            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title">The Proof</Paragraph>
+            <Heading ref={headingRef} level={4} className="text-(--blue) uppercase leading-tight proof-title mt-1">Alumni Stories</Heading>
+          </div>
+        </Section>
+        <div className='flex justify-center  items-center pt-10  gap-10 mb-4 '>
+          <div className='w-full h-px bg-(--grey)' />
+          <Heading level={3} className="text-(--blue)"><FaQuoteLeft style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></Heading>
+          <div className='w-full h-px bg-(--grey)' />
         </div>
-
-        <div className="h-[550px] sm:h-[450px] relative mt-10 sm:px-10 lg:px-20 xl:px-30">
-          <Swiper
-            effect="fade"
-            grabCursor
-            loop={alumniData.length > 1}
-            navigation={{ nextEl: ".alumni-next", prevEl: ".alumni-prev" }}
-            modules={[EffectFade, Navigation, Autoplay]}
-            slidesPerView={1}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            className="mySwiper h-full"
-          >
-            {alumniData.map((alumni) => (
-              <SwiperSlide key={alumni.id}>
-                <div
-                  className="w-full h-full bg-top relative sm:bg-cover"
-                // style={
-                //   typeof window !== "undefined" && window.innerWidth < 640
-                //     ? {}
-                //     : {
-                //       backgroundImage: `url('${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${alumni.photo_url}')`,
-                //     }
-                // }
+        <Section>
+          <div className='h-[450px] sm:h-[490px] flex flex-col justify-between text-center '>
+            <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
+              <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+            </span>
+            <Paragraph size='lg' className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)">
+              <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+            </Paragraph>
+            <div>
+              <div
+                className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? 'h-24' : 'h-40'}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {visible.map((alumni, idx) => (
+                  <AlumniImage
+                    key={alumni?.id || `empty-${idx}`}
+                    alumni={alumni}
+                    idx={isMobile ? 2 : idx}
+                    onClick={() => {
+                      if (isMobile) return; // No click navigation on mobile images
+                      if (idx === 1) goTo(-1);
+                      if (idx === 0) goTo(-2);
+                      if (idx === 3) goTo(1);
+                      if (idx === 4) goTo(2);
+                    }}
+                    imageBase={imageBase}
+                  />
+                ))}
+              </div>
+              <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
+                <Paragraph size='xl' className="font-bold text-(--blue)">{currentAlumni.name}</Paragraph>
+                <Paragraph size='base' className="text-(--dark)">({currentAlumni.batch_year} batch - {currentAlumni.course})</Paragraph>
+              </div>
+              <Paragraph size='base' className="  text-(--dark) mb-6">{currentAlumni.designation} - {currentAlumni.company}{currentAlumni.location ? `, ${currentAlumni.location}` : ''}{currentAlumni.country ? `, ${currentAlumni.country}` : ''}</Paragraph>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={prevSlide}
+                  className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+                  aria-label="Previous"
                 >
-                  {/* <div className="absolute inset-0 z-10  bg-[#0b2351]/40  sm:block hidden" /> */}
-                  <div className="h-full">
-                    <div className="relative z-10 grid grid-cols-1 sm:grid-cols-[1.5fr_1fr]  h-full items-end  w-full ">
-                      <div
-                        className={` bg-(--blue) w-full sm:h-full ${typeof window !== "undefined" && window.innerWidth < 640
-                          ? "h-[550px] sm:h-[450px]"
-                          : ""
-                          }`}
-                      >
-                        <QuoteBlock alumni={alumni} />
-                      </div>
-                      <div className="hidden will-change-transform sm:flex items-center justify-center h-[350px] md:h-full overflow-hidden relative border-b sm:border-b-0 sm:border-l border-(--grey-custom) ">
-                        <AlumniMedia
-                          photoUrl={alumni.photo_url}
-                          videoUrl={alumni.video_url}
-                          name={alumni.name}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-        </div>
-        <AlumniNavButtons />
-      </Section>
+                  <HiOutlineArrowNarrowLeft />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+                  aria-label="Next"
+                >
+                  <HiOutlineArrowNarrowRight />
+                </button>
+              </div>
+            </div>
+          </div>
+        </Section>
+      </div>
     </div>
   );
 };

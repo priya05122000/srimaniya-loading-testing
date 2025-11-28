@@ -476,3 +476,7 @@ img {
   will-change: transform;
   transform: translateZ(0);
 }
+
+.line {
+  will-change: transform, opacity;
+}

@@ -8,7 +8,7 @@ interface LoaderContextType {
 
 const LoaderContext = createContext<LoaderContextType>({
     loading: false,
-    setLoading: () => {},
+    setLoading: () => { },
 });
 
 export const useGlobalLoader = () => useContext(LoaderContext);

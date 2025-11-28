@@ -9,6 +9,7 @@ import { FaYoutube } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
 
 import { getAllCourses } from "@/services/courseService";
+import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Section from "../common/Section";
 import Paragraph from "../common/Paragraph";
 import Span from "../common/Span";
@@ -72,9 +73,11 @@ const CONTACTS2 = [
 
 const Footer = () => {
     const [courses, setCourses] = useState<Course[]>([]);
+    const { setLoading } = useGlobalLoader();
 
     useEffect(() => {
         const fetchCourses = async () => {
+            setLoading(true);
             try {
                 const result = await getAllCourses();
                 const data = result?.data;
@@ -87,10 +90,12 @@ const Footer = () => {
                 } else {
                     console.error("Failed to fetch courses");
                 }
+            } finally {
+                setLoading(false);
             }
         };
         fetchCourses();
-    }, []);
+    }, [setLoading]);
 
     return (
         <footer

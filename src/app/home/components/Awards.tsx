@@ -8,7 +8,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllAwards } from "@/services/awardService";
-
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 // --- Types ---
@@ -22,12 +21,44 @@ type Award = {
   status?: boolean;
 };
 
+// --- Reusable Award Table Row ---
+const AwardTableRow: React.FC<{ award: Award }> = ({ award }) => (
+  <tr className="border-b border-grey-custom last:border-b-0">
+    <td className="py-4 sm:pr-8 font-semibold text-(--white-custom) whitespace-nowrap text-left align-top text-sm md:text-base">
+      {award.recipient_name}
+    </td>
+    <td className="py-4 pr-8 text-(--white-custom) leading-relaxed text-left align-top text-sm md:text-base">
+      <span className="text-justify" dangerouslySetInnerHTML={{ __html: award.description }} />
+    </td>
+    <td className="py-4 font-semibold text-(--white-custom) text-right align-top whitespace-nowrap text-sm md:text-base">
+      {award.award_year}
+    </td>
+  </tr>
+);
+
+// --- Reusable Award Mobile Card ---
+const AwardMobileCard: React.FC<{ award: Award }> = ({ award }) => (
+  <div className="award-mobile-card border-b border-grey-custom last:border-b-0 py-4">
+    <Paragraph size="xl" className="font-semibold text-(--white-custom) mb-1">
+      {award.recipient_name}
+    </Paragraph>
+    <Paragraph size="lg" className="text-(--white-custom) mb-2">
+      <span dangerouslySetInnerHTML={{ __html: award.description }} />
+    </Paragraph>
+    <Paragraph size="xl" className="text-(--white-custom) text-right font-semibold">
+      {award.award_year}
+    </Paragraph>
+  </div>
+);
+
 // --- Register Plugin ---
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Awards() {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const awardsRef = useRef<HTMLDivElement | null>(null);
   const leftRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
   const [awards, setAwards] = useState<Award[]>([]);
   const { setLoading } = useGlobalLoader();
@@ -35,27 +66,25 @@ export default function Awards() {
   // Add state for mobile "Read More"
   const [showAllMobile, setShowAllMobile] = useState(false);
 
-  // // Split heading animation
-  // useSplitTextHeadingAnimation({
-  //   trigger: sectionRef,
-  //   first: ".awards-title",
-  //   second: ".honors-title",
-  // });
-
+  useSplitTextHeadingAnimation({
+    trigger: awardsRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
+    enabled: awards.length > 0,
+  });
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchAwards() {
       try {
         const result = await getAllAwards();
         if (result?.status && Array.isArray(result.data)) {
-          const activeAwards = result.data.filter(
-            (award: Award) => award?.status === true
-          );
-          setAwards(activeAwards);
+          const activeAwards = result.data.filter((award: Award) => award?.status === true);
+          if (isMounted) setAwards(activeAwards);
         } else {
-          setAwards([]);
+          if (isMounted) setAwards([]);
         }
-
       } catch (err) {
         console.error("Failed to fetch awards:", err);
       } finally {
@@ -63,10 +92,11 @@ export default function Awards() {
       }
     }
     fetchAwards();
-  }, []);
+    return () => { isMounted = false; };
+  }, [setLoading]);
 
   useEffect(() => {
-    const section = sectionRef.current;
+    const section = awardsRef.current;
     const left = leftRef.current;
 
     if (!section || !left) return;
@@ -91,20 +121,22 @@ export default function Awards() {
   }, []);
 
   return (
-    <div className="bg-(--blue)" data-section ref={sectionRef}>
+    <div className="bg-(--blue)" data-section ref={awardsRef}>
       <Section className="relative py-10 sm:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-[1fr_2fr] sm:gap-10">
           {/* Left Title (GSAP Sticky) */}
           <div ref={leftRef}>
             <Paragraph
+              ref={paragraphRef}
               size="lg"
-              className="text-(--white-custom) font-bold mb-2 awards-title"
+              className="text-(--white-custom) font-bold awards-title"
             >
               Awards
             </Paragraph>
             <Heading
+              ref={headingRef}
               level={4}
-              className="honors-title text-(--white-custom) uppercase mt-2 leading-tight"
+              className="honors-title text-(--white-custom) uppercase leading-tight mt-1"
             >
               Honors <br className="hidden lg:block" /> and{" "}
               <br className="hidden lg:block" /> Recognition
@@ -117,26 +149,8 @@ export default function Awards() {
             <div className="hidden sm:block overflow-x-auto hide-scrollbar will-change-transform">
               <table className="min-w-full w-full text-left border-y border-grey-custom border-collapse">
                 <tbody>
-                  {awards.map((award, idx) => (
-                    <tr
-                      key={idx}
-                      className="border-b border-grey-custom last:border-b-0"
-                    // {...ANIMATIONS.fadeZoomIn}
-                    >
-                      <td className="py-4 sm:pr-8 font-semibold text-(--white-custom) whitespace-nowrap text-left align-top text-sm md:text-base">
-                        {award.recipient_name}
-                      </td>
-                      <td className="py-4 pr-8 text-(--white-custom) text-left align-top text-sm md:text-base">
-                        <span className="text-justify"
-                          dangerouslySetInnerHTML={{
-                            __html: award.description,
-                          }}
-                        />
-                      </td>
-                      <td className="py-4 font-semibold text-(--white-custom) text-right align-top whitespace-nowrap text-sm md:text-base">
-                        {award.award_year}
-                      </td>
-                    </tr>
+                  {awards.map((award) => (
+                    <AwardTableRow key={award.id} award={award} />
                   ))}
                 </tbody>
               </table>
@@ -144,34 +158,14 @@ export default function Awards() {
 
             {/* Mobile Cards */}
             <div className="block sm:hidden mt-8">
-              {(showAllMobile ? awards : awards.slice(0, 4)).map((award, idx) => (
-                <div
-                  key={idx}
-                  className="award-mobile-card border-b border-grey-custom last:border-b-0 py-4"
-                >
-                  <Paragraph
-                    size="xl"
-                    className="font-semibold text-(--white-custom) mb-1"
-                  >
-                    {award.recipient_name}
-                  </Paragraph>
-                  <Paragraph size="lg" className="text-(--white-custom) mb-2">
-                    <span
-                      dangerouslySetInnerHTML={{ __html: award.description }}
-                    />
-                  </Paragraph>
-                  <Paragraph
-                    size="xl"
-                    className="text-(--white-custom) text-right font-semibold"
-                  >
-                    {award.award_year}
-                  </Paragraph>
-                </div>
+              {(showAllMobile ? awards : awards.slice(0, 4)).map((award) => (
+                <AwardMobileCard key={award.id} award={award} />
               ))}
               {/* Read More Button */}
               {!showAllMobile && awards.length > 4 && (
                 <button
-                  className="mt-4 px-2 py-2  text-(--white-custom) underline font-semibold"
+                  type="button"
+                  className="mt-4 px-2 py-2 text-(--white-custom) underline font-semibold"
                   onClick={() => setShowAllMobile(true)}
                 >
                   Read More

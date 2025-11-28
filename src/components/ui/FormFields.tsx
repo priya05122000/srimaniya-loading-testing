@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 // --- Input Field ---
 const baseInputClass =
-  "bg-transparent border-b py-3 xl:py-4 px-1 outline-none w-full mb-3";
+  "border-b py-2  px-1 outline-none w-full mb-3";
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -39,23 +39,20 @@ export const InputField: React.FC<InputFieldProps> = ({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       {label && (
         <label
           htmlFor={inputId}
           className={`absolute left-0 transition-all duration-200 z-10 pointer-events-none
-            ${
-              showFloating
-                ? `-top-3 text-base ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  }`
-                : `top-3 xl:top-5 ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  } text-lg`
+            ${showFloating
+              ? `-top-2 text-base ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              }`
+              : `top-3  xl:top-5 ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              } text-base`
             }
           `}
         >
@@ -69,9 +66,8 @@ export const InputField: React.FC<InputFieldProps> = ({
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        className={`${baseInputClass} ${className} ${
-          label ? "pt-5" : ""
-        }`}
+        className={`${baseInputClass} ${className} ${label ? "pt-5" : ""
+          }`}
         autoComplete={props.autoComplete || "off"}
       />
     </div>
@@ -87,7 +83,7 @@ interface TextAreaFieldProps
 }
 
 const baseTextAreaClass =
-  "bg-transparent py-3 xl:py-4 px-1 outline-none text-white-custom resize-none w-full mb-3";
+  "bg-transparent py-2 px-1 outline-none text-(--white-custom) resize-none w-full mb-3";
 
 export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   label,
@@ -119,7 +115,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
     onChange?.(e);
   };
 
-  const borderClass = className.includes("text-blue-custom")
+  const borderClass = className.includes("text-(--blue)")
     ? "border-blue-custom"
     : "border-white-custom";
 
@@ -129,18 +125,15 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         <label
           htmlFor={textAreaId}
           className={`absolute left-0 transition-all duration-200 z-10 pointer-events-none
-            ${
-              showFloating
-                ? `-top-3 text-base ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  }`
-                : `top-3 xl:top-5 ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  } text-lg`
+            ${showFloating
+              ? `-top-3 text-base ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              }`
+              : `top-3 xl:top-5 ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              } text-base`
             }
           `}
         >
@@ -181,7 +174,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
       {...props}
       className="mr-1 my-1 accent-[#ffd700]"
     />
-    <span className={`${className.includes("text-blue-custom") ? "text-blue-custom" : "text-white-custom"} leading-snug`}>
+    <span className={`${className.includes("text-(--blue)") ? "text-(--blue)" : "text-(--white-custom)"} leading-snug`}>
       {label}
     </span>
   </label>
@@ -232,18 +225,15 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
         <label
           htmlFor={inputId}
           className={`absolute left-0 transition-all duration-200 z-10 pointer-events-none
-            ${
-              showFloating
-                ? `-top-3 text-base ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  } px-1`
-                : `top-3 xl:top-5 ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  } text-lg`
+            ${showFloating
+              ? `-top-3 text-base ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              } px-1`
+              : `top-3 xl:top-5 ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              } text-base`
             }
           `}
         >
@@ -252,12 +242,11 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
       )}
       <label
         htmlFor={inputId}
-        className={`${baseFileUploaderClass} ${className} ${
-          label ? "pt-5" : ""
-        }`}
+        className={`${baseFileUploaderClass} ${className} ${label ? "pt-5" : ""
+          }`}
       >
         <span
-          className={className.includes("text-blue-custom") ? "text-blue-custom" : "text-white-custom opacity-60"}
+          className={className.includes("text-(--blue)") ? "text-(--blue)" : "text-(--white-custom) opacity-60"}
         >
           {fileNames.length
             ? multiple
@@ -290,7 +279,7 @@ interface SelectFieldProps
 }
 
 const baseSelectClass =
-  "bg-transparent py-3 xl:py-4 px-1 outline-none text-white-custom w-full mb-3 appearance-none";
+  "bg-transparent py-2 xl:py-4 px-1 outline-none text-(--white-custom) w-full mb-3 appearance-none";
 
 export const SelectField: React.FC<SelectFieldProps> = ({
   label,
@@ -321,7 +310,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     onChange?.(e);
   };
 
-  const borderClass = className.includes("text-blue-custom")
+  const borderClass = className.includes("text-(--blue)")
     ? "border-blue-custom"
     : "border-white-custom";
 
@@ -331,18 +320,15 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         <label
           htmlFor={selectId}
           className={`absolute left-0 transition-all duration-200 z-10 pointer-events-none
-            ${
-              showFloating
-                ? `-top-3 text-base ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  }`
-                : `top-3 xl:top-5 ${
-                    className.includes("text-blue-custom")
-                      ? "text-blue-custom"
-                      : "text-white-custom"
-                  } text-lg`
+            ${showFloating
+              ? `-top-3 text-base ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              }`
+              : `top-3 xl:top-5 ${className.includes("text-(--blue)")
+                ? "text-(--blue)"
+                : "text-(--white-custom)"
+              } text-base`
             }
           `}
         >
@@ -360,7 +346,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
       >
         <option value="" disabled hidden></option>
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="text-blue-custom">
+          <option key={opt.value} value={opt.value} className="text-(--blue)">
             {opt.label}
           </option>
         ))}

@@ -11,28 +11,55 @@ import Image from "next/image";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import { Splide } from "@splidejs/splide";
 
+import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+
 interface Partner {
   logo_url: string;
   name: string;
   website_url: string;
 }
 
+const preloadImages = (partners: Partner[], baseUrl: string) => {
+  return Promise.all(
+    partners.map((p) => {
+      const img = new window.Image();
+      img.src = `${baseUrl}/files/${p.logo_url}`;
+      return new Promise((resolve) => {
+        img.onload = img.onerror = resolve;
+      });
+    })
+  );
+};
+
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
   const { setLoading } = useGlobalLoader();
   const splideRef = useRef<HTMLDivElement | null>(null);
 
-  /**
-   * Fetch partners + preload images for smooth scroll
-   */
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const splitTextTriggerRef = useRef<HTMLDivElement | null>(null);
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  /* --------------------- GSAP SplitText Animation --------------------- */
+  useSplitTextHeadingAnimation({
+    trigger: splitTextTriggerRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
+    enabled: true,
+  });
+
+  /* --------------------------- Fetch Partners ------------------------- */
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true);
         const result = await getAllPartners();
         const data = result?.data || [];
         setPartners(data);
-
-        await preloadImages(data);
+        if (data.length && baseUrl) await preloadImages(data, baseUrl);
       } catch (err) {
         console.error("Failed to fetch partners:", err);
       } finally {
@@ -40,28 +67,13 @@ export default function Partners() {
       }
     }
     fetchData();
-  }, []);
+  }, [setLoading, baseUrl]);
 
-  /**
-   * Preload image URLs before rendering slider
-   */
-  const preloadImages = (partners: Partner[]) => {
-    const promises = partners.map((p) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${p.logo_url}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    });
-    return Promise.all(promises);
-  };
-
-  /**
-   * Initialize Splide AFTER partners have been loaded
-   */
+  /* --------------------------- Init Splide ---------------------------- */
   useEffect(() => {
-    if (!splideRef.current || partners.length === 0) return;
+    if (!splideRef.current || partners.length === 0) {
+      return;
+    }
 
     const splide = new Splide(splideRef.current, {
       type: "loop",
@@ -91,10 +103,11 @@ export default function Partners() {
   }, [partners]);
 
   return (
-    <div className="partners-bg">
-      <Section className="py-10 sm:py-20">
+    <div className="partners-bg" ref={splitTextTriggerRef}>
+      <Section className="py-10 sm:py-20" >
         <div className="lg:px-20">
           <Paragraph
+            ref={paragraphRef}
             size="lg"
             className="text-(--blue) font-bold partners-title"
           >
@@ -102,8 +115,9 @@ export default function Partners() {
           </Paragraph>
 
           <Heading
+            ref={headingRef}
             level={4}
-            className="text-(--blue) uppercase mt-2 partners-explore-title"
+            className="text-(--blue) mt-1 uppercase partners-explore-title leading-tight"
           >
             Explore Our <br /> Placement Partners
           </Heading>
@@ -117,10 +131,10 @@ export default function Partners() {
                   {partners.map((partner, index) => (
                     <li
                       key={index}
-                      className="splide__slide bg-(--white-custom) h-32  shadow-sm flex items-center justify-center"
+                      className="splide__slide bg-(--white-custom) h-32 shadow-sm flex items-center justify-center"
                     >
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${partner.logo_url}`}
+                        src={`${baseUrl}/files/${partner.logo_url}`}
                         alt={partner.name}
                         width={200}
                         height={100}
@@ -132,6 +146,7 @@ export default function Partners() {
               </div>
             </div>
           </div>
+
         </div>
       </Section>
     </div>
