@@ -21,7 +21,7 @@ const HomePage = () => {
             <div id="enquire-form">
                 <EnquireForm />
             </div>
-            {/* <PlacementMap /> */}
+            <PlacementMap />
             <Courses />
             <AlumniStories />
             <EventsBlogs />
