@@ -7,12 +7,15 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
+import gsap from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 import { getAllCourses } from "@/services/courseService";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Section from "../common/Section";
 import Paragraph from "../common/Paragraph";
 import Span from "../common/Span";
+gsap.registerPlugin(ScrollToPlugin);
 
 const COMPANY = {
     name: "Sri Maniya",
@@ -246,11 +249,53 @@ const Footer = () => {
                                 <button
                                     type="button"
                                     className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
+                                    onClick={() => {
+                                        if (typeof window !== "undefined") {
+                                            const goToEnquire = () => {
+                                                const enquireSection =
+                                                    document.getElementById("enquire-form");
+                                                const smootherRaw: unknown = (
+                                                    window as unknown as {
+                                                        ScrollSmoother?: { get?: () => unknown };
+                                                    }
+                                                ).ScrollSmoother?.get?.();
+                                                const isSmoother = (
+                                                    obj: unknown
+                                                ): obj is {
+                                                    scrollTo: (
+                                                        target: HTMLElement,
+                                                        smooth: boolean
+                                                    ) => void;
+                                                } =>
+                                                    typeof obj === "object" &&
+                                                    obj !== null &&
+                                                    typeof (obj as { scrollTo?: unknown }).scrollTo ===
+                                                    "function";
+                                                if (enquireSection) {
+                                                    if (isSmoother(smootherRaw)) {
+                                                        smootherRaw.scrollTo(enquireSection, true);
+                                                    } else {
+                                                        gsap.to(window, {
+                                                            duration: 1,
+                                                            scrollTo: { y: enquireSection, offsetY: 0 },
+                                                            ease: "power2.inOut",
+                                                        });
+                                                    }
+                                                }
+                                            };
+                                            if (window.location.pathname !== "/") {
+                                                window.location.href = "/#enquire-form";
+                                                // After navigation, scroll to section (for GSAP smoother)
+                                                window.sessionStorage.setItem("scrollToEnquire", "1");
+                                            } else {
+                                                goToEnquire();
+                                            }
+                                        }
+                                    }}
                                 >
-                                    <Paragraph
-                                        size="base" className="relative z-20 text-center no-underline w-full px-6 py-1 text-(--yellow)  transition-all duration-300 group-hover:text-(--blue)">
+                                    <span className="relative z-20 text-center no-underline w-full px-6 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
                                         Enquire Now
-                                    </Paragraph>
+                                    </span>
                                     <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                                 </button>
                             </div>

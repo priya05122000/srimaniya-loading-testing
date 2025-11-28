@@ -150,7 +150,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
     };
 
     return (
-        <nav className={`navbar h-20 z-50 bg-(--blue) w-full shadow-sm border-b border-(--grey-custom) ${sticky ? "fixed top-0 " : ""} transition-opacity duration-500 navbar--visible`}>
+        <nav className={`navbar h-20 z-9999 bg-(--blue) w-full shadow-sm border-b border-(--grey-custom) ${sticky ? "fixed top-0 " : ""} transition-opacity duration-500 navbar--visible`}>
             <div className="grid grid-cols-[1fr_1.5fr] sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-full">
                 {/* Navigation Menu */}
                 <div className="flex items-center order-1 pl-6 sm:pl-8 sm:border-r border-(--grey-custom) ">

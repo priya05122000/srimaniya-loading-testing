@@ -86,7 +86,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
           className="w-full h-full object-cover"
         />
       </div>
-      <Paragraph className="absolute top-10 left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none">
+      <Paragraph className="absolute top-10 left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none" data-section>
         <span className="block">{placement}</span>
         <span>{ctc}</span>
       </Paragraph>
@@ -128,6 +128,7 @@ const PlacementMap = () => {
       const wrapper = horizontalWrapperRef.current;
       const scrollSection = horizontalScrollRef.current;
       if (!wrapper || !scrollSection) return;
+      // Enable GSAP horizontal scroll and pinning for all screen sizes (including mobile)
       const tween = gsap.to(wrapper, {
         x: () => -(wrapper.scrollWidth - window.innerWidth),
         ease: "none",
@@ -222,49 +223,43 @@ const PlacementMap = () => {
 
   return (
     <div className="relative" ref={MapRef}>
-      {/* Mobile version */}
-      <div className="block sm:hidden">
-        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center px-6 py-10">
-          <div className="relative z-10 ">
-            <div className="mb-10 sm:mb-14">
-              <Paragraph
-                ref={mobileParagraphRef}
-                size="lg"
-                className="text-(--blue) font-bold placement-title"
-              >
-                Our Placement
-              </Paragraph>
-              <Heading
-                ref={mobileHeadingRef}
-                level={4}
-                className="text-(--blue) uppercase mt-2 connecting-title leading-tight"
-              >
-                Connecting <br /> Talent to <br /> Global Brands
-              </Heading>
-            </div>
-            <Paragraph
-              size="base"
-              className="mb-2 text-(--dark) w-[90%] xl:w-[85%]"
-            >
-              Each pin on this map represents the global destinations where our talented graduates have embarked on successful careers. Every flag marks a prestigious international partner that welcomes our alumni to the world stage.
-
-            </Paragraph>
-          </div>
-        </motion.div>
+      {/* Overlay text for mobile */}
+      <div className="sm:hidden px-6 py-6 ">
+        <Paragraph
+          ref={mobileParagraphRef}
+          size="lg"
+          className="text-(--blue) font-bold placement-title"
+        >
+          Our Placement
+        </Paragraph>
+        <Heading
+          ref={mobileHeadingRef}
+          level={4}
+          className="text-(--blue) uppercase mt-2 connecting-title leading-tight"
+        >
+          Connecting <br /> Talent to <br /> Global Brands
+        </Heading>
+        <Paragraph
+          size="base"
+          className="mb-2 text-(--dark) w-[90%]"
+        >
+          Each pin on this map represents the global destinations where our talented graduates have embarked on successful careers. Every flag marks a prestigious international partner that welcomes our alumni to the world stage.
+        </Paragraph>
       </div>
-
-      {/* Desktop version with horizontal scroll */}
-      <main>
+      {/* Horizontal scroll for all devices */}
+      <main className="">
         <section
           ref={horizontalScrollRef}
-          className="overflow-hidden relative h-[90vh] sm:h-screen"
+          className="overflow-x-auto overflow-y-hidden relative h-[90vh] sm:h-[calc(100vh-80px)]"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           <div
             ref={horizontalWrapperRef}
-            className="w-fit flex flex-nowrap horizontal-wrapper pl-6 sm:pl-[30%]"
+            className=" w-fit  sm:h-[calc(100vh-80px)] flex flex-nowrap horizontal-wrapper pl-6 sm:pl-[30%]"
+            style={{ minWidth: '100vw' }}
           >
             {/* Background map */}
-            <div className="shrink-0 h-[90vh] sm:h-screen flex items-center m-0 relative">
+            <div className="shrink-0  h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
                 src="/home/map.png"
                 alt="Placement Map Background"
@@ -279,9 +274,8 @@ const PlacementMap = () => {
                 ))}
               </div>
             </div>
-
             {/* Placement list */}
-            <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-screen flex items-center">
+            <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center ">
               <div>
                 <div className="mb-8">
                   <Heading level={6} className="text-(--blue) font-bold">
@@ -296,8 +290,7 @@ const PlacementMap = () => {
               </div>
             </div>
           </div>
-
-          {/* Overlay text */}
+          {/* Overlay text for desktop */}
           <div className="absolute top-0 left-0 h-full w-[40%] items-center hidden sm:flex">
             <motion.div className="relative z-10 h-full flex flex-col justify-center p-6">
               <motion.div

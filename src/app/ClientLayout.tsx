@@ -193,25 +193,11 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
         theme="light"
       />
       {/* Hide Navbar for /registration-form route on all screen sizes */}
-      {/* {pathname !== "/registration-form" && (
+      {pathname !== "/registration-form" && (
         <>
           <div >{navbarVisible && <Navbar />}</div>
         </>
-      )} */}
-
-      {/* Hide Navbar for /registration-form route */}
-      {pathname !== "/registration-form" && (
-        <div
-          style={{
-            opacity: navbarVisible ? 1 : 0,          // fade in/out
-            pointerEvents: navbarVisible ? "auto" : "none", // disable clicks when hidden
-            transition: "opacity 0.5s ease-in-out", // smooth transition
-          }}
-        >
-          <Navbar />
-        </div>
       )}
-
       <BackToTopButton
         isBlueSection={isBlueSection}
         scrollProgress={scrollProgress}
@@ -225,7 +211,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""}`}
+            className={`relative z-10${pathname !== "/registration-form" ? " pt-20" : ""}`}
             style={{
               opacity: showOnlyFooter ? 0 : 1,
               pointerEvents: showOnlyFooter ? "none" : "auto",

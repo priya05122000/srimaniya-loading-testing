@@ -466,15 +466,18 @@ h6 {
   will-change: transform, opacity;
 }
 
-#smooth-wrapper,
-#smooth-content,
-[data-section],
-.course-card,
-.hero-content,
-.mySwiper,
-img {
-  will-change: transform;
-  transform: translateZ(0);
+@media (min-width: 640px) {
+
+  #smooth-wrapper,
+  #smooth-content,
+  [data-section],
+  .course-card,
+  .hero-content,
+  .mySwiper,
+  img {
+    will-change: transform;
+    transform: translateZ(0);
+  }
 }
 
 .line {
