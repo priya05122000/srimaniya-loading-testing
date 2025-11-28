@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  ReactNode,
-  Suspense,
-} from "react";
+import React, { useEffect, useState, useRef, ReactNode, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -17,6 +11,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackToTopButton from "@/components/common/BackToTopButton";
 import FloatingContactButtons from "@/components/common/FloatingContactButtons";
+import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -29,11 +25,12 @@ function useScrollLogic(
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(docHeight > 0 ? scrollTop / docHeight : 0);
       setShowBackToTop(window.scrollY > 500);
 
-      const blueSections = document.querySelectorAll('[data-section]');
+      const blueSections = document.querySelectorAll("[data-section]");
       const buttonY = window.innerHeight - 80;
       const buttonX = window.innerWidth - 80;
       const onBlue = Array.from(blueSections).some((section) => {
@@ -47,12 +44,12 @@ function useScrollLogic(
       });
       setIsBlueSection(onBlue);
     };
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
     handleScroll();
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, [setScrollProgress, setShowBackToTop, setIsBlueSection]);
 }
@@ -70,7 +67,7 @@ function useScrollSmoother(
         smooth: 4,
         effects: true,
         wrapper: smootherRef.current,
-        content: smootherRef.current.querySelector('.smoother-content'),
+        content: smootherRef.current.querySelector(".smoother-content"),
       });
       ScrollTrigger.refresh();
       return () => smoother.kill();
@@ -84,14 +81,19 @@ interface FooterRevealProps {
   setShowOnlyFooter: React.Dispatch<React.SetStateAction<boolean>>;
   setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
-function useFooterReveal({ loading, pathname, setShowOnlyFooter, setFooterVisible }: FooterRevealProps) {
+function useFooterReveal({
+  loading,
+  pathname,
+  setShowOnlyFooter,
+  setFooterVisible,
+}: FooterRevealProps) {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
     if (
       window.innerWidth < 1024 ||
-      pathname === '/' ||
+      pathname === "/" ||
       loading ||
-      window.location.hash === '#enquire-form'
+      window.location.hash === "#enquire-form"
     ) {
       setShowOnlyFooter(false);
       setFooterVisible(true);
@@ -101,22 +103,22 @@ function useFooterReveal({ loading, pathname, setShowOnlyFooter, setFooterVisibl
     setFooterVisible(false);
     const t1 = setTimeout(() => {
       setFooterVisible(true);
-      const footer = document.getElementById('footer');
+      const footer = document.getElementById("footer");
       const smoother = ScrollSmoother.get();
       if (footer && smoother) {
         smoother.scrollTo(footer, false);
       } else if (footer) {
-        footer.scrollIntoView({ behavior: 'auto' });
+        footer.scrollIntoView({ behavior: "auto" });
       }
       setTimeout(() => {
         setShowOnlyFooter(false);
         setTimeout(() => {
-          const footer2 = document.getElementById('footer');
+          const footer2 = document.getElementById("footer");
           const smoother2 = ScrollSmoother.get();
           if (footer2 && smoother2) {
             smoother2.scrollTo(0, true);
           } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         }, 100);
       }, 150);
@@ -132,10 +134,14 @@ interface NavbarVisibilityProps {
   pathname: string;
   setNavbarVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
-function useNavbarVisibility({ footerVisible, pathname, setNavbarVisible }: NavbarVisibilityProps) {
+function useNavbarVisibility({
+  footerVisible,
+  pathname,
+  setNavbarVisible,
+}: NavbarVisibilityProps) {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const footer = document.getElementById('footer');
+    if (typeof window === "undefined") return;
+    const footer = document.getElementById("footer");
     if (!footer) return;
     let observer: IntersectionObserver | null = null;
     observer = new window.IntersectionObserver(
@@ -157,8 +163,13 @@ interface ClientLayoutProps {
   showSmoother?: boolean;
 }
 
-const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = true }) => {
-  const smootherRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+const ClientLayout: React.FC<ClientLayoutProps> = ({
+  children,
+  showSmoother = true,
+}) => {
+  const smootherRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
   const pathname = usePathname();
   const { loading } = useGlobalLoader();
 
@@ -172,14 +183,39 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
 
   // Hooks for logic
   useScrollSmoother(loading, smootherRef);
-  useEffect(() => { if (!loading) window.scrollTo(0, 0); }, [loading]);
+  useEffect(() => {
+    if (!loading) window.scrollTo(0, 0);
+  }, [loading]);
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
   useFooterReveal({ loading, pathname, setShowOnlyFooter, setFooterVisible });
   useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
 
+  // Route change track (page view)
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag("config", "G-GFHYHS0PBP", {
+        page_path: pathname,
+      });
+    }
+  }, [pathname]);
+
   // Render
   return (
     <>
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GFHYHS0PBP', {
+      page_path: window.location.pathname,
+    });
+  `}
+      </Script>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -203,7 +239,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       {pathname !== "/registration-form" && (
         <div
           style={{
-            opacity: navbarVisible ? 1 : 0,          // fade in/out
+            opacity: navbarVisible ? 1 : 0, // fade in/out
             pointerEvents: navbarVisible ? "auto" : "none", // disable clicks when hidden
             transition: "opacity 0.5s ease-in-out", // smooth transition
           }}
@@ -225,7 +261,9 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""}`}
+            className={`relative z-10 ${
+              pathname !== "/registration-form" ? " pt-20" : ""
+            }`}
             style={{
               opacity: showOnlyFooter ? 0 : 1,
               pointerEvents: showOnlyFooter ? "none" : "auto",

@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      {/* <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-H79NPYM0EX"
           strategy="afterInteractive"
@@ -39,7 +39,7 @@ export default function RootLayout({
             gtag('config', 'G-H79NPYM0EX', { anonymize_ip: true });
           `}
         </Script>
-      </head>
+      </head> */}
       <body
         className={`${plusJakarta.variable} ${inter.variable} antialiased`}
       >
