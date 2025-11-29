@@ -10,7 +10,7 @@ interface BlogImageProps {
 // Reusable image block
 const BlogImageBlock: FC<{ src: string; alt: string; full?: boolean; priority?: boolean }> = React.memo(({ src, alt, full = true, priority = false }) => (
   <div className={`relative w-full ${full ? 'h-64 md:h-76 lg:h-[350px] xl:h-[400px]' : 'h-64 md:h-70 xl:h-85'} overflow-hidden shadow-md`}>
-    <Image src={src} alt={alt} fill className="object-cover" priority={priority} />
+    <Image src={src} alt={alt} fill className="object-cover image-tag" priority={priority} />
   </div>
 ));
 BlogImageBlock.displayName = "BlogImageBlock";

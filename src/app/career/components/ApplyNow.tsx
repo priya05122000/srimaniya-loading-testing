@@ -119,7 +119,7 @@ const ApplyNow: React.FC = () => {
         <Image
           src="/career/careerform.jpeg"
           alt="Chefs working"
-          className="w-full sm:h-[600px] object-cover object-top"
+          className="w-full sm:h-[600px] object-cover object-top image-tag"
           width={1200}
           height={1200}
           priority

@@ -19,20 +19,20 @@ const PrivacyPolicy = () => {
       <section>
         <Paragraph
           size="base"
-          className="institute-name text-dark-custom uppercase text-center"
+          className="institute-name text-(--dark) uppercase text-center"
         >
           Sri Maniya Institute of Hotel Management
         </Paragraph>
         <Heading
           level={4}
-          className="my-2 text-blue-custom text-center privacy-policy uppercase"
+          className="my-2 text-(--blue) text-center privacy-policy uppercase"
         >
           Privacy Policy
         </Heading>
         <div className="flex justify-center my-6">
-          <div className="w-20 h-1 bg-yellow-custom flex items-center"></div>
+          <div className="w-20 h-1 bg-(--yellow) flex items-center"></div>
         </div>
-        <Paragraph size="lg" className="text-dark-custom">
+        <Paragraph size="lg" className="text-(--dark)">
           Sri Maniya Institute of Hotel Management respects your privacy and is
           committed to protecting your personal information. This Privacy Policy
           explains how we collect, use, and safeguard the information you
@@ -95,7 +95,7 @@ const PrivacyPolicy = () => {
           <br />
           <Link
             href="https://www.srimaniyainstitute.in/"
-            className="font-bold text-blue-custom underline"
+            className="font-bold text-(--blue) underline"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -106,7 +106,7 @@ const PrivacyPolicy = () => {
           Email:{" "}
           <Link
             href="mailto:info@srimaniyainstitute.in"
-            className="text-blue-custom underline"
+            className="text-(--blue) underline"
           >
             info@srimaniyainstitute.in
           </Link>

@@ -46,7 +46,7 @@ AddressInfo.displayName = "AddressInfo";
 const CompanyInfo: React.FC<CompanyInfoProps> = React.memo(({ logoSrc, title, address, className = "flex flex-col sm:flex-row sm:items-end gap-6 xl:gap-8 px-6 lg:px-8", logoClassName = "w-32  h-auto flex items-end justify-center flex-shrink-0 " }) => (
   <div className={className}>
     <div className={logoClassName}>
-      <Image src={logoSrc} alt="Partner Logo" className="object-contain w-auto h-auto max-h-full  mr-auto" loading="lazy" width={120} height={120} />
+      <Image src={logoSrc} alt="Partner Logo" className="object-contain w-auto h-auto max-h-full  mr-auto image-tag" loading="lazy" width={120} height={120} />
     </div>
     <AddressInfo title={title} address={address} />
   </div>
@@ -118,7 +118,7 @@ const MobileLayout: React.FC<{
         <div className="w-full">
           <div className="flex flex-col gap-4 h-full">
             <div className="w-full sm:h-40 bg-white flex items-center justify-center mb-4">
-              <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover" />
+              <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@ const DesktopLayout: React.FC<{
       />
     </section>
     {/* Form */}
-    <section className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] xl:w-1/2 ml-auto z-10" data-section>
+    <section className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] lg:w-1/2 ml-auto z-10" data-section>
       <form onSubmit={handleSubmit} className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8">
         <AppointmentFormFields formData={formData} handleChange={handleChange} />
         <div className="flex justify-end">
@@ -175,7 +175,7 @@ const DesktopLayout: React.FC<{
       <div className="h-full w-full">
         <div className="flex flex-row gap-4 md:gap-0 h-full">
           <div className="w-full sm:w-[40%] lg:w-1/2 hidden md:block h-full">
-            <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover" />
+            <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
           </div>
           <div className="w-full sm:w-[60%] lg:w-1/2 flex flex-col md:justify-end py-8">
             <Heading level={4} className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 leading-tight hidden xl:block">Our Group of <br /> Companies</Heading>

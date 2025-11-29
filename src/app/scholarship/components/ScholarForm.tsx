@@ -55,7 +55,7 @@ const IMAGE_PROPS = {
   alt: "Scholarship Banner",
   fill: true,
   sizes: "(max-width: 768px) 100vw, 50vw",
-  className: "object-cover object-top w-full h-full",
+  className: "object-cover object-top w-full h-full image-tag",
   priority: true,
 };
 

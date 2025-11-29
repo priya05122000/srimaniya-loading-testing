@@ -123,23 +123,26 @@ const AboutStats = () => {
   const { setLoading } = useGlobalLoader();
 
   useGSAP(() => {
-    // Heading animation
-    const split = SplitText.create(".sri-maniya-institute-heading", { type: "chars" });
-    gsap.to(split.chars, {
-      opacity: 1,
-      color: "#0b2351",
-      ease: "power2.in",
-      stagger: 0.08,
-      duration: 2,
-      scrollTrigger: {
-        trigger: ".message-content",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      },
+    // Heading animation for all variants (mobile & desktop)
+    const headings = document.querySelectorAll('.sri-maniya-institute-heading');
+    headings.forEach((el) => {
+      const split = SplitText.create(el, { type: 'chars' });
+      gsap.to(split.chars, {
+        opacity: 1,
+        color: '#0b2351',
+        ease: 'power2.in',
+        stagger: 0.08,
+        duration: 2,
+        scrollTrigger: {
+          trigger: '.message-content',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: true,
+        },
+      });
     });
     // AboutStats title animation
-    const aboutSplit = SplitText.create(".aboutstats-title", { type: "chars" });
+    const aboutSplit = SplitText.create('.aboutstats-title', { type: 'chars' });
     gsap.from(aboutSplit.chars, {
       x: 150,
       opacity: 0,

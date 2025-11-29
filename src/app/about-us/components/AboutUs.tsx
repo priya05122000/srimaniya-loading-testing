@@ -9,7 +9,7 @@ const AboutUsImage: React.FC<{ className?: string }> = ({ className }) => (
     alt="About Us"
     width={1200}
     height={1200}
-    className={className || "w-full h-full object-cover"}
+    className={className || "w-full h-full object-cover image-tag"}
   />
 );
 

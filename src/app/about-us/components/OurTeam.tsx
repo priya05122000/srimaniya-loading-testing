@@ -29,6 +29,7 @@ type TeamMemberCardProps = StaffProfile & {
   isOpen?: boolean;
   onOpen?: () => void;
   mobile?: boolean;
+  onLoadingComplete?: () => void;
 };
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
@@ -46,6 +47,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   onOpen,
   mobile = false,
   alt,
+  onLoadingComplete,
 }) => {
   // Overlay card (for mobile/desktop popover)
   if (overlay && profile_photo_url) {
@@ -58,9 +60,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${profile_photo_url}`}
           alt={alt || name}
           width={300}
-          height={300}
-          className="w-full h-[400px] sm:h-[450px] object-cover object-top"
-          unoptimized
+          height={400}
+          className="w-full h-[400px] image-tag sm:h-[450px] object-cover object-top"
+          priority={priority}
+          onLoadingComplete={onLoadingComplete}
         />
         {mobile && !isOpen && (
           <button
@@ -101,7 +104,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
               <Paragraph size="lg">{experience_years} years of experience</Paragraph>
             </div>
             <div
-              className="text-(--white-custom) text-base"
+              className="text-(--white-custom) text-sm sm:text-base"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           </div>
@@ -120,9 +123,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${profile_photo_url}`}
           alt={name}
           fill
-          className="object-cover object-top"
+          className="object-cover object-top image-tag"
           unoptimized
           priority={priority}
+          onLoadingComplete={onLoadingComplete}
         />
       </div>
       {/* Text Content */}
@@ -142,7 +146,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           {experience_years} years of experience
         </Paragraph>
         <div
-          className="text-(--white-custom) text-base sm:text-sm text-justify"
+          className="text-(--white-custom) text-sm text-justify"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </div>
@@ -155,6 +159,14 @@ const OurTeam: React.FC = () => {
   const [staffProfiles, setStaffProfiles] = useState<StaffProfile[]>([]);
   const { setLoading } = useGlobalLoader();
   const [openMobileIdx, setOpenMobileIdx] = useState<number | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
+
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1);
+    if (imagesLoaded + 1 >= staffProfiles.length) {
+      setLoading(false);
+    }
+  };
 
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -231,7 +243,7 @@ const OurTeam: React.FC = () => {
           {/* Mobile view */}
           <div className="grid grid-cols-1 md:hidden">
             {staffProfiles.slice(0, 2).map((member, idx) => (
-              <TeamMemberCard key={idx} {...member} priority={true} />
+              <TeamMemberCard key={idx} {...member} priority={true} onLoadingComplete={handleImageLoad} />
             ))}
             {staffProfiles.slice(2).map((member, idx) => (
               <TeamMemberCard
@@ -241,6 +253,7 @@ const OurTeam: React.FC = () => {
                 mobile={true}
                 isOpen={openMobileIdx === idx}
                 onOpen={() => setOpenMobileIdx(openMobileIdx === idx ? null : idx)}
+                onLoadingComplete={handleImageLoad}
               />
             ))}
           </div>
@@ -256,6 +269,7 @@ const OurTeam: React.FC = () => {
                   priority={true}
                   reverseSm={reverseSm}
                   reverseXl={reverseXl}
+                  onLoadingComplete={handleImageLoad}
                 />
               );
             })}

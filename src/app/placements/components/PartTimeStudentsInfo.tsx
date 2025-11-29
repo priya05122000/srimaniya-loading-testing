@@ -56,7 +56,7 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
     <div className="relative w-[250px] h-full">
       <Image
         src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
-        className="absolute top-0 left-0 w-full h-full object-cover object-top"
+        className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
         alt={placement.name}
         width={300}
         height={150}

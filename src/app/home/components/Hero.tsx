@@ -123,7 +123,7 @@ const Hero: React.FC<HeroProps> = ({ hideLogo = false }) => {
                                         src={imageSrc}
                                         alt={banner.title}
                                         fill
-                                        className="object-cover object-top"
+                                        className="object-cover image-tag object-top"
                                         priority
                                         onLoadingComplete={() => setLoading(false)}
                                     />

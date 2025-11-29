@@ -40,7 +40,7 @@ const ScholarBanner: React.FC = () => {
                     width={1000}
                     height={1000}
                     style={{ objectFit: "cover" }}
-                    className="absolute inset-0 w-full h-full object-top"
+                    className="absolute inset-0 w-full h-full object-top image-tag"
                 />
                 <div className="absolute inset-0" style={GRADIENT_OVERLAY}></div>
                 <div className="absolute left-0 sm:left-8 bottom-8 sm:bottom-16 px-6 sm:px-0 w-full sm:w-2/3 xl:w-1/2">

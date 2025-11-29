@@ -11,7 +11,7 @@ interface StorySectionProps {
 
 const StorySection: React.FC<StorySectionProps> = ({ heading, children }) => (
   <div className="mb-6">
-    <span className="text-base lg:text-lg font-inter font-bold block mb-4 tracking-wide">{heading}</span>
+    <span className="text-base lg:text-lg font-inter font-bold block mb-4 tracking-wide leading-relaxed">{heading}</span>
     <div className="font-extralight text-(--white-custom) leading-loose text-justify text-base">
       {children}
     </div>
@@ -90,7 +90,7 @@ const OurStory: React.FC = () => {
             alt="Our Story"
             width={1000}
             height={1000}
-            className="w-full h-full sm:h-[400px] lg:h-[450px] xl:h-[590px]  object-cover object-top"
+            className="w-full h-full sm:h-[400px] lg:h-[450px] xl:h-[590px]  object-cover object-top image-tag"
           />
         </div>
         {/* Right: Content */}

@@ -60,7 +60,7 @@ const Hamburger = ({ open }: { open: boolean }) => (
                 alt="Open menu"
                 width={32}
                 height={32}
-                className="w-8 h-8"
+                className="w-8 h-8 image-tag"
                 priority
             />
         </span>
@@ -72,7 +72,7 @@ const Hamburger = ({ open }: { open: boolean }) => (
                 alt="Close menu"
                 width={32}
                 height={32}
-                className="w-6 h-6"
+                className="w-6 h-6 image-tag"
                 priority
             />
         </span>
@@ -182,7 +182,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                 </div>
                 {/* Logo */}
                 <Link href="/" className="logo flex items-center justify-center order-2 pr-6 sm:pr-0">
-                    <Image src="/logos/navbarlogo.png" alt="Company Logo" width={500} height={500} className="h-16 sm:h-12 w-auto object-contain" priority />
+                    <Image src="/logos/navbarlogo.png" alt="Company Logo" width={500} height={500} className="h-16 sm:h-12 w-auto object-contain image-tag" priority />
                 </Link>
             </div>
             {/* Overlay for mobile menu */}

@@ -467,18 +467,37 @@ h6 {
 }
 
 @media (min-width: 640px) {
-
-  #smooth-wrapper,
-  #smooth-content,
-  [data-section],
-  .course-card,
-  .hero-content,
-  .mySwiper,
-  img {
+  #smooth-wrapper {
     will-change: transform;
     transform: translateZ(0);
   }
 }
+
+/* -----------------------------------
+  Performance: will-change & GPU Hints
+----------------------------------- */
+#smooth-content,
+[data-section],
+.course-card,
+.hero-content,
+.mySwiper,
+img,
+.image-tag {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* #smooth-wrapper,
+#smooth-content,
+[data-section],
+.course-card,
+.hero-content,
+.mySwiper,
+img {
+  will-change: transform;
+  transform: translateZ(0);
+} */
+
 
 .line {
   will-change: transform, opacity;

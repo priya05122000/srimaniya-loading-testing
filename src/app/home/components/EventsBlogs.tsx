@@ -78,7 +78,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
           alt={blog.title}
           priority={idx === 0}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover image-tag"
           width={500}
           height={500}
         />

@@ -113,7 +113,7 @@ const Footer = () => {
                     alt="Sri Maniya Institute Decorative Design"
                     width={500}
                     height={500}
-                    className="w-full h-full sm:h-[400px] object-contain"
+                    className="w-full h-full sm:h-[400px] object-contain image-tag"
                     priority
                 />
             </div>
@@ -234,7 +234,7 @@ const Footer = () => {
                                         alt={`${COMPANY.name} Logo`}
                                         width={500}
                                         height={500}
-                                        className="w-auto h-16 object-contain"
+                                        className="w-auto h-16 object-contain image-tag"
                                         priority
                                     />
                                 </div>
@@ -277,7 +277,7 @@ const Footer = () => {
                                                     } else {
                                                         gsap.to(window, {
                                                             duration: 1,
-                                                            scrollTo: { y: enquireSection, offsetY: 0 },
+                                                            scrollTo: { y: enquireSection, offsetY: 80 },
                                                             ease: "power2.inOut",
                                                         });
                                                     }

@@ -59,7 +59,7 @@ const CollapsibleHTML: React.FC<CollapsibleHTMLProps> = ({
                 }}
             >
                 <div
-                    className="leading-relaxed text-base text-justify "
+                    className="leading-relaxed text-(--dark) text-base text-justify "
                     dangerouslySetInnerHTML={{ __html: html }}
                 />
             </div>
@@ -68,7 +68,7 @@ const CollapsibleHTML: React.FC<CollapsibleHTMLProps> = ({
                 <div className="mt-3 text-end">
                     <button
                         onClick={handleToggle}
-                        className=" font-medium cursor-pointer transition-all duration-300"
+                        className=" font-medium cursor-pointer transition-all duration-300 text-(--dark)"
                     >
                         {expandedFully ? "View Less ▲" : "View More ▼"}
                     </button>

@@ -1,21 +1,20 @@
 "use client";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
-import Section from "./Section";
 import Link from "next/link";
 import Image from "next/image";
-import Paragraph from "./Paragraph";
-import Span from "./Span";
 import { LuArrowRight } from "react-icons/lu";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { IoLogoLinkedin } from "react-icons/io5";
-
 import { getAllCourses } from "@/services/courseService";
-import { LoadingContext } from "@/app/layout";
+import Span from "@/components/common/Span";
+import Section from "@/components/common/Section";
+import Paragraph from "@/components/common/Paragraph";
+import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 const COMPANY = {
   name: "Sri Maniya",
@@ -76,7 +75,7 @@ const CONTACTS2 = [
 
 const Footer = () => {
   const [courses, setCourses] = useState<Course[]>([]);
-  const { setLoading } = useContext(LoadingContext);
+  const { setLoading } = useGlobalLoader();
 
   // Scroll to enquire-form if coming from another page
   useEffect(() => {
@@ -149,7 +148,7 @@ const Footer = () => {
           alt="Sri Maniya Institute Decorative Design"
           width={500}
           height={500}
-          className="w-full h-full sm:h-[400px] object-contain"
+          className="w-full h-full sm:h-[400px] object-contain image-tag"
           priority
         />
       </div>
@@ -164,8 +163,8 @@ const Footer = () => {
                     key={item.label}
                     href={item.href}
                     className={`flex items-center  gap-6 py-6 text-white-custom transition  group sm:border-r last:border-0 border-custom ${item.label === "Instagram"
-                        ? "justify-center sm:justify-start"
-                        : "justify-center"
+                      ? "justify-center sm:justify-start"
+                      : "justify-center"
                       }`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -283,7 +282,7 @@ const Footer = () => {
                     alt={`${COMPANY.name} Logo`}
                     width={500}
                     height={500}
-                    className="w-auto h-16 object-contain"
+                    className="w-auto h-16 object-contain image-tag"
                     priority
                   />
                 </div>

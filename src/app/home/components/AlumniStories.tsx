@@ -70,7 +70,7 @@ const AlumniImage: React.FC<{
           alt={alumni.name}
           width={idx === 2 ? 144 : 80}
           height={idx === 2 ? 144 : 80}
-          className={`w-full h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"} `}
+          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"} `}
           draggable={false}
           style={{ borderRadius: '9999px' }}
           priority={idx === 2}
@@ -129,6 +129,30 @@ const AlumniStories = () => {
     delay: 0.3,
     enabled: !!alumniData.length,
   });
+
+  // Touch swipe handlers for mobile
+  const touchStartX = React.useRef<number | null>(null);
+  const touchEndX = React.useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const diff = touchStartX.current - touchEndX.current;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) nextSlide(); // swipe left
+        else prevSlide(); // swipe right
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -205,6 +229,11 @@ const AlumniStories = () => {
                 className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? 'h-24' : 'h-40'}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
+                {...(isMobile ? {
+                  onTouchStart: handleTouchStart,
+                  onTouchMove: handleTouchMove,
+                  onTouchEnd: handleTouchEnd
+                } : {})}
               >
                 {visible.map((alumni, idx) => (
                   <AlumniImage

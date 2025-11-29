@@ -29,21 +29,45 @@ const renderContactLine = (title: string, line: string, idx: number) => {
   if (!line) return null;
   if (title === "Email") {
     return (
-      <a key={idx} href={`mailto:${line}`} className="font-normal text-base wrap-break-word hover:underline" aria-label={`Email ${idx + 1}`}>{line}</a>
+      <a
+        key={idx}
+        href={`mailto:${line}`}
+        className="font-normal wrap-break-word hover:underline text-sm sm:text-base"
+        aria-label={`Email ${idx + 1}`}
+      >
+        {line}
+      </a>
     );
   }
   if (title === "Phone") {
     const tel = line.replace(/\s+/g, "");
     return (
-      <a key={idx} href={`tel:${tel}`} className="font-normal text-base wrap-break-word hover:underline" aria-label={`Phone ${idx + 1}`}>{formatIndianPhone(line)}</a>
+      <a
+        key={idx}
+        href={`tel:${tel}`}
+        className="font-normal wrap-break-word  text-sm sm:text-base"
+        aria-label={`Phone ${idx + 1}`}
+      >
+        {formatIndianPhone(line)}
+      </a>
     );
   }
   if (title === "Address") {
     return (
-      <a key={idx} href="https://maps.app.goo.gl/8WnBXaFHggJdfoFN8" target="_blank" rel="noopener noreferrer" className="font-normal text-base wrap-break-word hover:underline" aria-label={`Address ${idx + 1}`} dangerouslySetInnerHTML={{ __html: line }} />
+      <a
+        key={idx}
+        href="https://maps.app.goo.gl/8WnBXaFHggJdfoFN8"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-normal wrap-break-word  text-sm sm:text-base"
+        aria-label={`Address ${idx + 1}`}
+        dangerouslySetInnerHTML={{ __html: line }}
+      />
     );
   }
-  return <div key={idx} className="font-normal text-base wrap-break-word">{line}</div>;
+  return (
+    <div key={idx} className="font-normal wrap-break-word text-sm sm:text-base">{line}</div>
+  );
 };
 
 const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardProps) => {
@@ -62,7 +86,10 @@ const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardPr
       </div>
       <div className="p-3 sm:px-6 sm:py-5 lg:h-32 border-l lg:border-l-0 lg:border-t border-(--grey-custom) flex flex-col justify-start">
         <Paragraph size="xl" className="font-semibold mb-2">{title}</Paragraph>
-        {safeLines.length > 0 ? safeLines.map((line, idx) => renderContactLine(title, line, idx)) : <div className="font-normal text-base">—</div>}
+        {safeLines.length > 0 ? safeLines.map((line, idx) => renderContactLine(title, line, idx)) : <div className="text-wrap font-normal  text-base">—</div>}
+        {/* <div className="block sm:hidden">
+          {safeLines.length > 0 ? safeLines.slice(0, 1).map((line, idx) => renderContactLine(title, line, idx)) : <div className="font-normal  text-sm">—</div>}
+        </div> */}
       </div>
     </div>
   );

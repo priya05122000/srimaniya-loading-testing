@@ -31,7 +31,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange, 
                         <IoClose />
                     </button>
                     <div className="mb-8 flex justify-center">
-                        <Image src="/logos/navbarlogo.png" alt="Logo" width={376} height={94} className="w-48 md:w-72" priority />
+                        <Image src="/logos/navbarlogo.png" alt="Logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
                     </div>
                     <form onSubmit={onSubmit} className="space-y-2 mt-5">
                         <div className="grid grid-cols-1 gap-y-4 gap-x-6">

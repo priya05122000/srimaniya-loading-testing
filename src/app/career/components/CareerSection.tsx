@@ -17,7 +17,7 @@ const CAREER_IMAGE_PROPS = {
   alt: "About Us",
   width: 1200,
   height: 1200,
-  className: "w-full h-full object-cover",
+  className: "w-full h-full object-cover image-tag",
   priority: true,
 };
 
@@ -122,7 +122,7 @@ const CareerSection: React.FC = () => {
         </div>
         <div className="lg:absolute inset-0">
           <div className="grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-full">
-            <div className="block lg:hidden relative border-b sm:border-b-0 sm:border-r border-grey-custom lg:border-r-0">
+            <div className="block lg:hidden relative border-b sm:border-b-0 sm:border-r border-(--grey) lg:border-r-0">
               <Image {...CAREER_IMAGE_PROPS} />
               <div
                 className={`absolute inset-0 z-20 transform transition-transform duration-700 ease-in-out bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat`}

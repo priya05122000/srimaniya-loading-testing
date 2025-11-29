@@ -168,7 +168,7 @@ const Form: React.FC = () => {
             alt="Logo"
             width={376}
             height={94}
-            className="w-48 md:w-72"
+            className="w-48 md:w-72 image-tag"
             priority
           />
         </div>

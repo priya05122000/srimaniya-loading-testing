@@ -59,17 +59,17 @@ const CommitmentBanner = () => {
   const bannerRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement>(null);
 
-
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
+  // Add split text animation for heading and paragraph
   useSplitTextHeadingAnimation({
     trigger: bannerRef,
     first: headingRef,
     second: paragraphRef,
-    delay: 0.3,
     enabled: true,
+    delay: 0.5,
   });
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const CommitmentBanner = () => {
                 src="/designs/rotate.svg"
                 alt="Rotating Ring"
                 fill
-                className="object-contain"
+                className="object-contain image-tag"
                 priority
               />
             </div>
@@ -138,7 +138,7 @@ const CommitmentBanner = () => {
                 alt="Sri Maniya Institute"
                 width={120}
                 height={120}
-                className="object-contain w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
+                className="object-contain image-tag w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
                 priority
               />
             </div>

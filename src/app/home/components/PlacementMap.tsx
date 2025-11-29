@@ -81,7 +81,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
           alt={placement + " Flag"}
           width={100}
           height={100}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover image-tag"
         />
       </div>
       <Paragraph className="absolute top-10 left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none">
@@ -114,7 +114,7 @@ const PlacementCard: React.FC<Placement> = ({
         alt={name}
         fill
         sizes="(max-width: 768px) 100vw, 80px"
-        className="rounded-md object-cover"
+        className="rounded-md object-cover image-tag"
       />
     </div>
     <div>
@@ -267,7 +267,7 @@ const PlacementMap = () => {
                 alt="Placement Map Background"
                 width={2400}
                 height={1200}
-                className="h-full w-auto object-contain"
+                className="h-full w-auto object-contain image-tag"
                 priority
               />
               <div>
@@ -323,8 +323,8 @@ const PlacementMap = () => {
                   </Heading>
                 </div>
                 <Paragraph
-                  size="lg"
-                  className="mb-2 text-(--dark) w-[90%] xl:w-[70%]"
+                  size="base"
+                  className="mb-2 text-(--dark) w-[90%] xl:w-[70%] leading-relaxed"
                 // {...ANIMATIONS.fadeZoomIn}
                 >
                   Each pin on this map represents the global destinations where our talented graduates have embarked on successful careers. Every flag marks a prestigious international partner that welcomes our alumni to the world stage.

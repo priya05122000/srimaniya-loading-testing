@@ -184,7 +184,11 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   // Hooks for logic
   useScrollSmoother(loading, smootherRef);
   useEffect(() => {
-    if (!loading) window.scrollTo(0, 0);
+    if (!loading) {
+      if (window.location.hash !== "#enquire-form") {
+        window.scrollTo(0, 0);
+      }
+    }
   }, [loading]);
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
   useFooterReveal({ loading, pathname, setShowOnlyFooter, setFooterVisible });
@@ -241,7 +245,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
           style={{
             opacity: navbarVisible ? 1 : 0, // fade in/out
             pointerEvents: navbarVisible ? "auto" : "none", // disable clicks when hidden
-            transition: "opacity 0.5s ease-in-out", // smooth transition
+            // transition: "opacity 0.5s ease-in-out", // smooth transition
           }}
         >
           <Navbar />

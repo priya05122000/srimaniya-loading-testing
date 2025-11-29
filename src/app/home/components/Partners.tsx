@@ -48,7 +48,7 @@ export default function Partners() {
     first: paragraphRef,
     second: headingRef,
     delay: 0.3,
-    enabled: true,
+    enabled: !!partners.length, // Only enable when partners are loaded
   });
 
   /* --------------------------- Fetch Partners ------------------------- */
@@ -138,7 +138,7 @@ export default function Partners() {
                         alt={partner.name}
                         width={200}
                         height={100}
-                        className="object-contain h-full p-4 opacity-80 hover:opacity-100 transition"
+                        className="object-contain image-tag h-full p-4 opacity-80 hover:opacity-100 transition"
                       />
                     </li>
                   ))}

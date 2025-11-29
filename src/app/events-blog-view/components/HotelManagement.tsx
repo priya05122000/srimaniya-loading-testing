@@ -156,7 +156,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
               alt={IMAGE_PROPS.alt}
               fill
-              className="object-cover h-full"
+              className="object-cover h-full image-tag"
               priority
             />
           )}

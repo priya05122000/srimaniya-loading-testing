@@ -87,7 +87,7 @@ const PartPlacementPartners = () => {
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${partner.logo_url}`}
                   alt={partner.name}
-                  className="object-contain h-32 w-32 cursor-pointer"
+                  className="object-contain image-tag h-32 w-32 cursor-pointer"
                   loading="lazy"
                   width={120}
                   height={120}

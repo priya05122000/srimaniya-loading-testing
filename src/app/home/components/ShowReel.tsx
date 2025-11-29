@@ -25,7 +25,7 @@ const MaskedSVGOverlay: React.FC = () => (
   <svg className="hidden sm:block absolute inset-0 w-full h-full ">
     <defs>
       <pattern id="grid-pattern" width="160" height="80" patternUnits="userSpaceOnUse">
-        <image href="/designs/grainy.svg" x="0" y="0" width="160" height="80" preserveAspectRatio="none" />
+        <image href="/designs/grainy.svg" x="0" y="0" width="160" className="image-tag" height="80" preserveAspectRatio="none" />
         <rect width="160" height="80" fill="transparent" />
         <path d="M 160 0 L 0 0 0 80" fill="none" stroke="#0B2351" strokeWidth="1.5" opacity="0.25" />
       </pattern>

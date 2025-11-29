@@ -88,7 +88,7 @@ const MobileCourseRow: FC<CourseRowProps> = ({
   <div className="flex items-start gap-4 py-4">
     <div className="min-w-[110px] shrink-0 flex flex-col items-start">
       {highlight && id !== undefined ? (
-        <div className="flex items-center gap-2">
+        <div className="flex items-baseline sm:items-center gap-2">
           <Heading level={5} className="text-(--dark)">
             {id.toString().padStart(2, "0")}
           </Heading>
@@ -106,7 +106,7 @@ const MobileCourseRow: FC<CourseRowProps> = ({
       {highlight && title && duration ? (
         <Heading level={6} className="text-(--dark)">
           {title}
-          <span className="text-(--grey) text-base font-normal">
+          <span className="text-(--dark) text-base font-normal">
             &nbsp;- ({duration})
           </span>
         </Heading>

@@ -46,7 +46,7 @@ interface TestimonialCardProps {
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
   <div className="px-3">
-    <div className="bg-(--blue) p-6 h-80 flex flex-col justify-between shadow-lg" data-section>
+    <div className="bg-(--blue) p-6 h-84 flex flex-col justify-between shadow-lg" data-section>
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 overflow-hidden mr-4">
           <Image
@@ -54,7 +54,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
             alt={testimonial.name}
             width={48}
             height={48}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full image-tag"
           />
         </div>
         <div className="text-(--white-custom)">

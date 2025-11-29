@@ -28,7 +28,7 @@ const PlacementInfo: React.FC = () => {
             <Heading
               ref={headingRef}
               level={4}
-              className="mb-10 text-(--blue) text-center hotel-management-title uppercase leading-tight"
+              className="mb-10 text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
             >
               Placements at srimaniya institute
             </Heading>

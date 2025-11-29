@@ -59,8 +59,8 @@ const Table = () => {
             idx !== 3 ? "border-b" : "", // last column no border-b
             idx === 2 ? "md:border-b-0 lg:border-r" : "", // degree course
             idx === 0 ? "lg:border-b-0" : "", // diploma
-            idx === 1 ? "lg:border-b-0 lg:border-r" : "", // pathway
-            "border-(--grey-custom) px-0 md:px-6 py-4 md:py-2 lg:py-0"
+            idx === 1 ? "lg:border-b-0 md:border-r-0 lg:border-r" : "", // pathway
+            "border-(--black-custom) px-0 md:px-6 py-4 md:py-4 lg:py-0"
           ].join(" ");
           return (
             <div className={borderClasses} key={key}>

@@ -86,7 +86,7 @@ const ScholarContent = () => {
                 width={SCHOLAR_IMAGE_DIMENSIONS.width}
                 height={SCHOLAR_IMAGE_DIMENSIONS.height}
                 style={{ objectFit: "cover" }}
-                className="w-full h-full"
+                className="w-full h-full image-tag"
               />
             </div>
             <div className="flex-col justify-center flex ">

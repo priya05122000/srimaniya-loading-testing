@@ -105,9 +105,9 @@ const EventAndBlog: React.FC = () => {
         <button
             type="button"
             onClick={() => setActive(cat.id)}
-            className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 min-w-[100px] px-2 ${active === cat.id ? "bg-(--blue)" : "bg-(--white-custom) border border-(--blue)"}`}
+            className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 sm:min-w-[100px] px-2 ${active === cat.id ? "bg-(--blue)" : "bg-(--white-custom) border border-(--blue)"}`}
         >
-            <span className={`relative z-20 text-center no-underline w-full px-2 py-2 text-base transition-all duration-300 ${active === cat.id ? "text-(--white-custom)" : "text-(--blue) group-hover:text-(--white-custom)"}`}>
+            <span className={`relative z-20 text-center no-underline w-full px-2 py-2 text-sm sm:text-base transition-all duration-300 ${active === cat.id ? "text-(--white-custom)" : "text-(--blue) group-hover:text-(--white-custom)"}`}>
                 {cat.name === "News&Events" ? 'Events' : cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
             </span>
             <span className={`absolute left-0 top-0 w-full h-0 transition-all duration-300 ease-in-out z-10 ${active === cat.id ? "bg-(--white-custom)" : "bg-(--blue) group-hover:h-full group-hover:top-auto group-hover:bottom-0"}`} />
@@ -123,7 +123,7 @@ const EventAndBlog: React.FC = () => {
                         <div>
                             <Heading ref={headingRef} level={4} className="font-semibold text-(--blue) mb-2 events-blog-heading leading-tight uppercase">Events & Blog</Heading>
                         </div>
-                        <div className="flex justify-end gap-4 mb-4 mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
+                        <div className="flex justify-end gap-4 mb-4 mt-10 sm:mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
                             {categories.map((cat) => (
                                 <CategoryButton key={cat.id} cat={cat} active={active} setActive={setActive} />
                             ))}
@@ -140,7 +140,7 @@ const EventAndBlog: React.FC = () => {
                                             src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
                                             onClick={() => handleBlogClick(blog.id)}
                                             alt={blog.title}
-                                            className="w-full h-[280px] object-cover object-bottom cursor-pointer"
+                                            className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"
                                             width={500}
                                             height={500}
                                             priority={idx === 0}

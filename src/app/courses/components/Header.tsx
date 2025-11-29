@@ -28,7 +28,7 @@ const CONTENT_CLASSES = [
   "lg:py-12",
   "overflow-hidden",
   "text-(--white-custom)",
-  "h-full",
+  "h-[400px] sm:h-full",
   "bg-(--blue-overlay-strong)",
   "relative",
 ].join(" ");
@@ -43,7 +43,7 @@ const Header: FC = () => (
     data-section
   >
     <div className={GRID_CLASSES}>
-      <div className="border-b lg:border-b-0 lg:border-r border-(--grey-custom)" />
+      <div className="sm:border-b lg:border-b-0 lg:border-r border-(--grey-custom)" />
       <div className={CONTENT_CLASSES} data-section>
         <div className="py-2 lg:py-4">
           <Heading level={4} className={HEADING_CLASSES}>

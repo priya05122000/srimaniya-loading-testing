@@ -79,7 +79,7 @@ const EnquireForm = () => {
             alt="Our Story"
             width={2000}
             height={2000}
-            className="w-full h-full  object-cover"
+            className="w-full h-full  object-cover image-tag"
           />
         </div>
         {/* Right: Content */}
