@@ -229,7 +229,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
         theme="light"
       />
       {/* Hide Navbar for /registration-form route on all screen sizes */}
-      {pathname !== "/registration-form" && (
+      {/* {pathname !== "/registration-form" && (
         <>
           <div >{navbarVisible && <Navbar />}</div>
         </>
@@ -261,9 +261,8 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${
-              pathname !== "/registration-form" ? " pt-20" : ""
-            }`}
+            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""
+              }`}
             style={{
               opacity: showOnlyFooter ? 0 : 1,
               pointerEvents: showOnlyFooter ? "none" : "auto",

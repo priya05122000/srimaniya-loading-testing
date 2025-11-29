@@ -125,7 +125,7 @@ const Hero: React.FC<HeroProps> = ({ hideLogo = false }) => {
                                         fill
                                         className="object-cover object-top"
                                         priority
-                                        unoptimized
+                                        onLoadingComplete={() => setLoading(false)}
                                     />
                                     {/* Overlay container positioned at bottom-right */}
                                     <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
