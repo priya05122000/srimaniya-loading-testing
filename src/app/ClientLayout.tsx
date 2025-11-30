@@ -190,6 +190,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       }
     }
   }, [loading]);
+
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
   useFooterReveal({ loading, pathname, setShowOnlyFooter, setFooterVisible });
   useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
