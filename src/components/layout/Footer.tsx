@@ -163,7 +163,15 @@ const Footer = () => {
                                         <ul>
                                             {CONTACTS1.map((item, idx) => (
                                                 <li key={idx} className="my-2 text-(--white-custom)">
-                                                    <span className="text-xs">{item}</span>
+                                                    <span className="text-xs">
+                                                        {item.includes('@') ? (
+                                                            <a href={`mailto:${item}`} className="underline">{item}</a>
+                                                        ) : item.replace(/\s+/g, '').match(/^\+?\d+$/) ? (
+                                                            <a href={`tel:${item.replace(/\s+/g, '')}`} className="">{item}</a>
+                                                        ) : (
+                                                            item
+                                                        )}
+                                                    </span>
                                                 </li>
                                             ))}
                                         </ul>
