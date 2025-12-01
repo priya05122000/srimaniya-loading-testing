@@ -70,7 +70,7 @@ const PartPlacementPartners = () => {
   return (
     <div className="partners-bg" ref={partnersRef}>
       <Section className="py-10 sm:py-20  ">
-        <div className="px-20">
+        <div className="lg:px-10 xl:px-20">
           <Heading
             ref={headingRef}
             level={4}
@@ -79,7 +79,7 @@ const PartPlacementPartners = () => {
             Our recruitment partners
           </Heading>
           <div className="grid grid-cols-1 sm:gap-10 pt-10">
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-10 w-full h-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 xl:gap-10 w-full h-auto">
               {scrollingPartners.map((partner, i) => (
                 <div
                   className="relative overflow-hidden flex p-2 items-center justify-center bg-(--white-custom) shadow-2xl border border-blue-custom"

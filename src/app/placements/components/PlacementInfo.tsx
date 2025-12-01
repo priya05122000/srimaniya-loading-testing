@@ -33,7 +33,7 @@ const PlacementInfo: React.FC = () => {
               Placements at srimaniya institute
             </Heading>
 
-            <Paragraph size="lg" className="text-(--dark) leading-relaxed">
+            <Paragraph size="base" className="text-(--dark) leading-relaxed">
               The Institute boasts strong connections with global hospitality brands, offering 100% placement assistance, career guidance, interview preparation, and internships. Students gain practical experience through part-time placements during their studies, preparing them for successful careers worldwide. This focus on career readiness makes Sri Maniya a top destination for students seeking excellent Sri Maniya Institute placement support and job opportunities.
             </Paragraph>
           </section>
@@ -44,7 +44,7 @@ const PlacementInfo: React.FC = () => {
             >
               Global Placements
             </Paragraph>
-            <Paragraph size="lg" className="text-(--dark) leading-relaxed">
+            <Paragraph size="base" className="text-(--dark) leading-relaxed">
               We partner with leading international hospitality brands and hotel chains to offer our students outstanding global placement opportunities. Our alumni hold positions at prestigious luxury hotels and prominent resorts in key destinations around the world, reflecting the effectiveness of our hotel management placement support in launching successful international careers.
             </Paragraph>
           </section>
@@ -55,7 +55,7 @@ const PlacementInfo: React.FC = () => {
             >
               Part-Time Placements
             </Paragraph>
-            <Paragraph size="lg" className="text-(--dark) leading-relaxed">
+            <Paragraph size="base" className="text-(--dark) leading-relaxed">
               We arrange part-time work opportunities for our students throughout their studies, allowing them to gain practical experience and develop professional skills that enhance their academic learning and future career prospects.
             </Paragraph>
           </section>
@@ -66,7 +66,7 @@ const PlacementInfo: React.FC = () => {
             >
               Our Commitment
             </Paragraph>
-            <ParagraphList size="lg" className="text-(--dark) leading-relaxed">
+            <ParagraphList size="base" className="text-(--dark) leading-relaxed">
               <li>100% placement assistance</li>
               <li>Tie-ups with global hospitality leaders</li>
               <li>Career guidance and interview training</li>
