@@ -13,7 +13,7 @@ import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";
 
-// -------------------- Types --------------------
+// -------------------- Types -------------------
 interface NavLink {
     name: string;
     href?: string;

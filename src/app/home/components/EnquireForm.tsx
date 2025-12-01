@@ -1,7 +1,6 @@
 "use client";
 import Heading from '@/components/common/Heading';
 import { CheckboxField, InputField, TextAreaField } from '@/components/ui/FormFields';
-import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { toast } from "react-toastify";
@@ -30,7 +29,6 @@ function getInitialFormData(): EnquireFormData {
 const EnquireForm = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [formData, setFormData] = useState<EnquireFormData>(getInitialFormData());
-  const { loading, setLoading } = useGlobalLoader();
 
   // Reusable change handler
   const handleChange = (
@@ -48,7 +46,6 @@ const EnquireForm = () => {
       toast.error("You must agree to the terms before submitting.");
       return;
     }
-    setLoading(true);
     try {
       const payload = {
         name: formData.name,
@@ -64,8 +61,6 @@ const EnquireForm = () => {
         ? (error as { message?: string }).message
         : "Failed to submit enquiry.";
       toast.error(errorMsg);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -131,11 +126,10 @@ const EnquireForm = () => {
               <div className="block ml-auto mt-4">
                 <button
                   type="submit"
-                  disabled={loading}
                   className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
                 >
                   <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
-                    {loading ? "Submitting..." : "Submit"}
+                    Submit
                   </span>
                   <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                 </button>

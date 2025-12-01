@@ -24,7 +24,6 @@ import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Paragraph from "@/components/common/Paragraph";
 
 interface CourseOption {
@@ -85,12 +84,10 @@ const preloadImages = (banners: Banner[]) => {
 export default function PartBanner() {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
-  const { setLoading } = useGlobalLoader();
   const [formData, setFormData] = useState(FORM_INITIAL_STATE);
 
   useEffect(() => {
     const fetchBanners = async () => {
-      setLoading(true);
       try {
         const result = await getAllBanners();
         const data = result?.data;
@@ -110,12 +107,10 @@ export default function PartBanner() {
           : error;
         console.error("Error fetching banners:", message);
         setBanners([]);
-      } finally {
-        setLoading(false);
       }
     };
     fetchBanners();
-  }, [setLoading]);
+  }, []);
 
   useEffect(() => {
     const fetchCourses = async () => {

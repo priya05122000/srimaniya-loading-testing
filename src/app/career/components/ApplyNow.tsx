@@ -7,15 +7,12 @@ import {
 } from "@/components/ui/FormFields";
 import Heading from "@/components/common/Heading";
 import Image from "next/image";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
-
 import { createJobApplication } from "@/services/jobAppointmentService";
 import { uploadResumeFile } from "@/services/fileService";
 import { toast } from "react-toastify";
 
 const ApplyNow: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { setLoading } = useGlobalLoader();
   const [localLoading, setLocalLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -40,12 +37,10 @@ const ApplyNow: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLocalLoading(true);
-    setLoading(true);
 
     if (!formData.agree) {
       toast.error("You must agree to the terms and conditions.");
       setLocalLoading(false);
-      setLoading(false);
       return;
     }
 
@@ -62,7 +57,6 @@ const ApplyNow: React.FC = () => {
         console.error("Resume upload failed:", error);
         toast.error("Resume upload failed.");
         setLocalLoading(false);
-        setLoading(false);
         return;
       }
     }
@@ -105,7 +99,6 @@ const ApplyNow: React.FC = () => {
       }
     } finally {
       setLocalLoading(false);
-      setLoading(false);
     }
   };
 

@@ -16,7 +16,6 @@ import {
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 // Types
 interface CourseOption {
@@ -61,13 +60,11 @@ const IMAGE_PROPS = {
 
 const ScholarForm: React.FC = () => {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
-  const { setLoading } = useGlobalLoader();
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
 
   // Fetch courses
   useEffect(() => {
     const fetchCourses = async () => {
-      setLoading?.(true);
       try {
         const result = await getAllCourses();
         const data = result?.data || [];
@@ -76,12 +73,10 @@ const ScholarForm: React.FC = () => {
         );
       } catch {
         setCourseOptions([]);
-      } finally {
-        setLoading?.(false);
       }
     };
     fetchCourses();
-  }, [setLoading]);
+  }, []);
 
   // Handle input changes
   const handleChange = (
@@ -109,7 +104,6 @@ const ScholarForm: React.FC = () => {
       message: formData.message || null,
       course_id: formData.course || null,
     };
-    setLoading?.(true);
     try {
       await createAppoinmentRequest(payload);
       toast.success("Application submitted successfully!");
@@ -136,8 +130,6 @@ const ScholarForm: React.FC = () => {
         toast.error("Submission failed.");
         console.error("Application error:", error);
       }
-    } finally {
-      setLoading?.(false);
     }
   };
 
