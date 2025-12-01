@@ -174,7 +174,7 @@ const Courses: React.FC = () => {
     <div ref={coursesRef}>
       <div className="bg-(--blue) relative py-10 sm:py-20" data-section>
         <Section>
-          <div className='px-20'>
+          <div className='lg:px-10 xl:px-20'>
             {/* Header */}
             <div className="mb-12 text-end">
               <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">

@@ -11,8 +11,8 @@ interface StorySectionProps {
 
 const StorySection: React.FC<StorySectionProps> = ({ heading, children }) => (
   <div className="mb-6">
-    <span className="text-base lg:text-lg font-inter font-bold block mb-4 tracking-wide leading-relaxed">{heading}</span>
-    <div className="font-extralight text-(--white-custom) leading-loose text-justify text-base">
+    <span className="text-base lg:text-lg font-inter font-bold block mb-4 tracking-wide leading-relaxed xl:leading-loose">{heading}</span>
+    <div className="font-extralight text-(--white-custom) leading-relaxed xl:leading-loose text-justify text-base">
       {children}
     </div>
   </div>

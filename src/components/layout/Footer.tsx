@@ -103,7 +103,7 @@ const Footer = () => {
     return (
         <footer
             id="footer"
-            className="bg-(--blue)  text-(--white-custom) min-h-screen relative"
+            className="bg-(--blue)  text-(--white-custom) xl:h-screen relative"
             data-section
         >
             {/* Decorative image behind */}
@@ -118,7 +118,7 @@ const Footer = () => {
                 />
             </div>
             {/* Main content above */}
-            <div className="relative z-10 min-h-screen flex flex-col justify-between">
+            <div className="relative z-10 xl:h-screen flex flex-col justify-between">
                 <div>
                     <Section>
                         <div className="w-full">
@@ -155,14 +155,14 @@ const Footer = () => {
                     {/* Main Content */}
                     <Section>
                         <div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 sm:gap-10 xl:gap-0 pb-8 w-full">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 sm:gap-10 xl:gap-0 w-full ">
                                 {/* Explore */}
-                                <div className=" xl:border-r xl:last:border-0 border-(--black-custom) flex flex-col  justify-between  pt-6 lg:pt-10 xl:pt-16 pb-4 ">
+                                <div className=" xl:border-r xl:last:border-0 border-(--black-custom) flex flex-col  justify-between  pt-6   pb-4 ">
                                     <div>
                                         <Span className=" font-bold text-(--white)/34">Contact</Span>
                                         <ul>
                                             {CONTACTS1.map((item, idx) => (
-                                                <li key={idx} className="my-3 text-(--white-custom)">
+                                                <li key={idx} className="my-2 text-(--white-custom)">
                                                     <span className="text-xs">{item}</span>
                                                 </li>
                                             ))}
@@ -170,14 +170,14 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 {/* Course */}
-                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex   justify-start lg:justify-center  pt-6 lg:pt-10 xl:pt-16 pb-4 ">
+                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex   justify-start lg:justify-center  pt-6   pb-4 ">
                                     <div>
                                         <Span className="font-bold text-(--white)/34">Address</Span>
                                         <ul>
                                             {CONTACTS2.map((item, idx) => (
                                                 <li
                                                     key={idx}
-                                                    className="my-3 text-(--white-custom) xl:w-[80%]"
+                                                    className="my-2 text-(--white-custom) xl:w-[80%]"
                                                 >
                                                     <span className="text-xs">{item}</span>
                                                 </li>
@@ -186,12 +186,12 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 {/* Contact 1 */}
-                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6 lg:pt-10 xl:pt-16 pb-4 xl:px-6">
+                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6  pb-4 xl:px-6">
                                     <div>
                                         <Span className="font-bold text-(--white)/34">Course</Span>
                                         <ul>
                                             {courses.map((item) => (
-                                                <li key={item.id} className="my-3 text-(--white-custom)">
+                                                <li key={item.id} className="my-2 text-(--white-custom)">
                                                     <Link href={`/courses?course=${item.id}`}>
                                                         <span className="text-xs">{item.title}</span>
                                                     </Link>
@@ -202,12 +202,12 @@ const Footer = () => {
                                 </div>
 
                                 {/* Contact 2 + Enquire Now */}
-                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6 lg:pt-10 xl:pt-16 pb-4">
+                                <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6   pb-4">
                                     <div>
                                         <Span className="font-bold text-(--white)/34">Explore</Span>
                                         <ul>
                                             {NAV_EXPLORE.map((item) => (
-                                                <li key={item.label} className="my-3 text-(--white-custom)">
+                                                <li key={item.label} className="my-2 text-(--white-custom)">
                                                     <span className="text-xs">
                                                         <Link href={item.href}>
                                                             {item.label}
@@ -302,7 +302,7 @@ const Footer = () => {
                         </div>
 
                         {/* Bottom Bar */}
-                        <div className="flex flex-col md:flex-row items-start justify-between  my-12 xl:my-16 pb-10 border-b border-(--black-custom)  gap-2 w-full">
+                        <div className="flex flex-col md:flex-row items-start justify-between  my-12  pb-10 border-b border-(--black-custom)  gap-2 w-full">
                             <span className="text-start text-xs ">
                                 Copyright ©2025 srimaniya institute, All Rights Reserved.
                                 <br />
