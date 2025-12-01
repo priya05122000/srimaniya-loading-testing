@@ -186,6 +186,7 @@ interface FileUploaderFieldProps extends React.InputHTMLAttributes<HTMLInputElem
   className?: string;
   id?: string;
   multiple?: boolean;
+  inputRef?: React.RefObject<HTMLInputElement>; // Add inputRef prop
 }
 
 const baseFileUploaderClass =
@@ -197,6 +198,7 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
   multiple = false,
   onChange,
   label,
+  inputRef, // Destructure inputRef
   ...props
 }) => {
   const [fileNames, setFileNames] = useState<string[]>([]);
@@ -259,6 +261,7 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
         id={inputId}
         type="file"
         multiple={multiple}
+        ref={inputRef} // Attach ref to input
         {...props}
         onChange={handleChange}
         onFocus={handleFocus}

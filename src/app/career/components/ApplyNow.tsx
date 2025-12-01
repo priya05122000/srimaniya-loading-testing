@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 const ApplyNow: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null); // Fix type to match FileUploaderFieldProps
   const [localLoading, setLocalLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -71,6 +72,7 @@ const ApplyNow: React.FC = () => {
     try {
       await createJobApplication(payload);
       toast.success("Application submitted successfully!");
+      // Clear all form fields after submit
       setFormData({
         name: "",
         email: "",
@@ -78,6 +80,9 @@ const ApplyNow: React.FC = () => {
         resume: null,
         agree: false,
       });
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Reset file input visually
+      }
     } catch (error: unknown) {
       if (
         error &&
@@ -130,7 +135,7 @@ const ApplyNow: React.FC = () => {
             <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
               <InputField
                 type="text"
-                label="Name"
+                label="Name *"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -145,7 +150,7 @@ const ApplyNow: React.FC = () => {
               />
               <InputField
                 type="tel"
-                label="Mobile number"
+                label="Mobile number *"
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleChange}
@@ -155,6 +160,7 @@ const ApplyNow: React.FC = () => {
                 label="Upload Resume"
                 name="resume"
                 onChange={handleChange}
+                inputRef={fileInputRef as React.RefObject<HTMLInputElement>} // Fix type error by casting
               />
               <CheckboxField
                 label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy."
