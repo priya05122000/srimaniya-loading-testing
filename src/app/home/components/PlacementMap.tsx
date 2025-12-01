@@ -71,10 +71,10 @@ const flags: Flag[] = [
 ];
 
 const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
-  <div className={`absolute ${position} flex flex-col items-start z-20`}>
+  <div className={`absolute ${position} flex flex-col items-start`}>
     <div className="relative group cursor-pointer">
       <div
-        className={`${size} rounded-full overflow-hidden  shadow-lg flex items-center justify-center bg-white`}
+        className={`${size} rounded-full overflow-hidden shadow-lg flex items-center justify-center`}
       >
         <Image
           src={img}
@@ -84,7 +84,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
           className="w-full h-full object-cover image-tag"
         />
       </div>
-      <Paragraph className="absolute top-10 left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none">
+      <Paragraph className={`absolute ${size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"} left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}>
         <span className="block">{placement}</span>
         <span>{ctc}</span>
       </Paragraph>
