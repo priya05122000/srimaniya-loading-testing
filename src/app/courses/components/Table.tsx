@@ -51,16 +51,16 @@ const Table = () => {
 
   return (
     <Section className="py-10 sm:py-16 bg-(--blue)" data-section>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
         {COURSE_CATEGORIES.map(({ key, label }, idx) => {
           const filteredCourses = getCoursesByCategory(key);
           const borderClasses = [
             idx < 3 ? "md:border-r" : "",
             idx !== 3 ? "border-b" : "", // last column no border-b
-            idx === 2 ? "md:border-b-0 lg:border-r" : "", // degree course
-            idx === 0 ? "lg:border-b-0" : "", // diploma
-            idx === 1 ? "lg:border-b-0 md:border-r-0 lg:border-r" : "", // pathway
-            "border-(--black-custom) px-0 md:px-6 py-4 md:py-4 lg:py-0"
+            idx === 2 ? "md:border-b-0 xl:border-r" : "", // degree course
+            idx === 0 ? "xl:border-b-0" : "", // diploma
+            idx === 1 ? "xl:border-b-0 md:border-r-0 xl:border-r" : "", // pathway
+            "border-(--black-custom) px-0 md:px-6 py-4 md:py-4 xl:py-0"
           ].join(" ");
           return (
             <div className={borderClasses} key={key}>

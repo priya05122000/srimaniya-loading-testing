@@ -1,22 +1,15 @@
 "use client";
+import Heading from '@/components/common/Heading';
+import Paragraph from '@/components/common/Paragraph';
+import Image from 'next/image';
+import React, { useEffect, useRef } from 'react';
+import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 
-import React, { useEffect, useRef, memo } from "react";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
-import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
-import Image from "next/image";
-
-
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-
-
-
+// Feature type and data (reusable)
 export type Feature = {
   number: string;
   title: string;
 };
-
-// --- Constants ---
 export const features: Feature[] = [
   { number: "01", title: "Internship from Day 1 with stipend" },
   { number: "02", title: "100% Placement Support" },
@@ -24,10 +17,8 @@ export const features: Feature[] = [
   { number: "04", title: "Strong Hotel Legacy Since 1984- career opportunity" },
 ];
 
-
-
-// --- Reusable Feature Card ---
-const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(({ feature, idx }) => (
+// Utility: Render feature card (reusable)
+const FeatureCard: React.FC<{ feature: Feature; idx: number }> = ({ feature, idx }) => (
   <div
     className="flex flex-col justify-end items-end bg-cover bg-center relative min-h-[200px] sm:min-h-[250px] overflow-hidden will-change-transform group"
     style={{ backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')` }}
@@ -44,46 +35,40 @@ const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(({ feature
     />
     <div className="absolute inset-0 z-20 pointer-events-none transition-all duration-300 group-hover:opacity-0 bg-no-repeat bg-[url('/designs/noise.svg')] bg-cover" />
     <div className="relative z-30 flex flex-col items-end justify-start h-full p-6 sm:p-8 gap-4 text-(--white-custom) w-10/12 lg:w-2/3 group">
-      <div className="transition-all duration-300 ease-in-out rounded-lg">
+      <div className="transition-all duration-300 ease-in-out  rounded-lg ">
         <Heading
           level={5}
-          className="mb-1 font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
+          className="mb-1 font-semibold transition-colors duration-300 ease-in-out  bg-(--blue) p-2"
         >
           {feature.number}
         </Heading>
       </div>
-      <div className="transition-all duration-300 ease-in-out rounded-lg">
+      <div className="transition-all duration-300 ease-in-out  rounded-lg ">
         <Heading
           level={6}
-          className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg"
+          className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white  px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg"
         >
           {feature.title}
         </Heading>
       </div>
     </div>
   </div>
-));
-FeatureCard.displayName = "FeatureCard";
+);
 
-// --- Main Component ---
-const CommitmentBanner: React.FC = () => {
-  const { setLoading } = useGlobalLoader();
+const CommitmentBanner = () => {
   const logoRef = useRef<HTMLDivElement>(null);
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const splitTextTriggerRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
 
-  // GSAP SplitText Animation
   useSplitTextHeadingAnimation({
-    trigger: splitTextTriggerRef,
+    trigger: bannerRef,
     first: paragraphRef,
     second: headingRef,
-    delay: 0.3,
     enabled: true,
+    delay: 0.3,
   });
 
-
-  // Rotating Logo Animation
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let lastRenderedRotation: number | null = null;
@@ -92,10 +77,11 @@ const CommitmentBanner: React.FC = () => {
       const rotation = (lastScrollY * 0.2) % 360;
       if (
         logoRef.current &&
-        (lastRenderedRotation === null || Math.abs(rotation - lastRenderedRotation) > 0.5)
+        (lastRenderedRotation === null ||
+          Math.abs(rotation - lastRenderedRotation) > 0.5)
       ) {
         logoRef.current.style.transform = `rotate(${rotation}deg)`;
-        logoRef.current.style.willChange = "transform";
+        logoRef.current.style.willChange = 'transform';
         lastRenderedRotation = rotation;
       }
       requestAnimationFrame(animate);
@@ -117,9 +103,10 @@ const CommitmentBanner: React.FC = () => {
   }, []);
 
   return (
-    <div className="partners-bg" ref={splitTextTriggerRef}>
+    <div ref={bannerRef}>
       <div className="w-full relative mb-15 lg:mb-28 flex flex-col">
         <div className="bg-(--blue) px-6 sm:px-8 py-10 flex flex-col items-end" data-section>
+
           <Paragraph ref={paragraphRef} size="lg" className="msg-text-scroll text-end mt-1">
             Sri Maniya Institute of Hotel Management
           </Paragraph>

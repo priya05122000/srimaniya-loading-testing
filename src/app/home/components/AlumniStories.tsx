@@ -218,12 +218,16 @@ const AlumniStories = () => {
         </div>
         <Section>
           <div className='h-[450px] sm:h-[490px] flex flex-col justify-between text-center '>
-            <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
-              <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
-            </span>
-            <Paragraph size='lg' className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)">
-              <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
-            </Paragraph>
+            {currentAlumni && (
+              <>
+                <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
+                  <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+                </span>
+                <Paragraph size='lg' className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)">
+                  <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+                </Paragraph>
+              </>
+            )}
             <div>
               <div
                 className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? 'h-24' : 'h-40'}`}
@@ -251,11 +255,15 @@ const AlumniStories = () => {
                   />
                 ))}
               </div>
-              <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
-                <Paragraph size='xl' className="font-bold text-(--blue)">{currentAlumni.name}</Paragraph>
-                <Paragraph size='base' className="text-(--dark)">({currentAlumni.batch_year} batch - {currentAlumni.course})</Paragraph>
-              </div>
-              <Paragraph size='base' className="  text-(--dark) mb-6">{currentAlumni.designation} - {currentAlumni.company}{currentAlumni.location ? `, ${currentAlumni.location}` : ''}{currentAlumni.country ? `, ${currentAlumni.country}` : ''}</Paragraph>
+              {currentAlumni && (
+                <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
+                  <Paragraph size='xl' className="font-bold text-(--blue)">{currentAlumni.name}</Paragraph>
+                  <Paragraph size='base' className="text-(--dark)">({currentAlumni.batch_year} batch - {currentAlumni.course})</Paragraph>
+                </div>
+              )}
+              {currentAlumni && (
+                <Paragraph size='base' className="  text-(--dark) mb-6">{currentAlumni.designation} - {currentAlumni.company}{currentAlumni.location ? `, ${currentAlumni.location}` : ''}{currentAlumni.country ? `, ${currentAlumni.country}` : ''}</Paragraph>
+              )}
               <div className="flex justify-center gap-4">
                 <button
                   onClick={prevSlide}

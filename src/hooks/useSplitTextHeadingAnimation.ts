@@ -32,6 +32,12 @@ export function useSplitTextHeadingAnimation({
   useEffect(() => {
     if (!enabled) return;
 
+    // Wait for refs to be attached
+    const firstNode = typeof first === "string" ? document.querySelector(first) : first?.current;
+    const secondNode = second ? (typeof second === "string" ? document.querySelector(second) : second?.current) : null;
+    const triggerNode = typeof trigger === "string" ? document.querySelector(trigger) : trigger?.current;
+    if (!firstNode || !triggerNode) return;
+
     mounted.current = true;
 
     let splitFirst: SplitText | null = null;
@@ -45,24 +51,19 @@ export function useSplitTextHeadingAnimation({
 
       tl = gsap.timeline({
         scrollTrigger: {
-          trigger: typeof trigger === "string" ? trigger : trigger.current,
+          trigger: triggerNode,
           start: "top 85%",
           end: "bottom 0%",
           toggleActions: "play none none none",
-          // toggleActions: "play reverse play reverse",
         },
       });
 
       st = tl.scrollTrigger as ScrollTrigger;
 
       // FIRST TEXT
-      if (first) {
-        const split = new SplitText(
-          typeof first === "string" ? first : first.current,
-          { type: "lines", linesClass: "line" }
-        );
+      if (firstNode) {
+        const split = new SplitText(firstNode, { type: "lines", linesClass: "line" });
         splitFirst = split;
-
         tl.from(
           split.lines,
           {
@@ -77,13 +78,9 @@ export function useSplitTextHeadingAnimation({
       }
 
       // SECOND TEXT
-      if (second) {
-        const split = new SplitText(
-          typeof second === "string" ? second : second.current,
-          { type: "lines", linesClass: "line" }
-        );
+      if (secondNode) {
+        const split = new SplitText(secondNode, { type: "lines", linesClass: "line" });
         splitSecond = split;
-
         tl.from(
           split.lines,
           {
@@ -108,7 +105,6 @@ export function useSplitTextHeadingAnimation({
       tl?.kill();
       st?.kill();
     };
-
-    // only rerun when enabled changes
-  }, [enabled, delay]);
+    // rerun when enabled, delay, or DOM nodes change
+  }, [enabled, delay, first, second, trigger, (typeof first === "string" ? undefined : first?.current), (typeof second === "string" ? undefined : second?.current), (typeof trigger === "string" ? undefined : trigger?.current)]);
 }
