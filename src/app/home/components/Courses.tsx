@@ -65,7 +65,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
             <div className="flex items-center gap-2">
               <div className="text-(--white-custom)">
                 {/* <Paragraph size='xl' className="font-semibold ">Description: </Paragraph>{" "} */}
-                <Paragraph size='base' className=" text-justify leading-relaxed">{stripHtmlAndTrim(course.description)}</Paragraph>
+                <Paragraph size='base' className=" text-justify leading-relaxed ">{stripHtmlAndTrim(course.description)}</Paragraph>
               </div>
             </div>
             <div className="flex items-center gap-2 mt-5">

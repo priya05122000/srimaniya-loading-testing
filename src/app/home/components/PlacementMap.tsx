@@ -136,7 +136,33 @@ const PlacementCard: React.FC<Placement> = ({
 );
 
 const PlacementMap = () => {
-  const parentRef = useRef<HTMLDivElement | null>(null); // Add parent ref
+  const [placements, setPlacements] = useState<Placement[]>([]);
+  const { setLoading } = useGlobalLoader();
+
+  // SplitText animation refs
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const headingRefDesktop = useRef<HTMLHeadingElement | null>(null);
+  const paragraphRefDesktop = useRef<HTMLParagraphElement | null>(null);
+
+  // Mobile animation
+  useSplitTextHeadingAnimation({
+    trigger: parentRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
+    enabled: placements.length > 0,
+  });
+  // Desktop animation
+  useSplitTextHeadingAnimation({
+    trigger: parentRef,
+    first: paragraphRefDesktop,
+    second: headingRefDesktop,
+    delay: 0.3,
+    enabled: placements.length > 0,
+  });
+
   const horizontalScrollRef = useRef<HTMLDivElement>(null);
   const horizontalWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -186,16 +212,6 @@ const PlacementMap = () => {
     { scope: horizontalScrollRef } // ✅ Scoped only to this component
   );
 
-  // Enable split text animation for headings
-  useSplitTextHeadingAnimation({
-    trigger: parentRef,
-    first: ".placement-title",
-    second: ".connecting-title",
-  });
-
-  const [placements, setPlacements] = useState<Placement[]>([]);
-  const { setLoading } = useGlobalLoader();
-
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -223,16 +239,18 @@ const PlacementMap = () => {
     <div ref={parentRef} className="relative">
       {/* Mobile version */}
       <div className="block sm:hidden">
-        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center p-6">
+        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center py-10 px-6">
           <div className="relative z-10 ">
             <div className="mb-10 sm:mb-14">
               <Paragraph
+                ref={paragraphRef}
                 size="lg"
                 className="text-(--blue) font-bold placement-title"
               >
                 Our Placement
               </Paragraph>
               <Heading
+                ref={headingRef}
                 level={4}
                 className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
               >
@@ -310,12 +328,14 @@ const PlacementMap = () => {
               <div className="relative z-10 pl-6 sm:pl-8">
                 <div className="mb-10">
                   <Paragraph
+                    ref={paragraphRefDesktop}
                     size="lg"
                     className="text-(--blue) font-bold placement-title"
                   >
                     Our Placement
                   </Paragraph>
                   <Heading
+                    ref={headingRefDesktop}
                     level={4}
                     className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
                   >
