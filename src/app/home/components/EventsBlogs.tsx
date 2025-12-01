@@ -67,7 +67,7 @@ const getVideoSources = (videoUrl: string) => {
 // BlogCard: Reusable blog card for Swiper
 const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ blog, idx, onClick }) => (
   <div className="overflow-hidden mx-auto relative cursor-pointer" onClick={onClick}>
-    <div className="w-full h-[350px] aspect-3/2 sm:aspect-auto">
+    <div className="w-full h-[300px] aspect-3/2 sm:aspect-auto">
       {blog.video_url ? (
         <video autoPlay loop muted className="w-full h-full object-cover">
           {getVideoSources(blog.video_url)}
@@ -92,7 +92,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
         </Paragraph> */}
 
         <Paragraph size="base" className="mb-1 font-medium leading-relaxed">
-          {blog.sub_title.length > 30 ? blog.sub_title.slice(0, 30) + '...' : blog.sub_title}
+          {blog.sub_title.length > 20 ? blog.sub_title.slice(0, 20) + '...' : blog.sub_title}
         </Paragraph>
         <div className="flex items-baseline">
           <span className="font-bold text-xs">
@@ -165,16 +165,16 @@ const EventsBlogs: React.FC = () => {
           <Swiper
             modules={[Navigation, Autoplay]}
             spaceBetween={16}
-            slidesPerView={4}
+            slidesPerView={5}
             loop
             grabCursor={true}
             navigation={navigation}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             breakpoints={{
               0: { slidesPerView: 1 },
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 },
+              640: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+              1280: { slidesPerView: 5 },
             }}
           >
             {blogs.map((blog, idx) => (

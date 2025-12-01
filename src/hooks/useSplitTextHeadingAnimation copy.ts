@@ -80,7 +80,7 @@ export function useSplitTextHeadingAnimation({
       if (second) {
         const split = new SplitText(
           typeof second === "string" ? second : second.current,
-          { type: "lines", linesClass: "line" }
+          { type: "lines, words", linesClass: "line" }
         );
         splitSecond = split;
 

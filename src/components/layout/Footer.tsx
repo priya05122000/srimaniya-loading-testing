@@ -103,11 +103,11 @@ const Footer = () => {
     return (
         <footer
             id="footer"
-            className="bg-(--blue) text-(--white-custom) min-h-screen relative"
+            className="bg-(--blue)  text-(--white-custom) min-h-screen relative"
             data-section
         >
             {/* Decorative image behind */}
-            <div className="absolute bottom-0 left-0 z-0 pointer-events-none">
+            <div className="absolute bottom-0 left-0 z-0 pointer-events-none ">
                 <Image
                     src="/designs/M.png"
                     alt="Sri Maniya Institute Decorative Design"
@@ -163,7 +163,7 @@ const Footer = () => {
                                         <ul>
                                             {CONTACTS1.map((item, idx) => (
                                                 <li key={idx} className="my-3 text-(--white-custom)">
-                                                    <Span>{item}</Span>
+                                                    <span className="text-xs">{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -179,7 +179,7 @@ const Footer = () => {
                                                     key={idx}
                                                     className="my-3 text-(--white-custom) xl:w-[80%]"
                                                 >
-                                                    <Span>{item}</Span>
+                                                    <span className="text-xs">{item}</span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -193,7 +193,7 @@ const Footer = () => {
                                             {courses.map((item) => (
                                                 <li key={item.id} className="my-3 text-(--white-custom)">
                                                     <Link href={`/courses?course=${item.id}`}>
-                                                        <Span>{item.title}</Span>
+                                                        <span className="text-xs">{item.title}</span>
                                                     </Link>
                                                 </li>
                                             ))}
@@ -208,11 +208,11 @@ const Footer = () => {
                                         <ul>
                                             {NAV_EXPLORE.map((item) => (
                                                 <li key={item.label} className="my-3 text-(--white-custom)">
-                                                    <Span>
+                                                    <span className="text-xs">
                                                         <Link href={item.href}>
                                                             {item.label}
                                                         </Link>
-                                                    </Span>
+                                                    </span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -303,7 +303,7 @@ const Footer = () => {
 
                         {/* Bottom Bar */}
                         <div className="flex flex-col md:flex-row items-start justify-between  my-12 xl:my-16 pb-10 border-b border-(--black-custom)  gap-2 w-full">
-                            <Span className="text-start  ">
+                            <span className="text-start text-xs ">
                                 Copyright ©2025 srimaniya institute, All Rights Reserved.
                                 <br />
                                 <Link href="/privacy-policy" className="underline ">
@@ -312,8 +312,8 @@ const Footer = () => {
                                 <Link href="/terms-and-conditions" className="underline">
                                     Terms & Conditions
                                 </Link>
-                            </Span>
-                            <Span>
+                            </span>
+                            <span className="text-xs">
                                 Powered by{" "}
                                 <Link
                                     href="https://izhtech.com/"
@@ -322,7 +322,7 @@ const Footer = () => {
                                 >
                                     Izhtech Creative Solutions
                                 </Link>
-                            </Span>
+                            </span>
                         </div>
                     </div>
                 </Section>

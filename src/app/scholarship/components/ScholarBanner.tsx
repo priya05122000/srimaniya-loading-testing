@@ -13,7 +13,7 @@ import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 // Reusable constants
-const BANNER_IMAGE = "/scholarship/scholarship-banner.png";
+const BANNER_IMAGE = "/scholarship/scholarship-banner.jpeg";
 const BANNER_HEADING = "₹51 Lakh Worth of Scholarships Awarded to Deserving Students";
 const GRADIENT_OVERLAY = {
     background: "linear-gradient(to bottom, rgba(0,0,0,0) 30%, #0b2351 100%)",

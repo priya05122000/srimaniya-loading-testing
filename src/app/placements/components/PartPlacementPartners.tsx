@@ -69,34 +69,37 @@ const PartPlacementPartners = () => {
 
   return (
     <div className="partners-bg" ref={partnersRef}>
-      <Section className="py-10 sm:py-20">
-        <Heading
-          ref={headingRef}
-          level={4}
-          className="text-(--blue) uppercase our-recruitment-partners leading-tight"
-        >
-          Our recruitment partners
-        </Heading>
-        <div className="grid grid-cols-1 sm:gap-10 pt-10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-10 w-full h-auto">
-            {scrollingPartners.map((partner, i) => (
-              <div
-                className="relative overflow-hidden flex p-2 items-center justify-center bg-(--white-custom) shadow-2xl border border-blue-custom"
-                key={i}
-              >
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${partner.logo_url}`}
-                  alt={partner.name}
-                  className="object-contain image-tag h-32 w-32 cursor-pointer"
-                  loading="lazy"
-                  width={120}
-                  height={120}
-                // onClick={handleClick(partner.website_url)}
-                />
-              </div>
-            ))}
+      <Section className="py-10 sm:py-20  ">
+        <div className="px-20">
+          <Heading
+            ref={headingRef}
+            level={4}
+            className="text-(--blue) uppercase our-recruitment-partners leading-tight"
+          >
+            Our recruitment partners
+          </Heading>
+          <div className="grid grid-cols-1 sm:gap-10 pt-10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-10 w-full h-auto">
+              {scrollingPartners.map((partner, i) => (
+                <div
+                  className="relative overflow-hidden flex p-2 items-center justify-center bg-(--white-custom) shadow-2xl border border-blue-custom"
+                  key={i}
+                >
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${partner.logo_url}`}
+                    alt={partner.name}
+                    className="object-contain image-tag h-32 w-32 cursor-pointer"
+                    loading="lazy"
+                    width={120}
+                    height={120}
+                  // onClick={handleClick(partner.website_url)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
       </Section>
     </div>
   );

@@ -48,27 +48,27 @@ const CourseRow: FC<CourseRowProps> = ({
       </div>
       {highlight && id !== undefined ? (
         <div className="flex items-baseline justify-center gap-2 ">
-          <Heading level={5} className="text-(--dark) flex items-center justify-center">
+          <Paragraph size="xl"  className="text-(--dark) flex items-center font-bold justify-center">
             {id.toString().padStart(2, "0")}
-          </Heading>
-          <Paragraph size="xl" className="text-(--dark) flex items-center justify-center font-bold">
+          </Paragraph>
+          <Paragraph size="lg" className="text-(--dark) flex items-center justify-center font-bold">
             Course
           </Paragraph>
         </div>
       ) : (
-        <Paragraph size="xl" className="text-(--dark) font-bold">
+        <Paragraph size="lg" className="text-(--dark) font-bold">
           {label}
         </Paragraph>
       )}
     </td>
     <td className="text-(--dark) pl-8 border-l border-(--grey-custom) py-10  ">
       {highlight && title && duration ? (
-        <Heading level={6} className="text-(--dark) md:w-[75%] xl:w-[80%] ">
+        <Paragraph size="xl"  className="text-(--dark) font-bold md:w-[75%] xl:w-[80%] ">
           {title}
           <span className="text-(--grey-light-custom) text-xl font-normal">
             &nbsp;- ({duration})
           </span>
-        </Heading>
+        </Paragraph>
       ) : (
         children
       )}

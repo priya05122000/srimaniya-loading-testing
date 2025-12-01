@@ -83,7 +83,7 @@ const OurStory: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-[auto_2fr] gap-0 h-full">
         {/* Left: Image */}
         <div
-          className="flex items-center justify-center sm:w-[110%] lg:w-[106%] xl:w-[104%] z-10 h-full"
+          className="flex items-center justify-center sm:w-[110%] lg:w-[106%] xl:w-[110%] z-10 h-full"
         >
           <Image
             src="/about-us/ourstory-old.jpg"
@@ -95,7 +95,7 @@ const OurStory: React.FC = () => {
         </div>
         {/* Right: Content */}
         <div
-          className="bg-(--blue) text-(--white-custom) flex flex-col justify-around py-10  pl-6 sm:pl-16 pr-6 sm:pr-8 space-y-6"
+          className="bg-(--blue) text-(--white-custom) flex flex-col justify-around py-10  pl-6 sm:pl-20 pr-6 sm:pr-20 space-y-6"
           data-section
         >
           <Heading

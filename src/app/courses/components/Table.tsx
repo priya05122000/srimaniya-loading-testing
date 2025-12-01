@@ -64,7 +64,7 @@ const Table = () => {
           ].join(" ");
           return (
             <div className={borderClasses} key={key}>
-              <Heading level={6} className="text-white py-4">{label}</Heading>
+              <Paragraph size="xl" className="text-white py-4 font-bold">{label}</Paragraph>
               {filteredCourses.length === 0 ? (
                 <Paragraph size="base" className="text-(--grey)">No courses found.</Paragraph>
               ) : (

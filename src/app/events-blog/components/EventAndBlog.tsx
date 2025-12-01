@@ -148,9 +148,10 @@ const EventAndBlog: React.FC = () => {
                                     </div>
 
                                     <div className="pt-3  z-10 relative text-(--blue)">
-                                        <Paragraph size="xl" className="mb-3 font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug" onClick={() => handleBlogClick(blog.id)}>{blog.sub_title}</Paragraph>
+                                        <Paragraph size="lg" className="mb-3 font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug" onClick={() => handleBlogClick(blog.id)}>{blog.sub_title}</Paragraph>
 
                                         <span
+                                            className="text-sm"
                                             dangerouslySetInnerHTML={{
                                                 __html:
                                                     blog.description

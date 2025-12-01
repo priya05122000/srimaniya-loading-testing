@@ -9,6 +9,7 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 import { getAllJobs } from "@/services/jobService";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import Span from "@/components/common/Span";
 
 // Reusable constants
 const CAREER_IMAGE = "/career/career.jpg";
@@ -56,18 +57,15 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
     <div>
       <div className="flex justify-between border-y border-(--grey-custom) py-3">
         <div className="flex flex-col">
-          <Heading
-            level={6}
+          <Paragraph
+            size="xl"
             className="text-(--dark) font-semibold"
           >
             {String(index + 1).padStart(2, "0")}. {job.title}
-          </Heading>
-          <Paragraph
-            size="base"
-            className="text-(--dark) font-semibold mt-1"
-          >
-            {job.openings} Openings | {job.experience_years} Years Experience
           </Paragraph>
+          <Span className="text-(--dark) font-semibold mt-1">
+            {job.openings} Openings | {job.experience_years} Years Experience
+          </Span>
         </div>
         <div className="flex justify-end items-end mt-4">
           <button
@@ -80,7 +78,7 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
         </div>
       </div>
       <div
-        className="text-(--dark) mt-3 text-base text-justify leading-relaxed"
+        className="text-(--dark) mt-3 text-sm text-justify leading-relaxed"
         dangerouslySetInnerHTML={{ __html: job.description }}
       />
     </div>

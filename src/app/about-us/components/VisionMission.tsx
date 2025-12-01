@@ -79,14 +79,14 @@ const VisionMission: FC = () => {
         <div className="py-10 sm:py-20 space-y-10 lg:space-y-20 lg:px-20">
           <InfoBlock
             title="01  Vision"
-            imageUrl="/about-us/vision.png"
+            imageUrl="/about-us/vision.jpeg"
             htmlContent={siteInfo?.vision || ""}
             headingOrderClass="text-start sm:text-end sm:order-2 order-1"
             contentOrderClass="sm:order-1 order-2"
           />
           <InfoBlock
             title="02  Mission"
-            imageUrl="/about-us/mission.png"
+            imageUrl="/about-us/mission.jpeg"
             htmlContent={siteInfo?.mission || ""}
           />
         </div>

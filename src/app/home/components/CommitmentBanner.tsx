@@ -62,14 +62,14 @@ const CommitmentBanner = () => {
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const splitTextTriggerRef = useRef<HTMLDivElement | null>(null);
 
-  // Add split text animation for heading and paragraph
   useSplitTextHeadingAnimation({
-    trigger: bannerRef,
-    first: headingRef,
-    second: paragraphRef,
+    trigger: splitTextTriggerRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
     enabled: true,
-    delay: 0.5,
   });
 
   useEffect(() => {
@@ -107,14 +107,15 @@ const CommitmentBanner = () => {
 
   return (
     <div ref={bannerRef}>
-      <div className="w-full relative mb-15 lg:mb-28 flex flex-col">
+      <div className="w-full relative mb-15 lg:mb-28 flex flex-col" ref={splitTextTriggerRef}>
         <div className="bg-(--blue) px-6 sm:px-8 py-10 flex flex-col items-end" data-section>
-          <Heading ref={headingRef} level={4} className="text-(--white-custom) text-right leading-tight commitment-title uppercase ">
-            Our commitment to build your trust
-          </Heading>
+
           <Paragraph ref={paragraphRef} size="lg" className="msg-text-scroll text-end mt-1">
             Sri Maniya Institute of Hotel Management
           </Paragraph>
+          <Heading ref={headingRef} level={4} className="text-(--white-custom) text-right leading-tight commitment-title uppercase ">
+            Our commitment to build your trust
+          </Heading>
         </div>
         <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
           {features.map((feature, idx) => (

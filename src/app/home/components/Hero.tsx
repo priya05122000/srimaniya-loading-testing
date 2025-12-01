@@ -119,14 +119,25 @@ const Hero: React.FC<HeroProps> = ({ hideLogo = false }) => {
                         <SwiperSlide key={idx}>
                             <div className="bg-(--blue) grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-[95vh] sm:h-[calc(100vh-80px)]" data-section>
                                 <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
-                                    <Image
-                                        src={imageSrc}
-                                        alt={banner.title}
-                                        fill
-                                        className="object-cover image-tag object-top"
-                                        priority
-                                        onLoadingComplete={() => setLoading(false)}
-                                    />
+                                    <picture>
+                                        <source
+                                            media="(max-width: 639px)"
+                                            srcSet={`${baseUrl}/files/${banner.image_phone}`}
+                                        />
+                                        <source
+                                            media="(max-width: 1023px)"
+                                            srcSet={`${baseUrl}/files/${banner.image_tab}`}
+                                        />
+                                        <Image
+                                            src={`${baseUrl}/files/${banner.image_desktop}`}
+                                            alt={banner.title}
+                                            fill
+                                            className="object-cover image-tag object-top"
+                                            priority
+                                            onLoadingComplete={() => setLoading(false)}
+                                            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
+                                        />
+                                    </picture>
                                     {/* Overlay container positioned at bottom-right */}
                                     <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
                                         <div data-section className="absolute inset-0 bg-(--blue-overlay-medium) -z-10 rounded-lg" />

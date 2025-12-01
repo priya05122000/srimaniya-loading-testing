@@ -25,7 +25,8 @@ type Course = {
 
 // --- Utility Functions ---
 const stripHtmlAndTrim = (html: string, wordLimit: number = 50): string => {
-  const text = html.replace(/<[^>]+>/g, " ");
+  // Remove HTML tags and &nbsp; entities
+  const text = html.replace(/<[^>]+>/g, " ").replace(/&nbsp;/gi, " ");
   const words = text.split(/\s+/).filter(Boolean);
   const trimmed = words.slice(0, wordLimit).join(" ");
   return trimmed + (words.length > wordLimit ? "..." : "");
@@ -43,33 +44,33 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
     className={`sticky-card h-full bg-(--blue) z-[${idx + 1}] ${idx === total - 1 ? "pb-16" : ""} ${idx === total - 2 ? "fifth-card" : ""}`}
     data-section
   >
-    <div className={`w-full h-full flex flex-col md:flex-row items-start md:items-center gap-8 ${idx !== total - 1 ? "border-b border-(--grey-custom)" : ""}`}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_2fr] xl:grid-cols-[1.5fr_3fr] w-full">
+    <div className={`w-full h-full flex flex-col md:flex-row items-start md:items-center  ${idx !== total - 1 ? "border-b border-(--grey-custom)" : ""}`}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_2fr] xl:grid-cols-[1.5fr_3fr] w-full ">
         {/* Left section */}
         <div className="flex flex-col items-start gap-4 sm:border-r border-(--grey-custom) py-8 pr-5">
           <div className="flex items-start" >
             <hr className="w-10 min-w-12 border-t border-(--grey-custom) mt-3 mr-3" />
             <div>
               <div className="flex items-start gap-2">
-                <Paragraph size="xl" className="font-bold text-(--yellow)">{String(idx + 1).padStart(2, "0")}</Paragraph>
-                <Paragraph size="xl" className="font-bold text-(--white-custom) ">{course.title}</Paragraph>
+                <Paragraph size="lg" className="font-bold text-(--yellow)">{String(idx + 1).padStart(2, "0")}</Paragraph>
+                <Paragraph size="lg" className="font-bold text-(--white-custom) ">{course.title}</Paragraph>
               </div>
               <Span className="border border-(--yellow) text-(--yellow) rounded-full px-4 py-1 mt-4 inline-block">{course.duration}</Span>
             </div>
           </div>
         </div>
         {/* Right section */}
-        <div className="flex flex-col gap-2 sm:pl-6 py-8 ">
-          <div className="w-full xl:w-2xl">
+        <div className="flex flex-col gap-2 sm:pl-6 py-8">
+          <div className="w-full">
             <div className="flex items-center gap-2">
               <div className="text-(--white-custom)">
-                <Paragraph size='xl' className="font-semibold ">Description: </Paragraph>{" "}
-                <Paragraph size='base' className="mt-4 text-justify leading-relaxed">{stripHtmlAndTrim(course.description)}</Paragraph>
+                {/* <Paragraph size='xl' className="font-semibold ">Description: </Paragraph>{" "} */}
+                <Paragraph size='base' className=" text-justify leading-relaxed">{stripHtmlAndTrim(course.description)}</Paragraph>
               </div>
             </div>
             <div className="flex items-center gap-2 mt-5">
               <div className="text-(--white-custom) text-lg sm:text-xl lg:text-2xl">
-                <Paragraph size='xl' className="font-semibold ">Eligibility: </Paragraph>{" "}
+                <Paragraph size='lg' className="font-semibold ">Eligibility: </Paragraph>{" "}
                 <p className="text-base mt-4 text-justify leading-relaxed" dangerouslySetInnerHTML={{ __html: course.eligibility }} />
               </div>
             </div>
@@ -173,21 +174,24 @@ const Courses: React.FC = () => {
     <div ref={coursesRef}>
       <div className="bg-(--blue) relative py-10 sm:py-20" data-section>
         <Section>
-          {/* Header */}
-          <div className="mb-12 text-end">
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">
-              Courses
-            </Paragraph>
-            <Heading ref={headingRef} level={4} className="text-(--white-custom) mt-1 leading-tight uppercase  courses-academic-title">
-              Our Academic <br /> Programs
-            </Heading>
+          <div className='px-20'>
+            {/* Header */}
+            <div className="mb-12 text-end">
+              <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">
+                Courses
+              </Paragraph>
+              <Heading ref={headingRef} level={4} className="text-(--white-custom) mt-1 leading-tight uppercase  courses-academic-title">
+                Our Academic <br /> Programs
+              </Heading>
+            </div>
+            {/* Sticky Overlap Cards */}
+            <div className="relative">
+              {courses.map((course, idx) => (
+                <CourseCard key={course.id} course={course} idx={idx} total={courses.length} />
+              ))}
+            </div>
           </div>
-          {/* Sticky Overlap Cards */}
-          <div className="relative">
-            {courses.map((course, idx) => (
-              <CourseCard key={course.id} course={course} idx={idx} total={courses.length} />
-            ))}
-          </div>
+
         </Section>
       </div>
     </div>

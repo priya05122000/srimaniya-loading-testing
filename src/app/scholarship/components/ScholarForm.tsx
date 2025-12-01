@@ -51,7 +51,7 @@ const INITIAL_FORM_DATA: FormData = {
   agree: false,
 };
 const IMAGE_PROPS = {
-  src: "/scholarship/scholarform.png",
+  src: "/scholarship/scholarform.jpeg",
   alt: "Scholarship Banner",
   fill: true,
   sizes: "(max-width: 768px) 100vw, 50vw",
