@@ -22,6 +22,7 @@ const ApplyNow: React.FC = () => {
     resume: null as File | null,
     agree: false,
   });
+  const [fileUploaderKey, setFileUploaderKey] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked, files } = e.target;
@@ -83,6 +84,9 @@ const ApplyNow: React.FC = () => {
       if (fileInputRef.current) {
         fileInputRef.current.value = ""; // Reset file input visually
       }
+      // Also reset file name display in FileUploaderField
+      // This requires a key prop to force re-mount
+      setFileUploaderKey(prev => prev + 1);
     } catch (error: unknown) {
       if (
         error &&
@@ -157,6 +161,7 @@ const ApplyNow: React.FC = () => {
                 required
               />
               <FileUploaderField
+                key={fileUploaderKey}
                 label="Upload Resume"
                 name="resume"
                 onChange={handleChange}
