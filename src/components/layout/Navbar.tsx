@@ -10,7 +10,6 @@ import Image from "next/image";
 import { GoDownload } from "react-icons/go";
 import { toast } from "react-toastify";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";
 
@@ -87,7 +86,6 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
     const [showBrochureModal, setShowBrochureModal] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState<FormData>(initialForm);
-    const { setLoading } = useGlobalLoader();
 
     const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
@@ -99,7 +97,6 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
-        setLoading(true);
         const { StudentName, StudentPhone } = form;
         const brochureName = `(brochure) ${StudentName}`;
         try {
@@ -145,7 +142,6 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
             toast.error("Failed to submit the form. Please try again.");
         } finally {
             setSubmitting(false);
-            setLoading(false);
         }
     };
 
