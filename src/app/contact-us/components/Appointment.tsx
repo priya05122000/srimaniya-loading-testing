@@ -14,7 +14,6 @@ import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 // --- Types ---
@@ -55,18 +54,18 @@ CompanyInfo.displayName = "CompanyInfo";
 
 const AppointmentFormFields: React.FC<AppointmentFormFieldsProps> = React.memo(({ formData, handleChange }) => (
   <>
-    <InputField type="text" label="Name" name="name" value={formData.name} onChange={handleChange} required />
+    <InputField type="text" label="Name *" name="name" value={formData.name} onChange={handleChange} required />
     <InputField type="email" label="Email" name="email" value={formData.email} onChange={handleChange} />
-    <InputField type="tel" label="Mobile number" name="mobile" value={formData.mobile} onChange={handleChange} required />
+    <InputField type="tel" label="Mobile number *" name="mobile" value={formData.mobile} onChange={handleChange} required />
     <TextAreaField label="Message" name="message" rows={3} value={formData.message} onChange={handleChange} />
     <CheckboxField label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy." name="agree" checked={formData.agree} onChange={handleChange} />
   </>
 ));
 AppointmentFormFields.displayName = "AppointmentFormFields";
 
-const SubmitButton: React.FC<{ label?: string }> = React.memo(({ label = "Submit" }) => (
-  <button type="submit" className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]">
-    <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">{label}</span>
+const SubmitButton: React.FC<{ label?: string; loading?: boolean }> = React.memo(({ label = "Submit", loading }) => (
+  <button type="submit" disabled={loading} className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]">
+    <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">{loading ? "Submitting..." : label}</span>
     <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
   </button>
 ));
@@ -77,7 +76,8 @@ const MobileLayout: React.FC<{
   formData: FormData;
   handleChange: AppointmentFormFieldsProps["handleChange"];
   handleSubmit: (e: React.FormEvent) => void;
-}> = ({ formData, handleChange, handleSubmit }) => {
+  loading: boolean;
+}> = ({ formData, handleChange, handleSubmit, loading }) => {
   // SplitText animation for mobile headings
   const headingRef = useRef<HTMLHeadingElement>(null);
   useSplitTextHeadingAnimation({
@@ -109,7 +109,7 @@ const MobileLayout: React.FC<{
         <form onSubmit={handleSubmit} className="space-y-4 w-full px-6">
           <AppointmentFormFields formData={formData} handleChange={handleChange} />
           <div className="flex justify-end">
-            <SubmitButton />
+            <SubmitButton loading={loading} />
           </div>
         </form>
       </section>
@@ -146,7 +146,8 @@ const DesktopLayout: React.FC<{
   formData: FormData;
   handleChange: AppointmentFormFieldsProps["handleChange"];
   handleSubmit: (e: React.FormEvent) => void;
-}> = ({ formData, handleChange, handleSubmit }) => (
+  loading: boolean;
+}> = ({ formData, handleChange, handleSubmit, loading }) => (
   <div className="hidden md:block">
     {/* Map */}
     <section className="layer-section flex justify-center items-center h-[calc(100vh-80px)]">
@@ -166,7 +167,7 @@ const DesktopLayout: React.FC<{
       <form onSubmit={handleSubmit} className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8">
         <AppointmentFormFields formData={formData} handleChange={handleChange} />
         <div className="flex justify-end">
-          <SubmitButton />
+          <SubmitButton loading={loading} />
         </div>
       </form>
     </section>
@@ -199,8 +200,8 @@ const DesktopLayout: React.FC<{
 const Appointment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState<FormData>({ name: "", email: "", mobile: "", message: "", agree: false });
-  const { setLoading: setGlobalLoading } = useGlobalLoader();
   const [mounted, setMounted] = useState(false);
+  const [localLoading, setLocalLoading] = useState(false); // Add local loading state
 
   // Mount state for SSR/CSR safety
   useEffect(() => { setMounted(true); }, []);
@@ -243,8 +244,11 @@ const Appointment: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.agree) { alert("You must agree to the terms before submitting."); return; }
-    setGlobalLoading(true);
+    if (!formData.agree) {
+      toast.error("You must agree to the terms and conditions.");
+      return;
+    }
+    setLocalLoading(true); // Set local loading
     try {
       const payload = { name: formData.name, email: formData.email || null, phone_number: formData.mobile, message: formData.message || null };
       await createAppoinmentRequest(payload);
@@ -254,15 +258,15 @@ const Appointment: React.FC = () => {
       const errorMessage = error instanceof Error ? error.message : "Failed to submit enquiry.";
       toast.error(errorMessage);
     } finally {
-      setGlobalLoading(false);
+      setLocalLoading(false); // Unset local loading
     }
   };
 
   // --- Render ---
   return (
     <div ref={containerRef} className="w-full">
-      <MobileLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
-      <DesktopLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+      <MobileLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={localLoading} />
+      <DesktopLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={localLoading} />
     </div>
   );
 };

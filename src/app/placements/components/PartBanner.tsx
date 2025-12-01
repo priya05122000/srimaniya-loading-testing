@@ -85,6 +85,7 @@ export default function PartBanner() {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
   const [formData, setFormData] = useState(FORM_INITIAL_STATE);
+  const [localLoading, setLocalLoading] = useState(false);
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -148,6 +149,7 @@ export default function PartBanner() {
       toast.error("You must agree to the terms and conditions.");
       return;
     }
+    setLocalLoading(true);
     const payload = {
       name: formData.name,
       email: formData.email || null,
@@ -182,6 +184,8 @@ export default function PartBanner() {
         toast.error("Submission failed.");
         console.error("Application error:", error);
       }
+    } finally {
+      setLocalLoading(false);
     }
   };
 
@@ -246,10 +250,11 @@ export default function PartBanner() {
           <form className="flex flex-col 2xl:gap-y-2" onSubmit={handleSubmit}>
             <InputField
               type="text"
-              label="Name"
+              label="Name *"
               name="name"
               value={formData.name}
               onChange={handleChange}
+              required
             />
             <InputField
               type="email"
@@ -260,10 +265,11 @@ export default function PartBanner() {
             />
             <InputField
               type="tel"
-              label="Mobile number"
+              label="Mobile number *"
               name="mobile"
               value={formData.mobile}
               onChange={handleChange}
+              required
             />
             <SelectField
               label="Course"
@@ -293,9 +299,10 @@ export default function PartBanner() {
                 <button
                   type="submit"
                   className="relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
+                  disabled={localLoading}
                 >
                   <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
-                    Submit
+                    {localLoading ? "Submitting..." : "Submit"}
                   </span>
                   <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                 </button>
