@@ -5,6 +5,7 @@ import Script from "next/script";
 import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
 import GlobalLoader from "@/components/GlobalLoader";
 import AnalyticsListener from "./analytics-listener";
+import { Suspense } from "react";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -47,7 +48,9 @@ export default function RootLayout({
       </head>
 
       <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
-        <AnalyticsListener /> {/* ⬅️ PAGE TRACKING HERE */}
+        <Suspense fallback={null}>
+          <AnalyticsListener />
+        </Suspense>
 
         <GlobalLoaderProvider>
           <GlobalLoader />

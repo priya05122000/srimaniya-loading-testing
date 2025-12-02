@@ -3,8 +3,8 @@ import nextVitals from "eslint-config-next/core-web-vitals.js";
 import nextTs from "eslint-config-next/typescript.js";
 
 const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
+  nextVitals,
+  nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
-]);
+], {
+  plugins: [], // Explicitly set plugins to empty array to avoid ESLint plugin warning
+});
 
 export default eslintConfig;
