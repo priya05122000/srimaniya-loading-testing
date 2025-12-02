@@ -6,6 +6,7 @@ import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
 import GlobalLoader from "@/components/GlobalLoader";
 import AnalyticsListener from "./analytics-listener";
 import { Suspense } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
           <GlobalLoader />
           <ClientLayout>{children}</ClientLayout>
         </GlobalLoaderProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
