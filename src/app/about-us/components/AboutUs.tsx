@@ -5,7 +5,7 @@ import React from 'react'
 
 const AboutUsImage: React.FC<{ className?: string }> = ({ className }) => (
   <Image
-    src="/about-us/about-us.jpg"
+    src="/about-us/about-us.webp"
     alt="About Us"
     width={1200}
     height={1200}

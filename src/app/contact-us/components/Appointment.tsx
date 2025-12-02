@@ -27,8 +27,8 @@ type AppointmentFormFieldsProps = {
 
 // --- Constants ---
 const COMPANY_LIST: CompanyInfoProps[] = [
-  { logoSrc: "/contact-us/seashore.png", title: "Seashore & co", address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702" },
-  { logoSrc: "/contact-us/gtholidays.png", title: "GT Holidays Pvt LTD", address: "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai – 600006 Tamil Nadu, India." },
+  { logoSrc: "/contact-us/seashore.webp", title: "Seashore & co", address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702" },
+  { logoSrc: "/contact-us/gtholidays.webp", title: "GT Holidays Pvt LTD", address: "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai – 600006 Tamil Nadu, India." },
   { logoSrc: "/contact-us/follicle.webp", title: "Follicle", address: "NO 2/75, Customs Colony, OPP TO JAIN COLLEGE, Omr Service Road Ellaiamman Nagar, Thoraipakkam-600097 (OPP TO JAIN COLLEGE).", logoClassName: "w-32 h-20 flex items-end justify-center flex-shrink-0" },
 ];
 const HOTELS_LIST = "Hotel Sangam | Chennai Inn | Rameshwaram Grand | Temple Citi | AR Residency | Comorin Grand | Hotel Seaview | Hotel Seaface | Ocean Heritage | Triveni Tourist Home | Gopinivas Grand";
@@ -118,7 +118,7 @@ const MobileLayout: React.FC<{
         <div className="w-full">
           <div className="flex flex-col gap-4 h-full">
             <div className="w-full sm:h-40 bg-white flex items-center justify-center mb-4">
-              <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
+              <Image src="/contact-us/contact.webp" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
             </div>
           </div>
         </div>
@@ -176,7 +176,7 @@ const DesktopLayout: React.FC<{
       <div className="h-full w-full">
         <div className="flex flex-row gap-4 md:gap-0 h-full">
           <div className="w-full sm:w-[40%] lg:w-1/2 hidden md:block h-full">
-            <Image src="/contact-us/contact.jpg" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
+            <Image src="/contact-us/contact.webp" alt="Kitchen" width={700} height={700} className="w-full h-full object-cover image-tag" />
           </div>
           <div className="w-full sm:w-[60%] lg:w-1/2 flex flex-col md:justify-end py-8">
             <Heading level={4} className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 leading-tight hidden xl:block">Our Group of <br /> Companies</Heading>

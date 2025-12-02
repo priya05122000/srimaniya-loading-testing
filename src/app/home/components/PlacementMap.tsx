@@ -281,7 +281,7 @@ const PlacementMap = () => {
             {/* Background map */}
             <div className="shrink-0 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
-                src="/home/map.png"
+                src="/home/map.webp"
                 alt="Placement Map Background"
                 width={2400}
                 height={1200}

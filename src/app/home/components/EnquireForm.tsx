@@ -74,7 +74,7 @@ const EnquireForm = () => {
         {/* Left: Image */}
         <div className="sm:w-[110%] lg:w-[106%] xl:w-[104%] min-h-[300px]">
           <Image
-            src="/home/enquireform.jpeg"
+            src="/home/enquireform.webp"
             alt="Our Story"
             width={2000}
             height={2000}

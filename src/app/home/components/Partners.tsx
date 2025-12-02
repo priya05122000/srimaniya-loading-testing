@@ -122,16 +122,16 @@ export default function Partners() {
             Explore Our <br /> Placement Partners
           </Heading>
 
-          <div className="brands_list-wrapper relative overflow-hidden mt-10">
+          <div className="brands_list-wrapper relative overflow-hidden mt-10 ">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />
 
             <div className="splide" ref={splideRef}>
               <div className="splide__track">
-                <ul className="splide__list">
+                <ul className="splide__list ">
                   {partners.map((partner, index) => (
                     <li
                       key={index}
-                      className="splide__slide bg-(--white-custom) h-32 shadow-sm flex items-center justify-center"
+                      className="splide__slide bg-(--white-custom) image-partner h-32 shadow-sm flex items-center justify-center"
                     >
                       <Image
                         src={`${baseUrl}/files/${partner.logo_url}`}

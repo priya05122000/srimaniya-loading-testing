@@ -8,7 +8,7 @@ import Image from "next/image";
 import React, { useRef } from "react";
 
 // Reusable constants
-const SCHOLAR_IMAGE = "/scholarship/scholarship.jpeg";
+const SCHOLAR_IMAGE = "/scholarship/scholarship.webp";
 const SCHOLAR_IMAGE_ALT = "Scholarship Banner";
 const SCHOLAR_IMAGE_DIMENSIONS = { width: 600, height: 400 };
 const SCHOLARSHIP_BENEFITS = [

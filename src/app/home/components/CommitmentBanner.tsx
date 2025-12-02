@@ -1,69 +1,100 @@
 "use client";
 
 import React, { useEffect, useRef, memo } from "react";
+import Image from "next/image";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
-import Image from "next/image";
-
-
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
-
-
+// --- Types & Constants ---
 export type Feature = {
   number: string;
   title: string;
 };
 
-// --- Constants ---
 export const features: Feature[] = [
   { number: "01", title: "Internship from Day 1 with stipend" },
   { number: "02", title: "100% Placement Support" },
   { number: "03", title: "Affordable Fees with Flexible Payment Options" },
-  { number: "04", title: "Strong Hotel Legacy Since 1984- career opportunity" },
+  { number: "04", title: "Strong Hotel Legacy Since 1984 - career opportunity" },
 ];
 
-
-
-// --- Reusable Feature Card ---
+// --- Feature Card Components ---
 const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(({ feature, idx }) => (
-  <div
-    className="flex flex-col justify-end items-end bg-cover bg-center relative min-h-[200px] sm:min-h-[250px] overflow-hidden will-change-transform group"
-    style={{ backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')` }}
-  >
+  <div className="min-h-[250px]">
     <div
-      className="absolute inset-0 z-0 transition-all duration-300 group-hover:opacity-0"
-      style={{
-        backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        filter: "blur(10px) brightness(0.8)",
-        transform: "scale(1.05)",
-      }}
-    />
-    <div className="absolute inset-0 z-20 pointer-events-none transition-all duration-300 group-hover:opacity-0 bg-no-repeat bg-[url('/designs/noise.svg')] bg-cover" />
-    <div className="relative z-30 flex flex-col items-end justify-start h-full p-6 sm:p-8 gap-4 text-(--white-custom) w-10/12 lg:w-2/3 group">
-      <div className="transition-all duration-300 ease-in-out rounded-lg">
-        <Heading
-          level={5}
-          className="mb-1 font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
-        >
-          {feature.number}
-        </Heading>
-      </div>
-      <div className="transition-all duration-300 ease-in-out rounded-lg">
-        <Heading
-          level={6}
-          className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg"
-        >
-          {feature.title}
-        </Heading>
+      className="flex flex-col justify-end items-end bg-cover bg-center relative w-full h-full overflow-hidden will-change-transform group"
+      style={{ backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')` }}
+    >
+      <div
+        className="absolute inset-0 z-0 transition-all duration-300 group-hover:opacity-0"
+        style={{
+          backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(10px) brightness(0.8)",
+          transform: "scale(1.05)",
+        }}
+      />
+      <div className="absolute inset-0 z-20 pointer-events-none transition-all duration-300 group-hover:opacity-0 bg-no-repeat bg-[url('/designs/noise.svg')] bg-cover" />
+      <div className="relative z-30 flex flex-col items-end justify-start h-full p-6 sm:p-8 gap-4 text-(--white-custom) w-10/12 lg:w-2/3 group">
+        <div className="transition-all duration-300 ease-in-out rounded-lg">
+          <Heading
+            level={5}
+            className="mb-1 font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
+          >
+            {feature.number}
+          </Heading>
+        </div>
+        <div className="transition-all duration-300 ease-in-out rounded-lg">
+          <Heading
+            level={6}
+            className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg"
+          >
+            {feature.title}
+          </Heading>
+        </div>
       </div>
     </div>
   </div>
 ));
 FeatureCard.displayName = "FeatureCard";
+
+const MobileFeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(({ feature, idx }) => (
+  <div>
+
+    {/* Mobile: Show all features in a single image with a list */}
+    {idx === 0 && (
+      <div className="flex flex-col justify-end items-center bg-cover bg-center relative w-full h-full overflow-hidden will-change-transform group">
+        <div
+          className="absolute inset-0 z-0 transition-all duration-300 group-hover:opacity-0"
+          style={{
+            backgroundImage: `url('/home/commitment-bg-1.webp')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(10px) brightness(0.8)",
+            transform: "scale(1.05)",
+          }}
+        />
+        <div className="absolute inset-0 z-20 pointer-events-none transition-all duration-300 group-hover:opacity-0 bg-no-repeat bg-[url('/designs/noise.svg')] bg-cover" />
+        <div className="relative z-30 flex flex-col justify-center h-full px-6 sm:px-8 pt-10 pb-20 text-(--white-custom) w-full sm:w-2/3 group gap-4">
+          {features.map((f) => (
+            <div
+              key={f.number}
+              className="transition-all duration-300 ease-in-out bg-(--white-custom) border-l-6 border-(--yellow) text-(--blue) mb-2 last:mb-0 px-2 py-1"
+            >
+              <Paragraph size="base" className="font-semibold leading-snug text-start">
+                {f.title}
+              </Paragraph>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+));
+MobileFeatureCard.displayName = "MobileFeatureCard";
 
 // --- Main Component ---
 const CommitmentBanner: React.FC = () => {
@@ -81,7 +112,6 @@ const CommitmentBanner: React.FC = () => {
     delay: 0.3,
     enabled: true,
   });
-
 
   // Rotating Logo Animation
   useEffect(() => {
@@ -127,9 +157,14 @@ const CommitmentBanner: React.FC = () => {
             Our commitment to build your trust
           </Heading>
         </div>
-        <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
+        <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
           {features.map((feature, idx) => (
             <FeatureCard key={feature.number} feature={feature} idx={idx} />
+          ))}
+        </div>
+        <div className="relative grid grid-cols-1 lg:hidden">
+          {features.map((feature, idx) => (
+            <MobileFeatureCard key={feature.number} feature={feature} idx={idx} />
           ))}
         </div>
         <div className="absolute bottom-0 left-6 sm:left-8 lg:left-1/6 translate-x-0 translate-y-1/2 z-30">

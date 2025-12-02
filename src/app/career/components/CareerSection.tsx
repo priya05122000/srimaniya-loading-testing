@@ -12,7 +12,7 @@ import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Span from "@/components/common/Span";
 
 // Reusable constants
-const CAREER_IMAGE = "/career/career.jpg";
+const CAREER_IMAGE = "/career/career.webp";
 const CAREER_IMAGE_PROPS = {
   src: CAREER_IMAGE,
   alt: "About Us",
