@@ -33,7 +33,7 @@ type Flag = {
 
 const flags: Flag[] = [
   {
-    img: "/map/India.png",
+    img: "/map/India.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position:
@@ -41,28 +41,28 @@ const flags: Flag[] = [
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/Singapore.png",
+    img: "/map/Singapore.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[40%] xl:bottom-[36%] right-[18.5%] xl:right-[18%]",
     size: "w-10 h-10 xl:w-12 xl:h-12",
   },
   {
-    img: "/map/dubai.png",
+    img: "/map/dubai.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[40%] lg:top-[40%] left-[60%]",
     size: "w-8 h-8 xl:w-10 xl:h-10",
   },
   {
-    img: "/map/mauritius.png",
+    img: "/map/mauritius.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[25%] lg:bottom-[25%] right-[34%]",
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/maldives.png",
+    img: "/map/maldives.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[55%] lg:top-[55%] right-[29%]",
