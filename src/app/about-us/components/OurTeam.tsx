@@ -114,7 +114,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   }
   // Standard card (desktop)
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden h-[450px]" data-section>
+    <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden " data-section>
       {/* Image */}
       <div
         className={`relative w-full h-[400px] md:h-[450px] ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
