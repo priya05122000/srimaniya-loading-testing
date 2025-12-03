@@ -125,8 +125,9 @@ const CommitmentBanner = () => {
               <Image
                 src="/designs/rotate.svg"
                 alt="Rotating Ring"
-                fill
-                className="object-contain image-tag"
+                width={400}
+                height={400}
+                className="object-contain w-full h-full image-tag"
                 priority
               />
             </div>

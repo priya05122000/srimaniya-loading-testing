@@ -23,7 +23,8 @@ const BlogImageBlock: FC<{
     <Image
       src={src}
       alt={alt}
-      fill
+      width={800}
+      height={800}
       className="object-cover"
       priority={priority}
       sizes="(max-width: 768px) 100vw,

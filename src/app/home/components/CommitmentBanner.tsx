@@ -173,7 +173,8 @@ const CommitmentBanner: React.FC = () => {
               <Image
                 src="/designs/rotate.svg"
                 alt="Rotating Ring"
-                fill
+                width={176}
+                height={176}
                 className="object-contain image-tag"
                 priority
               />

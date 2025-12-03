@@ -131,14 +131,15 @@ export default function Partners() {
                   {partners.map((partner, index) => (
                     <li
                       key={index}
-                      className="splide__slide bg-(--white-custom) image-partner h-32 shadow-sm flex items-center justify-center"
+                      className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
                       <Image
                         src={`${baseUrl}/files/${partner.logo_url}`}
                         alt={partner.name}
                         width={200}
                         height={100}
-                        className="object-contain image-tag h-full p-4 opacity-80 hover:opacity-100 transition"
+                        className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
+                        placeholder="empty"
                       />
                     </li>
                   ))}

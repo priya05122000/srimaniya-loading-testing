@@ -112,9 +112,10 @@ const PlacementCard: React.FC<Placement> = ({
       <Image
         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${flag_img}`}
         alt={name}
-        fill
+        width={80}
+        height={48}
         sizes="(max-width: 768px) 100vw, 80px"
-        className="rounded-md object-cover image-tag"
+        className="rounded-md object-cover image-tag w-full h-full"
       />
     </div>
     <div>
