@@ -33,8 +33,9 @@ export default function GlobalLoader() {
                             <Image
                                 src="/designs/rotate.svg"
                                 alt="Rotating Ring"
-                                fill
-                                className="object-contain"
+                                width={150}
+                                height={150}
+                                className="object-contain w-full h-full image-tag"
                                 priority
                             />
                         </div>

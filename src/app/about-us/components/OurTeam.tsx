@@ -61,7 +61,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           alt={alt || name}
           width={300}
           height={400}
-          className="w-full h-[400px] image-tag sm:h-[450px] object-cover object-top"
+          className="w-full h-[400px] image-tag object-cover object-top"
           priority={priority}
           onLoadingComplete={onLoadingComplete}
         />
@@ -76,7 +76,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         <div
           data-section
           className={
-            `absolute inset-0 bg-(--blue) bg-opacity-90 text-(--white-custom) flex flex-col justify-end border-b border-white/10 h-[400px] sm:h-[450px] transition-opacity duration-300` +
+            `absolute inset-0 bg-(--blue) bg-opacity-90 text-(--white-custom) flex flex-col justify-end border-b border-white/10 h-[400px]  transition-opacity duration-300` +
             (mobile
               ? isOpen
                 ? " opacity-100 pointer-events-auto z-10"
@@ -114,10 +114,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   }
   // Standard card (desktop)
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden h-[450px]" data-section>
+    <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden " data-section>
       {/* Image */}
       <div
-        className={`relative w-full h-[400px] md:h-[450px] ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
+        className={`relative w-full h-[400px] ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${profile_photo_url}`}
