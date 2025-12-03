@@ -168,8 +168,8 @@ const CommitmentBanner: React.FC = () => {
           ))}
         </div>
         <div className="absolute bottom-0 left-6 sm:left-8 lg:left-1/6 translate-x-0 translate-y-1/2 z-30">
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-44 lg:h-44 flex items-center justify-center will-change-transform">
-            <div ref={logoRef} id="rotating-logo" className="absolute inset-0 ">
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-44 lg:h-44 flex items-center justify-center will-change-transform aspect-square">
+            <div ref={logoRef} id="rotating-logo" className="absolute inset-0 aspect-square">
               <Image
                 src="/designs/rotate.svg"
                 alt="Rotating Ring"
@@ -178,7 +178,7 @@ const CommitmentBanner: React.FC = () => {
                 priority
               />
             </div>
-            <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="absolute inset-0 flex items-center justify-center z-10 aspect-square">
               <Image
                 src="/logos/sri-maniya-institute-logo.png"
                 alt="Sri Maniya Institute"

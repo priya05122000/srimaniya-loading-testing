@@ -22,7 +22,7 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
 
 // --- Utility: Masked SVG Overlay (reusable) ---
 const MaskedSVGOverlay: React.FC = () => (
-  <svg className="hidden sm:block absolute inset-0 w-full h-full ">
+  <svg className="hidden sm:block absolute inset-0 w-full h-full aspect-square">
     <defs>
       <pattern id="grid-pattern" width="160" height="80" patternUnits="userSpaceOnUse">
         <image href="/designs/grainy.svg" x="0" y="0" width="160" className="image-tag" height="80" preserveAspectRatio="none" />

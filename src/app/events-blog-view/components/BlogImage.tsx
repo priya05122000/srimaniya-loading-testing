@@ -15,7 +15,7 @@ const BlogImageBlock: FC<{
   priority?: boolean;
 }> = React.memo(({ src, alt, full = true, priority = false }) => (
   <div
-    className={`relative w-full overflow-hidden shadow-md ${full
+    className={`relative w-full overflow-hidden shadow-md aspect-square ${full
       ? "h-64 md:h-80 lg:h-96 xl:h-[450px]"
       : "h-48 md:h-64 lg:h-72 xl:h-80"
       }`}

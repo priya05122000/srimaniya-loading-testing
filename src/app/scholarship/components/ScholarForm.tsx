@@ -208,7 +208,7 @@ const ScholarForm: React.FC = () => {
         </div>
       </div>
       {/* Image Section */}
-      <div className="relative min-h-[300px] md:min-h-0">
+      <div className="relative min-h-[300px] md:min-h-0 aspect-square">
         <Image {...IMAGE_PROPS} />
       </div>
     </div>

@@ -27,7 +27,7 @@ export default function GlobalLoader() {
             <div className="absolute inset-0 bg-[url('/designs/grainy.svg')] bg-cover bg-no-repeat pointer-events-none -z-10 opacity-[0.2]" />
             <div className="flex items-center justify-center min-h-screen">
                 <div className="flex item-center justify-center relative">
-                    <div className="relative w-24 h-24 sm:w-26 sm:h-26 lg:w-34 lg:h-34 flex items-center justify-center">
+                    <div className="relative w-24 h-24 sm:w-26 sm:h-26 lg:w-34 lg:h-34 flex items-center justify-center aspect-square">
                         {/* Rotating SVG */}
                         <div className="absolute inset-0 will-change-transform animate-spin-slow">
                             <Image

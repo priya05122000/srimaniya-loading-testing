@@ -149,7 +149,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
         </div>
 
         {/* IMAGE / VIDEO SECTION */}
-        <div className="relative w-full h-54 md:h-96 lg:h-[400px] xl:h-[450px] overflow-hidden shadow-md">
+        <div className="relative w-full h-54 md:h-96 lg:h-[400px] xl:h-[450px] overflow-hidden shadow-md aspect-square">
           {blog.video_url ? (
             <video autoPlay loop muted className="w-full h-full object-contain">
               <source src={getVideoSrc(blog.video_url)} />

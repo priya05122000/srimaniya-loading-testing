@@ -86,7 +86,7 @@ const Hero = () => {
                         className="bg-(--blue) grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-[95vh] sm:h-[calc(90vh-80px)] hero-wrapper will-change-transform"
                         style={{ transform: "translateZ(0)" }}
                     >
-                        <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
+                        <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full aspect-square">
                             <Image
                                 src={`${baseUrl}/files/${banner.image_desktop}`}
                                 alt={banner.title}

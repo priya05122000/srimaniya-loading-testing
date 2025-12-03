@@ -108,7 +108,7 @@ const PlacementCard: React.FC<Placement> = ({
   placement_count,
 }) => (
   <div className="flex items-center space-x-4 p-4 hover:shadow-sm transition-shadow">
-    <div className="w-20 h-12 relative shrink-0">
+    <div className="w-20 h-12 relative shrink-0 aspect-square">
       <Image
         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${flag_img}`}
         alt={name}
