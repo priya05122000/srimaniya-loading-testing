@@ -300,7 +300,7 @@ const PlacementMap = () => {
             <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center">
               <div>
                 <div className="mb-8">
-                  <Heading level={6} className="text-(--blue) font-bold">
+                  <Heading level={5} className="text-(--blue) font-bold">
                     International Placement
                   </Heading>
                 </div>

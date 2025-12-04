@@ -199,16 +199,16 @@ const AboutStats = () => {
               Study Hotel Management in Tamil Nadu and Build a Global Career
             </Paragraph>
             <div className="text-justify ">
-              <Paragraph size="lg" className="mt-4 text-(--dark) leading-relaxed">
+              <Paragraph size="base" className="mt-4 text-(--dark) leading-relaxed">
                 Recognized as a leading hotel management institute in Tamil Nadu, Sri Maniya Institute equips passionate individuals with strong academics and practical training to become industry-ready professionals.
               </Paragraph>
-              <Paragraph size="lg" className="mt-4 text-(--dark) leading-relaxed">
+              <Paragraph size="base" className="mt-4 text-(--dark) leading-relaxed">
                 <strong>
                   Affiliated with Manonmaniam Sundaranar University and collaborating with Alagappa University
                 </strong>
                 , Sri Maniya Institute of Hotel Management stands as a premier hotel management institute in Tamil Nadu. The institute delivers top-notch hospitality programs enriched with practical training and hands-on exposure, ensuring a 100% placement guarantee in leading hotels and resorts worldwide.
               </Paragraph>
-              <Paragraph size="lg" className="mt-4 text-(--dark) leading-relaxed">
+              <Paragraph size="base" className="mt-4 text-(--dark) leading-relaxed">
                 We take pride in being among the select few hotel management institutes led by seasoned professionals with hands-on experience in the hospitality industry. Our teaching methods and training programs align with internationally accepted standards, guaranteeing students an education of global caliber.
               </Paragraph>
             </div>

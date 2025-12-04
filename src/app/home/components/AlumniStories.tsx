@@ -207,13 +207,13 @@ const AlumniStories = () => {
       <div className="pt-10 sm:pt-20 relative w-full">
         <Section>
           <div>
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title">The Proof</Paragraph>
+            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title" aria-label="The Proof">The Proof</Paragraph>
             <Heading ref={headingRef} level={4} className="text-(--blue) uppercase leading-tight proof-title mt-1">Alumni Stories</Heading>
           </div>
         </Section>
         <div className='flex justify-center  items-center pt-10  gap-10 mb-4 '>
           <div className='w-full h-px bg-(--grey)' />
-          <Heading level={3} className="text-(--blue)"><FaQuoteLeft style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></Heading>
+          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><FaQuoteLeft style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
           <div className='w-full h-px bg-(--grey)' />
         </div>
         <Section>

@@ -76,8 +76,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <Link href={`/courses?course=${course.id}`}>
-              <button className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer">
+            <Link href={`/courses?course=${course.id}`} aria-label={`View details for ${course.title}`}>
+              <button
+                className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+                aria-label={`View details for ${course.title}`}
+              >
                 <HiOutlineArrowNarrowRight className="font-normal text-(--white-custom) text-2xl hover:text-(--blue) " />
               </button>
             </Link>
@@ -177,7 +180,7 @@ const Courses: React.FC = () => {
           <div className='lg:px-10 xl:px-20'>
             {/* Header */}
             <div className="mb-12 text-end">
-              <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">
+              <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title" aria-label="Courses">
                 Courses
               </Paragraph>
               <Heading ref={headingRef} level={4} className="text-(--white-custom) mt-1 leading-tight uppercase  courses-academic-title">

@@ -17,7 +17,15 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
     loop
     playsInline
     className={className || "w-full h-full object-cover border-0"}
-  />
+  >
+    <track
+      kind="captions"
+      src="/videos/reelvideo-captions.vtt"
+      srcLang="en"
+      label="English captions"
+      default
+    />
+  </video>
 );
 
 // --- Utility: Masked SVG Overlay (reusable) ---

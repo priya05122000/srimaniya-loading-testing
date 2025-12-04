@@ -83,6 +83,8 @@ export default function Partners() {
       arrows: false,
       gap: "2rem",
       perPage: 6,
+      a11y: false,
+
       autoScroll: {
         speed: 1.5,
         pauseOnHover: false,
@@ -110,6 +112,7 @@ export default function Partners() {
             ref={paragraphRef}
             size="lg"
             className="text-(--blue) font-bold partners-title"
+            aria-label="Recruitment Partners"
           >
             Recruitment Partners
           </Paragraph>
@@ -127,9 +130,10 @@ export default function Partners() {
 
             <div className="splide" ref={splideRef}>
               <div className="splide__track">
-                <ul className="splide__list ">
+                <ul className="splide__list" role="list">
                   {partners.map((partner, index) => (
                     <li
+                      role="listitem"
                       key={index}
                       className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
