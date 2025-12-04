@@ -116,6 +116,7 @@ const PlacementCard: React.FC<Placement> = ({
         height={48}
         sizes="(max-width: 768px) 100vw, 80px"
         className="rounded-md object-cover image-tag w-full h-full"
+        unoptimized
       />
     </div>
     <div>

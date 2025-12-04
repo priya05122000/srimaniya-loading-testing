@@ -135,7 +135,7 @@ const BlogDetails: React.FC<{ blog: Blog }> = ({ blog }) => {
         <main className="w-full  sm:w-[70%] lg:w-[75%] xl:w-[80%] space-y-8 sm:py-16">
           <div>
             <div
-              className="text-(--dark) text-base lg:text-lg"
+              className="blog-content text-(--dark)"
               dangerouslySetInnerHTML={{ __html: blog?.description }}
             />
           </div>

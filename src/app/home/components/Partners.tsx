@@ -142,6 +142,7 @@ export default function Partners() {
                         height={100}
                         className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
                         placeholder="empty"
+                        unoptimized
                       />
                     </li>
                   ))}

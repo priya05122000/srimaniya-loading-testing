@@ -132,8 +132,7 @@ const EventAndBlog: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                </Section>
-                <LeftSpaceGridSection>
+
                     <div className="pt-6 overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {filteredBlogs.map((blog, idx) => (
@@ -147,6 +146,7 @@ const EventAndBlog: React.FC = () => {
                                             width={500}
                                             height={500}
                                             priority={idx === 0}
+                                            unoptimized
                                         />
                                     </div>
 
@@ -178,7 +178,7 @@ const EventAndBlog: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                </LeftSpaceGridSection>
+                </Section>
             </div>
         </div>
     );

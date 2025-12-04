@@ -64,6 +64,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           className="w-full h-[400px] image-tag object-cover object-top"
           priority={priority}
           onLoadingComplete={onLoadingComplete}
+          unoptimized
         />
         {mobile && !isOpen && (
           <button

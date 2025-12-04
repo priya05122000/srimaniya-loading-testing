@@ -79,6 +79,7 @@ const EnquireForm = () => {
             width={2000}
             height={2000}
             className="w-full h-full  object-cover image-tag"
+            unoptimized
           />
         </div>
         {/* Right: Content */}

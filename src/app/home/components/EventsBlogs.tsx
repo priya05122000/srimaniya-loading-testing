@@ -81,6 +81,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
           className="w-full h-full object-cover image-tag"
           width={500}
           height={500}
+          unoptimized
         />
       )}
     </div>

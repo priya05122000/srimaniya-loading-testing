@@ -92,7 +92,8 @@ const PartPlacementPartners = () => {
                     loading="lazy"
                     width={120}
                     height={120}
-                  // onClick={handleClick(partner.website_url)}
+                    // onClick={handleClick(partner.website_url)}
+                    unoptimized
                   />
                 </div>
               ))}

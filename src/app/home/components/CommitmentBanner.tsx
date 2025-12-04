@@ -148,7 +148,7 @@ const CommitmentBanner: React.FC = () => {
 
   return (
     <div className="partners-bg" ref={splitTextTriggerRef}>
-      <div className="w-full relative mb-15 lg:mb-28 flex flex-col min-h-[600px]">
+      <div className="w-full relative mb-15 lg:mb-28 flex flex-col lg:min-h-[600px]">
         <div className="bg-(--blue) px-6 sm:px-8 py-10 flex flex-col items-end" data-section>
           <Paragraph ref={paragraphRef} size="lg" className="msg-text-scroll text-end mt-1">
             Sri Maniya Institute of Hotel Management

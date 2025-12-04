@@ -162,6 +162,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
               height={800}
               className="object-cover h-full w-full image-tag"
               priority
+              unoptimized
             />
           )}
         </div>

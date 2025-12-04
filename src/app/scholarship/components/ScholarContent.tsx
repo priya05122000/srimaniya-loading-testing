@@ -73,7 +73,7 @@ const ScholarContent = () => {
               </Heading>
             </div>
             <div>
-              <Paragraph size="lg" className="text-(--dark) leading-relaxed text-justify">
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
                 Sri Maniya Institute of Hotel Management offers hotel management scholarship aimed at supporting and motivating deserving students. These include merit-based scholarships, community-based scholarships, and scholarships specific to the college. The institute is committed to recognizing academic excellence and helping reduce financial barriers, ensuring that talented individuals have the opportunity to pursue quality hospitality education.
               </Paragraph>
             </div>
@@ -97,9 +97,9 @@ const ScholarContent = () => {
                 >
                   SANCTIONED DURING ADMISSION (PROVIDED IN TERM II)
                 </Paragraph>
-                <ParagraphList size="lg" className="text-(--dark)">
+                <ParagraphList size="base" className="text-(--dark)">
                   {SCHOLARSHIP_BENEFITS.map((item, idx) => (
-                    <li key={idx}>
+                    <li key={idx} className="mb-2">
                       <strong>{item.title}</strong>
                       <br />
                       {item.desc.split("\n").map((line, i) => (

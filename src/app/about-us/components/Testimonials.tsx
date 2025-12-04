@@ -55,6 +55,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
             width={48}
             height={48}
             className="object-cover w-full h-full image-tag"
+            unoptimized
           />
         </div>
         <div className="text-(--white-custom)">

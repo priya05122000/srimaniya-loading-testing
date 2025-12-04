@@ -98,6 +98,7 @@ const Hero = () => {
                                 fetchPriority="high"
                                 sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
                                 onLoadingComplete={() => setLoading(false)}
+                                unoptimized
                             />
                             {/* Overlay container */}
                             <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
