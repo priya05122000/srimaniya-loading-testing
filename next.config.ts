@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
       "127.0.0.1",
     ],
   },
-  swcMinify: true,
   compiler: {
     removeConsole: false,
   },
