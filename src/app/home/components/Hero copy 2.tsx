@@ -88,7 +88,7 @@ const Hero = () => {
                     >
                         <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
                             <Image
-                                src={`${baseUrl}/files/${banner.image_desktop}`}
+                                src={`${baseUrl}/files/${getResponsiveImage(banner, windowWidth)}`}
                                 alt={banner.title}
                                 width={1920}
                                 height={1080}
