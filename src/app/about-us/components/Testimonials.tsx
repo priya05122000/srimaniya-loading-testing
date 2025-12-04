@@ -51,7 +51,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
         <div className="w-12 h-12 overflow-hidden mr-4">
           <Image
             src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${testimonial.photo_url}` : "/about-us/profile.webp"}
-            alt={testimonial.name}
+            alt={`Sri Maniya Institute student testimonial - Top Hotel Management College, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management`}
             width={48}
             height={48}
             className="object-cover w-full h-full image-tag"

@@ -139,7 +139,7 @@ const EventAndBlog: React.FC = () => {
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
                                             onClick={() => handleBlogClick(blog.id)}
-                                            alt={blog.title}
+                                            alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, best hotel management colleges, hotel management institute, best hospitality management colleges"
                                             className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"
                                             width={500}
                                             height={500}

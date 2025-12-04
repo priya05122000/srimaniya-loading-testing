@@ -120,7 +120,7 @@ const ApplyNow: React.FC = () => {
       <div className="h-full relative">
         <Image
           src="/career/careerform.webp"
-          alt="Chefs working"
+          alt="Sri Maniya Institute careers"
           className="w-full sm:h-[600px] object-cover object-top image-tag"
           width={1200}
           height={1200}

@@ -172,7 +172,7 @@ const CommitmentBanner: React.FC = () => {
             <div ref={logoRef} id="rotating-logo" className="absolute inset-0 aspect-square">
               <Image
                 src="/designs/rotate.svg"
-                alt="Rotating Ring"
+                alt="Rotating Ring - Sri Maniya Institute of Hotel Management, hotel management in tamil nadu, career opportunities in hotel management"
                 width={176}
                 height={176}
                 className="object-contain image-tag"
@@ -182,7 +182,7 @@ const CommitmentBanner: React.FC = () => {
             <div className="absolute inset-0 flex items-center justify-center z-10 aspect-square">
               <Image
                 src="/logos/sri-maniya-institute-logo.png"
-                alt="Sri Maniya Institute"
+                alt="Sri Maniya Institute of Hotel Management - best hotel management colleges near me, hospitality management courses in tamilnadu"
                 width={120}
                 height={120}
                 className="object-contain image-tag w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20"

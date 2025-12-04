@@ -68,7 +68,7 @@ const AlumniImage: React.FC<{
       {alumni?.photo_url ? (
         <Image
           src={imageBase + alumni.photo_url}
-          alt={alumni.name}
+          alt={`Sri Maniya Institute of Hotel Management Alumni - ${alumni.name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           width={idx === 2 ? 144 : 80}
           height={idx === 2 ? 144 : 80}
           className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"} `}

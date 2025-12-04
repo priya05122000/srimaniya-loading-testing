@@ -78,7 +78,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
       >
         <Image
           src={img}
-          alt={placement + " Flag"}
+          alt={`Sri Maniya Institute of Hotel Management Placement - ${placement}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           width={100}
           height={100}
           className="w-full h-full object-cover image-tag"
@@ -111,7 +111,7 @@ const PlacementCard: React.FC<Placement> = ({
     <div className="w-20 h-12 relative shrink-0 aspect-square">
       <Image
         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${flag_img}`}
-        alt={name}
+        alt={`Sri Maniya Institute of Hotel Management Placement - ${name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
         width={80}
         height={48}
         sizes="(max-width: 768px) 100vw, 80px"
@@ -283,7 +283,7 @@ const PlacementMap = () => {
             <div className="shrink-0 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
                 src="/home/map.webp"
-                alt="Placement Map Background"
+                alt="Sri Maniya Institute of Hotel Management Placement Map - hotel management courses near me, best hotel management colleges near me, global career opportunities"
                 width={2400}
                 height={1200}
                 className="h-full w-auto object-contain image-tag"

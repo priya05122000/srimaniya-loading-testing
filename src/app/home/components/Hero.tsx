@@ -85,7 +85,7 @@ const Hero = () => {
                         <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
                             <Image
                                 src={`${baseUrl}/files/${getResponsiveImage(banner)}`}
-                                alt={banner.title}
+                                alt="Sri Maniya Institute of Hotel Management, hotel management in Tamil Nadu, best hotel management colleges near me, career opportunities in hotel management, hotel management courses near me, hotel management degree fees, hotel management diploma courses after 12th, sri maniya hotel management fees details, bsc in catering science and hotel management, hospitality management courses in tamilnadu"
                                 width={1920}
                                 height={1080}
                                 className="object-cover w-full h-full object-top hero-image"

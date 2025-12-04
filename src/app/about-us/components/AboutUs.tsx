@@ -6,7 +6,7 @@ import React from 'react'
 const AboutUsImage: React.FC<{ className?: string }> = ({ className }) => (
   <Image
     src="/about-us/about-us.webp"
-    alt="About Us"
+    alt="Sri Maniya Institute About Us, Top Hotel Management College, hotel management institute in tamilnadu, hospitality and management courses in tamilnadu, best hotel management institute in Tamilnadu, hotel management education, hotel management course with placement, global hospitality careers"
     width={1200}
     height={1200}
     className={className || "w-full h-full object-cover image-tag"}
