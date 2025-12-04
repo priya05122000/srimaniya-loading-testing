@@ -46,6 +46,34 @@ export default function RootLayout({
             gtag('config', 'G-GFHYHS0PBP');
           `}
         </Script>
+
+        <link
+          rel="stylesheet"
+          href="https://www.srimaniyainstitute.in/css/f84e46655353ea6a.css"
+          precedence="default"
+        />
+        <link
+          rel="stylesheet"
+          href="https://www.srimaniyainstitute.in/css/f040a396bfcf60e2.css"
+          precedence="default"
+        />
+        <link
+          rel="stylesheet"
+          href="https://www.srimaniyainstitute.in/css/0c535f7b5bca7f9a.css"
+          precedence="default"
+        />
+
+        <Script
+          src="https://www.srimaniyainstitute.in/chunks/1255-83cb42014f6de1e2.js"
+          type="module"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://www.srimaniyainstitute.in/chunks/1255-83cb42014f6de1e2.legacy.js"
+          noModule
+          strategy="afterInteractive"
+        />
+
       </head>
 
       <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
