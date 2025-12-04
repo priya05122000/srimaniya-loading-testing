@@ -33,7 +33,7 @@ type Flag = {
 
 const flags: Flag[] = [
   {
-    img: "/map/India.png",
+    img: "/map/India.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position:
@@ -41,28 +41,28 @@ const flags: Flag[] = [
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/Singapore.png",
+    img: "/map/Singapore.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[40%] xl:bottom-[36%] right-[18.5%] xl:right-[18%]",
     size: "w-10 h-10 xl:w-12 xl:h-12",
   },
   {
-    img: "/map/dubai.png",
+    img: "/map/dubai.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[40%] lg:top-[40%] left-[60%]",
     size: "w-8 h-8 xl:w-10 xl:h-10",
   },
   {
-    img: "/map/mauritius.png",
+    img: "/map/mauritius.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[25%] lg:bottom-[25%] right-[34%]",
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/maldives.png",
+    img: "/map/maldives.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[55%] lg:top-[55%] right-[29%]",
@@ -108,13 +108,14 @@ const PlacementCard: React.FC<Placement> = ({
   placement_count,
 }) => (
   <div className="flex items-center space-x-4 p-4 hover:shadow-sm transition-shadow">
-    <div className="w-20 h-12 relative shrink-0">
+    <div className="w-20 h-12 relative shrink-0 aspect-square">
       <Image
         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${flag_img}`}
         alt={name}
-        fill
+        width={80}
+        height={48}
         sizes="(max-width: 768px) 100vw, 80px"
-        className="rounded-md object-cover image-tag"
+        className="rounded-md object-cover image-tag w-full h-full"
       />
     </div>
     <div>
@@ -136,7 +137,33 @@ const PlacementCard: React.FC<Placement> = ({
 );
 
 const PlacementMap = () => {
-  const parentRef = useRef<HTMLDivElement | null>(null); // Add parent ref
+  const [placements, setPlacements] = useState<Placement[]>([]);
+  const { setLoading } = useGlobalLoader();
+
+  // SplitText animation refs
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const headingRefDesktop = useRef<HTMLHeadingElement | null>(null);
+  const paragraphRefDesktop = useRef<HTMLParagraphElement | null>(null);
+
+  // Mobile animation
+  useSplitTextHeadingAnimation({
+    trigger: parentRef,
+    first: paragraphRef,
+    second: headingRef,
+    delay: 0.3,
+    enabled: placements.length > 0,
+  });
+  // Desktop animation
+  useSplitTextHeadingAnimation({
+    trigger: parentRef,
+    first: paragraphRefDesktop,
+    second: headingRefDesktop,
+    delay: 0.3,
+    enabled: placements.length > 0,
+  });
+
   const horizontalScrollRef = useRef<HTMLDivElement>(null);
   const horizontalWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -186,16 +213,6 @@ const PlacementMap = () => {
     { scope: horizontalScrollRef } // ✅ Scoped only to this component
   );
 
-  // Enable split text animation for headings
-  useSplitTextHeadingAnimation({
-    trigger: parentRef,
-    first: ".placement-title",
-    second: ".connecting-title",
-  });
-
-  const [placements, setPlacements] = useState<Placement[]>([]);
-  const { setLoading } = useGlobalLoader();
-
   useEffect(() => {
     const fetchCountries = async () => {
       try {
@@ -223,16 +240,18 @@ const PlacementMap = () => {
     <div ref={parentRef} className="relative">
       {/* Mobile version */}
       <div className="block sm:hidden">
-        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center p-6">
+        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center py-10 px-6">
           <div className="relative z-10 ">
             <div className="mb-10 sm:mb-14">
               <Paragraph
+                ref={paragraphRef}
                 size="lg"
                 className="text-(--blue) font-bold placement-title"
               >
                 Our Placement
               </Paragraph>
               <Heading
+                ref={headingRef}
                 level={4}
                 className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
               >
@@ -263,7 +282,7 @@ const PlacementMap = () => {
             {/* Background map */}
             <div className="shrink-0 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
-                src="/home/map.png"
+                src="/home/map.webp"
                 alt="Placement Map Background"
                 width={2400}
                 height={1200}
@@ -281,7 +300,7 @@ const PlacementMap = () => {
             <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center">
               <div>
                 <div className="mb-8">
-                  <Heading level={6} className="text-(--blue) font-bold">
+                  <Heading level={5} className="text-(--blue) font-bold">
                     International Placement
                   </Heading>
                 </div>
@@ -310,12 +329,14 @@ const PlacementMap = () => {
               <div className="relative z-10 pl-6 sm:pl-8">
                 <div className="mb-10">
                   <Paragraph
+                    ref={paragraphRefDesktop}
                     size="lg"
                     className="text-(--blue) font-bold placement-title"
                   >
                     Our Placement
                   </Paragraph>
                   <Heading
+                    ref={headingRefDesktop}
                     level={4}
                     className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
                   >

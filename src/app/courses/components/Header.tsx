@@ -5,7 +5,7 @@ import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 
 // Reusable constants for styling
-const BG_IMAGE = "/courses/courses.jpeg";
+const BG_IMAGE = "/courses/courses.webp";
 const GRID_CLASSES = [
   "grid",
   "grid-cols-1",

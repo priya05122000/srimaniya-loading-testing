@@ -86,7 +86,7 @@ const OurStory: React.FC = () => {
           className="flex items-center justify-center sm:w-[110%] lg:w-[106%] xl:w-[110%] z-10 h-full"
         >
           <Image
-            src="/about-us/ourstory-old.jpg"
+            src="/about-us/ourstory-old.webp"
             alt="Our Story"
             width={1000}
             height={1000}

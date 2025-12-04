@@ -4,6 +4,9 @@ import ClientLayout from "./ClientLayout";
 import Script from "next/script";
 import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
 import GlobalLoader from "@/components/GlobalLoader";
+import AnalyticsListener from "./analytics-listener";
+import { Suspense } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,27 +29,35 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
+      <head>
+
+        <meta name="google-site-verification" content="MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w" />
+
+        {/* GA4 Script */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-H79NPYM0EX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
           strategy="afterInteractive"
         />
-        <Script id="ga" strategy="afterInteractive">
+        <Script id="gtag-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-H79NPYM0EX', { anonymize_ip: true });
+            gtag('config', 'G-GFHYHS0PBP');
           `}
         </Script>
-      </head> */}
-      <body
-        className={`${plusJakarta.variable} ${inter.variable} antialiased`}
-      >
+      </head>
+
+      <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
+        <Suspense fallback={null}>
+          <AnalyticsListener />
+        </Suspense>
+
         <GlobalLoaderProvider>
           <GlobalLoader />
           <ClientLayout>{children}</ClientLayout>
         </GlobalLoaderProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

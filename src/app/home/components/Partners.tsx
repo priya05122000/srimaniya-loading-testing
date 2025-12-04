@@ -83,6 +83,8 @@ export default function Partners() {
       arrows: false,
       gap: "2rem",
       perPage: 6,
+      a11y: false,
+
       autoScroll: {
         speed: 1.5,
         pauseOnHover: false,
@@ -110,6 +112,7 @@ export default function Partners() {
             ref={paragraphRef}
             size="lg"
             className="text-(--blue) font-bold partners-title"
+            aria-label="Recruitment Partners"
           >
             Recruitment Partners
           </Paragraph>
@@ -122,23 +125,25 @@ export default function Partners() {
             Explore Our <br /> Placement Partners
           </Heading>
 
-          <div className="brands_list-wrapper relative overflow-hidden mt-10">
+          <div className="brands_list-wrapper relative overflow-hidden mt-10 ">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />
 
             <div className="splide" ref={splideRef}>
               <div className="splide__track">
-                <ul className="splide__list">
+                <ul className="splide__list" role="list">
                   {partners.map((partner, index) => (
                     <li
+                      role="listitem"
                       key={index}
-                      className="splide__slide bg-(--white-custom) h-32 shadow-sm flex items-center justify-center"
+                      className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
                       <Image
                         src={`${baseUrl}/files/${partner.logo_url}`}
                         alt={partner.name}
                         width={200}
                         height={100}
-                        className="object-contain image-tag h-full p-4 opacity-80 hover:opacity-100 transition"
+                        className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
+                        placeholder="empty"
                       />
                     </li>
                   ))}

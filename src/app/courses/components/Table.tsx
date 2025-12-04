@@ -71,7 +71,11 @@ const Table = () => {
                 <ParagraphList size="base" className="list-square">
                   {filteredCourses.map((course) => (
                     <li key={course.id}>
-                      <Link href={`/courses?course=${course.id}`} className="cursor-pointer">
+                      <Link
+                        href={`/courses?course=${course.id}`}
+                        className="cursor-pointer"
+                        aria-label={`View details for ${course.title}`}
+                      >
                         {course.title}
                       </Link>
                       {course.duration && (

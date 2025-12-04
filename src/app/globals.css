@@ -8,7 +8,6 @@
    ------------------------------------------------------------------- */
 :root {
   --foreground: #eeecea;
-  /* Overlay / Primary Text */
   --white: #ffffff;
   --dark: #323131;
   --blue: #0b2351;
@@ -23,16 +22,6 @@
   --grey-custom: #c8c8c880;
   --grey-light-custom: #323131cc;
   --black-custom: #fffdfd0f;
-
-}
-
-/* Theme mapping for Tailwind */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 /* ===================================================================
@@ -48,34 +37,27 @@
 /* ===================================================================
    SCROLLBAR STYLES
    ------------------------------------------------------------------- */
-
-/* Chrome, Safari, Opera */
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 
-/* Utility: .hide-scrollbar (apply on any element) */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* IE, Edge, Firefox */
 .hide-scrollbar {
   -ms-overflow-style: none;
-  /* IE/Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 /* ===================================================================
    BODY BASE STYLES
    ------------------------------------------------------------------- */
 
-/* html, body {
-  will-change: transform;
-} */
-
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   color: var(--foreground);
@@ -87,8 +69,6 @@ body {
 /* ===================================================================
    BACKGROUND LAYERS
    ------------------------------------------------------------------- */
-
-/* Layer 1 — Grain Texture */
 body::before {
   content: "";
   position: fixed;
@@ -98,7 +78,6 @@ body::before {
   opacity: 1;
 }
 
-/* Layer 2 — Subtle Overlay Tint */
 body::after {
   content: "";
   position: fixed;
@@ -109,9 +88,9 @@ body::after {
   pointer-events: none;
 }
 
-/* -----------------------------------
-   Floating CTA Button
------------------------------------ */
+/* ===================================================================
+   BUTTONS & CTA
+   ------------------------------------------------------------------- */
 .floating-cta-btn::after {
   content: "";
   position: absolute;
@@ -154,9 +133,9 @@ body::after {
   }
 }
 
-/* -----------------------------------
-   Marquee Animations & Styles
------------------------------------ */
+/* ===================================================================
+   MARQUEE ANIMATIONS & STYLES
+   ------------------------------------------------------------------- */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -171,8 +150,8 @@ body::after {
   display: flex;
   flex-wrap: nowrap;
   min-width: max-content;
-  /* ensures container doesn’t shrink */
   animation: marquee 20s linear infinite;
+  transform: translate3d(0, 0, 0);
 }
 
 .marquee {
@@ -208,19 +187,12 @@ body::after {
       var(--white-custom) 100%);
 }
 
-/* -----------------------------------
-   Swiper Styles
------------------------------------ */
+/* ===================================================================
+   SWIPER & SPLIDE STYLES
+   ------------------------------------------------------------------- */
 .swiper-fade .swiper-slide {
   background: transparent !important;
 }
-
-/* .mySwiper, .swiper-slide {
-  height: 500px;
-  min-height: 500px;
-  will-change: transform;
-  backface-visibility: hidden;
-} */
 
 .swiper {
   width: 100%;
@@ -237,7 +209,6 @@ body::after {
   width: 100%;
 }
 
-/* Swiper Pagination Bullets */
 .swiper-pagination-bullet,
 .swiper-pagination-bullet-active {
   background: #ffff !important;
@@ -247,6 +218,8 @@ body::after {
   display: flex !important;
   align-items: center;
   justify-content: center;
+  width: auto !important;
+  flex: 0 0 auto !important;
 }
 
 .splide__track,
@@ -255,23 +228,16 @@ body::after {
   align-items: center;
 }
 
-/* -----------------------------------
-   Miscellaneous
------------------------------------ */
-.split {
-  will-change: transform;
+.splide__slide img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  padding: 0 8px;
 }
 
-.line {
-  display: block;
-  overflow: hidden;
-  will-change: transform;
-}
-
-/* Remove all @font-face blocks except for DM Sans.
-   DM Sans will be loaded via next/font/google in your layout.tsx. */
-
-/* Set DM Sans as the default font for all text elements */
+/* ===================================================================
+   TYPOGRAPHY & FONTS
+   ------------------------------------------------------------------- */
 body,
 p,
 span,
@@ -296,9 +262,11 @@ h6 {
   font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif !important;
 }
 
+/* ===================================================================
+   UTILITY CLASSES
+   ------------------------------------------------------------------- */
 .partners-bg {
-  background-image: linear-gradient(rgba(200, 200, 200, 0.2) 0.1em,
-      transparent 0.1em),
+  background-image: linear-gradient(rgba(200, 200, 200, 0.2) 0.1em, transparent 0.1em),
     linear-gradient(90deg, rgba(200, 200, 200, 0.2) 0.1em, transparent 0.1em);
   background-size: 10em 5em;
 }
@@ -315,11 +283,6 @@ h6 {
   100% {
     transform: rotate(360deg);
   }
-}
-
-/* Add this to your CSS file */
-.fifth-card {
-  /* By default, show border */
 }
 
 .fifth-card.is-overlapped {
@@ -340,7 +303,6 @@ h6 {
   }
 }
 
-/* Add to your global CSS file */
 .navbar--hidden {
   opacity: 0;
   pointer-events: none;
@@ -370,13 +332,11 @@ h6 {
   left: 0;
   z-index: 100;
   isolation: isolate;
-  /* 👈 ensures it has its own layer */
 }
 
 .fixed-logo {
   position: fixed !important;
   top: 80px;
-  /* 👈 below your 80px navbar height */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999 !important;
@@ -439,23 +399,7 @@ h6 {
 
 .bg-blur-fix {
   background: rgba(11, 35, 81, 0.3);
-  /* fallback for blur */
   backdrop-filter: blur(6px);
-}
-
-.splide__slide {
-  width: auto !important;
-  /* Prevent Splide from applying inline calc width */
-  flex: 0 0 auto !important;
-  /* Prevent shrinking/stretching */
-}
-
-.splide__slide img {
-  width: 160px;
-  /* or whatever width you want */
-  height: auto;
-  object-fit: contain;
-  padding: 0 8px;
 }
 
 .horizontal-wrapper {
@@ -473,40 +417,53 @@ h6 {
   }
 }
 
-/* -----------------------------------
-  Performance: will-change & GPU Hints
------------------------------------ */
+/* ===================================================================
+   PERFORMANCE: will-change & GPU Hints
+   ------------------------------------------------------------------- */
 #smooth-content,
 [data-section],
 .course-card,
 .hero-content,
 .mySwiper,
 img,
-.image-tag {
+.image-tag,
+.brands_list-wrapper,
+.image-partner {
   will-change: transform;
   transform: translateZ(0);
 }
 
-/* #smooth-wrapper,
-#smooth-content,
-[data-section],
-.course-card,
-.hero-content,
-.mySwiper,
-img {
-  will-change: transform;
-  transform: translateZ(0);
-} */
-
-
 .line {
+  display: block;
+  overflow: hidden;
   will-change: transform, opacity;
 }
 
-/* Add this to your global CSS (e.g., src/app/globals.css) */
 .commitment-title .line,
 .msg-text-scroll .line {
   text-align: right;
   width: 100%;
   display: block;
+}
+
+/* ===================================================================
+   Hero Section
+   ------------------------------------------------------------------- */
+
+/* GPU acceleration for hero & heavy sections */
+.hero-wrapper,
+.hero-image,
+.hero-overlay,
+.hero-content {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* ===================================================================
+   PARTNERS MARQUEE TRACK
+   ------------------------------------------------------------------- */
+.partners-track {
+  display: flex;
+  gap: 2rem;
+  will-change: transform;
 }

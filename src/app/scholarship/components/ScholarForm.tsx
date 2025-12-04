@@ -50,7 +50,7 @@ const INITIAL_FORM_DATA: FormData = {
   agree: false,
 };
 const IMAGE_PROPS = {
-  src: "/scholarship/scholarform.jpeg",
+  src: "/scholarship/scholarform.webp",
   alt: "Scholarship Banner",
   fill: true,
   sizes: "(max-width: 768px) 100vw, 50vw",
@@ -61,7 +61,6 @@ const IMAGE_PROPS = {
 const ScholarForm: React.FC = () => {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-  const [localLoading, setLocalLoading] = useState(false);
 
   // Fetch courses
   useEffect(() => {
@@ -98,7 +97,6 @@ const ScholarForm: React.FC = () => {
       toast.error("You must agree to the terms and conditions.");
       return;
     }
-    setLocalLoading(true);
     const payload: AppoinmentPayload = {
       name: formData.name,
       email: formData.email || null,
@@ -132,8 +130,6 @@ const ScholarForm: React.FC = () => {
         toast.error("Submission failed.");
         console.error("Application error:", error);
       }
-    } finally {
-      setLocalLoading(false);
     }
   };
 
@@ -196,10 +192,9 @@ const ScholarForm: React.FC = () => {
               <button
                 type="submit"
                 className="relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
-                disabled={localLoading}
               >
                 <span className="relative z-20 text-center w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
-                  {localLoading ? "Submitting..." : "Submit"}
+                  Submit
                 </span>
                 <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
               </button>

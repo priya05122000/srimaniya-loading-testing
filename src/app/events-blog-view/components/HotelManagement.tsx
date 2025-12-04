@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Section from "@/components/common/Section";
@@ -11,14 +12,10 @@ import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimati
 
 const GRID_CLASSES =
   "absolute inset-0 grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-full z-10";
-const BORDER_CLASSES = "";
+
 const SECTION_CLASSES = "absolute pt-10 sm:pt-20 top-0";
 const HEADING_6_CLASSES = "font-semibold text-(--blue)";
 const HEADING_4_CLASSES = "text-(--blue) mb-8 leading-tight";
-const IMAGE_PROPS = {
-  src: "/blog/view.webp",
-  alt: "Hotel Management Reception",
-};
 
 interface Blog {
   id: string;
@@ -38,43 +35,60 @@ interface HotelManagementProps {
 }
 
 const getCategoryName = (
-  categories: { id: string; name: string }[],
+  categories: Array<{ id: string; name: string }>,
   categoryId: string
-) => {
+): string => {
   const found = categories.find((cat) => cat.id === categoryId);
   if (!found) return "Unknown";
+
   return found.name === "News&Events" ? "Events" : found.name;
 };
 
-const getVideoSrc = (videoUrl: string) => {
-  if (videoUrl.includes("videos/")) {
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${videoUrl}`;
-  }
-  return `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/videos/${videoUrl}`;
-};
-
-// Helper: Preload image or video for blog
-const preloadBlogMedia = (blog: Blog | null) => {
-  if (!blog) return Promise.resolve();
+const getVideoSrc = (videoUrl: string): string => {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
-    : '';
+    : "";
+
+  if (videoUrl.includes("videos/")) return base + videoUrl;
+
+  return base + "videos/" + videoUrl;
+};
+
+// Preload image/video to avoid flashing
+const preloadBlogMedia = (blog: Blog | null): Promise<void> => {
+  if (!blog) return Promise.resolve();
+
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    : "";
+
+  // If video exists
   if (blog.video_url) {
-    const video = document.createElement('video');
-    video.preload = 'auto';
-    video.src = blog.video_url.includes('videos/') ? base + blog.video_url : base + 'videos/' + blog.video_url;
-    return new Promise<void>((resolve) => {
+    return new Promise((resolve) => {
+      const video = document.createElement("video");
+      video.preload = "auto";
+      video.src = blog.video_url && blog.video_url.includes("videos/")
+        ? base + blog.video_url
+        : blog.video_url
+          ? base + "videos/" + blog.video_url
+          : "";
+
       video.oncanplaythrough = () => resolve();
       video.onerror = () => resolve();
     });
-  } else if (blog.image_url) {
-    const img = new window.Image();
-    img.src = base + blog.image_url;
-    return new Promise<void>((resolve) => {
+  }
+
+  // If only image
+  if (blog.image_url) {
+    return new Promise((resolve) => {
+      const img = new window.Image();
+      img.src = base + blog.image_url;
+
       img.onload = () => resolve();
       img.onerror = () => resolve();
     });
   }
+
   return Promise.resolve();
 };
 
@@ -82,6 +96,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
   const [categories, setCategories] = useState<
     Array<{ id: string; name: string }>
   >([]);
+
   const { setLoading } = useGlobalLoader();
 
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -98,10 +113,11 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
 
   useEffect(() => {
     setLoading(true);
+
     const fetchCategory = async () => {
       try {
         const category = await getAllCategories();
-        setCategories(category?.data || []);
+        setCategories(category?.data ?? []);
         await preloadBlogMedia(blog);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -109,54 +125,42 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
         setLoading(false);
       }
     };
+
     fetchCategory();
   }, [setLoading, blog]);
 
   if (!blog) return null;
+
   const categoryName = getCategoryName(categories, blog.category_id);
 
   return (
     <div className="h-full relative" data-section ref={eventViewRef}>
-      <div className={GRID_CLASSES}>
-        <div className={BORDER_CLASSES}></div>
-      </div>
+      <div className={GRID_CLASSES}></div>
+
       <Section className={SECTION_CLASSES}>
         <div className="mb-4">
           <Paragraph size="lg" ref={paragraphRef} className={HEADING_6_CLASSES}>
             {categoryName}
           </Paragraph>
-          <Heading
-            ref={headingRef}
-            level={4}
-            className={HEADING_4_CLASSES}
-          >
+
+          <Heading ref={headingRef} level={4} className={HEADING_4_CLASSES}>
             {blog.title}
           </Heading>
         </div>
-        <div className="relative w-full h-54 md:h-96 lg:h-[400px] xl:h-[450px] overflow-hidden shadow-md">
+
+        {/* IMAGE / VIDEO SECTION */}
+        <div className="relative w-full h-54 md:h-96 lg:h-[400px] xl:h-[450px] overflow-hidden shadow-md aspect-square">
           {blog.video_url ? (
             <video autoPlay loop muted className="w-full h-full object-contain">
-              {blog.video_url && blog.video_url.endsWith(".mp4") && (
-                <source src={getVideoSrc(blog.video_url)} type="video/mp4" />
-              )}
-              {blog.video_url && blog.video_url.endsWith(".webm") && (
-                <source src={getVideoSrc(blog.video_url)} type="video/webm" />
-              )}
-              {blog.video_url && blog.video_url.endsWith(".ogg") && (
-                <source src={getVideoSrc(blog.video_url)} type="video/ogg" />
-              )}
-              {blog.video_url &&
-                ![".mp4", ".webm", ".ogg"].some(
-                  (ext) => blog.video_url && blog.video_url.endsWith(ext)
-                ) && <source src={getVideoSrc(blog.video_url)} />}
-              Your browser does not support the video tag.
+              <source src={getVideoSrc(blog.video_url)} />
             </video>
           ) : (
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
-              alt={IMAGE_PROPS.alt}
-              fill
-              className="object-cover h-full image-tag"
+              alt={blog.title}
+              width={800}
+              height={800}
+              className="object-cover h-full w-full image-tag"
               priority
             />
           )}

@@ -159,7 +159,7 @@ const Footer = () => {
                                 {/* Explore */}
                                 <div className=" xl:border-r xl:last:border-0 border-(--black-custom) flex flex-col  justify-between  pt-6   pb-4 ">
                                     <div>
-                                        <Span className=" font-bold text-(--white)/34">Contact</Span>
+                                        <Span className="font-bold text-(--grey-custom)">Contact</Span>
                                         <ul>
                                             {CONTACTS1.map((item, idx) => (
                                                 <li key={idx} className="my-2 text-(--white-custom)">
@@ -180,7 +180,7 @@ const Footer = () => {
                                 {/* Course */}
                                 <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex   justify-start lg:justify-center  pt-6   pb-4 ">
                                     <div>
-                                        <Span className="font-bold text-(--white)/34">Address</Span>
+                                        <Span className="font-bold text-(--grey-custom)">Address</Span>
                                         <ul>
                                             {CONTACTS2.map((item, idx) => (
                                                 <li
@@ -196,11 +196,14 @@ const Footer = () => {
                                 {/* Contact 1 */}
                                 <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6  pb-4 xl:px-6">
                                     <div>
-                                        <Span className="font-bold text-(--white)/34">Course</Span>
+                                        <Span className="font-bold text-(--grey-custom)">Course</Span>
                                         <ul>
                                             {courses.map((item) => (
                                                 <li key={item.id} className="my-2 text-(--white-custom)">
-                                                    <Link href={`/courses?course=${item.id}`}>
+                                                    <Link
+                                                        href={`/courses?course=${item.id}`}
+                                                        aria-label={`View details for ${item.title}`}
+                                                    >
                                                         <span className="text-xs">{item.title}</span>
                                                     </Link>
                                                 </li>
@@ -212,7 +215,7 @@ const Footer = () => {
                                 {/* Contact 2 + Enquire Now */}
                                 <div className="xl:border-r xl:last:border-0 border-(--black-custom) flex justify-start lg:justify-center pt-6   pb-4">
                                     <div>
-                                        <Span className="font-bold text-(--white)/34">Explore</Span>
+                                        <Span className="font-bold text-(--grey-custom)">Explore</Span>
                                         <ul>
                                             {NAV_EXPLORE.map((item) => (
                                                 <li key={item.label} className="my-2 text-(--white-custom)">
