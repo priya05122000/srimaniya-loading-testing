@@ -155,7 +155,7 @@ const EventsBlogs: React.FC = () => {
       <LeftSpaceGridSection>
         <div className="py-10 sm:py-20">
           <div className="mb-8">
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title" aria-label="Events &amp; Blogs">
+            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title">
               Events & Blogs
             </Paragraph>
             <Heading ref={headingRef} level={4} className="text-(--blue) mt-1 leading-tight uppercase latest-title">

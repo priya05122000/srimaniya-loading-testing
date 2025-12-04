@@ -28,7 +28,11 @@ export interface Banner {
     category: string;
 }
 
-const getResponsiveImage = (banner: Banner) => banner.image_desktop;
+const getResponsiveImage = (banner: Banner, width: number) => {
+    if (width < 640) return banner.image_phone;
+    if (width < 1024) return banner.image_tab;
+    return banner.image_desktop;
+};
 
 const Hero = () => {
     const { setLoading } = useGlobalLoader();
@@ -84,7 +88,7 @@ const Hero = () => {
                     >
                         <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
                             <Image
-                                src={`${baseUrl}/files/${getResponsiveImage(banner)}`}
+                                src={`${baseUrl}/files/${banner.image_desktop}`}
                                 alt={banner.title}
                                 width={1920}
                                 height={1080}
@@ -92,9 +96,8 @@ const Hero = () => {
                                 priority
                                 decoding="async"
                                 fetchPriority="high"
-                                sizes="100vw"
+                                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
                                 onLoadingComplete={() => setLoading(false)}
-                                unoptimized
                             />
                             {/* Overlay container */}
                             <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">

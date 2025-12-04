@@ -55,6 +55,7 @@ const AlumniImage: React.FC<{
     style={{
       transform: `translateX(${positionMap[idx]})  scale(${scaleMapLg[idx]})`,
       zIndex: idx === 2 ? 10 : 1,
+      willChange: 'transform, opacity',
     }}
   >
     <div
@@ -207,7 +208,9 @@ const AlumniStories = () => {
       <div className="pt-10 sm:pt-20 relative w-full">
         <Section>
           <div>
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title" aria-label="The Proof">The Proof</Paragraph>
+            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title">
+              The Proof
+            </Paragraph>
             <Heading ref={headingRef} level={4} className="text-(--blue) uppercase leading-tight proof-title mt-1">Alumni Stories</Heading>
           </div>
         </Section>
