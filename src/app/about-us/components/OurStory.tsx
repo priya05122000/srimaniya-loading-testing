@@ -87,7 +87,7 @@ const OurStory: React.FC = () => {
         >
           <Image
             src="/about-us/ourstory-old.webp"
-            alt="Our Story"
+            alt="Sri Maniya Institute Our Story, hospitality management college tamil nadu, job opportunities after hotel management, global hospitality careers, practical training in hospitality"
             width={1000}
             height={1000}
             className="w-full h-full sm:h-[400px] lg:h-[450px] xl:h-[590px]  object-cover object-top image-tag"

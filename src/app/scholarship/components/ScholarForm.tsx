@@ -51,7 +51,7 @@ const INITIAL_FORM_DATA: FormData = {
 };
 const IMAGE_PROPS = {
   src: "/scholarship/scholarform.webp",
-  alt: "Scholarship Banner",
+  alt: "sri maniya institute scholarship, scholarship in hospitality management, hotel management scholarship in tamilnadu, merit based scholarship sri maniya institute, hotel management college scholarship tamil nadu, sports quota scholarship hotel management, Sri Maniya College scholarship eligibility",
   fill: true,
   sizes: "(max-width: 768px) 100vw, 50vw",
   className: "object-cover object-top w-full h-full image-tag",

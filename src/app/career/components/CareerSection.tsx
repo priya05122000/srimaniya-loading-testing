@@ -15,7 +15,7 @@ import Span from "@/components/common/Span";
 const CAREER_IMAGE = "/career/career.webp";
 const CAREER_IMAGE_PROPS = {
   src: CAREER_IMAGE,
-  alt: "About Us",
+  alt: "career opportunities in hotel management institutes",
   width: 1200,
   height: 1200,
   className: "w-full h-full object-cover image-tag",

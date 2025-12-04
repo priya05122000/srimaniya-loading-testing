@@ -180,7 +180,7 @@ const Courses: React.FC = () => {
           <div className='lg:px-10 xl:px-20'>
             {/* Header */}
             <div className="mb-12 text-end">
-              <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title" aria-label="Courses">
+              <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">
                 Courses
               </Paragraph>
               <Heading ref={headingRef} level={4} className="text-(--white-custom) mt-1 leading-tight uppercase  courses-academic-title">

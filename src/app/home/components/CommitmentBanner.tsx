@@ -148,9 +148,9 @@ const CommitmentBanner: React.FC = () => {
 
   return (
     <div className="partners-bg" ref={splitTextTriggerRef}>
-      <div className="w-full relative mb-15 lg:mb-28 flex flex-col">
+      <div className="w-full relative mb-15 lg:mb-28 flex flex-col min-h-[600px]">
         <div className="bg-(--blue) px-6 sm:px-8 py-10 flex flex-col items-end" data-section>
-          <Paragraph ref={paragraphRef} size="lg" className="msg-text-scroll text-end mt-1" aria-label="Sri Maniya Institute of Hotel Management">
+          <Paragraph ref={paragraphRef} size="lg" className="msg-text-scroll text-end mt-1">
             Sri Maniya Institute of Hotel Management
           </Paragraph>
           <Heading ref={headingRef} level={4} className="text-(--white-custom) text-right leading-tight commitment-title uppercase ">
@@ -172,7 +172,7 @@ const CommitmentBanner: React.FC = () => {
             <div ref={logoRef} id="rotating-logo" className="absolute inset-0 aspect-square">
               <Image
                 src="/designs/rotate.svg"
-                alt="Rotating Ring"
+                alt="Rotating Ring - Sri Maniya Institute of Hotel Management, hotel management in tamil nadu, career opportunities in hotel management"
                 width={176}
                 height={176}
                 className="object-contain image-tag"
@@ -182,7 +182,7 @@ const CommitmentBanner: React.FC = () => {
             <div className="absolute inset-0 flex items-center justify-center z-10 aspect-square">
               <Image
                 src="/logos/sri-maniya-institute-logo.png"
-                alt="Sri Maniya Institute"
+                alt="Sri Maniya Institute of Hotel Management - best hotel management colleges near me, hospitality management courses in tamilnadu"
                 width={120}
                 height={120}
                 className="object-contain image-tag w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20"

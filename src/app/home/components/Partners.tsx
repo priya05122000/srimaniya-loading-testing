@@ -112,7 +112,6 @@ export default function Partners() {
             ref={paragraphRef}
             size="lg"
             className="text-(--blue) font-bold partners-title"
-            aria-label="Recruitment Partners"
           >
             Recruitment Partners
           </Paragraph>
@@ -130,16 +129,15 @@ export default function Partners() {
 
             <div className="splide" ref={splideRef}>
               <div className="splide__track">
-                <ul className="splide__list" role="list">
+                <ul className="splide__list" role="presentation">
                   {partners.map((partner, index) => (
                     <li
-                      role="listitem"
                       key={index}
                       className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
                       <Image
                         src={`${baseUrl}/files/${partner.logo_url}`}
-                        alt={partner.name}
+                        alt={`Sri Maniya Institute of Hotel Management - Recruitment Partner, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
                         width={200}
                         height={100}
                         className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"

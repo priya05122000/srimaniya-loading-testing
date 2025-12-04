@@ -36,7 +36,7 @@ const ScholarBanner: React.FC = () => {
             <div className="h-full min-h-[300px] relative">
                 <Image
                     src={BANNER_IMAGE}
-                    alt="Scholarship Banner"
+                    alt="sri maniya institute scholarship, scholarship in hospitality management, hotel management scholarship in tamilnadu, merit based scholarship sri maniya institute, hotel management college scholarship tamil nadu, scholarship for diploma degree students, Sri Maniya College scholarship eligibility"
                     width={1000}
                     height={1000}
                     style={{ objectFit: "cover" }}

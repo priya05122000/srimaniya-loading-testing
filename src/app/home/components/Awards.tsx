@@ -129,7 +129,7 @@ export default function Awards() {
             <Paragraph
               ref={paragraphRef}
               size="lg"
-              className="text-(--white-custom) font-bold awards-title" aria-label="Awards"
+              className="text-(--white-custom) font-bold awards-title"
             >
               Awards
             </Paragraph>

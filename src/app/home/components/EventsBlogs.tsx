@@ -76,7 +76,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
       ) : (
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
-          alt={blog.title}
+          alt={`Sri Maniya Institute of Hotel Management Event/Blog - ${blog.title}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           priority={idx === 0}
           className="w-full h-full object-cover image-tag"
           width={500}
@@ -155,7 +155,7 @@ const EventsBlogs: React.FC = () => {
       <LeftSpaceGridSection>
         <div className="py-10 sm:py-20">
           <div className="mb-8">
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title" aria-label="Events &amp; Blogs">
+            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title">
               Events & Blogs
             </Paragraph>
             <Heading ref={headingRef} level={4} className="text-(--blue) mt-1 leading-tight uppercase latest-title">

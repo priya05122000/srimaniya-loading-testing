@@ -75,7 +75,7 @@ const EnquireForm = () => {
         <div className="sm:w-[110%] lg:w-[106%] xl:w-[104%] min-h-[300px]">
           <Image
             src="/home/enquireform.webp"
-            alt="Our Story"
+            alt="Sri Maniya Institute of Hotel Management - hotel management courses near me, best hotel management colleges near me, career opportunities in hotel management, hospitality management courses in tamilnadu"
             width={2000}
             height={2000}
             className="w-full h-full  object-cover image-tag"
