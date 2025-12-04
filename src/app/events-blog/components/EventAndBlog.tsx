@@ -15,6 +15,7 @@ import Span from "@/components/common/Span";
 
 interface Blog {
     id: string;
+    slug: string;
     image_url: string;
     title: string;
     sub_title: string;
@@ -98,7 +99,9 @@ const EventAndBlog: React.FC = () => {
     }, [setLoading]);
 
     const filteredBlogs = blogs.filter((blog) => blog.category_id === active);
-    const handleBlogClick = (id: string) => router.push(`/events-blog-view?id=${id}`);
+    // const handleBlogClick = (id: string) => router.push(`/events-blog-view?id=${id}`);
+    const handleBlogClick = (slug: string) => router.push(`/events-blog-view/${slug}`);
+
 
     // Reusable category button
     const CategoryButton: React.FC<{ cat: Category; active: string; setActive: (id: string) => void }> = React.memo(({ cat, active, setActive }) => (
@@ -138,7 +141,7 @@ const EventAndBlog: React.FC = () => {
                                     <div className="w-full">
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
-                                            onClick={() => handleBlogClick(blog.id)}
+                                            onClick={() => handleBlogClick(blog.slug)}
                                             alt={blog.title}
                                             className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"
                                             width={500}
@@ -148,7 +151,7 @@ const EventAndBlog: React.FC = () => {
                                     </div>
 
                                     <div className="pt-3  z-10 relative text-(--blue)">
-                                        <Paragraph size="lg" className="mb-3 font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug" onClick={() => handleBlogClick(blog.id)}>{blog.sub_title}</Paragraph>
+                                        <Paragraph size="lg" className="mb-3 font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug" onClick={() => handleBlogClick(blog.slug)}>{blog.sub_title}</Paragraph>
 
                                         <span
                                             className="text-sm"

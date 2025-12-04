@@ -19,3 +19,12 @@ export const getBlogPostById = async (id) => {
         throw error.response?.data || { message: "Failed to fetch Blog Post" };
     }
 };
+
+export const getBlogPostBySlug = async (slug) => {
+    try {
+        const response = await axiosInstance.get(`${API_BASE}/slug/${slug}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { message: "Failed to fetch Blog Post" };
+    }
+};
