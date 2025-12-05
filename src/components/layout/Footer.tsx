@@ -247,6 +247,7 @@ const Footer = () => {
                                         height={500}
                                         className="w-auto h-16 object-contain image-tag"
                                         priority
+                                        unoptimized
                                     />
                                 </div>
                                 <Span className="text-(--white-custom)">

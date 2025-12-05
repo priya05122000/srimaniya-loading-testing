@@ -178,7 +178,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                 </div>
                 {/* Logo */}
                 <Link href="/" className="logo flex items-center justify-center order-2 pr-6 sm:pr-0">
-                    <Image src="/logos/navbarlogo.png" alt="Company Logo" width={500} height={500} className="h-16 sm:h-12 w-auto object-contain image-tag" priority />
+                    <Image src="/logos/navbarlogo.png" alt="Company Logo" width={500} height={500} className="h-16 sm:h-12 w-auto object-contain image-tag" priority unoptimized />
                 </Link>
             </div>
             {/* Overlay for mobile menu */}

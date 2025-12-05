@@ -75,7 +75,9 @@ const AlumniImage: React.FC<{
           draggable={false}
           style={{ borderRadius: '9999px' }}
           priority={idx === 2}
+          unoptimized
         />
+
       ) : (
         <div className="w-full h-full" />
       )}

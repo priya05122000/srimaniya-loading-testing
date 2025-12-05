@@ -82,6 +82,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
           width={100}
           height={100}
           className="w-full h-full object-cover image-tag"
+          unoptimized
         />
       </div>
       <Paragraph className={`absolute ${size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"} left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}>
