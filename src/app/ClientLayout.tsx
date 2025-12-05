@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,6 +13,13 @@ import BackToTopButton from "@/components/common/BackToTopButton";
 import FloatingContactButtons from "@/components/common/FloatingContactButtons";
 import "react-toastify/dist/ReactToastify.css";
 import Script from "next/script";
+import { AnimatePresence, motion } from "framer-motion";
+import { IoClose } from "react-icons/io5";
+import Heading from "@/components/common/Heading";
+import Paragraph from "@/components/common/Paragraph";
+import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
+import Link from "next/link";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -180,6 +187,66 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [showOnlyFooter, setShowOnlyFooter] = useState<boolean>(true);
   const [footerVisible, setFooterVisible] = useState<boolean>(false);
   const [navbarVisible, setNavbarVisible] = useState<boolean>(true);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [mobileNumber, setMobileNumber] = useState<string>("");
+  const [popupSubmitting, setPopupSubmitting] = useState<boolean>(false);
+  const [localLoading, setLocalLoading] = useState(false);
+
+  const handleClosePopup = () => setShowPopup(false);
+  const handleMobileNumberChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setMobileNumber(e.target.value);
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLocalLoading(true);
+    try {
+      // Prepare data
+      const StudentName = "(popup)";
+      const StudentPhone = mobileNumber;
+      // Submit to Google Apps Script
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            StudentName,
+            ParentName: "null",
+            StudentPhone,
+            ParentPhone: "null",
+            StudentEmail: "null",
+            Address: "null",
+            City: "null",
+            State: "null",
+            District: "null",
+            PinCode: "null",
+          }),
+        }
+      );
+      // Submit to createAppoinmentRequest
+      const payload = { name: StudentName, phone_number: StudentPhone };
+      const response = await createAppoinmentRequest(payload);
+      if (!response || !response.status || response.responseCode !== "INSERT_SUCCESS") {
+        toast.error("Failed to submit the form. Please try again.");
+        setLocalLoading(false);
+        return;
+      }
+      toast.success("Form submitted successfully!");
+      setMobileNumber("");
+      setShowPopup(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to submit the form. Please try again.");
+    } finally {
+      setLocalLoading(false);
+    }
+  };
+
+  // Example: Show popup after 10 seconds (customize as needed)
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPopup(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Hooks for logic
   useScrollSmoother(loading, smootherRef);
@@ -288,6 +355,68 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
           </Suspense>
         </div>
       </div>
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            className="fixed inset-0 z-100 flex items-center justify-center bg-(--black)/60 p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="bg-(--blue-overlay-custom) shadow-2xl p-6  w-[400px] relative backdrop-blur-md"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <button
+                className="absolute top-2 right-2 cursor-pointer text-xl text-(--bg-grey)"
+                onClick={handleClosePopup}
+                aria-label="Close"
+              >
+                <IoClose />
+              </button>
+
+              <Heading
+                level={6}
+                className="font-bold my-6 leading-tight text-center text-(--white) uppercase"
+              >
+                Enquire Now
+              </Heading>
+
+              <form onSubmit={handleSubscribe} className=" space-y-2  w-full mx-auto">
+                <input
+                  type="tel"
+                  name="Mobile Number"
+                  required
+                  value={mobileNumber}
+                  onChange={handleMobileNumberChange}
+                  placeholder="Enter your Mobile number"
+                  className="flex-1 w-full px-4 py-2 border text-(--dark) border-white bg-white focus:outline-none"
+                  maxLength={10}
+                  pattern="[0-9]{10}"
+                  inputMode="numeric"
+                />
+                <div className=" flex justify-end mt-4">
+                  <button
+                    type="submit"
+                    className="relative flex justify-center items-center rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
+                    disabled={localLoading}
+                  >
+                    <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
+                      {localLoading ? "Submitting..." : "Submit"}
+                    </span>
+                    <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
+                  </button>
+                </div>
+
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

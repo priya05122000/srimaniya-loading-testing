@@ -54,7 +54,7 @@ function BlogViewPageContent() {
     const fetchBlog = async () => {
       setLoading(true);
       try {
-        const result = await getBlogPostBySlug(slug); 
+        const result = await getBlogPostBySlug(slug);
         setBlog(result?.data);
         await preloadImages(result?.data);
       } catch (error: unknown) {

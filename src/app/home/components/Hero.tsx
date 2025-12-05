@@ -83,7 +83,7 @@ const Hero = () => {
             {banners.map((banner, idx) => (
                 <SwiperSlide key={idx}>
                     <div
-                        className="bg-(--blue) grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-[95vh] sm:h-[calc(85vh-80px)] hero-wrapper will-change-transform"
+                        className="bg-(--blue) grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-[95vh] sm:h-[calc(90vh-80px)] hero-wrapper will-change-transform"
                         style={{ transform: "translateZ(0)" }}
                     >
                         <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
@@ -101,13 +101,13 @@ const Hero = () => {
                                 unoptimized
                             />
                             {/* Overlay container */}
-                            <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
+                            <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 lg:w-2/4 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
                                 <div className="absolute inset-0 bg-(--blue-overlay-medium) -z-10 rounded-lg" />
                                 <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
                                 <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
                                 {banner.button_text && (
                                     <Heading
-                                        level={5}
+                                        level={6}
                                         className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out px-6 sm:px-8 py-4 rounded-lg"
                                     >
                                         {banner.button_text}
