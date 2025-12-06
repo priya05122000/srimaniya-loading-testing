@@ -474,6 +474,10 @@ img,
   @apply text-base leading-relaxed text-(--dark);
 }
 
+.blog-content p.para-xl {
+  @apply text-lg sm:text-xl lg:text-2xl font-bold leading-relaxed text-(--dark);
+}
+
 .blog-content h1 {
   @apply text-5xl sm:text-6xl lg:text-7xl font-bold leading-relaxed text-(--dark);
 }
