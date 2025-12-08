@@ -28,6 +28,7 @@ interface Job {
   description: string;
   experience_years: number;
   openings: number;
+  is_active: boolean;
 }
 
 const scrollToApplyNow = () => {
@@ -57,14 +58,16 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
     <div>
       <div className="flex justify-between border-y border-(--grey-custom) py-3">
         <div className="flex flex-col">
-          <Paragraph
-            size="xl"
-            className="text-(--dark) font-semibold"
-          >
+          <Paragraph size="xl" className="text-(--dark) font-semibold">
             {String(index + 1).padStart(2, "0")}. {job.title}
           </Paragraph>
           <Span className="text-(--dark) font-semibold mt-1">
-            {job.openings} Openings | {job.experience_years} Years Experience
+            {job.openings} {job.openings == 1 ? "Opening" : "Openings"} |{" "}
+            {job.experience_years && job.experience_years > 0
+              ? `${job.experience_years} Year${
+                  job.experience_years == 1 ? "" : "s"
+                } Experience`
+              : "Fresher"}
           </Span>
         </div>
         <div className="flex justify-end items-end mt-4">
@@ -91,14 +94,14 @@ const CareerSection: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const { loading, setLoading } = useGlobalLoader();
 
-
-
   useEffect(() => {
     setLoading(true);
     const fetchJobs = async () => {
       try {
         const result = await getAllJobs();
-        setJobs(result?.data || []);
+        const data = result.data || [];
+        const filtered = data.filter((job: Job) => job.is_active);
+        setJobs(filtered);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
@@ -128,7 +131,10 @@ const CareerSection: React.FC = () => {
             </div>
             <div className="">
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] relative h-full">
-                <div className="bg-(--blue) p-6 sm:p-8 relative overflow-hidden flex items-center" data-section>
+                <div
+                  className="bg-(--blue) p-6 sm:p-8 relative overflow-hidden flex items-center"
+                  data-section
+                >
                   <div className="">
                     <Heading
                       level={6}
@@ -140,15 +146,20 @@ const CareerSection: React.FC = () => {
                       size="base"
                       className="text-(--white-custom) mt-4 leading-relaxed xl:leading-loose text-justify"
                     >
-                      We are looking for passionate and dedicated individuals who want to inspire, teach, and make a meaningful impact on tomorrow's hospitality leaders. At Sri Maniya Institute of Hotel Management, every role is crucial in shaping future leaders of the worldwide hospitality industry.
+                      We are looking for passionate and dedicated individuals
+                      who want to inspire, teach, and make a meaningful impact
+                      on tomorrow's hospitality leaders. At Sri Maniya Institute
+                      of Hotel Management, every role is crucial in shaping
+                      future leaders of the worldwide hospitality industry.
                     </Paragraph>
                     <Paragraph
                       size="base"
                       className="text-(--white-custom) mt-4 leading-relaxed xl:leading-loose"
                     >
-                      Join {" "}
+                      Join{" "}
                       <strong>Sri Maniya Institute of Hotel Management</strong>{" "}
-                      to advance your career while helping to develop the next generation of hospitality professionals.
+                      to advance your career while helping to develop the next
+                      generation of hospitality professionals.
                     </Paragraph>
                   </div>
                 </div>
