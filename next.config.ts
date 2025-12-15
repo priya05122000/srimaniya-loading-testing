@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
+    unoptimized:true,
     qualities: [100],
     domains: [
       "api.srimaniyainstitute.in",
