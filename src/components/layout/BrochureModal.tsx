@@ -32,8 +32,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
                     return;
                 }
                 await fetch(
-                    // "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
-                    "https://script.google.com/macros/s/AKfycbwHiKhpirvZSihnkenK2liT7AQzi1wrTiypu5J-BB0IQHK8ZECBYTHX1u-8DA6KUaDuOA/exec",
+                    "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
                     {
                         method: "POST",
                         mode: "no-cors",

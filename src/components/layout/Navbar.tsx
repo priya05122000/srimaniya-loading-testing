@@ -30,6 +30,7 @@ const NAV_LINKS: NavLink[] = [
     { name: "Courses", href: "/courses" },
     { name: "Placements", href: "/placements" },
     { name: "Scholarship", href: "/scholarship" },
+    // { name: "Scholarship", href: "/scholarship" },
     { name: "Events & Blog", href: "/events-blog" },
     { name: "Career", href: "/career" },
     { name: "Contact Us", href: "/contact-us" },
