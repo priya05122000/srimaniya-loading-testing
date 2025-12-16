@@ -19,10 +19,9 @@ import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
 import CommonEnquiryFields from "@/components/common/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from '@/components/common/enquiryFormValidation';
-import { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
+import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
+import type { EnquiryFormData } from '@/components/common/useEnquiryForm';
 
-import { useEnquiryForm } from '@/components/common/useEnquiryForm';
 
 interface CourseOption {
   id: number;
@@ -53,6 +52,15 @@ const SWIPER_CONFIG = {
   className: "partBannerSwiper h-[250px] ",
 };
 
+const FORM_INITIAL_STATE = {
+  name: "",
+  email: "",
+  mobile: "",
+  message: "",
+  course: "",
+  agree: false,
+};
+
 // Helper: Preload images (reusable)
 const preloadImages = (banners: Banner[]) => {
   return Promise.all(
@@ -73,23 +81,8 @@ const preloadImages = (banners: Banner[]) => {
 export default function PartBanner() {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
-
-  const { formData, handleChange, handleSubmit, loading, error, success, setError, setSuccess } = useEnquiryForm({
-    validateForm: validateEnquiryFormWithToast,
-    onSubmit: createAppoinmentRequest,
-    captchaAction: "placement_form",
-  });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError(null);
-    }
-    if (success) {
-      toast.success(success);
-      setSuccess(null);
-    }
-  }, [error, success, setError, setSuccess]);
+  const [formData, setFormData] = useState(FORM_INITIAL_STATE);
+  const [localLoading, setLocalLoading] = useState(false);
 
   useEffect(() => {
     getAllBanners()
@@ -97,7 +90,8 @@ export default function PartBanner() {
         const data = result?.data;
         if (Array.isArray(data) && data.length > 0) {
           const placementBanners = data.filter(
-            (banner: Banner) => banner.is_active && banner.category.includes("Placement")
+            (banner: Banner) =>
+              banner.is_active && banner.category.includes("Placement")
           );
           setBanners(placementBanners);
           preloadImages(placementBanners);
@@ -118,6 +112,48 @@ export default function PartBanner() {
       })
       .catch(() => setCourseOptions([]));
   }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, type, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox" && "checked" in e.target
+          ? (e.target as HTMLInputElement).checked
+          : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateEnquiryFormWithToast(formData)) return;
+    setLocalLoading(true);
+    const payload = {
+      name: formData.name,
+      email: formData.email || null,
+      phone_number: formData.mobile,
+      message: formData.message || null,
+      course_id: formData.course || null,
+    };
+    try {
+      await createAppoinmentRequest(payload);
+      toast.success("Application submitted successfully!");
+      setFormData(FORM_INITIAL_STATE);
+    } catch (error: any) {
+      const response = error?.response;
+      if (response?.status === 409)
+        toast.error(
+          response.data?.message || "Duplicate application detected."
+        );
+      else toast.error(response?.data?.message || "Submission failed.");
+    } finally {
+      setLocalLoading(false);
+    }
+  };
 
   return (
     <div className="relative lg:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
@@ -141,7 +177,10 @@ export default function PartBanner() {
                 />
               </picture>
               <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-2/3 md:w-1/2 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
-                <div data-section className="absolute inset-0 bg-(--blue-overlay-medium) -z-10" />
+                <div
+                  data-section
+                  className="absolute inset-0 bg-(--blue-overlay-medium) -z-10"
+                />
                 <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
                 <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
                 <div className="px-4 py-2 sm:py-4 ">
@@ -168,7 +207,10 @@ export default function PartBanner() {
         ))}
       </Swiper>
       <div className="h-full sm:h-[calc(100vh-80px)] overflow-auto">
-        <div className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly " data-section>
+        <div
+          className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly "
+          data-section
+        >
           <div className="max-w-full sm:max-w-2xl ml-auto">
             <Heading level={4} className="uppercase text-end hidden xl:block ">
               Join With US
@@ -177,8 +219,7 @@ export default function PartBanner() {
               Join With US
             </Heading>
           </div>
-          <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
-            <AutofillSuppressionFields />
+          <form className="flex flex-col 2xl:gap-y-2" onSubmit={handleSubmit}>
             <CommonEnquiryFields
               formData={formData}
               handleChange={handleChange}
@@ -186,7 +227,7 @@ export default function PartBanner() {
                 value: String(course.id),
                 label: course.title,
               }))}
-              loading={loading}
+              loading={localLoading}
               submitText="Submit"
             />
           </form>

@@ -3,7 +3,7 @@ import "./globals.css";
 import ClientLayout from "./ClientLayout";
 import Script from "next/script";
 import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
-import GlobalLoader from "@/components/GlobalLoader";
+import ConditionalGlobalLoader from "@/components/ConditionalGlobalLoader";
 import AnalyticsListener from "./analytics-listener";
 import { Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -56,7 +56,7 @@ export default function RootLayout({
         </Suspense>
 
         <GlobalLoaderProvider>
-          <GlobalLoader />
+          <ConditionalGlobalLoader />
           <ClientLayout>{children}</ClientLayout>
         </GlobalLoaderProvider>
         <SpeedInsights />

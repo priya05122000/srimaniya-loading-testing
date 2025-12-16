@@ -1,72 +1,32 @@
 "use client";
 import Heading from '@/components/common/Heading';
-import { CheckboxField, InputField, TextAreaField } from '@/components/ui/FormFields';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { toast } from "react-toastify";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
+import CommonEnquiryFields, { AutofillSuppressionFields } from '@/components/common/CommonEnquiryFields';
+import { useEnquiryForm } from '@/components/common/useEnquiryForm';
+import { validateEnquiryFormWithToast } from '@/components/common/enquiryFormValidation';
 
-// Types for form data (reusable)
-type EnquireFormData = {
-  name: string;
-  email: string;
-  mobile: string;
-  message: string;
-  agree: boolean;
-};
-
-// Utility: Reset form data
-function getInitialFormData(): EnquireFormData {
-  return {
-    name: "",
-    email: "",
-    mobile: "",
-    message: "",
-    agree: false,
-  };
-}
-
-const EnquireForm = () => {
+const EnquireForm: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [formData, setFormData] = useState<EnquireFormData>(getInitialFormData());
-  const [localLoading, setLocalLoading] = useState(false);
 
-  // Reusable change handler
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
-    setFormData((prev: EnquireFormData) => ({ ...prev, [target.name]: value }));
-  };
+  const { formData, handleChange, handleSubmit, loading, error, success, setError, setSuccess } = useEnquiryForm({
+    validateForm: validateEnquiryFormWithToast,
+    onSubmit: createAppoinmentRequest,
+    captchaAction: "enquiry_form",
+  });
 
-  // Reusable submit handler
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.agree) {
-      toast.error("You must agree to the terms before submitting.");
-      return;
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      setError(null);
     }
-    setLocalLoading(true);
-    try {
-      const payload = {
-        name: formData.name,
-        email: formData.email || null,
-        phone_number: formData.mobile,
-        message: formData.message || null,
-      };
-      await createAppoinmentRequest(payload);
-      toast.success("Enquiry submitted successfully!");
-      setFormData(getInitialFormData());
-    } catch (error: unknown) {
-      const errorMsg = (error && typeof error === 'object' && 'message' in error)
-        ? (error as { message?: string }).message
-        : "Failed to submit enquiry.";
-      toast.error(errorMsg);
-    } finally {
-      setLocalLoading(false);
+    if (success) {
+      toast.success(success);
+      setSuccess(null);
     }
-  };
+  }, [error, success, setError, setSuccess]);
 
   return (
     <div className="md:h-[calc(100vh-80px)]" ref={sectionRef}>
@@ -94,52 +54,14 @@ const EnquireForm = () => {
               </Heading>
             </div>
             <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
-              <InputField
-                type="text"
-                label="Name *"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
+              <AutofillSuppressionFields />
+              <CommonEnquiryFields
+                formData={formData}
+                handleChange={handleChange}
+                loading={loading}
+                submitText="Submit"
               />
-              <InputField
-                type="email"
-                label="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <InputField
-                type="tel"
-                label="Mobile number *"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-              />
-              <TextAreaField
-                label="Message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={2}
-              />
-              <CheckboxField
-                label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy."
-                name="agree"
-                checked={formData.agree}
-                onChange={handleChange}
-              />
-              <div className="block ml-auto mt-4">
-                <button
-                  type="submit"
-                  className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
-                  disabled={localLoading}
-                >
-                  <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
-                    {localLoading ? "Submitting..." : "Submit"}
-                  </span>
-                  <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
-                </button>
-              </div>
+              {/* Submit button is now handled by CommonEnquiryFields */}
             </form>
           </div>
         </div>

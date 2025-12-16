@@ -1,15 +1,9 @@
 "use client";
-import React, {
-    useState,
-    FormEvent,
-    ChangeEvent,
-} from "react";
-import { useRouter, usePathname } from "next/navigation";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { GoDownload } from "react-icons/go";
-import { toast } from "react-toastify";
-import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";
 
@@ -27,6 +21,7 @@ interface NavbarProps {
 type FormData = {
     StudentName: string;
     StudentPhone: string;
+    token?: string;
 };
 
 const NAV_LINKS: NavLink[] = [
@@ -80,70 +75,12 @@ const Hamburger = ({ open }: { open: boolean }) => (
 
 // -------------------- Navbar --------------------
 const Navbar = ({ sticky = true }: NavbarProps) => {
-    const router = useRouter();
     const pathname = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
     const [showBrochureModal, setShowBrochureModal] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState<FormData>(initialForm);
 
     const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        setSubmitting(true);
-        const { StudentName, StudentPhone } = form;
-        const brochureName = `(brochure) ${StudentName}`;
-        try {
-            await fetch(
-                "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
-                {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams({
-                        StudentName: brochureName,
-                        ParentName: "null",
-                        StudentPhone,
-                        ParentPhone: "null",
-                        StudentEmail: "null",
-                        Address: "null",
-                        City: "null",
-                        State: "null",
-                        District: "null",
-                        PinCode: "null",
-                    }),
-                }
-            );
-            const payload = { name: brochureName, phone_number: StudentPhone };
-            const response = await createAppoinmentRequest(payload);
-            if (!response || !response.status || response.responseCode !== "INSERT_SUCCESS") {
-                toast.error("Failed to submit the form. Please try again.");
-                return;
-            }
-            toast.success("Form submitted successfully!");
-            setForm(initialForm);
-            setShowBrochureModal(false); // Close modal after submit
-            // Download brochure
-            const brochureUrl = "/pdf/brochure.pdf";
-            const link = document.createElement("a");
-            link.href = brochureUrl;
-            link.download = "brochure.pdf";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to submit the form. Please try again.");
-        } finally {
-            setSubmitting(false);
-        }
-    };
 
     return (
         <nav className={`navbar h-20 z-9999 bg-(--blue) w-full shadow-sm border-b border-(--grey-custom) ${sticky ? "fixed top-0 " : ""} transition-opacity duration-500 navbar--visible`}>
@@ -184,7 +121,12 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
             {/* Overlay for mobile menu */}
             {menuOpen && <div className="fixed inset-0 bg-(--black)/30 z-30 md:hidden" onClick={() => setMenuOpen(false)}></div>}
             {/* Brochure Modal */}
-            <BrochureModal open={showBrochureModal} onClose={() => setShowBrochureModal(false)} form={form} onChange={handleChange} onSubmit={handleSubmit} submitting={submitting} />
+            <BrochureModal
+                open={showBrochureModal}
+                onClose={() => setShowBrochureModal(false)}
+                form={form}
+                onChange={() => { }} // No-op, BrochureModal manages state
+            />
         </nav>
     );
 };
