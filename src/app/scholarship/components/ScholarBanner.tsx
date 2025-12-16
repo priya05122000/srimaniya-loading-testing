@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // Swiper styles
 import "swiper/css";
@@ -7,10 +7,15 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
-import Image from "next/image";
-import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+import Heading from "@/components/common/Heading";
+import Image from "next/image";
+
+import { getAllJobs } from "@/services/jobService";
+import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+
+
+
 
 // Reusable constants
 const BANNER_IMAGE = "/scholarship/scholarship-banner.webp";
@@ -20,9 +25,22 @@ const GRADIENT_OVERLAY = {
     opacity: 0.8,
 };
 
+interface Job {
+    id: string;
+    title: string;
+    description: string;
+    experience_years: number;
+    openings: number;
+    is_active: boolean;
+}
+
+
+
 const ScholarBanner: React.FC = () => {
     const bannerRef = useRef<HTMLDivElement | null>(null);
-    const headingRef = useRef<HTMLHeadingElement | null>(null);
+    const headingRef = useRef<HTMLHeadingElement | null>(null); const [jobs, setJobs] = useState<Job[]>([]);
+    const { loading, setLoading } = useGlobalLoader();
+
 
     useSplitTextHeadingAnimation({
         trigger: bannerRef,
@@ -30,6 +48,24 @@ const ScholarBanner: React.FC = () => {
         delay: 0.3,
         enabled: true,
     });
+
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchJobs = async () => {
+            try {
+                const result = await getAllJobs();
+                const data = result.data || [];
+                const filtered = data.filter((job: Job) => job.is_active);
+                setJobs(filtered);
+            } catch (error) {
+                console.error("Error fetching jobs:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchJobs();
+    }, [setLoading]);
 
     return (
         <div className="sm:h-[calc(100vh-80px)]" ref={bannerRef}>
