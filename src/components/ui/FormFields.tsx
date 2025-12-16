@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // --- Input Field ---
 const baseInputClass =
@@ -187,10 +187,11 @@ interface FileUploaderFieldProps extends React.InputHTMLAttributes<HTMLInputElem
   id?: string;
   multiple?: boolean;
   inputRef?: React.RefObject<HTMLInputElement>; // Add inputRef prop
+  resetTrigger?: any; // Add resetTrigger prop
 }
 
 const baseFileUploaderClass =
-  "bg-transparent border-b py-8 xl:py-7 px-1 outline-none w-full mb-3 flex items-center justify-between cursor-pointer";
+  "bg-transparent border-b py-8 px-1 outline-none w-full mb-3 flex items-center justify-between cursor-pointer";
 
 export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
   className = "",
@@ -199,10 +200,12 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
   onChange,
   label,
   inputRef, // Destructure inputRef
+  resetTrigger, // Destructure resetTrigger
   ...props
 }) => {
   const [fileNames, setFileNames] = useState<string[]>([]);
   const [isFocused, setIsFocused] = useState(false);
+  const [hasFile, setHasFile] = useState(false); // Track if file is uploaded
   const inputId =
     id ||
     (label
@@ -215,60 +218,63 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
       ? Array.from(e.target.files).map((f) => f.name)
       : [];
     setFileNames(files);
+    setHasFile(files.length > 0); // Set hasFile true if file uploaded
     onChange?.(e);
   };
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
+  useEffect(() => {
+    if (resetTrigger) {
+      setFileNames([]);
+      setHasFile(false);
+    }
+  }, [resetTrigger]);
+
   return (
-    <div className="relative w-full">
-      {label && (
-        <label
-          htmlFor={inputId}
-          className={`absolute left-0 transition-all duration-200 z-10 pointer-events-none
-            ${showFloating
-              ? `-top-3 text-base ${className.includes("text-(--blue)")
-                ? "text-(--blue)"
-                : "text-(--white-custom)"
-              } px-1`
-              : `top-3 xl:top-5 ${className.includes("text-(--blue)")
-                ? "text-(--blue)"
-                : "text-(--white-custom)"
-              } text-base`
-            }
-          `}
-        >
-          {label}
-        </label>
-      )}
-      <label
-        htmlFor={inputId}
-        className={`${baseFileUploaderClass} ${className} ${label ? "pt-5" : ""
-          }`}
-      >
-        <span
-          className={className.includes("text-(--blue)") ? "text-(--blue)" : "text-(--white-custom) opacity-60"}
-        >
-          {fileNames.length
+    React.createElement('div', { className: 'relative w-full' },
+      label && React.createElement('label', {
+        htmlFor: inputId,
+        className: `absolute left-0 transition-all duration-200 z-10 pointer-events-none\n          ${showFloating
+          ? `-top-3 text-base ${className.includes("text-(--blue)")
+            ? "text-(--blue)"
+            : "text-(--white-custom)"
+          } `
+          : `top-3 xl:top-5 ${className.includes("text-(--blue)")
+            ? "text-(--blue)"
+            : "text-(--white-custom)"
+          } text-base`
+          }`
+      }, label),
+      React.createElement('label', {
+        htmlFor: inputId,
+        className: `${baseFileUploaderClass.replace('py-8', hasFile ? 'py-2' : 'py-8')} ${className} ${label ? "pt-5" : ""}`
+      },
+        React.createElement('span', {
+          className: className.includes("text-(--blue)") ? "text-(--blue)" : "text-(--white-custom) opacity-60"
+        },
+          fileNames.length
             ? multiple
               ? fileNames.join(", ")
               : fileNames[0]
-            : ""}
-        </span>
-      </label>
-      <input
-        id={inputId}
-        type="file"
-        multiple={multiple}
-        ref={inputRef} // Attach ref to input
-        {...props}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className="hidden"
-      />
-    </div>
+            : ""
+        )
+      ),
+      React.createElement('input', {
+        id: inputId,
+        type: 'file',
+        multiple: multiple,
+        ref: inputRef,
+        name: 'resume', // keep name
+        // REMOVE required if present in ...props
+        ...Object.fromEntries(Object.entries(props).filter(([k]) => k !== 'required')),
+        onChange: handleChange,
+        onFocus: handleFocus,
+        onBlur: handleBlur,
+        className: 'hidden'
+      })
+    )
   );
 };
 
@@ -349,7 +355,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
       >
         <option value="" disabled hidden></option>
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="text-(--blue)">
+          <option key={opt.value} value={opt.value} className="text-xs text-(--blue)">
             {opt.label}
           </option>
         ))}

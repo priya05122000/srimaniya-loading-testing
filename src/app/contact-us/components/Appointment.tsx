@@ -5,16 +5,15 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  CheckboxField,
-  InputField,
-  TextAreaField,
-} from "@/components/ui/FormFields";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+import CommonEnquiryFields from '@/components/enquiry-validation/CommonEnquiryFields';
+import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
+
+import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
 
 // --- Types ---
 type FormData = { name: string; email: string; mobile: string; message: string; agree: boolean };
@@ -52,25 +51,6 @@ const CompanyInfo: React.FC<CompanyInfoProps> = React.memo(({ logoSrc, title, ad
 ));
 CompanyInfo.displayName = "CompanyInfo";
 
-const AppointmentFormFields: React.FC<AppointmentFormFieldsProps> = React.memo(({ formData, handleChange }) => (
-  <>
-    <InputField type="text" label="Name *" name="name" value={formData.name} onChange={handleChange} required />
-    <InputField type="email" label="Email" name="email" value={formData.email} onChange={handleChange} />
-    <InputField type="tel" label="Mobile number *" name="mobile" value={formData.mobile} onChange={handleChange} required />
-    <TextAreaField label="Message" name="message" rows={3} value={formData.message} onChange={handleChange} />
-    <CheckboxField label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy." name="agree" checked={formData.agree} onChange={handleChange} />
-  </>
-));
-AppointmentFormFields.displayName = "AppointmentFormFields";
-
-const SubmitButton: React.FC<{ label?: string; loading?: boolean }> = React.memo(({ label = "Submit", loading }) => (
-  <button type="submit" disabled={loading} className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]">
-    <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">{loading ? "Submitting..." : label}</span>
-    <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
-  </button>
-));
-SubmitButton.displayName = "SubmitButton";
-
 // --- Mobile Layout ---
 const MobileLayout: React.FC<{
   formData: FormData;
@@ -105,12 +85,18 @@ const MobileLayout: React.FC<{
         </div>
       </section>
       {/* Form */}
-      <section className="section bg-(--blue) flex justify-center items-center w-full py-8" data-section>
-        <form onSubmit={handleSubmit} className="space-y-4 w-full px-6">
-          <AppointmentFormFields formData={formData} handleChange={handleChange} />
-          <div className="flex justify-end">
-            <SubmitButton loading={loading} />
-          </div>
+      <section className="section bg-(--blue) flex justify-center items-center w-full py-8 " data-section>
+        <form onSubmit={handleSubmit} className="space-y-4 w-full px-6" autoComplete="off">
+          {/* Hidden dummy input to suppress autofill */}
+          <input type="text" name="fakeusernameremembered" autoComplete="username" style={{ display: "none" }} tabIndex={-1} />
+          <input type="password" name="fakePassword" autoComplete="new-password" style={{ display: "none" }} tabIndex={-1} />
+          <CommonEnquiryFields
+            formData={formData}
+            handleChange={handleChange}
+            loading={loading}
+            submitText="Submit"
+            fieldsToShow={["name", "email", "mobile", "message", "agree"]}
+          />
         </form>
       </section>
       {/* Image */}
@@ -164,11 +150,17 @@ const DesktopLayout: React.FC<{
     </section>
     {/* Form */}
     <section className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] lg:w-1/2 ml-auto z-10" data-section>
-      <form onSubmit={handleSubmit} className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8">
-        <AppointmentFormFields formData={formData} handleChange={handleChange} />
-        <div className="flex justify-end">
-          <SubmitButton loading={loading} />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8 " autoComplete="off">
+        {/* Hidden dummy input to suppress autofill */}
+        <input type="text" name="fakeusernameremembered" autoComplete="username" style={{ display: "none" }} tabIndex={-1} />
+        <input type="password" name="fakePassword" autoComplete="new-password" style={{ display: "none" }} tabIndex={-1} />
+        <CommonEnquiryFields
+          formData={formData}
+          handleChange={handleChange}
+          loading={loading}
+          submitText="Submit"
+          fieldsToShow={["name", "email", "mobile", "message", "agree"]}
+        />
       </form>
     </section>
     {/* Companies & Hotels */}
@@ -199,9 +191,24 @@ const DesktopLayout: React.FC<{
 // --- Main Appointment Component ---
 const Appointment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState<FormData>({ name: "", email: "", mobile: "", message: "", agree: false });
+
+  const { formData, handleChange, handleSubmit, loading, error, success, setError, setSuccess } = useEnquiryForm({
+    validateForm: validateEnquiryFormWithToast,
+    onSubmit: createAppoinmentRequest,
+    captchaAction: "appointment_form",
+  });
   const [mounted, setMounted] = useState(false);
-  const [localLoading, setLocalLoading] = useState(false); // Add local loading state
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      setError(null);
+    }
+    if (success) {
+      toast.success(success);
+      setSuccess(null);
+    }
+  }, [error, success, setError, setSuccess]);
 
   // Mount state for SSR/CSR safety
   useEffect(() => { setMounted(true); }, []);
@@ -235,38 +242,11 @@ const Appointment: React.FC = () => {
 
   if (!mounted) return null;
 
-  // --- Form Handlers ---
-  const handleChange: AppointmentFormFieldsProps["handleChange"] = (e) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
-    setFormData((prev) => ({ ...prev, [target.name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.agree) {
-      toast.error("You must agree to the terms and conditions.");
-      return;
-    }
-    setLocalLoading(true); // Set local loading
-    try {
-      const payload = { name: formData.name, email: formData.email || null, phone_number: formData.mobile, message: formData.message || null };
-      await createAppoinmentRequest(payload);
-      toast.success("Enquiry submitted successfully!");
-      setFormData({ name: "", email: "", mobile: "", message: "", agree: false });
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to submit enquiry.";
-      toast.error(errorMessage);
-    } finally {
-      setLocalLoading(false); // Unset local loading
-    }
-  };
-
   // --- Render ---
   return (
     <div ref={containerRef} className="w-full">
-      <MobileLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={localLoading} />
-      <DesktopLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={localLoading} />
+      <MobileLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
+      <DesktopLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
     </div>
   );
 };

@@ -1,39 +1,22 @@
 "use client";
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 
-// Custom Components
-import {
-  InputField,
-  SelectField,
-  TextAreaField,
-} from "@/components/ui/FormFields";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 
 // Data
 import districts from "./districts.json";
-import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
+import { useRegistrationForm } from "@/app/registration-form/subcomponents/useRegistrationForm";
+import CommonRegistrationFields, { AutofillSuppressionFields } from "@/app/registration-form/subcomponents/CommonRegistrationFields";
+import type { RegistrationFormData } from "@/app/registration-form/subcomponents/useRegistrationForm";
+import { ValidateRegistrationFormWithToast } from "@/app/registration-form/subcomponents/registrationFormValidation";
 
-// -------------------- Types --------------------
-type FormData = {
-  StudentName: string;
-  ParentName: string;
-  StudentPhone: string;
-  ParentPhone: string;
-  StudentEmail: string;
-  Address: string;
-  City: string;
-  State: string;
-  District: string;
-  PinCode: string;
-};
-
-// -------------------- Initial State --------------------
-const initialForm: FormData = {
+// -------------------- Types & Constants --------------------
+export const initialForm: RegistrationFormData = {
   StudentName: "",
   ParentName: "",
   StudentPhone: "",
@@ -46,7 +29,7 @@ const initialForm: FormData = {
   PinCode: "",
 };
 
-// -------------------- Contact Info --------------------
+// -------------------- Contact Info Component --------------------
 const ContactInfo = () => (
   <div className="contact-info mt-8 sm:text-center text-white text-base">
     <Paragraph size="base" className="mb-1">
@@ -76,79 +59,89 @@ const ContactInfo = () => (
 
 // -------------------- Main Form Component --------------------
 const Form: React.FC = () => {
-  const [form, setForm] = useState<FormData>(initialForm);
   const [districtOptions, setDistrictOptions] = useState<string[]>([]);
-  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
+  // --- Registration Form Hook ---
+  const { formData, handleChange, handleSubmit, loading, setFormData } = useRegistrationForm({
+    validateForm: (formData: RegistrationFormData) =>
+      ValidateRegistrationFormWithToast(formData, true, true),
+    onSubmit: async (payload) => {
+      try {
+        // --- Prepare Payloads ---
+        const backendPayload = {
+          name: payload.StudentName,
+          phone_number: payload.ParentPhone ? `+91${payload.ParentPhone}` : null,
+          email: payload.StudentEmail || null,
+          token: payload.token,
+        };
+        const googleScriptPayload = {
+          StudentName: payload.StudentName || "",
+          StudentPhone: payload.StudentPhone ? `+91${payload.StudentPhone}` : "",
+          StudentEmail: payload.StudentEmail || "",
+          ParentName: payload.ParentName || "",
+          ParentPhone: payload.ParentPhone ? `+91${payload.ParentPhone}` : "",
+          State: payload.State || "",
+          PinCode: payload.PinCode || "",
+          Address: payload.Address || "",
+          City: payload.City || "",
+          District: payload.District || "",
+        };
+        // --- Google Script Submission ---
+        await fetch(
+          "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(googleScriptPayload),
+          }
+        );
+        // --- Backend Submission ---
+        const response = await import("@/services/appoinmentRequestService").then(m => m.createAppoinmentRequest({
+          name: backendPayload.name,
+          phone_number: backendPayload.phone_number,
+          email: backendPayload.email,
+          token: backendPayload.token,
+        }));
+        if (!response || !response.status || response.responseCode !== "INSERT_SUCCESS") {
+          toast.error("Failed to submit the form. Please try again.");
+          return;
+        }
+        toast.success("Form submitted successfully!");
+        setFormData(initialForm);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to submit the form. Please try again.");
+      }
+    },
+    captchaAction: "popup_form",
+    requiredName: true,
+  });
+
+  // --- District Options Effect ---
   useEffect(() => {
-    if (form.State && (districts as Record<string, string[]>)[form.State]) {
-      setDistrictOptions((districts as Record<string, string[]>)[form.State]);
+    if (formData.State && (districts as Record<string, string[]>)[formData.State]) {
+      setDistrictOptions((districts as Record<string, string[]>)[formData.State]);
     } else {
       setDistrictOptions([]);
     }
-  }, [form.State]);
+  }, [formData.State]);
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    if (name === "State") {
-      setForm((prev) => ({ ...prev, District: "" }));
-    }
-  };
-
-  const handleClear = () => setForm(initialForm);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    if (form.StudentEmail) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(form.StudentEmail)) {
-        toast.error("Please enter a valid email address.");
-        setSubmitting(false);
-        return;
-      }
-    }
-    const {
-      StudentName, ParentName, StudentPhone, ParentPhone, StudentEmail,
-      Address, City, State, District, PinCode,
-    } = form;
-    try {
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            StudentName, ParentName, StudentPhone, ParentPhone,
-            StudentEmail: StudentEmail || "Nil", Address, City, State, District, PinCode,
-          }),
-        }
-      );
-      const registrationName = `(registration) ${StudentName}`;
-      const Payload = {
-        name: registrationName,
-        phone_number: StudentPhone,
-        parent_phone: ParentPhone,
-        email: StudentEmail || "Nil",
-      };
-      await createAppoinmentRequest(Payload);
-      toast.success("Form submitted successfully!");
-      setForm(initialForm);
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to submit the form. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
+  // --- Merge for CommonRegistrationFields ---
+  const mergedFormData = {
+    ...formData,
+    name: formData.StudentName,
+    email: formData.StudentEmail,
+    mobile: formData.StudentPhone,
+    message: "",
+    agree: false,
   };
 
   const handleBack = () => router.back();
+  const handleClear = () => setFormData(initialForm);
 
+  // --- Render ---
   return (
     <div className="bg-(--blue) min-h-screen" data-section>
       <div className="p-6">
@@ -178,26 +171,36 @@ const Form: React.FC = () => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-2 mt-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-20">
-              <InputField label="Student Name *" name="StudentName" required value={form.StudentName} onChange={handleChange} />
-              <InputField label="Parent Name *" name="ParentName" required value={form.ParentName} onChange={handleChange} />
-              <InputField label="Student Phone Number" name="StudentPhone" type="tel" required value={form.StudentPhone} onChange={handleChange} pattern="[0-9]{10}" maxLength={10} />
-              <InputField label="Parent's Phone Number *" name="ParentPhone" type="tel" required value={form.ParentPhone} onChange={handleChange} pattern="[0-9]{10}" maxLength={10} />
-              <InputField label="Email" name="StudentEmail" type="email" value={form.StudentEmail} onChange={handleChange} />
-              <InputField label="City / Town / Village" name="City" required value={form.City} onChange={handleChange} />
-              <SelectField label="State *" name="State" required value={form.State} onChange={handleChange} options={Object.keys(districts).map((state) => ({ value: state, label: state }))} />
-              <SelectField label="District" name="District" required value={form.District} onChange={handleChange} options={!form.State ? [{ value: "", label: "Select State First" }] : districtOptions.map((district) => ({ value: district, label: district }))} onClick={() => { if (!form.State) toast.error("Please select the State first."); }} />
-              <InputField label="Pin Code *" name="PinCode" required value={form.PinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} />
-              <TextAreaField label="Address *" name="Address" required value={form.Address} onChange={handleChange} />
+              <AutofillSuppressionFields />
+              <CommonRegistrationFields
+                formData={mergedFormData}
+                handleChange={handleChange}
+                fieldsToShow={["StudentName", "ParentName", "StudentPhone", "ParentPhone", "StudentEmail", "City", "State", "District", "PinCode", "Address"]}
+                loading={loading}
+                districts={districts}
+                districtOptions={districtOptions}
+                toast={toast}
+              />
             </div>
-            {/* Buttons */}
-            <div className="flex flex-row justify-between my-4 gap-2">
-              <button className="relative flex justify-center items-center gap-1 rounded-md bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1" onClick={handleClear} disabled={submitting} type="button">
-                <Paragraph size="base" className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">Clear</Paragraph>
+            {/* Full width button row below the grid */}
+            <div className="w-full flex flex-row justify-between my-4 gap-2">
+              <button
+                className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1"
+                onClick={handleClear}
+                type="button"
+              >
+                <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">Clear</span>
                 <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
               </button>
-              <button className="relative flex justify-center items-center gap-1 rounded-md bg-(--yellow) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1" type="submit" disabled={submitting}>
-                <Paragraph size="base" className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) transition-all duration-300 group-hover:text-(--yellow)">{submitting ? "Submitting..." : "Submit"}</Paragraph>
-                <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
+              <button
+                type="submit"
+                className="relative flex justify-center items-center rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
+                disabled={loading}
+                style={loading ? { pointerEvents: 'none', opacity: 0.7 } : {}}
+
+              >
+                <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">{loading ? "Submitting..." : "Submit"}</span>
+                <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
               </button>
             </div>
             <Paragraph size="base" className="mt-8 text-(--yellow)">
