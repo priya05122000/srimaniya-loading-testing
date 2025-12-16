@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
-// Types
+// -------------------- Types & Initial State --------------------
 export type RegistrationFormData = {
     StudentName: string;
     ParentName: string;
@@ -28,6 +28,15 @@ export const getInitialRegistrationFormData = (): RegistrationFormData => ({
     PinCode: "",
 });
 
+// -------------------- Validation Helpers --------------------
+const sanitizeName = (value: string) => value.replace(/[^A-Za-z.\s]/g, "");
+const sanitizePhone = (value: string) => value.replace(/\D/g, "").slice(0, 10).replace(/^[^6-9]+/, "");
+const sanitizePinCode = (value: string) => value.replace(/\D/g, "").slice(0, 6).replace(/^[^1-9]+/, "");
+const sanitizeEmail = (value: string) => value.replace(/[^a-zA-Z0-9@._-]/g, "").replace(/(@.*)@/g, "$1");
+const sanitizeCity = (value: string) => value.replace(/[^A-Za-z.\-\s]/g, "");
+const sanitizeAddress = (value: string) => value.replace(/[^A-Za-z0-9\s,.\-\/#!()]/g, "").slice(0, 200);
+
+// -------------------- useRegistrationForm Hook --------------------
 export function useRegistrationForm({
     validateForm,
     onSubmit,
@@ -52,62 +61,57 @@ export function useRegistrationForm({
         const { name, type, value, checked } = e.target as HTMLInputElement;
         let newValue = value;
 
-        // Only allow alphabets, dots, and spaces for StudentName and ParentName
-        if (name === "StudentName" || name === "ParentName") {
-            newValue = value.replace(/[^A-Za-z.\s]/g, "");
-        }
-
-        // Only allow numbers for phone fields
-        if (["StudentPhone", "ParentPhone", "PinCode"].includes(name)) {
-            newValue = value.replace(/\D/g, "");
-            if (name === "StudentPhone" || name === "ParentPhone") {
-                newValue = newValue.slice(0, 10);
-            }
-            if (name === "PinCode") {
-                newValue = newValue.slice(0, 6);
-            }
-        }
-
-        // Only allow valid email characters for StudentEmail
-        if (name === "StudentEmail") {
-            newValue = value.replace(/[^a-zA-Z0-9@._-]/g, "").replace(/(@.*)@/g, "$1");
-        }
-
-        if (name === "Address") {
-            // Only allow allowed characters
-            newValue = value.replace(/[^A-Za-z0-9\s,.\-\/#()]/g, "");
-            // Optionally trim to 200 chars
-            newValue = newValue.slice(0, 200);
+        switch (name) {
+            case "StudentName":
+            case "ParentName":
+                newValue = sanitizeName(value);
+                break;
+            case "StudentPhone":
+            case "ParentPhone":
+                newValue = sanitizePhone(value);
+                break;
+            case "PinCode":
+                newValue = sanitizePinCode(value);
+                break;
+            case "StudentEmail":
+                newValue = sanitizeEmail(value);
+                break;
+            case "City":
+                newValue = sanitizeCity(value);
+                break;
+            case "Address":
+                newValue = sanitizeAddress(value);
+                break;
+            default:
+                break;
         }
 
         setFormData((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : newValue,
+            [name]: type === "checkbox"
+                ? checked
+                : (name === "StudentEmail" && typeof newValue === "string"
+                    ? newValue.toLowerCase()
+                    : newValue)
         }));
     };
 
     // Unified handleSubmit
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log('handleSubmit called, event:', e); // Debug log
         e.preventDefault();
         setError(null);
         setSuccess(null);
-
         let tempFormData = { ...formData };
-        if (!requiredName) {
-            tempFormData.StudentName = "(popup)";
-        }
-
+        if (!requiredName) tempFormData.StudentName = "(popup)";
         if (validateForm && !validateForm(tempFormData)) return;
         if (!executeRecaptcha) {
             setError("Captcha failed. Please refresh and try again.");
             return;
         }
-
         setLoading(true);
         try {
             const captchaToken = await executeRecaptcha(captchaAction);
-            console.log("Captcha token:", captchaToken);
+            console.log('Captcha token:', captchaToken); // Debug log
             const payload = {
                 ...tempFormData,
                 phone_number: tempFormData.StudentPhone ? `+91${tempFormData.StudentPhone}` : null,
@@ -117,8 +121,7 @@ export function useRegistrationForm({
             setFormData(getInitialRegistrationFormData());
             setSuccess("Enquiry submitted successfully!");
         } catch (error: any) {
-            const errorMsg = error?.message || "Failed to submit enquiry.";
-            setError(errorMsg);
+            setError(error?.message || "Failed to submit enquiry.");
         } finally {
             setLoading(false);
         }

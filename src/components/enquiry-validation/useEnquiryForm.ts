@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { uploadResumeFile } from "@/services/fileService";
 
-// Types
+// -------------------- Types & Initial State --------------------
 export type EnquiryFormData = {
     name: string;
     email: string;
@@ -21,6 +21,13 @@ export const getInitialFormData = (): EnquiryFormData => ({
     agree: false,
 });
 
+// -------------------- Validation Helpers --------------------
+const sanitizeName = (value: string) => value.replace(/[^A-Za-z.\s]/g, "");
+const sanitizeMobile = (value: string) => value.replace(/\D/g, "").slice(0, 10).replace(/^[^6-9]+/, "");
+const sanitizeEmail = (value: string) => value.replace(/[^a-zA-Z0-9@._-]/g, "").replace(/(@.*)@/g, "$1");
+const sanitizeMessage = (value: string) => value.replace(/[^A-Za-z0-9\s.,!?\'"()\-]/g, "").slice(0, 300);
+
+// -------------------- useEnquiryForm Hook --------------------
 export function useEnquiryForm({
     validateForm,
     onSubmit,
@@ -42,38 +49,26 @@ export function useEnquiryForm({
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        const { name, type, value, checked, files } = e.target as HTMLInputElement;
+        const { name, type, value, checked } = e.target as HTMLInputElement;
         let newValue = value;
 
-        if (type === "file") {
-            setFormData((prev) => ({
-                ...prev,
-                [name]: files && files.length > 0 ? files[0] : null
-            }));
-            return;
+        switch (name) {
+            case "name":
+                newValue = sanitizeName(value);
+                break;
+            case "mobile":
+                newValue = sanitizeMobile(value);
+                break;
+            case "email":
+                newValue = sanitizeEmail(value);
+                break;
+            case "message":
+                newValue = sanitizeMessage(value);
+                break;
+            default:
+                break;
         }
 
-        if (name === "name") {
-            newValue = value.replace(/[^A-Za-z.\s]/g, "");
-        }
-
-        if (name === "mobile") {
-            // Only allow numbers, max 10 digits, and first digit must be 6-9
-            newValue = value.replace(/\D/g, "").slice(0, 10);
-            if (newValue.length > 0 && !/^[6-9]/.test(newValue)) {
-                newValue = newValue.replace(/^[^6-9]+/, "");
-            }
-        }
-
-        if (name === "email") {
-            newValue = value.replace(/[^a-zA-Z0-9@._-]/g, "").replace(/(@.*)@/g, "$1");
-        }
-
-        if (name === "message") {
-            newValue = value.replace(/[^A-Za-z0-9\s.,!?\'"()\-]/g, "").slice(0, 300);
-        }
-
-        // Convert email to lowercase before saving, but allow capital letters during input
         setFormData((prev) => ({
             ...prev,
             [name]: type === "checkbox"
@@ -89,32 +84,23 @@ export function useEnquiryForm({
         e.preventDefault();
         setError(null);
         setSuccess(null);
-
         let tempFormData = { ...formData };
-        if (!requiredName) {
-            tempFormData.name = "(popup)";
-        }
-
+        if (!requiredName) tempFormData.name = "(popup)";
         if (validateForm && !validateForm(tempFormData)) return;
         if (!executeRecaptcha) {
             setError("Captcha failed. Please refresh and try again.");
             return;
         }
-
         setLoading(true);
         try {
             const captchaToken = await executeRecaptcha(captchaAction);
-            console.log("Captcha token:", captchaToken);
             let resumeUrl = null;
-
             if ((formData as any).resume) {
-                // If resume file exists, upload it
                 const resumeFormData = new FormData();
                 resumeFormData.append("file", (formData as any).resume);
                 const uploadResponse = await uploadResumeFile(resumeFormData);
                 resumeUrl = uploadResponse.data?.file_path || null;
             }
-
             const payload = {
                 name: tempFormData.name,
                 email: tempFormData.email || null,
@@ -124,15 +110,11 @@ export function useEnquiryForm({
                 token: captchaToken,
                 resume_url: resumeUrl,
             };
-
-            console.log(payload);
-
             await onSubmit(payload);
             setFormData(getInitialFormData());
             setSuccess("Enquiry submitted successfully!");
         } catch (error: any) {
-            const errorMsg = error?.message || "Failed to submit enquiry.";
-            setError(errorMsg);
+            setError(error?.message || "Failed to submit enquiry.");
         } finally {
             setLoading(false);
         }

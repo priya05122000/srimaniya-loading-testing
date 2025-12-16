@@ -10,7 +10,7 @@ import Image from "next/image";
 import { createJobApplication } from "@/services/jobAppointmentService";
 import { uploadResumeFile } from "@/services/fileService";
 import { toast } from "react-toastify";
-import CommonEnquiryFields from "@/components/common/CommonEnquiryFields";
+import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
 
 const ApplyNow: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);

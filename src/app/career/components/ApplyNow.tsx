@@ -10,10 +10,10 @@ import Image from "next/image";
 import { createJobApplication } from "@/services/jobAppointmentService";
 import { uploadResumeFile } from "@/services/fileService";
 import { toast } from "react-toastify";
-import CommonEnquiryFields from "@/components/common/CommonEnquiryFields";
-import { useEnquiryForm } from "@/components/common/useEnquiryForm";
-import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
-import { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
+import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
+import { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 
 const ApplyNow: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);

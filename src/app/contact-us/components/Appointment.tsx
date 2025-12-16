@@ -10,10 +10,10 @@ import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import CommonEnquiryFields from '@/components/common/CommonEnquiryFields';
-import { useEnquiryForm } from '@/components/common/useEnquiryForm';
+import CommonEnquiryFields from '@/components/enquiry-validation/CommonEnquiryFields';
+import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
 
-import { validateEnquiryFormWithToast } from '@/components/common/enquiryFormValidation';
+import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
 
 // --- Types ---
 type FormData = { name: string; email: string; mobile: string; message: string; agree: boolean };

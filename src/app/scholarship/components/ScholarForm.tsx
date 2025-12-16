@@ -10,9 +10,9 @@ import { toast } from "react-toastify";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
-import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
-import { useEnquiryForm } from "@/components/common/useEnquiryForm";
-import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
+import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 
 // Types
 interface CourseOption {

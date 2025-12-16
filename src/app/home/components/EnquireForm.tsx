@@ -4,9 +4,9 @@ import Image from 'next/image';
 import React, { useRef, useEffect } from 'react';
 import { toast } from "react-toastify";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import CommonEnquiryFields, { AutofillSuppressionFields } from '@/components/common/CommonEnquiryFields';
-import { useEnquiryForm } from '@/components/common/useEnquiryForm';
-import { validateEnquiryFormWithToast } from '@/components/common/enquiryFormValidation';
+import CommonEnquiryFields, { AutofillSuppressionFields } from '@/components/enquiry-validation/CommonEnquiryFields';
+import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
+import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
 
 const EnquireForm: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);

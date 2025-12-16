@@ -18,9 +18,9 @@ import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
-import CommonEnquiryFields from "@/components/common/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
-import type { EnquiryFormData } from '@/components/common/useEnquiryForm';
+import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
+import type { EnquiryFormData } from '@/components/enquiry-validation/useEnquiryForm';
 
 
 interface CourseOption {

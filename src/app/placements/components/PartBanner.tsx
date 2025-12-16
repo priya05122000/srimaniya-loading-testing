@@ -18,11 +18,11 @@ import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
-import CommonEnquiryFields from "@/components/common/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from '@/components/common/enquiryFormValidation';
-import { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
+import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
+import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
+import { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 
-import { useEnquiryForm } from '@/components/common/useEnquiryForm';
+import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
 
 interface CourseOption {
   id: number;

@@ -2,10 +2,10 @@ import React, { FC, ChangeEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
-import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
+import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import { toast } from "react-toastify";
-import { useEnquiryForm } from "@/components/common/useEnquiryForm";
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
 
 export type BrochureFormData = {
     StudentName: string;
@@ -23,7 +23,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
     const { formData, handleChange, handleSubmit, loading } = useEnquiryForm({
         validateForm: (formData) => validateEnquiryFormWithToast(formData, false),
         onSubmit: async (payload) => {
-            const brochureName = `(brochure) ${payload.name}`;
+            const brochureName = `(Brochure) ${payload.name}`;
             try {
                 const responsePayload = { name: brochureName, phone_number: payload.phone_number, token: payload.token };
                 const response = await import("@/services/appoinmentRequestService").then(m => m.createAppoinmentRequest(responsePayload));
@@ -40,7 +40,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: new URLSearchParams({
                             StudentName: brochureName,
-                            StudentPhone: payload.mobile,
+                            StudentPhone: payload.phone_number,
                         }),
                     }
                 );

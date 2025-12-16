@@ -12,7 +12,7 @@ import {
     SelectField,
 } from "@/components/ui/FormFields";
 
-// Types
+// -------------------- Types --------------------
 export type CommonEnquiryFormData = {
     name: string;
     email: string;
@@ -42,6 +42,10 @@ export type CommonEnquiryFieldsProps = {
     submitText?: string;
 };
 
+// -------------------- Helper: Show Field --------------------
+const showField = (fieldsToShow: string[] | undefined, field: string) => !fieldsToShow || fieldsToShow.includes(field);
+
+// -------------------- Main Component --------------------
 const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
     formData,
     handleChange,
@@ -66,12 +70,9 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
         }
     }, [formData.resume]);
 
-    // Helper to check if a field should be shown
-    const showField = (field: string) => !fieldsToShow || fieldsToShow.includes(field);
-
     return (
         <>
-            {showField("name") && (
+            {showField(fieldsToShow, "name") && (
                 <InputField
                     type="text"
                     label="Name *"
@@ -82,7 +83,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     autoComplete="new-password"
                 />
             )}
-            {showField("email") && (
+            {showField(fieldsToShow, "email") && (
                 <InputField
                     type="email"
                     label={isCareerPage ? "Email *" : "Email"}
@@ -93,7 +94,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     autoComplete="new-password"
                 />
             )}
-            {showField("mobile") && (
+            {showField(fieldsToShow, "mobile") && (
                 <InputField
                     type="tel"
                     label="Mobile number *"
@@ -104,7 +105,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     autoComplete="new-password"
                 />
             )}
-            {showField("resume") && isCareerPage && (
+            {showField(fieldsToShow, "resume") && isCareerPage && (
                 <FileUploaderField
                     label="Upload Resume *"
                     name="resume"
@@ -115,7 +116,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     key={resumeResetTrigger ? 'resume-reset-1' : 'resume-reset-0'} // force remount
                 />
             )}
-            {showField("course") && isCoursePage && courseOptions && courseOptions.length > 0 && (
+            {showField(fieldsToShow, "course") && isCoursePage && courseOptions && courseOptions.length > 0 && (
                 <SelectField
                     label="Course"
                     name="course"
@@ -124,7 +125,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     options={courseOptions}
                 />
             )}
-            {showField("message") && !isCareerPage && (
+            {showField(fieldsToShow, "message") && !isCareerPage && (
                 <TextAreaField
                     label="Message"
                     name="message"
@@ -133,7 +134,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     rows={2}
                 />
             )}
-            {showField("agree") && (
+            {showField(fieldsToShow, "agree") && (
                 <CheckboxField
                     label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy."
                     name="agree"
@@ -141,7 +142,6 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
                     onChange={handleChange}
                 />
             )}
-
             <div className="flex justify-end mt-4">
                 {submitText === "Download Brochure" ? (
                     <DownloadBrochureButton loading={loading} />
@@ -153,33 +153,34 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
     );
 };
 
-// Reusable submit button
+// -------------------- Reusable Buttons --------------------
 const SubmitButton: React.FC<{ loading?: boolean; submitText?: string }> = ({ loading, submitText }) => (
     <button
         type="submit"
         className="relative flex justify-center items-center rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
         disabled={loading}
+        style={loading ? { pointerEvents: 'none', opacity: 0.7 } : {}}
     >
         <span className="relative z-20 text-center no-underline w-full px-2 py-1 text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">{loading ? "Submitting..." : submitText}</span>
         <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
     </button>
 );
 
-// Reusable download brochure button
 const DownloadBrochureButton: React.FC<{ loading?: boolean }> = ({ loading }) => (
     <button
         type="submit"
         className="relative flex justify-center items-center gap-1 rounded bg-(--yellow) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-4 py-1"
         disabled={loading}
+        style={loading ? { pointerEvents: 'none', opacity: 0.7 } : {}}
     >
-        <Paragraph size="base" className="relative z-20 gap-x-1 flex items-center text-center no-underline w-full text-(--blue) transition-all duration-300 group-hover:text-(--yellow)">
-            Download Brochure <GoDownload />
-        </Paragraph>
+        <span className="relative z-20 gap-x-1 flex items-center text-center no-underline w-full text-(--blue) transition-all duration-300 group-hover:text-(--yellow)">
+            {loading ? "Downloading Brochure..." : "Download Brochure"} <GoDownload />
+        </span>
         <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
     </button>
 );
 
-// Reusable autofill suppression fields
+// -------------------- Autofill Suppression Fields --------------------
 export const AutofillSuppressionFields: React.FC = () => (
     <>
         <input type="text" name="fakeusernameremembered" autoComplete="username" style={{ display: "none" }} tabIndex={-1} />

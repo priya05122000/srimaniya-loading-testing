@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import Heading from "@/components/common/Heading";
-import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/common/CommonEnquiryFields";
-import { useEnquiryForm } from "@/components/common/useEnquiryForm";
-import { validateEnquiryFormWithToast } from "@/components/common/enquiryFormValidation";
+import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import { toast } from "react-toastify";
 
 interface EnquiryPopupProps {
@@ -17,18 +17,18 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
     const { formData, handleChange, handleSubmit, loading, setFormData } = useEnquiryForm({
         validateForm: (formData) => validateEnquiryFormWithToast(formData, false, false),
         onSubmit: async (payload) => {
-            const popupName = "(popup)";
+            const popupName = "(Enquiry popup)";
             try {
-                // Send to Google Script (only StudentPhone, no StudentName)
+                // Send to Google Script (send name as popupName and StudentPhone with +91)
                 await fetch(
-                    // "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
                     "https://script.google.com/macros/s/AKfycbwHiKhpirvZSihnkenK2liT7AQzi1wrTiypu5J-BB0IQHK8ZECBYTHX1u-8DA6KUaDuOA/exec",
                     {
                         method: "POST",
                         mode: "no-cors",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: new URLSearchParams({
-                            StudentPhone: payload.phone_number?.replace("+91", "") || "",
+                            StudentName: popupName,
+                            StudentPhone: payload.phone_number || "",
                         }),
                     }
                 );
@@ -48,7 +48,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                     email: "",
                     mobile: "",
                     message: "",
-                    course: "",
                     agree: false,
                 });
                 onClose();
@@ -69,7 +68,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                 email: "",
                 mobile: "",
                 message: "",
-                course: "",
                 agree: false,
             });
         }
