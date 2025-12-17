@@ -80,6 +80,8 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
     }
   }, [pathname]);
 
+
+
   // Render
   return (
     <GoogleReCaptchaProvider
