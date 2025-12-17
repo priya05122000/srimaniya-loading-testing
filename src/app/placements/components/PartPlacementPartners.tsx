@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { getAllPartners } from "@/services/partnerService"; // import your API function
+import { getAllPartners } from "@/services/partnerService";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,6 +15,7 @@ interface Partner {
   logo_url: string;
   name: string;
   website_url: string;
+  status: boolean;
 }
 
 // Helper: Preload images (reusable)
@@ -50,8 +51,9 @@ const PartPlacementPartners = () => {
       try {
         const result = await getAllPartners();
         const data = result?.data || [];
-        setPartners(data);
-        await preloadImages(data);
+        const activeData = data.filter((d: Partner) => d.status);
+        setPartners(activeData);
+        await preloadImages(activeData);
       } catch {
         setPartners([]);
       } finally {

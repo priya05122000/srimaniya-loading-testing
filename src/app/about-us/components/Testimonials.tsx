@@ -21,6 +21,7 @@ type Testimonial = {
   message: string;
   photo_url: string;
   rating: number;
+  status: boolean;
 };
 
 const baseSliderSettings: SlickSettings = {
@@ -143,8 +144,9 @@ const Testimonials: React.FC = () => {
       try {
         const result = await getAllTestimonials();
         const testimonialsData = result?.data || [];
-        setTestimonials(testimonialsData);
-        await preloadImages(testimonialsData);
+        const activeTestimonials = testimonialsData.filter((t: Testimonial) => t.status);
+        setTestimonials(activeTestimonials);
+        await preloadImages(activeTestimonials);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error("Error fetching testimonials:", (error as { message?: string }).message);

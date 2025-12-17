@@ -21,6 +21,7 @@ type Placement = {
   max_ctc: string;
   name: string;
   placement_count: string;
+  status: boolean;
 };
 
 type Flag = {
@@ -221,7 +222,8 @@ const PlacementMap = () => {
         setLoading(true);
         const results = await getAllCountries();
         const data = results.data;
-        setPlacements(data);
+        const activedata = data.filter((d: Placement) => d.status);
+        setPlacements(activedata);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error(

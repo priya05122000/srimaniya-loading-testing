@@ -18,6 +18,7 @@ type StaffProfile = {
   profile_photo_url: string;
   overlay?: boolean;
   alt?: string;
+  status: boolean;
 };
 
 // Reusable card for team member (desktop and mobile)
@@ -202,8 +203,10 @@ const OurTeam: React.FC = () => {
       try {
         const result = await getAllStaffProfiles();
         const profiles = result?.data || [];
-        setStaffProfiles(profiles);
-        await preloadImages(profiles);
+
+        const activeProfiles = profiles.filter((p: StaffProfile) => p.status);
+        setStaffProfiles(activeProfiles);
+        await preloadImages(activeProfiles);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error(
