@@ -74,6 +74,8 @@ export interface BlogPost {
     title: string;
     slug: string;
     image_url: string;
+    video_url?: string | null;
+    additional_images: string[] | null;
     sub_title: string;
     description: string;
     category_id: string;
