@@ -30,7 +30,10 @@ interface ClientLayoutProps {
   showSmoother?: boolean;
 }
 
-const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = true }) => {
+const ClientLayout: React.FC<ClientLayoutProps> = ({
+  children,
+  showSmoother = true,
+}) => {
   // Refs
   const smootherRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -64,14 +67,22 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
     return () => clearTimeout(timer);
   }, [pathname]);
 
-  useScrollSmoother(effectiveLoading, smootherRef as React.RefObject<HTMLDivElement>);
+  useScrollSmoother(
+    effectiveLoading,
+    smootherRef as React.RefObject<HTMLDivElement>
+  );
   useEffect(() => {
     if (!effectiveLoading && window.location.hash !== "#enquire-form") {
       window.scrollTo(0, 0);
     }
   }, [effectiveLoading]);
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
-  useFooterReveal({ loading: effectiveLoading, pathname, setShowOnlyFooter, setFooterVisible });
+  useFooterReveal({
+    loading: effectiveLoading,
+    pathname,
+    setShowOnlyFooter,
+    setFooterVisible,
+  });
   useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
 
   useEffect(() => {
@@ -79,8 +90,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       window.gtag("config", "G-GFHYHS0PBP", { page_path: pathname });
     }
   }, [pathname]);
-
-
 
   // Render
   return (
@@ -118,10 +127,11 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       {/* Navbar */}
       {pathname !== "/registration-form" && (
         <div
-          style={{
-            opacity: navbarVisible ? 1 : 0,
-            pointerEvents: navbarVisible ? "auto" : "none",
-          }}
+          className={`transition-opacity duration-500 ${
+            navbarVisible
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
         >
           <Navbar />
         </div>
@@ -141,10 +151,18 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""}`}
+            className={`relative z-10 ${
+              pathname !== "/registration-form" ? " pt-20" : ""
+            }`}
             style={{
-              opacity: pathname === "/registration-form" ? 1 : (showOnlyFooter ? 0 : 1),
-              pointerEvents: pathname === "/registration-form" ? "auto" : (showOnlyFooter ? "none" : "auto"),
+              opacity:
+                pathname === "/registration-form" ? 1 : showOnlyFooter ? 0 : 1,
+              pointerEvents:
+                pathname === "/registration-form"
+                  ? "auto"
+                  : showOnlyFooter
+                  ? "none"
+                  : "auto",
               transition: "opacity 0.2s",
             }}
           >
@@ -153,7 +171,8 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
           <Suspense fallback={<div>Loading...</div>}>
             <div
               style={{
-                opacity: pathname === "/registration-form" ? 0 : (footerVisible ? 1 : 0),
+                opacity:
+                  pathname === "/registration-form" ? 0 : footerVisible ? 1 : 0,
                 transition: "opacity 0.7s cubic-bezier(0.4,0,0.2,1)",
               }}
             >
@@ -163,10 +182,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children, showSmoother = tr
         </div>
       </div>
       {/* Enquiry Popup */}
-      <EnquiryPopup
-        show={showPopup}
-        onClose={handleClosePopup}
-      />
+      <EnquiryPopup show={showPopup} onClose={handleClosePopup} />
     </GoogleReCaptchaProvider>
   );
 };

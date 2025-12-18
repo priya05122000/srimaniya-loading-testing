@@ -16,6 +16,7 @@ import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimati
 // Reusable type for Blog
 export type Blog = {
   id: string;
+  slug: string;
   image_url: string;
   video_url: string;
   title: string;
@@ -180,7 +181,7 @@ const EventsBlogs: React.FC = () => {
           >
             {blogs.map((blog, idx) => (
               <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog-view?id=${blog.id}`)} />
+                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog-view/${blog.slug}`)} />
               </SwiperSlide>
             ))}
           </Swiper>

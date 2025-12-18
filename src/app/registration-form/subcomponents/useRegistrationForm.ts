@@ -111,7 +111,6 @@ export function useRegistrationForm({
         setLoading(true);
         try {
             const captchaToken = await executeRecaptcha(captchaAction);
-            console.log('Captcha token:', captchaToken); // Debug log
             const payload = {
                 ...tempFormData,
                 phone_number: tempFormData.StudentPhone ? `+91${tempFormData.StudentPhone}` : null,
