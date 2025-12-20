@@ -7,10 +7,14 @@ import BlogImage from "./components/BlogImage";
 import BlogData from "./components/BlogData";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { getBlogPostBySlug } from "@/services/blogPostService";
+import BlogDetails from "./components/BlogDetails";
+import RecentBlogs from "./components/RecentBlogs";
+import { getAllCategories } from "@/services/categoryService";
 
 interface Blog {
   id: string;
   image_url: string;
+  sub_title: string;
   title: string;
   content: string;
   created_at: string;
@@ -19,6 +23,7 @@ interface Blog {
   slug: string;
   description: string;
   additional_images?: string[];
+  active: boolean;
 }
 
 const getAdditionalImages = (blog: Blog | null) =>
@@ -46,6 +51,7 @@ const preloadImages = (blog: Blog | null) => {
 function BlogViewPageContent() {
   const { slug } = useParams();
   const [blog, setBlog] = useState<Blog | null>(null);
+  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
   const { setLoading } = useGlobalLoader();
 
   useEffect(() => {
@@ -65,15 +71,30 @@ function BlogViewPageContent() {
     };
 
     fetchBlog();
+
+    const fetchCategory = async () => {
+      try {
+        const category = await getAllCategories();
+        setCategories(category?.data ?? []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategory();
   }, [slug, setLoading]);
 
   const additionalImages = getAdditionalImages(blog);
 
   return (
     <div className="relative">
-      <HotelManagement blog={blog} />
-      {blog && <BlogData blog={blog} />}
+      <HotelManagement blog={blog} categories={categories} />
+      {/* {blog && <BlogData blog={blog} />} */}
+      {blog && <BlogDetails blog={blog} categories={categories} />}
       <BlogImage additional_images={additionalImages} />
+      <RecentBlogs />
     </div>
   );
 }
