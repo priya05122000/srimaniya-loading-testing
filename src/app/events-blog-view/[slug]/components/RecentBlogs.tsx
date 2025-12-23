@@ -24,7 +24,7 @@ type Blog = {
   created_at: string;
 };
 
-const RecentBlogs: React.FC = () => {
+const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
   const [navigation, setNavigation] = useState<{
     prevEl: null | HTMLElement;
     nextEl: null | HTMLElement;
@@ -36,7 +36,6 @@ const RecentBlogs: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // setLoading(true);
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((b: unknown) => {
@@ -48,8 +47,8 @@ const RecentBlogs: React.FC = () => {
               );
             })
           : [];
-
-        setBlogs(blogsData);
+        const filteredBlogs = blogsData.filter((b: any) => b.id !== blog_id);
+        setBlogs(filteredBlogs);
       } catch (error: unknown) {
         if (error && typeof error === "object" && "message" in error) {
           console.error(
@@ -63,9 +62,8 @@ const RecentBlogs: React.FC = () => {
         // setLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+  }, [blog_id]);
 
   const getVideoSrc = (videoUrl: string) => {
     // If videoUrl already contains 'videos/', don't add it again

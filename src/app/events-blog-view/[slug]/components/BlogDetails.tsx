@@ -115,6 +115,7 @@ const BlogDetails: React.FC<{
   const router = useRouter();
 
   useEffect(() => {
+    if (!categories || categories.length === 0 || !blog) return;
     async function fetchData() {
       try {
         setLoading(true);
@@ -128,10 +129,10 @@ const BlogDetails: React.FC<{
         let eventsBlogs = eventsCategory
           ? blogsData.filter((b: Blog) => b.category_id === eventsCategory.id)
           : [];
-        // Exclude the currently opened blog if it is an events category blog
         if (blog && blog.category_id === eventsCategory?.id) {
           eventsBlogs = eventsBlogs.filter((b: Blog) => b.id !== blog.id);
         }
+        console.log("Fetched events blogs for sidebar:", eventsBlogs);
         setAllBlogs(eventsBlogs);
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
@@ -140,7 +141,7 @@ const BlogDetails: React.FC<{
       }
     }
     fetchData();
-  }, [setLoading]);
+  }, [setLoading, categories, blog]);
 
   useEffect(() => {
     if (!blog?.created_by) return;

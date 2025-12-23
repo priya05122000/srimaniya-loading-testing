@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 
 import HotelManagement from "./components/HotelManagement";
 import BlogImage from "./components/BlogImage";
-import BlogData from "./components/BlogData";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import BlogDetails from "./components/BlogDetails";
@@ -94,7 +93,7 @@ function BlogViewPageContent() {
       {/* {blog && <BlogData blog={blog} />} */}
       {blog && <BlogDetails blog={blog} categories={categories} />}
       <BlogImage additional_images={additionalImages} />
-      <RecentBlogs />
+      <RecentBlogs blog_id={blog?.id}/>
     </div>
   );
 }
