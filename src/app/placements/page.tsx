@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/",
+        url: "https://srimaniyainstitute.in/home/commitment-bg-1.webp",
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
     description:
       "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
-    images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
+    images: ["https://srimaniyainstitute.in/home/commitment-bg-1.webp"],
   },
 };
 

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
-import { BlogPost } from "@/types";
-import { div } from "framer-motion/client";
 import ViewPage from "./ViewPage";
 
 type Props = {
