@@ -49,13 +49,15 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [footerVisible, setFooterVisible] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [hasPopupTriggered, setHasPopupTriggered] = useState(false);
 
   // Popup Handlers
   const handleClosePopup = () => setShowPopup(false);
 
   // Effects
   useEffect(() => {
-    // Prevent popup on /events-blog-view and its subroutes
+    // Only trigger popup once after mount
+    if (hasPopupTriggered) return;
     if (
       pathname.startsWith("/events-blog-view") ||
       pathname === "/registration-form"
@@ -63,9 +65,12 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       setShowPopup(false);
       return;
     }
-    const timer = setTimeout(() => setShowPopup(true), 5000);
+    const timer = setTimeout(() => {
+      setShowPopup(true); 
+      setHasPopupTriggered(true);
+    }, 5000);
     return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [hasPopupTriggered, pathname]);
 
   useScrollSmoother(
     effectiveLoading,

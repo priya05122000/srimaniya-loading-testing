@@ -2,7 +2,6 @@ import Image from "next/image";
 import HomePage from "./home/page";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
   description:
@@ -24,12 +23,39 @@ export const metadata: Metadata = {
     "hospitality management courses in tamilnadu",
     "hotel management course scope",
     "hotel management course fees after 12th",
-    "hotel management degree fees"
+    "hotel management degree fees",
   ],
+
+  openGraph: {
+    title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
+    description:
+      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+    url: "https://srimaniyainstitute.in",
+    siteName: "Sri Maniya Institute",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/home/enquireform.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
+    description:
+      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+    images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
+  },
 };
 
 export default function Home() {
   return (
-    <><HomePage /></>
+    <>
+      <HomePage />
+    </>
   );
 }

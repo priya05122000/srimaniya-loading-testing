@@ -69,11 +69,18 @@ SidebarRow.displayName = "SidebarRow";
 
 // Share section
 const ShareSection: React.FC<ShareSectionProps> = memo(({ blog }) => {
-  const currentUrl =
-    typeof window !== "undefined"
-      ? window.location.href
-      : `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`;
-  const shareUrl = encodeURIComponent(currentUrl);
+  const [currentUrl, setCurrentUrl] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
+  const shareUrl = encodeURIComponent(
+    currentUrl || `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`
+  );
+
   const shareLinks = [
     {
       label: "Facebook",
@@ -86,6 +93,7 @@ const ShareSection: React.FC<ShareSectionProps> = memo(({ blog }) => {
       icon: <FaLinkedin />,
     },
   ];
+  
   return (
     <div className="flex flex-col gap-2 mt-2">
       {shareLinks.map((link) => (
