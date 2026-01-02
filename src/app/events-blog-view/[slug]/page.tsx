@@ -37,7 +37,7 @@ export async function generateMetadata(
 
     openGraph: {
       title: blog.title,
-      description: blog.description,
+      description: description,
       url: `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`,
       type: "article",
       images: [
@@ -53,7 +53,7 @@ export async function generateMetadata(
     twitter: {
       card: "summary_large_image",
       title: blog.title,
-      description: blog.description,
+      description: description,
       images: [imageUrl],
     },
   };
