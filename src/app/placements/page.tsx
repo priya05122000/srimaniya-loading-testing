@@ -23,6 +23,31 @@ export const metadata: Metadata = {
     "career guidance in hospitality",
     "placement partners in hospitality industry"
   ],
+
+    openGraph: {
+    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    description:
+      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+    url: "https://srimaniyainstitute.in/placements",
+    siteName: "Sri Maniya Institute",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    description:
+      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+    images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
+  },
 };
 
 const page = () => {

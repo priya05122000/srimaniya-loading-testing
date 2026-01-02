@@ -1,107 +1,67 @@
-"use client";
-import React, { useEffect, useState, Suspense } from "react";
-import { useParams } from "next/navigation";
-
-import HotelManagement from "./components/HotelManagement";
-import BlogImage from "./components/BlogImage";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
-import BlogDetails from "./components/BlogDetails";
-import RecentBlogs from "./components/RecentBlogs";
-import { getAllCategories } from "@/services/categoryService";
+import { BlogPost } from "@/types";
+import { div } from "framer-motion/client";
+import ViewPage from "./ViewPage";
 
-interface Blog {
-  id: string;
-  image_url: string;
-  sub_title: string;
-  title: string;
-  content: string;
-  created_at: string;
-  category_id: string;
-  created_by: string;
-  slug: string;
-  description: string;
-  additional_images?: string[];
-  active: boolean;
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const result = await getBlogPostBySlug(params.slug);
+  const blog = result?.data;
+
+  if (!blog) {
+    return {
+      title: "Event Blog | Sri Maniya Institute",
+      description: "Events and updates from Sri Maniya Institute",
+    };
+  }
+
+  const cleanText = (html: string, limit = 160) => {
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return text.length > limit ? text.slice(0, limit) + "…" : text;
+  };
+
+  const description = cleanText(blog.description, 60);
+
+  const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`;
+
+  return {
+    title: blog.title,
+    description: description,
+
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      url: `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`,
+      type: "article",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.description,
+      images: [imageUrl],
+    },
+  };
 }
 
-const getAdditionalImages = (blog: Blog | null) =>
-  Array.isArray(blog?.additional_images)
-    ? blog.additional_images.map((name: string) => ({
-        src: `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`,
-        alt: blog?.title || "Blog image",
-      }))
-    : [];
-
-const preloadImages = (blog: Blog | null) => {
-  if (!blog || !Array.isArray(blog.additional_images)) return Promise.resolve();
-  return Promise.all(
-    blog.additional_images.map((name) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
+const page = () => {
+  return (
+    <div>
+      <ViewPage />
+    </div>
   );
 };
 
-function BlogViewPageContent() {
-  const { slug } = useParams();
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
-  const { setLoading } = useGlobalLoader();
-
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchBlog = async () => {
-      setLoading(true);
-      try {
-        const result = await getBlogPostBySlug(slug);
-        setBlog(result?.data);
-        await preloadImages(result?.data);
-      } catch (error: unknown) {
-        console.error("Failed to load blog:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlog();
-
-    const fetchCategory = async () => {
-      try {
-        const category = await getAllCategories();
-        setCategories(category?.data ?? []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategory();
-  }, [slug, setLoading]);
-
-  const additionalImages = getAdditionalImages(blog);
-
-  return (
-    <div className="relative">
-      <HotelManagement blog={blog} categories={categories} />
-      {/* {blog && <BlogData blog={blog} />} */}
-      {blog && <BlogDetails blog={blog} categories={categories} />}
-      <BlogImage additional_images={additionalImages} />
-      <RecentBlogs blog_id={blog?.id}/>
-    </div>
-  );
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <BlogViewPageContent />
-    </Suspense>
-  );
-}
+export default page;

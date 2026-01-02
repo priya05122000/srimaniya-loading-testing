@@ -1,6 +1,6 @@
-import React from 'react'
-import ScholarShipPage from './ScholarShipPage'
-import { Metadata } from 'next';
+import React from "react";
+import ScholarShipPage from "./ScholarShipPage";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hotel Management Scholarship in Tamil Nadu – Sri Maniya Institute",
@@ -19,8 +19,33 @@ export const metadata: Metadata = {
     "sports quota scholarship hotel management",
     "scholarship for diploma degree students",
     "Sri Maniya College scholarship eligibility",
-    "hotel management scholarship eligibility"
+    "hotel management scholarship eligibility",
   ],
+
+  openGraph: {
+    title: "Hotel Management Scholarship in Tamil Nadu – Sri Maniya Institute",
+    description:
+      "Get a hotel management scholarship in Tamil Nadu with Sri Maniya Institute. This scholarship in hospitality management helps students pursue quality education with financial assistance.",
+    url: "https://srimaniyainstitute.in",
+    siteName: "Sri Maniya Institute",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/scholarship/scholarship.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Hotel Management Scholarship in Tamil Nadu – Sri Maniya Institute",
+    description:
+      "Get a hotel management scholarship in Tamil Nadu with Sri Maniya Institute. This scholarship in hospitality management helps students pursue quality education with financial assistance.",
+    images: ["https://srimaniyainstitute.in/scholarship/scholarship.webp"],
+  },
 };
 
 const page = () => {
@@ -28,7 +53,7 @@ const page = () => {
     <div>
       <ScholarShipPage />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

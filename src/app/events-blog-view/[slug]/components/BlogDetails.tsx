@@ -93,7 +93,7 @@ const ShareSection: React.FC<ShareSectionProps> = memo(({ blog }) => {
       icon: <FaLinkedin />,
     },
   ];
-  
+
   return (
     <div className="flex flex-col gap-2 mt-2">
       {shareLinks.map((link) => (
@@ -140,7 +140,6 @@ const BlogDetails: React.FC<{
         if (blog && blog.category_id === eventsCategory?.id) {
           eventsBlogs = eventsBlogs.filter((b: Blog) => b.id !== blog.id);
         }
-        console.log("Fetched events blogs for sidebar:", eventsBlogs);
         setAllBlogs(eventsBlogs);
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
@@ -225,7 +224,7 @@ const BlogDetails: React.FC<{
 
   return (
     <Section className="relative overflow-hidden">
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-10 mt-6 md:mt-0">
         {/* Sidebar */}
         <aside className="w-full lg:w-[25%] xl:w-[20%] lg:border-r border-(--grey-custom)">
           <div className="flex flex-row lg:flex-col justify-between lg:justify-start gap-4 lg:gap-15 md:pt-10 lg:py-16">

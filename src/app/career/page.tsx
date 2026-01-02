@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import type { Metadata } from "next";
-import CareerPage from './CareerPage';
+import CareerPage from "./CareerPage";
 
 export const metadata: Metadata = {
   title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
@@ -24,8 +24,33 @@ export const metadata: Metadata = {
     "career in hospitality industry in india",
     "Sri Maniya Institute careers",
     "career opportunities in hotel management institutes",
-    "Sri Maniya Institute career opportunities"
+    "Sri Maniya Institute career opportunities",
   ],
+
+  openGraph: {
+    title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
+    description:
+      "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",
+    url: "https://srimaniyainstitute.in/career",
+    siteName: "Sri Maniya Institute",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/career/career.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
+    description:
+      "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",
+    images: ["https://srimaniyainstitute.in/career/career.webp"],
+  },
 };
 
 const page = () => {
@@ -33,7 +58,7 @@ const page = () => {
     <div>
       <CareerPage />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
