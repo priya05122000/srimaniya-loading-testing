@@ -8,8 +8,11 @@ type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const result = await getBlogPostBySlug(params.slug);
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const result = await getBlogPostBySlug(slug);
   const blog = result?.data;
 
   if (!blog) {
