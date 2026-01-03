@@ -1,34 +1,14 @@
-// import { getAllBanners } from "@/services/banner";
 import { getAllBanners } from "@/services/bannerService";
 import HeroClient from "./HeroClient";
+import { Banner } from "@/types";
 
-export interface Banner {
-  image_desktop: string;
-  image_tab: string;
-  image_phone: string;
-  title: string;
-  sub_title: string;
-  button_text?: string;
-  is_active: boolean;
-  category: string;
+export default async function HeroServer() {
+  const result = await getAllBanners();
+  const banners = (Array.isArray(result?.data) ? result.data : []).filter(
+    (b : Banner) => b?.is_active && b.category?.includes("Events")
+  );
+
+  if (!banners.length) return null;
+
+  return <HeroClient banners={banners} />;
 }
-
-
-const Hero = async () => {
-  try {
-    const result = await getAllBanners();
-    const data: Banner[] = Array.isArray(result?.data) ? result.data : [];
-    const banners = data.filter(
-      (b) => b && b.is_active && typeof b.category === 'string' && b.category.includes("Events")
-    );
-    if (!banners.length) {
-      console.warn("No active event banners found in HeroServer.", { data });
-    }
-    return <HeroClient banners={banners} />;
-  } catch (error) {
-    console.error("Error rendering HeroServer:", error);
-    return <div style={{color: 'red', padding: 20}}>Failed to load hero section. Please try again later.</div>;
-  }
-};
-
-export default Hero;

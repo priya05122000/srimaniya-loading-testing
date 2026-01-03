@@ -171,8 +171,8 @@ const AboutStats = () => {
         setLoading(false);
       }
     }
-    setTimeout(fetchData, 100);
-  }, []); // Fix: useEffect dependency array should be constant
+    fetchData();
+  }, []);
 
   // Only create stats if siteInfo is loaded
   const stats: Stat[] = siteInfo

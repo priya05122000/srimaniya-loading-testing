@@ -7,9 +7,10 @@ import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
-import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-import { Splide } from "@splidejs/splide";
+// import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+// import { Splide } from "@splidejs/splide";
 
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -18,6 +19,7 @@ interface Partner {
   name: string;
   website_url: string;
 }
+
 
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -62,32 +64,41 @@ export default function Partners() {
       return;
     }
 
-    const splide = new Splide(splideRef.current, {
-      type: "loop",
-      drag: "free",
-      focus: "center",
-      pagination: false,
-      arrows: false,
-      gap: "2rem",
-      perPage: 6,
-      a11y: false,
+    let splide: any;
+    let autoScrollCleanup: (() => void) | undefined;
 
-      autoScroll: {
-        speed: 1.5,
-        pauseOnHover: false,
-        pauseOnFocus: false,
-      },
-      breakpoints: {
-        1024: { perPage: 4 },
-        768: { perPage: 3 },
-        480: { perPage: 2 },
-      },
-    });
+    (async () => {
+      const Splide = (await import("@splidejs/splide")).default;
+      const { AutoScroll } = await import("@splidejs/splide-extension-auto-scroll");
 
-    splide.mount({ AutoScroll });
+      splide = new Splide(splideRef.current!, {
+        type: "loop",
+        drag: "free",
+        focus: "center",
+        pagination: false,
+        arrows: false,
+        gap: "2rem",
+        perPage: 6,
+        a11y: false,
+        autoScroll: {
+          speed: 1.5,
+          pauseOnHover: false,
+          pauseOnFocus: false,
+        },
+        breakpoints: {
+          1024: { perPage: 4 },
+          768: { perPage: 3 },
+          480: { perPage: 2 },
+        },
+      });
+
+      splide.mount({ AutoScroll });
+      autoScrollCleanup = () => splide.destroy();
+    })();
 
     return () => {
-      splide.destroy();
+      if (autoScrollCleanup) autoScrollCleanup();
+      else if (splide) splide.destroy();
     };
   }, [partners]);
 
