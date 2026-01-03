@@ -19,18 +19,6 @@ interface Partner {
   website_url: string;
 }
 
-const preloadImages = (partners: Partner[], baseUrl: string) => {
-  return Promise.all(
-    partners.map((p) => {
-      const img = new window.Image();
-      img.src = `${baseUrl}/files/${p.logo_url}`;
-      return new Promise((resolve) => {
-        img.onload = img.onerror = resolve;
-      });
-    })
-  );
-};
-
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
   const { setLoading } = useGlobalLoader();
@@ -59,7 +47,6 @@ export default function Partners() {
         const result = await getAllPartners();
         const data = result?.data || [];
         setPartners(data);
-        if (data.length && baseUrl) await preloadImages(data, baseUrl);
       } catch (err) {
         console.error("Failed to fetch partners:", err);
       } finally {
