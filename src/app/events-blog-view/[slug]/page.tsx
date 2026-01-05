@@ -6,9 +6,11 @@ type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const result = await getBlogPostBySlug(slug);
   const blog = result?.data;
@@ -17,6 +19,9 @@ export async function generateMetadata(
     return {
       title: "Event Blog | Sri Maniya Institute",
       description: "Events and updates from Sri Maniya Institute",
+      alternates: {
+        canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog-view`,
+      },
     };
   }
 
@@ -30,6 +35,10 @@ export async function generateMetadata(
   const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`;
 
   return {
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog-view/${blog.slug}`,
+    },
+
     title: blog.title,
     description: description,
 

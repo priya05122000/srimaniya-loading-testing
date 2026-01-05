@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import EventsBlogPage from "./EventsBlogPage";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog`,
+  },
+
   title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
   description:
     "Get the best hospitality career insights, hotel management tips, and guidance from Sri Maniya Institute Blog. Learn trends, training advice, and industry skills to build your future.",

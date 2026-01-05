@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import CareerPage from "./CareerPage";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/career`,
+  },
+
   title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
   description:
     "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",

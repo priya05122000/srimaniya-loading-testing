@@ -3,6 +3,10 @@ import AboutUsPage from "./AboutUsPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about-us`,
+  },
+
   title: "About Us | Top hotel management college in Tamil Nadu",
   description:
     "Learn about hospitality careers and the wide range of career paths in the hospitality industry. Explore our courses, objectives, and salary insights at Srimaniya Institute, a top hotel management college in Tamil Nadu",

@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import PlacementsPage from './PlacementsPage';
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/placements`,
+  },
+
   title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
   description:
     "Sri Maniya Institute offers 100% hotel management placement support with internships, top hospitality recruiters, full-time job opportunities, and career guidance for all students.",

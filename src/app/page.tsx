@@ -1,8 +1,11 @@
-import Image from "next/image";
 import HomePage from "./home/page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_BASE_URL,
+  },
+
   title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
   description:
     "Srimaniya is the best hotel management Institute in tamil nadu that offers  hotel management career options after 12th &10th graduation.",

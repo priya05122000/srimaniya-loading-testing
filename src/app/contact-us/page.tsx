@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import ContactPage from "./ContactPage";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/contact-us`,
+  },
+
   title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu ",
   description:
     "Sri Maniya Institute Tamil Nadu is one of the best hotel management institutes near you. Explore courses, contact support, submit the enquiry form, and start your career in hospitality",

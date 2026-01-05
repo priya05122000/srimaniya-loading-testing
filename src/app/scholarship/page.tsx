@@ -3,6 +3,10 @@ import ScholarShipPage from "./ScholarShipPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/scholarship`,
+  },
+
   title: "Hotel Management Scholarship in Tamil Nadu – Sri Maniya Institute",
   description:
     "Get a hotel management scholarship in Tamil Nadu with Sri Maniya Institute. This scholarship in hospitality management helps students pursue quality education with financial assistance.",
@@ -26,7 +30,7 @@ export const metadata: Metadata = {
     title: "Hotel Management Scholarship in Tamil Nadu – Sri Maniya Institute",
     description:
       "Get a hotel management scholarship in Tamil Nadu with Sri Maniya Institute. This scholarship in hospitality management helps students pursue quality education with financial assistance.",
-    url: "https://srimaniyainstitute.in",
+    url: "https://srimaniyainstitute.in/scholarship",
     siteName: "Sri Maniya Institute",
     images: [
       {
