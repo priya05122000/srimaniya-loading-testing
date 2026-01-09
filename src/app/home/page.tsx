@@ -28,8 +28,8 @@ const HomePage = () => {
       </div>
       <PlacementMapServer />
       {/* <PlacementMap /> */}
-      <CourseServer />
-      {/* <Courses /> */}
+      {/* <CourseServer /> */}
+      <Courses />
       {/* <AlumniStories /> */}
       <AlumniStoriesServer />
       <EventsBlogs />
