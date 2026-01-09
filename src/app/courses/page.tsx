@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
     description:
-      "Apply online for hotel management courses at Sri Maniya Institute. Explore diploma, BSc catering science, MBA/PG programs, course duration, fees, and admission details",
+      "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
     keywords: [
       // Main keywords
       "hotel management degree course fees",
@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
       description:
-        "Apply online for hotel management courses at Sri Maniya Institute. Explore diploma, BSc catering science, MBA/PG programs, course duration, fees, and admission details.",
+        "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
       url: canonical,
       siteName: "Sri Maniya Institute",
       images: [
@@ -53,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
       description:
-        "Apply online for hotel management courses at Sri Maniya Institute. Explore diploma, BSc catering science, MBA/PG programs, course duration, fees, and admission details.",
+        "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
       images: ["https://srimaniyainstitute.in/courses/courses.webp"],
     },
   };

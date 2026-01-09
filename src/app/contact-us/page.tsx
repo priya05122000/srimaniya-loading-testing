@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu ",
   description:
-    "Sri Maniya Institute Tamil Nadu is one of the best hotel management institutes near you. Explore courses, contact support, submit the enquiry form, and start your career in hospitality",
+    "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
   keywords: [
     "sri maniya institute contact",
     "hotel management institute contact Tamil Nadu",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu",
     description:
-      "Sri Maniya Institute Tamil Nadu is one of the best hotel management institutes near you. Explore courses, contact support, submit the enquiry form, and start your career in hospitality.",
+      "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
     url: "https://srimaniyainstitute.in/contact-us",
     siteName: "Sri Maniya Institute",
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu",
     description:
-      "Sri Maniya Institute Tamil Nadu is one of the best hotel management institutes near you. Explore courses, contact support, submit the enquiry form, and start your career in hospitality",
+      "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
     images: ["https://srimaniyainstitute.in/contact-us/contact.webp"],
   },
 };

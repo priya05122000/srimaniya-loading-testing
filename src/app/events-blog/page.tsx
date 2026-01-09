@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
   description:
-    "Get the best hospitality career insights, hotel management tips, and guidance from Sri Maniya Institute Blog. Learn trends, training advice, and industry skills to build your future.",
+    "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
   keywords: [
     "Hospitality Career Insights",
     "diploma in hotel management",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
     description:
-      "Get the best hospitality career insights, hotel management tips, and guidance from Sri Maniya Institute Blog. Learn trends, training advice, and industry skills to build your future.",
-    url: "https://srimaniyainstitute.in/scholarship",
+      "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
+    url: "https://srimaniyainstitute.in/events-blog",
     siteName: "Sri Maniya Institute",
     images: [
       {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
     description:
-      "Get the best hospitality career insights, hotel management tips, and guidance from Sri Maniya Institute Blog. Learn trends, training advice, and industry skills to build your future.",
+      "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
     images: ["https://srimaniyainstitute.in/scholarship/scholarship-banner.webp"],
   },
 };

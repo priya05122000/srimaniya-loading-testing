@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
   description:
-    "Sri Maniya Institute offers 100% hotel management placement support with internships, top hospitality recruiters, full-time job opportunities, and career guidance for all students.",
+    "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
   keywords: [
     // Main keywords
     "Sri Maniya Institute placement",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     openGraph: {
     title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
     description:
-      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+      "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
     url: "https://srimaniyainstitute.in/placements",
     siteName: "Sri Maniya Institute",
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
     description:
-      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+      "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
     images: ["https://srimaniyainstitute.in/home/commitment-bg-1.webp"],
   },
 };

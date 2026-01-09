@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
   description:
-    "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",
+    "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
   keywords: [
     // Main keywords
     "qualification required for hotel management",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
     description:
-      "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",
+      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
     url: "https://srimaniyainstitute.in/career",
     siteName: "Sri Maniya Institute",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
     description:
-      "Sri Maniya Institute trains students for top hospitality careers in India and abroad, offering strong placement and hotel management growth opportunities.",
+      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
     images: ["https://srimaniyainstitute.in/career/career.webp"],
   },
 };
