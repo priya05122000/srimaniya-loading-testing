@@ -71,24 +71,24 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                 {/* Mobile */}
                 <source
                   media="(max-width: 639px)"
-                  srcSet={`${baseUrl}/files/${banner.image_phone}`}
+                  srcSet={`${baseUrl}/${banner.image_phone}`}
                 />
 
                 {/* Tablet */}
                 <source
                   media="(min-width: 640px) and (max-width: 1023px)"
-                  srcSet={`${baseUrl}/files/${banner.image_tab}`}
+                  srcSet={`${baseUrl}/${banner.image_tab}`}
                 />
 
                 {/* Desktop */}
                 <source
                   media="(min-width: 1024px)"
-                  srcSet={`${baseUrl}/files/${banner.image_desktop}`}
+                  srcSet={`${baseUrl}/${banner.image_desktop}`}
                 />
 
                 {/* Fallback + LCP */}
                 <Image
-                  src={`${baseUrl}/files/${banner.image_desktop}`}
+                  src={`${baseUrl}/${banner.image_desktop}`}
                   alt={banner.title}
                   fill
                   priority={idx === 0}
