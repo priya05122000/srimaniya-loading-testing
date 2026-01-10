@@ -32,16 +32,14 @@ export default function Partners() {
 
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  /* --------------------- GSAP SplitText Animation --------------------- */
   useSplitTextHeadingAnimation({
     trigger: splitTextTriggerRef,
     first: paragraphRef,
     second: headingRef,
     delay: 0.3,
-    enabled: !!partners.length, // Only enable when partners are loaded
+    enabled: !!partners.length,
   });
 
-  /* --------------------------- Fetch Partners ------------------------- */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -134,7 +132,7 @@ export default function Partners() {
                       className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
                       <Image
-                        src={`${baseUrl}/files/${partner.logo_url}`}
+                        src={`${baseUrl}/${partner.logo_url}`}
                         alt={`Sri Maniya Institute of Hotel Management - Recruitment Partner, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
                         width={200}
                         height={100}

@@ -39,8 +39,7 @@ const AlumniImage: React.FC<{
   alumni?: AlumniStory;
   idx: number;
   onClick: () => void;
-  imageBase: string;
-}> = ({ alumni, idx, onClick, imageBase }) => (
+}> = ({ alumni, idx, onClick }) => (
   <div
     className="absolute transition-all duration-500 ease-out cursor-pointer"
     onClick={onClick}
@@ -59,7 +58,7 @@ const AlumniImage: React.FC<{
     >
       {alumni?.photo_url ? (
         <Image
-          src={imageBase + alumni.photo_url}
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${alumni.photo_url}`}
           alt={`Sri Maniya Institute of Hotel Management Alumni - ${alumni.name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           width={idx === 2 ? 144 : 80}
           height={idx === 2 ? 144 : 80}
@@ -152,9 +151,6 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
 
   const visible = getVisibleAlumni(alumniData, current, isMobile);
   const currentAlumni = alumniData[current];
-  const imageBase = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
-    : "";
 
   return (
     mounted && (
@@ -231,7 +227,6 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                       if (idx === 3) goTo(1);
                       if (idx === 4) goTo(2);
                     }}
-                    imageBase={imageBase}
                   />
                 ))}
               </div>
