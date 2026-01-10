@@ -45,7 +45,7 @@ const getCategoryName = (
 
 const getVideoSrc = (videoUrl: string): string => {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : "";
 
   if (videoUrl.includes("videos/")) return base + videoUrl;
@@ -58,7 +58,7 @@ const preloadBlogMedia = (blog: Blog | null): Promise<void> => {
   if (!blog) return Promise.resolve();
 
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : "";
 
   // If video exists
@@ -131,7 +131,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog, categories }) => {
             </video>
           ) : (
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
+              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
               alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, diploma in hotel management duration, best hotel management colleges, hotel management institute, best hospitality management colleges"
               width={800}
               height={800}

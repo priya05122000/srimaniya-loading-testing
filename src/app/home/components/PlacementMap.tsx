@@ -112,7 +112,7 @@ const PlacementCard: React.FC<Placement> = ({
   <div className="flex items-center space-x-4 p-4 hover:shadow-sm transition-shadow">
     <div className="w-20 h-12 relative shrink-0 aspect-square">
       <Image
-        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${flag_img}`}
+        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${flag_img}`}
         alt={`Sri Maniya Institute of Hotel Management Placement - ${name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
         width={80}
         height={48}

@@ -28,7 +28,7 @@ interface Blog {
 const getAdditionalImages = (blog: Blog | null) =>
   Array.isArray(blog?.additional_images)
     ? blog.additional_images.map((name: string) => ({
-        src: `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`,
+        src: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${name}`,
         alt: blog?.title || "Blog image",
       }))
     : [];
@@ -38,7 +38,7 @@ const preloadImages = (blog: Blog | null) => {
   return Promise.all(
     blog.additional_images.map((name) => {
       const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`;
+      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${name}`;
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;

@@ -68,9 +68,9 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
   const getVideoSrc = (videoUrl: string) => {
     // If videoUrl already contains 'videos/', don't add it again
     if (videoUrl.includes("videos/")) {
-      return `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${videoUrl}`;
+      return `${process.env.NEXT_PUBLIC_API_BASE_URL}/${videoUrl}`;
     }
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/videos/${videoUrl}`;
+    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/${videoUrl}`;
   };
 
   return (
@@ -139,7 +139,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                     </video>
                   ) : (
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
                       alt={blog.title}
                       priority={idx === 0}
                       className="w-full h-full object-cover"

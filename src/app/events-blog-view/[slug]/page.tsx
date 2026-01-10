@@ -32,7 +32,7 @@ export async function generateMetadata({
 
   const description = cleanText(blog.description, 60);
 
-  const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`;
+  const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
 
   return {
     alternates: {

@@ -38,7 +38,7 @@ interface ShareSectionProps {
 const preloadImages = (blog: Blog) => {
   if (!blog || !blog.image_url) return Promise.resolve();
   const img = new window.Image();
-  img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`;
+  img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
   return new Promise((resolve) => {
     img.onload = resolve;
     img.onerror = resolve;
@@ -201,7 +201,7 @@ const BlogDetails: React.FC<{
             onClick={() => router.push(`/events-blog-view/${b.slug}`)}
           >
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${b.image_url}`}
+              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`}
               alt={`Sri Maniya Institute of Hotel Management Recent Blog - ${b.title}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
               className="w-full h-[120px] object-cover image-tag"
               width={800}

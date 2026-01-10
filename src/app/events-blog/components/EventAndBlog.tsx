@@ -34,7 +34,7 @@ const preloadImages = (blogs: Blog[]) => {
   return Promise.all(
     blogs.map((b) => {
       const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${b.image_url}`;
+      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`;
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;
@@ -186,7 +186,7 @@ const EventAndBlog: React.FC = () => {
                 <div key={blog.id} className="overflow-hidden relative">
                   <div className="w-full">
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
                       alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, best hotel management colleges, hotel management institute, best hospitality management colleges"
                       onClick={() => handleBlogClick(blog.slug)}
                       className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"

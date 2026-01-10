@@ -88,7 +88,7 @@ const AlumniImage: React.FC<{
 // Helper: Preload images and videos for alumni
 const preloadAlumniMedia = (alumniList: Alumni[]) => {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : '';
   const imagePromises = alumniList.map((a) => {
     if (!a.photo_url) return Promise.resolve();
@@ -202,7 +202,7 @@ const AlumniStories = () => {
   const visible = getVisibleAlumni(alumniData, current, isMobile);
   const currentAlumni = alumniData[current];
   const imageBase = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : '';
 
   return (

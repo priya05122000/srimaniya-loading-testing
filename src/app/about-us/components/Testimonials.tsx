@@ -51,7 +51,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 overflow-hidden mr-4">
           <Image
-            src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${testimonial.photo_url}` : "/about-us/profile.webp"}
+            src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${testimonial.photo_url}` : "/about-us/profile.webp"}
             alt={`Sri Maniya Institute student testimonial - Top Hotel Management College, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management`}
             width={48}
             height={48}
@@ -86,7 +86,7 @@ const preloadImages = (testimonials: Testimonial[]) => {
   return Promise.all(
     testimonials.map((t) => {
       const img = new window.Image();
-      img.src = t.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${t.photo_url}` : "/about-us/profile.webp";
+      img.src = t.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${t.photo_url}` : "/about-us/profile.webp";
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;

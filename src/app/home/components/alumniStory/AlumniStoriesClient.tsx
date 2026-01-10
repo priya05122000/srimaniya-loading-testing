@@ -153,7 +153,7 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
   const visible = getVisibleAlumni(alumniData, current, isMobile);
   const currentAlumni = alumniData[current];
   const imageBase = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : "";
 
   return (

@@ -60,7 +60,7 @@ const preloadImages = (banners: Banner[]) => {
       const urls = [banner.image_desktop, banner.image_tab, banner.image_phone];
       return urls.map((imgUrl) => {
         const img = new window.Image();
-        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${imgUrl}`;
+        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${imgUrl}`;
         return new Promise((resolve) => {
           img.onload = resolve;
           img.onerror = resolve;
@@ -128,14 +128,14 @@ export default function PartBanner() {
               <picture>
                 <source
                   media="(min-width:1024px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${banner.image_desktop}`}
+                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                 />
                 <source
                   media="(min-width:640px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${banner.image_tab}`}
+                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
                 />
                 <img
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${banner.image_phone}`}
+                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
                   alt={banner.title || `Banner ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
