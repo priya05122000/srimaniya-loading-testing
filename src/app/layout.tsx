@@ -30,8 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-
-        <meta name="google-site-verification" content="MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w" />
+        <meta
+          name="google-site-verification"
+          content="MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w"
+        />
 
         {/* GA4 Script */}
         <Script
@@ -47,10 +49,30 @@ export default function RootLayout({
     gtag('config', 'G-GFHYHS0PBP', { send_page_view: false });
   `}
         </Script>
-
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-5RZZ4B5Z');
+            `,
+          }}
+        />
       </head>
 
       <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5RZZ4B5Z"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <Suspense fallback={null}>
           <AnalyticsListener />
         </Suspense>
