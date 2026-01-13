@@ -31,6 +31,12 @@ const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
   ssr: false,
 });
 
+const getResponsiveImage = (banner: Banner, width: number) => {
+  if (width < 640) return banner.image_phone;
+  if (width < 1024) return banner.image_tab;
+  return banner.image_desktop;
+};
+
 const HeroClient = ({ banners }: { banners: Banner[] }) => {
   const { setLoading } = useGlobalLoader();
 
@@ -38,7 +44,15 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
     setLoading(false);
   }, [setLoading]);
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (!Array.isArray(banners) || banners.length === 0) {
     return (
@@ -67,28 +81,23 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
             style={{ transform: "translateZ(0)" }}
           >
             <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
-              <picture>
-                {/* Mobile */}
+              {/* <picture>
                 <source
                   media="(max-width: 639px)"
-                  srcSet={`${baseUrl}/${banner.image_phone}`}
+                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
                 />
 
-                {/* Tablet */}
                 <source
                   media="(min-width: 640px) and (max-width: 1023px)"
-                  srcSet={`${baseUrl}/${banner.image_tab}`}
+                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
                 />
-
-                {/* Desktop */}
                 <source
                   media="(min-width: 1024px)"
-                  srcSet={`${baseUrl}/${banner.image_desktop}`}
+                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                 />
 
-                {/* Fallback + LCP */}
                 <Image
-                  src={`${baseUrl}/${banner.image_desktop}`}
+                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                   alt={banner.title}
                   fill
                   priority={idx === 0}
@@ -96,24 +105,23 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                   loading={idx === 0 ? "eager" : "lazy"}
                   className="object-cover"
                 />
-              </picture>
+              </picture> */}
 
-              {/* <Image
-                  src={`${baseUrl}/files/${getResponsiveImage(
-                    banner,
-                    windowWidth
-                  )}`}
-                  alt={banner.title}
-                  width={1920}
-                  height={1080}
-                  className="object-cover w-full h-full object-top hero-image"
-                  decoding="async"
-                  priority={idx === 0}
-                  fetchPriority={idx === 0 ? "high" : "auto"}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
-                  unoptimized
-                /> */}
+              <Image
+                src={`${
+                  process.env.NEXT_PUBLIC_API_BASE_URL
+                }/${getResponsiveImage(banner, windowWidth)}`}
+                alt={banner.title}
+                width={1920}
+                height={1080}
+                className="object-cover w-full h-full object-top hero-image"
+                decoding="async"
+                priority={idx === 0}
+                fetchPriority={idx === 0 ? "high" : "auto"}
+                loading={idx === 0 ? "eager" : "lazy"}
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
+                unoptimized
+              />
               {/* Overlay container */}
               <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 lg:w-2/4 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
                 <div className="absolute inset-0 bg-(--blue-overlay-medium) -z-10 rounded-lg" />
