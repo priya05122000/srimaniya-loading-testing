@@ -233,7 +233,7 @@ export const FileUploaderField: React.FC<FileUploaderFieldProps> = ({
   }, [resetTrigger]);
 
   return (
-    React.createElement('div', { className: 'relative w-full' },
+    React.createElement('div', { className: ' relative w-full' },
       label && React.createElement('label', {
         htmlFor: inputId,
         className: `absolute left-0 transition-all duration-200 z-10 pointer-events-none\n          ${showFloating

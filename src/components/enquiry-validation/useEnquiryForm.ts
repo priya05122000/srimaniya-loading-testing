@@ -89,11 +89,14 @@ export function useEnquiryForm({
         if (validateForm && !validateForm(tempFormData)) return;
         if (!executeRecaptcha) {
             setError("Captcha failed. Please refresh and try again.");
+            console.log("executeRecaptcha not available");
             return;
         }
         setLoading(true);
         try {
             const captchaToken = await executeRecaptcha(captchaAction);
+            console.log("Captcha token:", captchaToken);
+
             let resumeUrl = null;
             if ((formData as any).resume) {
                 const resumeFormData = new FormData();
