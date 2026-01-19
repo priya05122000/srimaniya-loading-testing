@@ -39,6 +39,7 @@ const getResponsiveImage = (banner: Banner, width: number) => {
 
 const HeroClient = ({ banners }: { banners: Banner[] }) => {
   const { setLoading } = useGlobalLoader();
+  console.log("Banners in HeroClient:", banners);
 
   useEffect(() => {
     setLoading(false);

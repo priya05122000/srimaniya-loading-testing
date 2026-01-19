@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { getAllAlumniStories } from "@/services/alumniStoryService";
 import AlumniStoriesClient from "./AlumniStoriesClient";
 import { AlumniStory } from "@/types";

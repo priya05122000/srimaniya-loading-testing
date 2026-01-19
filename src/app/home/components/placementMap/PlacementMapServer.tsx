@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { getAllCountries } from "@/services/countriesService";
 import PlacementMapClient from "./PlacementMapClient";
 import { Country } from "@/types";

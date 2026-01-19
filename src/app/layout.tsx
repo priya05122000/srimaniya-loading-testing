@@ -62,6 +62,19 @@ export default function RootLayout({
             `,
           }}
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17863144213"
+        />
+
+        <Script id="google-ads" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17863144213');
+          `}
+        </Script>
       </head>
 
       <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>

@@ -1,3 +1,7 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+
 import { getAllBanners } from "@/services/bannerService";
 import HeroClient from "./HeroClient";
 import { Banner } from "@/types";
