@@ -1,40 +1,32 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { getAllAlumniStories } from '@/services/alumniStoryService';
-import Section from '@/components/common/Section';
-import { FaQuoteLeft } from 'react-icons/fa';
-import Paragraph from '@/components/common/Paragraph';
-import Heading from '@/components/common/Heading';
-import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
-import Image from 'next/image';
-import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
-import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
-import Span from '@/components/common/Span';
-
-// Types
-export type Alumni = {
-  id: string;
-  name: string;
-  batch_year: number;
-  course: string;
-  location: string;
-  designation: string;
-  country: string;
-  company: string;
-  story: string;
-  photo_url: string;
-  video_url: string;
-  status?: boolean;
-};
+import React, { useEffect, useState } from "react";
+import Section from "@/components/common/Section";
+import { FaQuoteLeft } from "react-icons/fa";
+import Paragraph from "@/components/common/Paragraph";
+import Heading from "@/components/common/Heading";
+import {
+  HiOutlineArrowNarrowLeft,
+  HiOutlineArrowNarrowRight,
+} from "react-icons/hi";
+import Image from "next/image";
+import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+import { AlumniStory } from "@/types";
 
 // Utility: Get visible alumni for carousel (reusable)
-const getVisibleAlumni = (alumniData: Alumni[], current: number, isMobile: boolean): (Alumni | undefined)[] => {
+const getVisibleAlumni = (
+  alumniData: AlumniStory[],
+  current: number,
+  isMobile: boolean
+): (AlumniStory | undefined)[] => {
   const total = alumniData.length;
   if (isMobile) {
     // Only show the current alumni on mobile
     return [alumniData[current]];
   }
-  return Array.from({ length: 5 }, (_, i) => alumniData[(current + i - 2 + total) % total]);
+  return Array.from(
+    { length: 5 },
+    (_, i) => alumniData[(current + i - 2 + total) % total]
+  );
 };
 
 // Utility: Position and scale maps for carousel (reusable)
@@ -44,18 +36,17 @@ const scaleMapLg = ["1", "1.5", "1.25", "1.5", "1"] as const;
 
 // Reusable: Alumni image carousel item
 const AlumniImage: React.FC<{
-  alumni?: Alumni;
+  alumni?: AlumniStory;
   idx: number;
   onClick: () => void;
-  imageBase: string;
-}> = ({ alumni, idx, onClick, imageBase }) => (
+}> = ({ alumni, idx, onClick }) => (
   <div
     className="absolute transition-all duration-500 ease-out cursor-pointer"
     onClick={onClick}
     style={{
       transform: `translateX(${positionMap[idx]})  scale(${scaleMapLg[idx]})`,
       zIndex: idx === 2 ? 10 : 1,
-      willChange: 'transform, opacity',
+      willChange: "transform, opacity",
     }}
   >
     <div
@@ -67,17 +58,18 @@ const AlumniImage: React.FC<{
     >
       {alumni?.photo_url ? (
         <Image
-          src={imageBase + alumni.photo_url}
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${alumni.photo_url}`}
           alt={`Sri Maniya Institute of Hotel Management Alumni - ${alumni.name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           width={idx === 2 ? 144 : 80}
           height={idx === 2 ? 144 : 80}
-          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"} `}
+          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${
+            idx === 2 ? "" : "border-2 border-(--yellow)"
+          } `}
           draggable={false}
-          style={{ borderRadius: '9999px' }}
+          style={{ borderRadius: "9999px" }}
           priority={idx === 2}
           unoptimized
         />
-
       ) : (
         <div className="w-full h-full" />
       )}
@@ -85,39 +77,10 @@ const AlumniImage: React.FC<{
   </div>
 );
 
-// Helper: Preload images and videos for alumni
-const preloadAlumniMedia = (alumniList: Alumni[]) => {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
-    : '';
-  const imagePromises = alumniList.map((a) => {
-    if (!a.photo_url) return Promise.resolve();
-    const img = new window.Image();
-    img.src = base + a.photo_url;
-    return new Promise<void>((resolve) => {
-      img.onload = () => resolve();
-      img.onerror = () => resolve();
-    });
-  });
-  const videoPromises = alumniList
-    .filter((a) => a.video_url)
-    .map((a) => {
-      const video = document.createElement('video');
-      video.preload = 'auto';
-      video.src = a.video_url.includes('videos/') ? base + a.video_url : base + 'videos/' + a.video_url;
-      return new Promise<void>((resolve) => {
-        video.oncanplaythrough = () => resolve();
-        video.onerror = () => resolve();
-      });
-    });
-  return Promise.all([...imagePromises, ...videoPromises]);
-};
-
-const AlumniStories = () => {
-  const [alumniData, setAlumniData] = useState<Alumni[]>([]);
+const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const { setLoading } = useGlobalLoader();
+  const [mounted, setMounted] = useState(false);
   const total = alumniData.length;
   const [isMobile, setIsMobile] = useState(false);
 
@@ -158,30 +121,14 @@ const AlumniStories = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await getAllAlumniStories();
-        const raw: Alumni[] = res?.data ?? [];
-        const active = raw.filter((a) => a.status);
-        setAlumniData(active);
-        await preloadAlumniMedia(active);
-      } catch (err) {
-        setAlumniData([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [setLoading]);
-
-  useEffect(() => {
     // Responsive check for mobile
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  useEffect(() => setMounted(true), [100]);
 
   useEffect(() => {
     if (isHovered) return;
@@ -191,58 +138,82 @@ const AlumniStories = () => {
     return () => clearInterval(interval);
   }, [current, isHovered, total]);
 
-  const goTo = (steps: number) => setCurrent((prev) => (prev + steps + total) % total);
+  const goTo = (steps: number) =>
+    setCurrent((prev) => (prev + steps + total) % total);
   const prevSlide = () => goTo(-1);
   const nextSlide = () => goTo(1);
 
   if (!alumniData.length) {
-    return <div style={{ textAlign: 'center', padding: '40px 0' }}>Loading...</div>;
+    return (
+      <div style={{ textAlign: "center", padding: "40px 0" }}>Loading...</div>
+    );
   }
 
   const visible = getVisibleAlumni(alumniData, current, isMobile);
   const currentAlumni = alumniData[current];
-  const imageBase = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
-    : '';
 
   return (
+    mounted && (
     <div ref={alumniRef}>
       <div className="pt-10 sm:pt-20 relative w-full">
         <Section>
           <div>
-            <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold alumni-title">
+            <Paragraph
+              ref={paragraphRef}
+              size="lg"
+              className="text-(--blue) font-bold alumni-title"
+            >
               The Proof
             </Paragraph>
-            <Heading ref={headingRef} level={4} className="text-(--blue) uppercase leading-tight proof-title mt-1">Alumni Stories</Heading>
+            <Heading
+              ref={headingRef}
+              level={4}
+              className="text-(--blue) uppercase leading-tight proof-title mt-1"
+            >
+              Alumni Stories
+            </Heading>
           </div>
         </Section>
-        <div className='flex justify-center  items-center pt-10  gap-10 mb-4 '>
-          <div className='w-full h-px bg-(--grey)' />
-          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><FaQuoteLeft style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
-          <div className='w-full h-px bg-(--grey)' />
+        <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
+          <div className="w-full h-px bg-(--grey)" />
+          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
+            <FaQuoteLeft style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
+          </span>
+          <div className="w-full h-px bg-(--grey)" />
         </div>
         <Section>
-          <div className='h-[450px] sm:h-[490px] flex flex-col justify-between text-center '>
-            {currentAlumni && (
+          <div className="h-[450px] sm:h-[490px] flex flex-col justify-between text-center ">
+            {currentAlumni && mounted && (
               <>
                 <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
-                  <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+                  <span
+                    dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
+                  />
                 </span>
-                <Paragraph size='lg' className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)">
-                  <span dangerouslySetInnerHTML={{ __html: currentAlumni.story }} />
+                <Paragraph
+                  size="lg"
+                  className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)"
+                >
+                  <span
+                    dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
+                  />
                 </Paragraph>
               </>
             )}
             <div>
               <div
-                className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? 'h-24' : 'h-40'}`}
+                className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${
+                  isMobile ? "h-24" : "h-40"
+                }`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                {...(isMobile ? {
-                  onTouchStart: handleTouchStart,
-                  onTouchMove: handleTouchMove,
-                  onTouchEnd: handleTouchEnd
-                } : {})}
+                {...(isMobile
+                  ? {
+                      onTouchStart: handleTouchStart,
+                      onTouchMove: handleTouchMove,
+                      onTouchEnd: handleTouchEnd,
+                    }
+                  : {})}
               >
                 {visible.map((alumni, idx) => (
                   <AlumniImage
@@ -256,18 +227,25 @@ const AlumniStories = () => {
                       if (idx === 3) goTo(1);
                       if (idx === 4) goTo(2);
                     }}
-                    imageBase={imageBase}
                   />
                 ))}
               </div>
               {currentAlumni && (
                 <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
-                  <Paragraph size='xl' className="font-bold text-(--blue)">{currentAlumni.name}</Paragraph>
-                  <Paragraph size='base' className="text-(--dark)">({currentAlumni.batch_year} batch - {currentAlumni.course})</Paragraph>
+                  <Paragraph size="xl" className="font-bold text-(--blue)">
+                    {currentAlumni.name}
+                  </Paragraph>
+                  <Paragraph size="base" className="text-(--dark)">
+                    ({currentAlumni.batch_year} batch - {currentAlumni.course})
+                  </Paragraph>
                 </div>
               )}
               {currentAlumni && (
-                <Paragraph size='base' className="  text-(--dark) mb-6">{currentAlumni.designation} - {currentAlumni.company}{currentAlumni.location ? `, ${currentAlumni.location}` : ''}{currentAlumni.country ? `, ${currentAlumni.country}` : ''}</Paragraph>
+                <Paragraph size="base" className="  text-(--dark) mb-6">
+                  {currentAlumni.designation} - {currentAlumni.company}
+                  {currentAlumni.location ? `, ${currentAlumni.location}` : ""}
+                  {currentAlumni.country ? `, ${currentAlumni.country}` : ""}
+                </Paragraph>
               )}
               <div className="flex justify-center gap-4">
                 <button
@@ -290,7 +268,7 @@ const AlumniStories = () => {
         </Section>
       </div>
     </div>
-  );
+  ));
 };
 
 export default AlumniStories;

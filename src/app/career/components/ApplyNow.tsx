@@ -8,7 +8,6 @@ import {
 import Heading from "@/components/common/Heading";
 import Image from "next/image";
 import { createJobApplication } from "@/services/jobAppointmentService";
-import { uploadResumeFile } from "@/services/fileService";
 import { toast } from "react-toastify";
 import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
 import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";

@@ -13,6 +13,7 @@ import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimati
 import { useEffect, useState } from "react";
 import { getAllCountries } from "@/services/countriesService";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import { Country } from "@/types";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -86,7 +87,11 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
           unoptimized
         />
       </div>
-      <Paragraph className={`absolute ${size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"} left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}>
+      <Paragraph
+        className={`absolute ${
+          size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"
+        } left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}
+      >
         <span className="block">{placement}</span>
         <span>{ctc}</span>
       </Paragraph>
@@ -139,10 +144,7 @@ const PlacementCard: React.FC<Placement> = ({
   </div>
 );
 
-const PlacementMap = () => {
-  const [placements, setPlacements] = useState<Placement[]>([]);
-  const { setLoading } = useGlobalLoader();
-
+const PlacementMap = ({ placements }: { placements: Placement[] }) => {
   // SplitText animation refs
   const parentRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -156,7 +158,7 @@ const PlacementMap = () => {
     first: paragraphRef,
     second: headingRef,
     delay: 0.3,
-    enabled: placements.length > 0,
+    enabled: Array.isArray(placements) && placements.length > 0,
   });
   // Desktop animation
   useSplitTextHeadingAnimation({
@@ -164,13 +166,12 @@ const PlacementMap = () => {
     first: paragraphRefDesktop,
     second: headingRefDesktop,
     delay: 0.3,
-    enabled: placements.length > 0,
+    enabled: Array.isArray(placements) && placements.length > 0,
   });
 
   const horizontalScrollRef = useRef<HTMLDivElement>(null);
   const horizontalWrapperRef = useRef<HTMLDivElement>(null);
 
-  // ✅ Use useGSAP instead of useEffect
   useGSAP(
     () => {
       const wrapper = horizontalWrapperRef.current;
@@ -216,30 +217,6 @@ const PlacementMap = () => {
     { scope: horizontalScrollRef } // ✅ Scoped only to this component
   );
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        setLoading(true);
-        const results = await getAllCountries();
-        const data = results.data;
-        const activedata = data.filter((d: Placement) => d.status);
-        setPlacements(activedata);
-      } catch (error: unknown) {
-        if (typeof error === "object" && error !== null && "message" in error) {
-          console.error(
-            (error as { message?: string }).message ||
-            "Failed to fetch countries"
-          );
-        } else {
-          console.error("Failed to fetch countries");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCountries();
-  }, [setLoading]);
-
   return (
     <div ref={parentRef} className="relative">
       {/* Mobile version */}
@@ -265,9 +242,12 @@ const PlacementMap = () => {
             <Paragraph
               size="lg"
               className="mb-2 text-(--dark) w-[90%] xl:w-[85%]"
-            // {...ANIMATIONS.fadeZoomIn}
+              // {...ANIMATIONS.fadeZoomIn}
             >
-              Each pin on this map represents the global destinations where our talented graduates have embarked on successful careers. Every flag marks a prestigious international partner that welcomes our alumni to the world stage.
+              Each pin on this map represents the global destinations where our
+              talented graduates have embarked on successful careers. Every flag
+              marks a prestigious international partner that welcomes our alumni
+              to the world stage.
             </Paragraph>
           </div>
         </motion.div>
@@ -350,9 +330,12 @@ const PlacementMap = () => {
                 <Paragraph
                   size="base"
                   className="mb-2 text-(--dark) w-[90%] xl:w-[70%] leading-relaxed"
-                // {...ANIMATIONS.fadeZoomIn}
+                  // {...ANIMATIONS.fadeZoomIn}
                 >
-                  Each pin on this map represents the global destinations where our talented graduates have embarked on successful careers. Every flag marks a prestigious international partner that welcomes our alumni to the world stage.
+                  Each pin on this map represents the global destinations where
+                  our talented graduates have embarked on successful careers.
+                  Every flag marks a prestigious international partner that
+                  welcomes our alumni to the world stage.
                 </Paragraph>
               </div>
             </motion.div>

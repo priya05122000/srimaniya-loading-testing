@@ -5,9 +5,7 @@ import Image from "next/image";
 import Section from "@/components/common/Section";
 import Heading from "@/components/common/Heading";
 import React, { FC } from "react";
-import { getAllCategories } from "@/services/categoryService";
 import Paragraph from "@/components/common/Paragraph";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 const GRID_CLASSES =
@@ -32,6 +30,7 @@ interface Blog {
 
 interface HotelManagementProps {
   blog: Blog | null;
+  categories: Array<{ id: string; name: string }>;
 }
 
 const getCategoryName = (
@@ -46,7 +45,7 @@ const getCategoryName = (
 
 const getVideoSrc = (videoUrl: string): string => {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : "";
 
   if (videoUrl.includes("videos/")) return base + videoUrl;
@@ -59,7 +58,7 @@ const preloadBlogMedia = (blog: Blog | null): Promise<void> => {
   if (!blog) return Promise.resolve();
 
   const base = process.env.NEXT_PUBLIC_API_BASE_URL
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/`
     : "";
 
   // If video exists
@@ -92,13 +91,7 @@ const preloadBlogMedia = (blog: Blog | null): Promise<void> => {
   return Promise.resolve();
 };
 
-const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
-  const [categories, setCategories] = useState<
-    Array<{ id: string; name: string }>
-  >([]);
-
-  const { setLoading } = useGlobalLoader();
-
+const HotelManagement: FC<HotelManagementProps> = ({ blog, categories }) => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const eventViewRef = useRef<HTMLDivElement>(null);
@@ -110,24 +103,6 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
     delay: 0.3,
     enabled: !!blog && categories.length > 0,
   });
-
-  useEffect(() => {
-    setLoading(true);
-
-    const fetchCategory = async () => {
-      try {
-        const category = await getAllCategories();
-        setCategories(category?.data ?? []);
-        await preloadBlogMedia(blog);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategory();
-  }, [setLoading, blog]);
 
   if (!blog) return null;
 
@@ -156,7 +131,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog }) => {
             </video>
           ) : (
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
+              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
               alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, diploma in hotel management duration, best hotel management colleges, hotel management institute, best hospitality management colleges"
               width={800}
               height={800}

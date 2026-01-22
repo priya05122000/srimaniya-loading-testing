@@ -55,6 +55,7 @@ export interface Banner {
     image_phone: string;
     button_text: string | null;
     button_link: string | null;
+    category: string;
     is_active: boolean;
     display_order: number;
     created_by: string | null;
@@ -74,6 +75,8 @@ export interface BlogPost {
     title: string;
     slug: string;
     image_url: string;
+    video_url?: string | null;
+    additional_images: string[] | null;
     sub_title: string;
     description: string;
     category_id: string;
@@ -185,6 +188,7 @@ export interface AlumniStory {
     country: string | null;
     company: string | null;
     photo_url: string | null;
+    location: string | null;
     story: string;
     video_url: string | null;
     status: boolean;

@@ -3,13 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
+    unoptimized:true,
     qualities: [100],
     domains: [
       "api.srimaniyainstitute.in",
       "localhost",
       "127.0.0.1",
     ],
-    unoptimized: true,
   },
   compiler: {
     removeConsole: false,

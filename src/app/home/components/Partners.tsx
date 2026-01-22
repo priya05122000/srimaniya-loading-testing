@@ -7,9 +7,10 @@ import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
-import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-import { Splide } from "@splidejs/splide";
+// import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+// import { Splide } from "@splidejs/splide";
 
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -19,17 +20,6 @@ interface Partner {
   website_url: string;
 }
 
-const preloadImages = (partners: Partner[], baseUrl: string) => {
-  return Promise.all(
-    partners.map((p) => {
-      const img = new window.Image();
-      img.src = `${baseUrl}/files/${p.logo_url}`;
-      return new Promise((resolve) => {
-        img.onload = img.onerror = resolve;
-      });
-    })
-  );
-};
 
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -42,16 +32,14 @@ export default function Partners() {
 
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  /* --------------------- GSAP SplitText Animation --------------------- */
   useSplitTextHeadingAnimation({
     trigger: splitTextTriggerRef,
     first: paragraphRef,
     second: headingRef,
     delay: 0.3,
-    enabled: !!partners.length, // Only enable when partners are loaded
+    enabled: !!partners.length,
   });
 
-  /* --------------------------- Fetch Partners ------------------------- */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -59,7 +47,6 @@ export default function Partners() {
         const result = await getAllPartners();
         const data = result?.data || [];
         setPartners(data);
-        if (data.length && baseUrl) await preloadImages(data, baseUrl);
       } catch (err) {
         console.error("Failed to fetch partners:", err);
       } finally {
@@ -75,32 +62,41 @@ export default function Partners() {
       return;
     }
 
-    const splide = new Splide(splideRef.current, {
-      type: "loop",
-      drag: "free",
-      focus: "center",
-      pagination: false,
-      arrows: false,
-      gap: "2rem",
-      perPage: 6,
-      a11y: false,
+    let splide: any;
+    let autoScrollCleanup: (() => void) | undefined;
 
-      autoScroll: {
-        speed: 1.5,
-        pauseOnHover: false,
-        pauseOnFocus: false,
-      },
-      breakpoints: {
-        1024: { perPage: 4 },
-        768: { perPage: 3 },
-        480: { perPage: 2 },
-      },
-    });
+    (async () => {
+      const Splide = (await import("@splidejs/splide")).default;
+      const { AutoScroll } = await import("@splidejs/splide-extension-auto-scroll");
 
-    splide.mount({ AutoScroll });
+      splide = new Splide(splideRef.current!, {
+        type: "loop",
+        drag: "free",
+        focus: "center",
+        pagination: false,
+        arrows: false,
+        gap: "2rem",
+        perPage: 6,
+        a11y: false,
+        autoScroll: {
+          speed: 1.5,
+          pauseOnHover: false,
+          pauseOnFocus: false,
+        },
+        breakpoints: {
+          1024: { perPage: 4 },
+          768: { perPage: 3 },
+          480: { perPage: 2 },
+        },
+      });
+
+      splide.mount({ AutoScroll });
+      autoScrollCleanup = () => splide.destroy();
+    })();
 
     return () => {
-      splide.destroy();
+      if (autoScrollCleanup) autoScrollCleanup();
+      else if (splide) splide.destroy();
     };
   }, [partners]);
 
@@ -136,7 +132,7 @@ export default function Partners() {
                       className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
                     >
                       <Image
-                        src={`${baseUrl}/files/${partner.logo_url}`}
+                        src={`${baseUrl}/${partner.logo_url}`}
                         alt={`Sri Maniya Institute of Hotel Management - Recruitment Partner, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
                         width={200}
                         height={100}

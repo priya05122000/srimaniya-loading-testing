@@ -16,6 +16,7 @@ import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimati
 // Reusable type for Blog
 export type Blog = {
   id: string;
+  slug: string;
   image_url: string;
   video_url: string;
   title: string;
@@ -25,7 +26,7 @@ export type Blog = {
 
 // Helper: Preload images and videos (reusable)
 const preloadMedia = (blogs: Blog[]) => {
-  const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`;
+  const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/`;
   const imagePromises = blogs.map((p) => {
     const img = new window.Image();
     img.src = `${base}${p.image_url}`;
@@ -50,7 +51,7 @@ const preloadMedia = (blogs: Blog[]) => {
 
 // Helper: Get video sources (reusable)
 const getVideoSources = (videoUrl: string) => {
-  const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/`;
+  const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/`;
   const src = videoUrl.includes("videos/") ? `${base}${videoUrl}` : `${base}videos/${videoUrl}`;
   const sources = [
     { ext: ".mp4", type: "video/mp4" },
@@ -75,7 +76,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
         </video>
       ) : (
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${blog.image_url}`}
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
           alt={`Sri Maniya Institute of Hotel Management Event/Blog - ${blog.title}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           priority={idx === 0}
           className="w-full h-full object-cover image-tag"
@@ -180,7 +181,7 @@ const EventsBlogs: React.FC = () => {
           >
             {blogs.map((blog, idx) => (
               <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog-view?id=${blog.id}`)} />
+                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog-view/${blog.slug}`)} />
               </SwiperSlide>
             ))}
           </Swiper>

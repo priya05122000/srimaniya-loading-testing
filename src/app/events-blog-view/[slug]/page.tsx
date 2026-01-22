@@ -1,87 +1,77 @@
-"use client";
-import React, { useEffect, useState, Suspense } from "react";
-import { useParams } from "next/navigation";
-
-import HotelManagement from "./components/HotelManagement";
-import BlogImage from "./components/BlogImage";
-import BlogData from "./components/BlogData";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
+import ViewPage from "./ViewPage";
 
-interface Blog {
-  id: string;
-  image_url: string;
-  title: string;
-  content: string;
-  created_at: string;
-  category_id: string;
-  created_by: string;
-  slug: string;
-  description: string;
-  additional_images?: string[];
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const result = await getBlogPostBySlug(slug);
+  const blog = result?.data;
+
+  if (!blog) {
+    return {
+      title: "Event Blog | Sri Maniya Institute",
+      description: "Events and updates from Sri Maniya Institute",
+      alternates: {
+        canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog-view`,
+      },
+    };
+  }
+
+  const cleanText = (html: string, limit = 160) => {
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return text.length > limit ? text.slice(0, limit) + "…" : text;
+  };
+
+  const description = cleanText(blog.description, 60);
+
+  const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
+
+  return {
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog-view/${blog.slug}`,
+    },
+
+    title: blog.title,
+    description: description,
+
+    openGraph: {
+      title: blog.title,
+      description: description,
+      url: `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`,
+      type: "article",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: description,
+      images: [imageUrl],
+    },
+  };
 }
 
-const getAdditionalImages = (blog: Blog | null) =>
-  Array.isArray(blog?.additional_images)
-    ? blog.additional_images.map((name: string) => ({
-        src: `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`,
-        alt: blog?.title || "Blog image",
-      }))
-    : [];
-
-const preloadImages = (blog: Blog | null) => {
-  if (!blog || !Array.isArray(blog.additional_images)) return Promise.resolve();
-  return Promise.all(
-    blog.additional_images.map((name) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${name}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
+const page = () => {
+  return (
+    <div>
+      <ViewPage />
+    </div>
   );
 };
 
-function BlogViewPageContent() {
-  const { slug } = useParams();
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const { setLoading } = useGlobalLoader();
-
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchBlog = async () => {
-      setLoading(true);
-      try {
-        const result = await getBlogPostBySlug(slug);
-        setBlog(result?.data);
-        await preloadImages(result?.data);
-      } catch (error: unknown) {
-        console.error("Failed to load blog:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlog();
-  }, [slug, setLoading]);
-
-  const additionalImages = getAdditionalImages(blog);
-
-  return (
-    <div className="relative">
-      <HotelManagement blog={blog} />
-      {blog && <BlogData blog={blog} />}
-      <BlogImage additional_images={additionalImages} />
-    </div>
-  );
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <BlogViewPageContent />
-    </Suspense>
-  );
-}
+export default page;

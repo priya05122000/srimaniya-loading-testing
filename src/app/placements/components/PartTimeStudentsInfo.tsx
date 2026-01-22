@@ -41,7 +41,7 @@ const preloadImages = (placements: Placement[]) => {
   return Promise.all(
     placements.map((p) => {
       const img = new window.Image();
-      img.src = p.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${p.profile_photo}` : PLACEHOLDER_IMAGE;
+      img.src = p.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.profile_photo}` : PLACEHOLDER_IMAGE;
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;
@@ -55,7 +55,7 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
   <div className="placement relative h-[220px] sm:h-[200px] flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
     <div className="relative w-[250px] h-full">
       <Image
-        src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
+        src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
         className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
         alt="Sri Maniya Institute placement - hotel management placement, 100% placement assistance hotel management, hotel management job opportunities, placement partners in hospitality industry"
         width={300}

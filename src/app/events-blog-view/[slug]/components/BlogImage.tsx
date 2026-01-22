@@ -83,7 +83,7 @@ const BlogImage: FC<BlogImageProps> = ({ additional_images = [] }) => {
   };
 
   return (
-    <Section className="pb-12">
+    <Section className="pb-8 lg:pb-12">
       <div className="space-y-6">{renderPattern()}</div>
     </Section>
   );

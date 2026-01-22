@@ -107,13 +107,13 @@ const Footer = () => {
             data-section
         >
             {/* Decorative image behind */}
-            <div className="absolute bottom-0 left-0 z-0 pointer-events-none ">
+            <div className="absolute bottom-0 left-0 z-0 pointer-events-none">
                 <Image
                     src="/designs/M.png"
                     alt="Sri Maniya Institute Decorative Design"
                     width={500}
                     height={500}
-                    className="w-full h-full sm:h-[400px] object-contain image-tag"
+                    className="w-auto h-full sm:h-[400px] object-contain image-tag"
                     priority
                 />
             </div>

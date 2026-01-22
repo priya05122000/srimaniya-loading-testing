@@ -3,9 +3,13 @@ import type { Metadata } from "next";
 import PlacementsPage from './PlacementsPage';
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/placements`,
+  },
+
   title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
   description:
-    "Sri Maniya Institute offers 100% hotel management placement support with internships, top hospitality recruiters, full-time job opportunities, and career guidance for all students.",
+    "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
   keywords: [
     // Main keywords
     "Sri Maniya Institute placement",
@@ -23,6 +27,31 @@ export const metadata: Metadata = {
     "career guidance in hospitality",
     "placement partners in hospitality industry"
   ],
+
+    openGraph: {
+    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    description:
+      "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
+    url: "https://srimaniyainstitute.in/placements",
+    siteName: "Sri Maniya Institute",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/home/commitment-bg-1.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    description:
+      "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
+    images: ["https://srimaniyainstitute.in/home/commitment-bg-1.webp"],
+  },
 };
 
 const page = () => {

@@ -202,7 +202,7 @@ const CourseList: FC = () => {
                 {course.syllabus && (
                   <CourseRow label="Syllabus">
                     <Link
-                      href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/syllabus/${course.syllabus}`}
+                      href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${course.syllabus}`}
                       target="_blank"
                       download
                     >
@@ -238,7 +238,7 @@ const CourseList: FC = () => {
               {course.syllabus && (
                 <MobileCourseRow label="Syllabus">
                   <Link
-                    href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/syllabus/${course.syllabus}`}
+                    href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${course.syllabus}`}
                     target="_blank"
                     download
                   >

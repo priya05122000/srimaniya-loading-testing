@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { getAllPartners } from "@/services/partnerService"; // import your API function
+import { getAllPartners } from "@/services/partnerService";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,6 +15,7 @@ interface Partner {
   logo_url: string;
   name: string;
   website_url: string;
+  status: boolean;
 }
 
 // Helper: Preload images (reusable)
@@ -22,7 +23,7 @@ const preloadImages = (partners: Partner[]) => {
   return Promise.all(
     partners.map((p) => {
       const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${p.logo_url}`;
+      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.logo_url}`;
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;
@@ -50,8 +51,9 @@ const PartPlacementPartners = () => {
       try {
         const result = await getAllPartners();
         const data = result?.data || [];
-        setPartners(data);
-        await preloadImages(data);
+        const activeData = data.filter((d: Partner) => d.status);
+        setPartners(activeData);
+        await preloadImages(activeData);
       } catch {
         setPartners([]);
       } finally {
@@ -86,7 +88,7 @@ const PartPlacementPartners = () => {
                   key={i}
                 >
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${partner.logo_url}`}
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${partner.logo_url}`}
                     alt={`Sri Maniya Institute placement partners - hotel management placement, 100% placement assistance hotel management, top recruiters for hotel management students, career guidance in hospitality`}
                     className="object-contain image-tag h-32 w-32 cursor-pointer"
                     loading="lazy"

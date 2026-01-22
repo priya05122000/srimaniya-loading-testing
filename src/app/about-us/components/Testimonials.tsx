@@ -21,6 +21,7 @@ type Testimonial = {
   message: string;
   photo_url: string;
   rating: number;
+  status: boolean;
 };
 
 const baseSliderSettings: SlickSettings = {
@@ -50,7 +51,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 overflow-hidden mr-4">
           <Image
-            src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${testimonial.photo_url}` : "/about-us/profile.webp"}
+            src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${testimonial.photo_url}` : "/about-us/profile.webp"}
             alt={`Sri Maniya Institute student testimonial - Top Hotel Management College, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management`}
             width={48}
             height={48}
@@ -85,7 +86,7 @@ const preloadImages = (testimonials: Testimonial[]) => {
   return Promise.all(
     testimonials.map((t) => {
       const img = new window.Image();
-      img.src = t.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/files/${t.photo_url}` : "/about-us/profile.webp";
+      img.src = t.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${t.photo_url}` : "/about-us/profile.webp";
       return new Promise((resolve) => {
         img.onload = resolve;
         img.onerror = resolve;
@@ -143,8 +144,9 @@ const Testimonials: React.FC = () => {
       try {
         const result = await getAllTestimonials();
         const testimonialsData = result?.data || [];
-        setTestimonials(testimonialsData);
-        await preloadImages(testimonialsData);
+        const activeTestimonials = testimonialsData.filter((t: Testimonial) => t.status);
+        setTestimonials(activeTestimonials);
+        await preloadImages(activeTestimonials);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error("Error fetching testimonials:", (error as { message?: string }).message);

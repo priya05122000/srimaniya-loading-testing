@@ -18,6 +18,7 @@ type StaffProfile = {
   profile_photo_url: string;
   overlay?: boolean;
   alt?: string;
+  status: boolean;
 };
 
 // Reusable card for team member (desktop and mobile)
@@ -57,7 +58,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         onClick={!mobile ? onOpen : undefined}
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${profile_photo_url}`}
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
           alt={alt || "Sri Maniya Institute Team - best hotel management institute in Tamilnadu, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management"}
           width={300}
           height={400}
@@ -121,7 +122,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         className={`relative w-full h-[400px] ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${profile_photo_url}`}
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
           alt={"Sri Maniya Institute Team - best hotel management institute in Tamilnadu, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management"}
           width={300}
           height={400}
@@ -187,7 +188,7 @@ const OurTeam: React.FC = () => {
     return Promise.all(
       profiles.map((p) => {
         const img = new window.Image();
-        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/uploads/${p.profile_photo_url}`;
+        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.profile_photo_url}`;
         return new Promise((resolve) => {
           img.onload = resolve;
           img.onerror = resolve;
@@ -202,8 +203,10 @@ const OurTeam: React.FC = () => {
       try {
         const result = await getAllStaffProfiles();
         const profiles = result?.data || [];
-        setStaffProfiles(profiles);
-        await preloadImages(profiles);
+
+        const activeProfiles = profiles.filter((p: StaffProfile) => p.status);
+        setStaffProfiles(activeProfiles);
+        await preloadImages(activeProfiles);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error(

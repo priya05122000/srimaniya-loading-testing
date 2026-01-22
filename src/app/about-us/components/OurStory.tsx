@@ -80,7 +80,7 @@ const OurStory: React.FC = () => {
 
   return (
     <div ref={sectionRef}>
-      <div className="grid grid-cols-1 md:grid-cols-[auto_2fr] gap-0 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-0 h-full">
         {/* Left: Image */}
         <div
           className="flex items-center justify-center sm:w-[110%] lg:w-[106%] xl:w-[110%] z-10 h-full"
