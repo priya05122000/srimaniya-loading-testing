@@ -55,10 +55,44 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": "https://srimaniyainstitute.in/about-us#aboutpage",
+    name: "About Sri Maniya Institute of Hotel Management",
+    url: "https://srimaniyainstitute.in/about-us",
+    description:
+      "Learn about the legacy, vision, mission, leadership, and faculty of Sri Maniya Institute of Hotel Management in Kanyakumari, a leading hotel management college in Tamil Nadu.",
+    mainEntity: {
+      "@type": "EducationalOrganization",
+      "@id": "https://srimaniyainstitute.in/#organization",
+      name: "Sri Maniya Institute of Hotel Management",
+      url: "https://srimaniyainstitute.in/",
+      foundingDate: "1950",
+      founder: {
+        "@type": "Person",
+        name: "Mr. Mani",
+        description:
+          "Founder whose journey began in 1950 and laid the foundation for a legacy in hospitality education.",
+      },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Kanyakumari",
+        addressRegion: "Tamil Nadu",
+        addressCountry: "IN",
+      },
+    },
+  };
   return (
-    <div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
       <AboutUsPage />
-    </div>
+    </>
   );
 };
 

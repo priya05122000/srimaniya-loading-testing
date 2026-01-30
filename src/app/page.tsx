@@ -56,8 +56,42 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "Sri Maniya Institute of Hotel Management",
+    url: "https://srimaniyainstitute.in/",
+    logo: "https://srimaniyainstitute.in/logos/navbarlogo.png",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "No: 6/66-D1, Government Hospital Road",
+      addressLocality: "Kanyakumari",
+      addressRegion: "Tamil Nadu",
+      postalCode: "629702",
+      addressCountry: "IN",
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+91-8093864444",
+        contactType: "admissions",
+      },
+    ],
+    sameAs: [
+      "https://www.instagram.com/srimaniya_institute",
+      "https://www.facebook.com/SriManiyaInstitute",
+      "https://www.youtube.com/@srimaniyainstitute",
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
       <HomePage />
     </>
   );

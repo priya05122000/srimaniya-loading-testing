@@ -52,10 +52,26 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": "https://srimaniyainstitute.in/contact-us#contactpage",
+    url: "https://srimaniyainstitute.in/contact-us",
+    mainEntity: {
+      "@type": "EducationalOrganization",
+      "@id": "https://srimaniyainstitute.in/#organization",
+    },
+  };
   return (
-    <div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
       <ContactPage />
-    </div>
+    </>
   );
 };
 
