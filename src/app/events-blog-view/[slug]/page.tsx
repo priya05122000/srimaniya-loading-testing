@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import ViewPage from "./ViewPage";
 
-type Props = {
-  params: { slug: string };
+export interface PageProps {
+  params?: Promise<SegmentParams>;
+  searchParams?: Promise<any>;
+}
+
+type SegmentParams = {
+  slug: string;
 };
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
+}: PageProps): Promise<Metadata> {
+  const resolvedParams = params ? await params : undefined;
+  const slug = resolvedParams?.slug;
   const result = await getBlogPostBySlug(slug);
   const blog = result?.data;
 
@@ -66,8 +70,10 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({ params }: Props) => {
-  const result = await getBlogPostBySlug(params.slug);
+const page = async ({ params }: PageProps) => {
+  const resolvedParams = params ? await params : undefined;
+  const slug = resolvedParams?.slug;
+  const result = await getBlogPostBySlug(slug);
   const blog = result?.data;
 
   if (!blog) {
