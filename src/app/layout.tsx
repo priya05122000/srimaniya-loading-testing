@@ -35,19 +35,21 @@ export default function RootLayout({
           content="MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w"
         />
 
-        {/* GA4 Script */}
+        {/* Unified gtag Script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
           strategy="lazyOnload"
         />
-
         <Script id="gtag-init" strategy="lazyOnload">
           {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GFHYHS0PBP', { send_page_view: false });
-  `}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            // GA4 config
+            gtag('config', 'G-GFHYHS0PBP', { send_page_view: false });
+            // Google Ads config
+            gtag('config', 'AW-17863144213');
+          `}
         </Script>
         <Script
           id="gtm-script"
@@ -62,25 +64,36 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Tag Manager for GTM-TLLR36TQ */}
         <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17863144213"
+          id="gtm-script-TLLR36TQ"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-TLLR36TQ');
+            `,
+          }}
         />
-
-        <Script id="google-ads" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17863144213');
-          `}
-        </Script>
       </head>
 
       <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
+        {/* Google Tag Manager (noscript) for GTM-5RZZ4B5Z */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-5RZZ4B5Z"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* Google Tag Manager (noscript) for GTM-TLLR36TQ */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TLLR36TQ"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
