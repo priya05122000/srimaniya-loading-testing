@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import ViewPage from "./ViewPage";
 
-type Props = {
-  params: { slug: string };
+export interface PageProps {
+  params?: Promise<SegmentParams>;
+  searchParams?: Promise<any>;
+}
+
+type SegmentParams = {
+  slug: string;
 };
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
+}: PageProps): Promise<Metadata> {
+  const resolvedParams = params ? await params : undefined;
+  const slug = resolvedParams?.slug;
   const result = await getBlogPostBySlug(slug);
   const blog = result?.data;
 
@@ -66,9 +70,59 @@ export async function generateMetadata({
   };
 }
 
-const page = () => {
+const page = async ({ params }: PageProps) => {
+  const resolvedParams = params ? await params : undefined;
+  const slug = resolvedParams?.slug;
+  const result = await getBlogPostBySlug(slug);
+  const blog = result?.data;
+
+  if (!blog) {
+    return (
+      <div>
+        <h1>Blog not found</h1>
+      </div>
+    );
+  }
+
+  const cleanText = (html: string, limit = 160) => {
+    const text = html.replace(/<[^>]*>/g, "").trim();
+    return text.length > limit ? text.slice(0, limit) + "…" : text;
+  };
+
+  const description = cleanText(blog.description, 60);
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: description,
+    image: `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`,
+    datePublished: blog.created_at,
+    dateModified: blog.updated_at || blog.created_at,
+    author: {
+      "@type": "Organization",
+      name: "Sri Maniya Institute of Hotel Management",
+    },
+    publisher: {
+      "@type": "EducationalOrganization",
+      name: "Sri Maniya Institute of Hotel Management",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://srimaniyainstitute.in/logos/navbarlogo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://srimaniyainstitute.in/events-blog-view/${blog.slug}`,
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <ViewPage />
     </div>
   );

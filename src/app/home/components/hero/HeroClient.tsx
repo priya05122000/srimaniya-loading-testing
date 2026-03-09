@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import CommonImage from "@/components/common/CommonImage";
 import React, { useEffect, useState } from "react";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
@@ -31,22 +31,15 @@ const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
   ssr: false,
 });
 
-const getResponsiveImage = (banner: Banner, width: number) => {
-  if (width < 640) return banner.image_phone;
-  if (width < 1024) return banner.image_tab;
-  return banner.image_desktop;
-};
-
 const HeroClient = ({ banners }: { banners: Banner[] }) => {
   const { setLoading } = useGlobalLoader();
-  console.log("Banners in HeroClient:", banners);
 
   useEffect(() => {
     setLoading(false);
   }, [setLoading]);
 
   const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1024
+    typeof window !== "undefined" ? window.innerWidth : 1024,
   );
 
   useEffect(() => {
@@ -82,46 +75,12 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
             style={{ transform: "translateZ(0)" }}
           >
             <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
-              {/* <picture>
-                <source
-                  media="(max-width: 639px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
-                />
-
-                <source
-                  media="(min-width: 640px) and (max-width: 1023px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
-                />
-                <source
-                  media="(min-width: 1024px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
-                />
-
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
-                  alt={banner.title}
-                  fill
-                  priority={idx === 0}
-                  fetchPriority={idx === 0 ? "high" : "auto"}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  className="object-cover"
-                />
-              </picture> */}
-
-              <Image
-                src={`${
-                  process.env.NEXT_PUBLIC_API_BASE_URL
-                }/${getResponsiveImage(banner, windowWidth)}`}
+              <CommonImage
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                 alt={banner.title}
-                width={1920}
-                height={1080}
+                type="hero"
                 className="object-cover w-full h-full object-top hero-image"
-                decoding="async"
                 priority={idx === 0}
-                fetchPriority={idx === 0 ? "high" : "auto"}
-                loading={idx === 0 ? "eager" : "lazy"}
-                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw"
-                unoptimized
               />
               {/* Overlay container */}
               <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-3/4 sm:w-2/3 lg:w-2/4 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">

@@ -1,12 +1,9 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
-import { getAllAlumniStories } from "@/services/alumniStoryService";
+import { getAllAlumniStoriesServer } from "@/services/serverComponent/alumnistoriesServiceServer";
 import AlumniStoriesClient from "./AlumniStoriesClient";
 import { AlumniStory } from "@/types";
 
 export default async function AlumniStories() {
-  const res = await getAllAlumniStories();
+  const res = await getAllAlumniStoriesServer();
   const alumni = Array.isArray(res?.data)
     ? res.data.filter((a: AlumniStory) => a.status)
     : [];

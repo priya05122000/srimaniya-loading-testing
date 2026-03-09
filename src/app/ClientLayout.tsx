@@ -102,21 +102,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
       scriptProps={{ async: true, defer: true, appendTo: "body" }}
     >
-      <Script
-        strategy="lazyOnload"
-        src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
-        defer
-      />
-      <Script id="google-analytics" strategy="lazyOnload">
-        {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GFHYHS0PBP', {
-      page_path: window.location.pathname,
-    });
-  `}
-      </Script>
       <ToastContainer
         position="top-right"
         autoClose={3000}

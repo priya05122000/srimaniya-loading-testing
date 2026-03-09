@@ -93,7 +93,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
             >
               <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
                 <Image
-                  src={`${baseUrl}/files/${getResponsiveImage(
+                  src={`${baseUrl}/${getResponsiveImage(
                     banner,
                     windowWidth
                   )}`}

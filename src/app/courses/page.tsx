@@ -4,7 +4,9 @@ import { headers } from "next/headers";
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const url = headersList.get("x-url") || "";
-  const urlObj = url ? new URL(url, `${process.env.NEXT_PUBLIC_BASE_URL}`) : null;
+  const urlObj = url
+    ? new URL(url, `${process.env.NEXT_PUBLIC_BASE_URL}`)
+    : null;
   const courseParam = urlObj?.searchParams.get("course");
   const canonical = courseParam
     ? `${process.env.NEXT_PUBLIC_BASE_URL}/courses?course=${courseParam}`
@@ -62,5 +64,86 @@ export async function generateMetadata(): Promise<Metadata> {
 import CoursesPage from "./CoursesPage";
 
 export default function Page() {
-  return <CoursesPage />;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        name: "Diploma in Catering and Hotel Administration",
+        description:
+          "A 3-year diploma in catering and hotel administration preparing students for hospitality careers.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "Advanced Diploma in Hotel Management & Catering Science",
+        description:
+          "A 2-year advanced diploma program focusing on hotel management and catering science.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "Diploma in Food Production",
+        description:
+          "A 1-year diploma designed to build practical skills in food production and culinary techniques.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "Diploma in Catering and Hotel Administration + B.Sc. in Catering and Hotel Administration (Pathway)",
+        description:
+          "A 5-year integrated pathway combining diploma and B.Sc. in catering and hotel administration.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "B.Sc. in Catering and Hotel Administration",
+        description:
+          "A 3-year bachelor’s degree in catering and hotel administration focusing on advanced hospitality education.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "MBA in Hospitality Management",
+        description:
+          "A 2-year postgraduate program in hospitality management for advanced leadership and career growth.",
+        provider: {
+          "@type": "EducationalOrganization",
+          name: "Sri Maniya Institute of Hotel Management",
+          sameAs: "https://srimaniyainstitute.in/",
+        },
+      },
+    ],
+  };
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
+      <CoursesPage />
+    </>
+  );
 }

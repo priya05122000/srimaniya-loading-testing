@@ -18,20 +18,20 @@ import AlumniStoriesServer from "./components/alumniStory/AlumniStoriesServer";
 const HomePage = () => {
   return (
     <div>
-      <Hero />
-      {/* <HeroServer /> */}
+      {/* <Hero /> */}
+      <HeroServer />
       <Partners />
       <CommitmentBanner />
       <AboutStats />
       <div id="enquire-form">
         <EnquireForm />
       </div>
-      {/* <PlacementMapServer /> */}
-      <PlacementMap />
+      <PlacementMapServer />
+      {/* <PlacementMap /> */}
       {/* <CourseServer /> */}
       <Courses />
-      <AlumniStories />
-      {/* <AlumniStoriesServer /> */}
+      {/* <AlumniStories /> */}
+      <AlumniStoriesServer />
       <EventsBlogs />
       <Awards />
       <div className="relative">

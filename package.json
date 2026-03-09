@@ -18,7 +18,7 @@
     "aos": "^2.3.4",
     "axios": "^1.12.2",
     "framer-motion": "^12.23.12",
-    "gsap": "^3.13.0",
+    "gsap": "^3.14.2",
     "next": "^16.1.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -41,8 +41,7 @@
     "@types/react-slick": "^0.23.13",
     "@types/react-toastify": "^4.0.2",
     "@types/swiper": "^6.0.0",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
+    "eslint": "^4.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
