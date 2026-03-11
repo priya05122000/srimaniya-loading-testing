@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";

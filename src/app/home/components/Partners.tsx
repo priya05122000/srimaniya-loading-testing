@@ -58,18 +58,20 @@ export default function Partners() {
 
   /* --------------------------- Init Splide ---------------------------- */
   useEffect(() => {
-    if (!splideRef.current || partners.length === 0) {
-      return;
-    }
+    if (!splideRef.current || partners.length === 0) return;
+
+    const el = splideRef.current;
 
     let splide: any;
-    let autoScrollCleanup: (() => void) | undefined;
+    // let autoScrollCleanup: (() => void) | undefined;
 
     (async () => {
       const Splide = (await import("@splidejs/splide")).default;
       const { AutoScroll } = await import("@splidejs/splide-extension-auto-scroll");
+      if (!el) return;
 
-      splide = new Splide(splideRef.current!, {
+      splide = new Splide(el, {
+        // splide = new Splide(splideRef.current!, {
         type: "loop",
         drag: "free",
         focus: "center",
@@ -91,12 +93,15 @@ export default function Partners() {
       });
 
       splide.mount({ AutoScroll });
-      autoScrollCleanup = () => splide.destroy();
+      // autoScrollCleanup = () => splide.destroy();
     })();
 
+    // return () => {
+    //   if (autoScrollCleanup) autoScrollCleanup();
+    //   else if (splide) splide.destroy();
+    // };
     return () => {
-      if (autoScrollCleanup) autoScrollCleanup();
-      else if (splide) splide.destroy();
+      if (splide) splide.destroy();
     };
   }, [partners]);
 
