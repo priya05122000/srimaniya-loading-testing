@@ -73,7 +73,7 @@ export default function Home() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+91-8093864444",
+        telephone: "+91-8903864444",
         contactType: "admissions",
       },
     ],

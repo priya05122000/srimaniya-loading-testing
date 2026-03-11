@@ -64,7 +64,7 @@ const NAV_EXPLORE = [
 ];
 
 const CONTACTS1 = [
-    "+91 80938 64444",
+    "+91 89038 64444",
     "admission@srimaniyainstitute.in",
     "info@srimaniyainstitute.in",
 ];

@@ -2,7 +2,7 @@ import { MdOutlinePhone } from "react-icons/md";
 import { IoLogoWhatsapp } from "react-icons/io5";
 
 function whatsappUrl() {
-  const phone = "+918093864444";
+  const phone = "+918903864444";
   const text = "Hi! I want to know more.";
   return `https://wa.me/${phone.replace(/^\+/, "")}?text=${encodeURIComponent(text)}`;
 }
@@ -20,7 +20,7 @@ export default function FloatingContactButtons({ isBlueSection }: { isBlueSectio
       <button
         type="button"
         aria-label="Call Phone"
-        onClick={() => window.open("tel:+918093864444")}
+        onClick={() => window.open("tel:+918903864444")}
         className="cursor-pointer"
       >
         <MdOutlinePhone size={32} />
