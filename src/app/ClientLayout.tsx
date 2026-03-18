@@ -66,7 +66,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       return;
     }
     const timer = setTimeout(() => {
-      setShowPopup(true); 
+      setShowPopup(true);
       setHasPopupTriggered(true);
     }, 5000);
     return () => clearTimeout(timer);

@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog`,
   },
-
   title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
   description:
     "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
@@ -22,7 +21,6 @@ export const metadata: Metadata = {
     "hotel management institute",
     "best hospitality management colleges",
   ],
-
   openGraph: {
     title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
     description:

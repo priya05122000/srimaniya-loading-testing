@@ -52,16 +52,50 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "@id": "https://srimaniyainstitute.in/contact-us#contactpage",
-    url: "https://srimaniyainstitute.in/contact-us",
-    mainEntity: {
-      "@type": "EducationalOrganization",
-      "@id": "https://srimaniyainstitute.in/#organization",
+  const BASE_URL = "https://srimaniyainstitute.in";
+  const schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": `${BASE_URL}/contact-us#contactpage`,
+      url: `${BASE_URL}/contact-us`,
+      name: "Contact Sri Maniya Institute",
+      description:
+        "Contact Sri Maniya Institute of Hotel Management for admissions, course details, and support.",
+      mainEntity: {
+        "@type": "EducationalOrganization",
+        "@id": `${BASE_URL}/#organization`,
+        name: "Sri Maniya Institute of Hotel Management",
+        url: BASE_URL,
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          availableLanguage: ["English", "Tamil"],
+        },
+      },
     },
-  };
+
+    // ✅ Breadcrumb (IMPORTANT)
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Contact Us",
+          item: `${BASE_URL}/contact-us`,
+        },
+      ],
+    },
+
+  ];
   return (
     <>
       <script

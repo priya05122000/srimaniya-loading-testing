@@ -77,8 +77,10 @@ const page = () => {
       },
       address: {
         "@type": "PostalAddress",
+        streetAddress: "No: 6/66-D1, Government Hospital Road",
         addressLocality: "Kanyakumari",
         addressRegion: "Tamil Nadu",
+        postalCode: "629702",
         addressCountry: "IN",
       },
     },
