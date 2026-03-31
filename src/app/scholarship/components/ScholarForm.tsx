@@ -29,29 +29,13 @@ interface FormData {
   agree: boolean;
 }
 
-interface AppoinmentPayload {
-  name: string;
-  email: string | null;
-  phone_number: string;
-  message: string | null;
-  course_id: string | null;
-}
 
-// Reusable constants
-const INITIAL_FORM_DATA: FormData = {
-  name: "",
-  email: "",
-  mobile: "",
-  message: "",
-  course: "",
-  agree: false,
-};
 const IMAGE_PROPS = {
   src: "/scholarship/scholarform.webp",
-  alt: "sri maniya institute scholarship, scholarship in hospitality management, hotel management scholarship in tamilnadu, merit based scholarship sri maniya institute, hotel management college scholarship tamil nadu, sports quota scholarship hotel management, Sri Maniya College scholarship eligibility",
+  alt: "Hotel management scholarship at Sri Maniya Institute",
   fill: true,
-  sizes: "(max-width: 768px) 100vw, 50vw",
-  className: "object-cover object-top w-full h-full image-tag",
+  sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw",
+  className: "object-cover object-top",
   priority: true,
 };
 
@@ -105,7 +89,7 @@ const ScholarForm: React.FC = () => {
           </form>
         </div>
       </div>
-      <div className="relative min-h-[300px] md:min-h-0">
+      <div className="relative w-full h-100 sm:h-auto">
         <Image {...IMAGE_PROPS} />
       </div>
     </div>
