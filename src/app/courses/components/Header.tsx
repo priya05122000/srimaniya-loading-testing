@@ -32,7 +32,7 @@ const CONTENT_CLASSES = [
   "bg-(--blue-overlay-strong)",
   "relative",
 ].join(" ");
-const HEADING_CLASSES = "leading-tight animate-text uppercase";
+const HEADING_CLASSES = "leading-tight animate-text uppercase text-3xl sm:text-4xl lg:text-5xl font-bold";
 const PARAGRAPH_TEXT =
   "Discover our hotel management courses designed to provide industry-relevant knowledge and practical skills, forming a solid foundation for a successful career in hospitality.";
 
@@ -46,13 +46,13 @@ const Header: FC = () => (
       <div className="sm:border-b lg:border-b-0 lg:border-r border-(--grey-custom)" />
       <div className={CONTENT_CLASSES} data-section>
         <div className="py-2 lg:py-4">
-          <Heading level={4} className={HEADING_CLASSES}>
+          <h1  className={HEADING_CLASSES}>
             {`Courses `}
             <br />
             {`and `}
             <br />
             {`Admission`}
-          </Heading>
+          </h1>
         </div>
         <Paragraph size="base" className="leading-relaxed">
           {PARAGRAPH_TEXT}

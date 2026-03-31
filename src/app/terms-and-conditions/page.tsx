@@ -1,8 +1,37 @@
 import React from "react";
 import TermsAndConditions from "./components/TermsAndConditions";
+import type { Metadata } from "next";
+
+const BASE_URL = "https://srimaniyainstitute.in";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `${BASE_URL}/terms-and-conditions`,
+  },
+
+  title: "Terms and Conditions - Sri Maniya Institute",
+
+  description:
+    "Read the terms and conditions for using Sri Maniya Institute of Hotel Management website and services.",
+
+  openGraph: {
+    title: "Terms and Conditions - Sri Maniya Institute",
+    description:
+      "Official terms and conditions of Sri Maniya Institute of Hotel Management.",
+    url: `${BASE_URL}/terms-and-conditions`,
+    siteName: "Sri Maniya Institute",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "Terms and Conditions - Sri Maniya Institute",
+    description:
+      "Official terms and conditions of Sri Maniya Institute website.",
+  },
+};
 
 const Page = () => {
-  const BASE_URL = "https://srimaniyainstitute.in";
 
   const schema = [
     // ✅ Main Page Schema

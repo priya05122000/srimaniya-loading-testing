@@ -41,12 +41,12 @@ const AboutUs = () => {
                   data-section
                 >
                   <div className="">
-                    <Heading
-                      level={6}
-                      className="text-white-custom  font-bold about-us-heading leading-tight"
+                    <h1
+
+                      className="text-white-custom text-xl sm:text-2xl lg:text-3xl  font-bold about-us-heading leading-tight"
                     >
                       About Us
-                    </Heading>
+                    </h1>
                     <Paragraph
                       size="base"
                       className="text-white-custom mt-4 leading-relaxed xl:leading-loose text-justify"

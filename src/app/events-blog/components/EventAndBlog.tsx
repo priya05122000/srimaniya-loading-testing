@@ -160,13 +160,12 @@ const EventAndBlog: React.FC = () => {
         <Section>
           <div>
             <div>
-              <Heading
+              <h1
                 ref={headingRef}
-                level={4}
-                className="font-semibold text-(--blue) mb-2 events-blog-heading leading-tight uppercase"
+                className="font-bold text-3xl sm:text-4xl lg:text-5xl  text-(--blue) mb-2 events-blog-heading leading-tight uppercase"
               >
                 Events & Blog
-              </Heading>
+              </h1>
             </div>
             <div className="flex justify-end gap-4 mb-4 mt-10 sm:mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
               {categories.map((cat) => (

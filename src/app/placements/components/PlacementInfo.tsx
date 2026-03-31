@@ -25,13 +25,12 @@ const PlacementInfo: React.FC = () => {
       >
         <div className="lg:px-20">
           <section>
-            <Heading
+            <h1
               ref={headingRef}
-              level={4}
-              className="mb-10 text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
+              className="mb-10 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
             >
               Placements at srimaniya institute
-            </Heading>
+            </h1>
 
             <Paragraph size="base" className="text-(--dark) leading-relaxed">
               The Institute boasts strong connections with global hospitality brands, offering 100% placement assistance, career guidance, interview preparation, and internships. Students gain practical experience through part-time placements during their studies, preparing them for successful careers worldwide. This focus on career readiness makes Sri Maniya a top destination for students seeking excellent Sri Maniya Institute placement support and job opportunities.

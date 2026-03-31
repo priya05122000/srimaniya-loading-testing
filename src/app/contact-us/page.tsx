@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/contact-us`,
   },
 
-  title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu ",
+  title: "Contact Sri Maniya Institute | Tamil Nadu",
   description:
     "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu",
+    title: "Contact Sri Maniya Institute | Tamil Nadu",
     description:
       "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
     url: "https://srimaniyainstitute.in/contact-us",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Contact Srimaniya Institute of Hotel Management in Tamil Nadu",
+    title: "Contact Sri Maniya Institute | Tamil Nadu",
     description:
       "Get in touch through Sri Maniya Institute contact page for admissions, course details, and support from our institute of hotel management team.",
     images: ["https://srimaniyainstitute.in/contact-us/contact.webp"],

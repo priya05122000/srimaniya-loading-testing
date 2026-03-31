@@ -1,45 +1,23 @@
 import type { Metadata } from "next";
-import CoursesPage from "./CoursesPage";
+import { headers } from "next/headers";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
-
-/**
- * ✅ Utility: Convert slug → readable title
- */
-const slugToTitle = (slug?: string) => {
-  if (!slug) return null;
-  return slug
-    .replace(/-/g, " ")
-    .replace(/\band\b/g, "&")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
-};
-
-/**
- * ✅ Metadata (Dynamic + SEO Safe)
- */
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: { course?: string };
-}): Promise<Metadata> {
-  const slug = searchParams.course;
-
-  const readableTitle = slugToTitle(slug);
-
-  const canonical = slug
-    ? `${BASE_URL}/courses?course=${slug}`
-    : `${BASE_URL}/courses`;
-
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const url = headersList.get("x-url") || "";
+  const urlObj = url
+    ? new URL(url, `${process.env.NEXT_PUBLIC_BASE_URL}`)
+    : null;
+  const courseParam = urlObj?.searchParams.get("course");
+  const canonical = courseParam
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/courses?course=${courseParam}`
+    : `${process.env.NEXT_PUBLIC_BASE_URL}/courses`;
   return {
     alternates: {
       canonical,
     },
-
     title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
     description:
       "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
-
     keywords: [
       // Main keywords
       "hotel management degree course fees",
@@ -57,7 +35,6 @@ export async function generateMetadata({
       "Sri Maniya Institute MBA / PG courses",
       "Sri Maniya Institute admission",
     ],
-
     openGraph: {
       title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
       description:
@@ -66,28 +43,26 @@ export async function generateMetadata({
       siteName: "Sri Maniya Institute",
       images: [
         {
-          url: `${BASE_URL}/courses/courses.webp`,
+          url: "https://srimaniyainstitute.in/courses/courses.webp",
           width: 1200,
           height: 630,
-          alt: readableTitle || "Sri Maniya Courses",
+          alt: "Sri Maniya Institute of Hotel Management",
         },
       ],
       type: "website",
     },
-
     twitter: {
       card: "summary_large_image",
       title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
       description:
         "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
-      images: [`${BASE_URL}/courses/courses.webp`],
+      images: ["https://srimaniyainstitute.in/courses/courses.webp"],
     },
   };
 }
 
-/**
- * ✅ Page Component
- */
+import CoursesPage from "./CoursesPage";
+
 export default function Page() {
   const schema = {
     "@context": "https://schema.org",
@@ -160,19 +135,14 @@ export default function Page() {
       },
     ],
   };
-
   return (
     <>
-      {/* ✅ Structured Data */}
       <script
         type="application/ld+json"
-        suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(schema),
         }}
       />
-
-      {/* ✅ UI */}
       <CoursesPage />
     </>
   );

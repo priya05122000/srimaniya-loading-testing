@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/placements`,
   },
 
-  title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+  title: "Hotel Management Placement Support | Sri Maniya",
   description:
     "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   ],
 
     openGraph: {
-    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    title: "Hotel Management Placement Support | Sri Maniya",
     description:
       "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
     url: "https://srimaniyainstitute.in/placements",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Sri Maniya Institute - 100% Hotel Management Placement Support",
+    title: "Hotel Management Placement Support | Sri Maniya",
     description:
       "Sri Maniya Institute of Hotel Management provides strong placement support, helping students build careers in the hospitality industry across Tamil Nadu and around the world.",
     images: ["https://srimaniyainstitute.in/home/commitment-bg-1.webp"],

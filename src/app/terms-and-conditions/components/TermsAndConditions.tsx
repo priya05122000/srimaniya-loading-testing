@@ -31,13 +31,12 @@ const TermsAndConditions = () => {
           >
             Sri Maniya Institute of Hotel Management
           </Paragraph>
-          <Heading
+          <h1
             ref={headingRef}
-            level={4}
-            className="my-2 text-(--blue) text-center privacy-policy uppercase"
+            className="my-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
           >
             Terms and Conditions
-          </Heading>
+          </h1>
           <div className="flex justify-center my-6">
             <div className="w-20 h-1 bg-(--yellow) flex items-center"></div>
           </div>

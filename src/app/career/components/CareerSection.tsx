@@ -64,9 +64,8 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
           <Span className="text-(--dark) font-semibold mt-1">
             {job.openings} {job.openings == 1 ? "Opening" : "Openings"} |{" "}
             {job.experience_years && job.experience_years > 0
-              ? `${job.experience_years} Year${
-                  job.experience_years == 1 ? "" : "s"
-                } Experience`
+              ? `${job.experience_years} Year${job.experience_years == 1 ? "" : "s"
+              } Experience`
               : "Fresher"}
           </Span>
         </div>
@@ -136,12 +135,11 @@ const CareerSection: React.FC = () => {
                   data-section
                 >
                   <div className="">
-                    <Heading
-                      level={6}
-                      className="text-(--white-custom)  font-bold career-heading"
+                    <h1
+                      className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl font-bold  career-heading"
                     >
                       Career
-                    </Heading>
+                    </h1>
                     <Paragraph
                       size="base"
                       className="text-(--white-custom) mt-4 leading-relaxed xl:leading-loose text-justify"

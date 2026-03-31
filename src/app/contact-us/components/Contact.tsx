@@ -143,7 +143,7 @@ const Contact = () => {
       <LeftSpaceGridSection className="pt-10 sm:pt-20 pb-10" >
         <div className="mb-10">
           <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold contact-us-text">Sri Maniya Institute Contact</Paragraph>
-          <Heading ref={headingRef} level={4} className="text-(--blue) uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</Heading>
+          <h1 ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</h1>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-end gap-4 lg:gap-0 w-full pr-0 sm:pr-8">
           {contactCards.map((card) => <ContactCard key={card.title} {...card} />)}

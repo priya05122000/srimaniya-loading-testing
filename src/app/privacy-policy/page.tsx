@@ -1,8 +1,43 @@
 import React from "react";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import type { Metadata } from "next";
+
+const BASE_URL = "https://srimaniyainstitute.in";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `${BASE_URL}/privacy-policy`,
+  },
+
+  title: "Privacy Policy - Sri Maniya Institute",
+
+  description:
+    "Read the privacy policy of Sri Maniya Institute of Hotel Management to understand how your personal information is collected, used, and protected.",
+
+  keywords: [
+    "privacy policy sri maniya institute",
+    "srimaniya institute privacy",
+    "hotel management institute privacy policy",
+  ],
+
+  openGraph: {
+    title: "Privacy Policy - Sri Maniya Institute",
+    description:
+      "Official privacy policy of Sri Maniya Institute of Hotel Management.",
+    url: `${BASE_URL}/privacy-policy`,
+    siteName: "Sri Maniya Institute",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy - Sri Maniya Institute",
+    description:
+      "Official privacy policy of Sri Maniya Institute website.",
+  },
+};
 
 const Page = () => {
-  const BASE_URL = "https://srimaniyainstitute.in";
 
   const schema = [
     // ✅ Your given WebPage schema
