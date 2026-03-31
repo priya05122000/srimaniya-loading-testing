@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/career`,
   },
-
   title: "Career in Hospitality Industry in India & Abroad | Sri Maniya",
   description:
     "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
@@ -58,8 +57,68 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
+
+  const BASE_URL = "https://srimaniyainstitute.in";
+  const schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/career`,
+      url: `${BASE_URL}/career`,
+      "name": "Careers in Hospitality Industry in India & Abroad | Sri Maniya Institute",
+      "description": "Start your teaching career at Sri Maniya Institute, and mentor the next generation of hotel management professionals while advancing your own growth.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Sri Maniya Institute of Hotel Management",
+        url: BASE_URL,
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Hospitality Careers and Teaching Jobs"
+      }
+    },
+
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
+      name: "Sri Maniya Institute of Hotel Management",
+      url: BASE_URL,
+      logo: `${BASE_URL}/logos/navbarlogo.png`,
+    },
+
+
+    // ✅ Breadcrumb (IMPORTANT)
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: BASE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Career",
+          item: `${BASE_URL}/career`,
+        },
+      ],
+    },
+
+  ];
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
       <CareerPage />
     </div>
   );

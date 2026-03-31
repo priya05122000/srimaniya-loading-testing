@@ -18,47 +18,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Online application → registration
-      {
-        source: "/online-application-form",
-        destination: "/registration-form",
-        permanent: true,
-      },
-      {
-        source: "/online-application-form/",
-        destination: "/registration-form",
-        permanent: true,
-      },
-
-      // Blog → Events blog
-      {
-        source: "/blog",
-        destination: "/events-blog",
-        permanent: true,
-      },
-      {
-        source: "/blog/",
-        destination: "/events-blog",
-        permanent: true,
-      },
-
-      // Blog article cleanup
-      {
-        source:
-          "/events-blog-view/difference-between-hotel-management-and-hospitality-management-complete-guide-for-students",
-        destination:
-          "/events-blog-view/difference-between-hotel-management-and-hospitality-management",
-        permanent: true,
-      },
-
-      // Courses query param → courses page
-      {
-        source: "/courses",
-        has: [{ type: "query", key: "course" }],
-        destination: "/courses",
-        permanent: true,
-      },
-
       // INVALID URL FIXES
       {
         source: "/$",

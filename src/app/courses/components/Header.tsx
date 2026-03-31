@@ -38,7 +38,7 @@ const PARAGRAPH_TEXT =
 
 const Header: FC = () => (
   <div
-    className="relative w-full h-[400px] md:h-[350px] lg:h-[400px] bg-cover bg-center"
+    className="relative w-full h-100 md:h-87.5 lg:h-100 bg-cover bg-center"
     style={{ backgroundImage: `url('${BG_IMAGE}')` }}
     data-section
   >

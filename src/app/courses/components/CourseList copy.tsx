@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, ReactNode, useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Section from "@/components/common/Section";
 import Heading from "@/components/common/Heading";
@@ -48,7 +48,7 @@ const CourseRow: FC<CourseRowProps> = ({
       </div>
       {highlight && id !== undefined ? (
         <div className="flex items-baseline justify-center gap-2 ">
-          <Paragraph size="xl" className="text-(--dark) flex items-center font-bold justify-center">
+          <Paragraph size="xl"  className="text-(--dark) flex items-center font-bold justify-center">
             {id.toString().padStart(2, "0")}
           </Paragraph>
           <Paragraph size="lg" className="text-(--dark) flex items-center justify-center font-bold">
@@ -63,7 +63,7 @@ const CourseRow: FC<CourseRowProps> = ({
     </td>
     <td className="text-(--dark) pl-8 border-l border-(--grey-custom) py-10  ">
       {highlight && title && duration ? (
-        <Paragraph size="xl" className="text-(--dark) font-bold md:w-[75%] xl:w-[80%] ">
+        <Paragraph size="xl"  className="text-(--dark) font-bold md:w-[75%] xl:w-[80%] ">
           {title}
           <span className="text-(--grey-light-custom) text-xl font-normal">
             &nbsp;- ({duration})
@@ -118,32 +118,10 @@ const MobileCourseRow: FC<CourseRowProps> = ({
 );
 
 const useScrollToCourse = (courses: Course[], searchParams: ReturnType<typeof useSearchParams>) => {
-
-  const router = useRouter();
-
   useEffect(() => {
-    // if (!searchParams) return;
-    if (!searchParams || courses.length === 0) return;
-
+    if (!searchParams) return;
     const targetId = searchParams.get("course");
     if (!targetId) return;
-
-    const createSlug = (text: string) =>
-      text
-        .toLowerCase()
-        .trim()
-        .replace(/&/g, "and")
-        .replace(/\+/g, "")
-        .replace(/\s+/g, "-");
-
-    const validSlugs = courses.map((c) => createSlug(c.title));
-
-    // 🚨 INVALID → CLEAN URL
-    if (!validSlugs.includes(targetId)) {
-      router.replace("/courses"); // 🔥 THIS IS THE KEY
-      return;
-    }
-
     const timer = setTimeout(() => {
       const targetElement = document.getElementById(`course-${targetId}`);
       if (!targetElement) return;
@@ -193,22 +171,13 @@ const CourseList: FC = () => {
   useScrollToCourse(courses, searchParams);
   useFetchCourses(setCourses, setLoading);
 
-  const createSlug = (text: string) =>
-    text
-      .toLowerCase()
-      .trim()
-      .replace(/&/g, "and")
-      .replace(/\+/g, "")        // 🔥 REMOVE +
-      .replace(/\s+/g, "-");
-
   return (
     <Section className="w-full relative">
       <div className="sm:pr-2">
         {courses.map((course, index) => (
           <div
             key={course.id}
-            // id={`course-${course.id}`}
-            id={`course-${createSlug(course.title)}`}
+            id={`course-${course.id}`}
             className="border-b border-(--grey-custom) py-10 sm:py-0"
           >
             {/* Desktop Table View */}

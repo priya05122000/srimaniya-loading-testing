@@ -1,15 +1,14 @@
 import { getAllAlumniStoriesServer } from "@/services/serverComponent/alumnistoriesServiceServer";
+import AlumniStoriesClient from "./AlumniStoriesClient";
 import { AlumniStory } from "@/types";
-import AlumniStoriesWrapper from "./AlumniStoriesWrapper";
 
 export default async function AlumniStories() {
   const res = await getAllAlumniStoriesServer();
-
   const alumni = Array.isArray(res?.data)
     ? res.data.filter((a: AlumniStory) => a.status)
     : [];
 
   if (!alumni.length) return null;
 
-  return <AlumniStoriesWrapper alumniData={alumni} />;
+  return <AlumniStoriesClient alumniData={alumni} />;
 }

@@ -49,6 +49,14 @@ const Table = () => {
   const getCoursesByCategory = (category: string) =>
     courses.filter((c) => c.category?.toLowerCase() === category);
 
+  const createSlug = (text: string) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, "and")
+      .replace(/\+/g, "")        // 🔥 REMOVE +
+      .replace(/\s+/g, "-");
+
   return (
     <Section className="py-10 sm:py-16 bg-(--blue)" data-section>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
@@ -72,7 +80,8 @@ const Table = () => {
                   {filteredCourses.map((course) => (
                     <li key={course.id}>
                       <Link
-                        href={`/courses?course=${course.id}`}
+                        // href={`/courses?course=${course.id}`}
+                        href={`/courses?course=${createSlug(course.title)}`}
                         className="cursor-pointer"
                         aria-label={`View details for ${course.title}`}
                       >
