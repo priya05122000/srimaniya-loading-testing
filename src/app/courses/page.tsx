@@ -21,11 +21,9 @@ const slugToTitle = (slug?: string) => {
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ course: string }>
+  searchParams: { course?: string }
 }): Promise<Metadata> {
-  const params = await searchParams;
-
-  const slug = params.course;
+  const slug = searchParams.course;
 
   const readableTitle = slugToTitle(slug);
 
@@ -38,7 +36,9 @@ export async function generateMetadata({
       canonical,
     },
 
-    title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
+    title: readableTitle
+      ? `${readableTitle} Course | Sri Maniya Institute`
+      : "Apply Online Hotel Management Courses | Sri Maniya Institute",
     description:
       "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
 
@@ -61,10 +61,12 @@ export async function generateMetadata({
     ],
 
     openGraph: {
-      title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
+      title: readableTitle
+        ? `${readableTitle} Course | Sri Maniya Institute`
+        : "Apply Online Hotel Management Courses | Sri Maniya Institute",
+      url: canonical,
       description:
         "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
-      url: canonical,
       siteName: "Sri Maniya Institute",
       images: [
         {
@@ -162,6 +164,8 @@ export default function Page() {
       },
     ],
   };
+
+  
 
   return (
     <>

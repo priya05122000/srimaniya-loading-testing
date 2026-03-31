@@ -79,7 +79,8 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
       >
         <Image
           src={img}
-          alt={`Sri Maniya Institute of Hotel Management Placement - ${placement}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+          // alt={`Sri Maniya Institute of Hotel Management Placement - ${placement}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+          alt={`Hotel management placement at Sri Maniya Institute - ${placement}`}
           width={100}
           height={100}
           className="w-full h-full object-cover image-tag"

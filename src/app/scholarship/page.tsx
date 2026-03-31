@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "Hotel Management Scholarship Tamil Nadu | Sri Maniya",
   description:
-    "Sri Maniya Institute of Hotel Management offers hotel management scholarship opportunities in Tamil Nadu, helping students pursue quality hospitality education.",
+    "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
   keywords: [
     // Main keywords
     "scholarship in hospitality management",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hotel Management Scholarship Tamil Nadu | Sri Maniya",
     description:
-      "Sri Maniya Institute of Hotel Management offers hotel management scholarship opportunities in Tamil Nadu, helping students pursue quality hospitality education.",
+      "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
     url: "https://srimaniyainstitute.in/scholarship",
     siteName: "Sri Maniya Institute",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hotel Management Scholarship Tamil Nadu | Sri Maniya",
     description:
-      "Sri Maniya Institute of Hotel Management offers hotel management scholarship opportunities in Tamil Nadu, helping students pursue quality hospitality education.",
+      "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
     images: ["https://srimaniyainstitute.in/scholarship/scholarship.webp"],
   },
 };

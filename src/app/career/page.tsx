@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   title: "Hospitality Careers in India & Abroad | Sri Maniya",
   description:
-    "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
+    "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
   keywords: [
     // Main keywords
     "qualification required for hotel management",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hospitality Careers in India & Abroad | Sri Maniya",
     description:
-      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
+      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
     url: "https://srimaniyainstitute.in/career",
     siteName: "Sri Maniya Institute",
     images: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hospitality Careers in India & Abroad | Sri Maniya",
     description:
-      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor the next generation of hotel management professionals while advancing your own growth.",
+      "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
     images: ["https://srimaniyainstitute.in/career/career.webp"],
   },
 };
@@ -66,7 +66,7 @@ const page = () => {
       "@id": `${BASE_URL}/career`,
       url: `${BASE_URL}/career`,
       "name": "Careers in Hospitality Industry in India & Abroad | Sri Maniya Institute",
-      "description": "Start your teaching career at Sri Maniya Institute, and mentor the next generation of hotel management professionals while advancing your own growth.",
+      "description": "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
       "inLanguage": "en",
       "isPartOf": {
         "@type": "WebSite",

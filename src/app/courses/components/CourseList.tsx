@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { FC, ReactNode, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -164,26 +164,26 @@ const useScrollToCourse = (courses: Course[], searchParams: ReturnType<typeof us
   }, [courses, searchParams]);
 };
 
-const useFetchCourses = (setCourses: React.Dispatch<React.SetStateAction<Course[]>>, setLoading: (loading: boolean) => void) => {
-  useEffect(() => {
-    const fetchCourses = async () => {
-      setLoading(true);
-      try {
-        const result = await getAllCourses();
-        setCourses(result?.data || []);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        } else {
-          console.error("Failed to fetch courses");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCourses();
-  }, [setLoading, setCourses]);
-};
+// const useFetchCourses = (setCourses: React.Dispatch<React.SetStateAction<Course[]>>, setLoading: (loading: boolean) => void) => {
+//   useEffect(() => {
+//     const fetchCourses = async () => {
+//       setLoading(true);
+//       try {
+//         const result = await getAllCourses();
+//         setCourses(result?.data || []);
+//       } catch (error: unknown) {
+//         if (error instanceof Error) {
+//           console.error(error.message);
+//         } else {
+//           console.error("Failed to fetch courses");
+//         }
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchCourses();
+//   }, [setLoading, setCourses]);
+// };
 
 const CourseList: FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -191,7 +191,7 @@ const CourseList: FC = () => {
   const searchParams = useSearchParams();
 
   useScrollToCourse(courses, searchParams);
-  useFetchCourses(setCourses, setLoading);
+  // useFetchCourses(setCourses, setLoading);
 
   const createSlug = (text: string) =>
     text

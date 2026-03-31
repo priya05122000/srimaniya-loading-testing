@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
   title: "About Us | Top hotel management college in Tamil Nadu",
   description:
-    "Sri Maniya Institute of Hotel Management provides hands-on training, paid internships, and career-focused programs to shape skilled hospitality professionals.",
+    "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
   keywords: [
     // Main keywords
     "institute of hotel management",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Us | Top hotel management college in Tamil Nadu",
     description:
-      "Sri Maniya Institute of Hotel Management provides hands-on training, paid internships, and career-focused programs to shape skilled hospitality professionals.",
+      "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
     url: "https://srimaniyainstitute.in/about-us",
     siteName: "Sri Maniya Institute",
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About Us | Top hotel management college in Tamil Nadu",
     description:
-      "Sri Maniya Institute of Hotel Management provides hands-on training, paid internships, and career-focused programs to shape skilled hospitality professionals.",
+      "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
     images: ["https://srimaniyainstitute.in/about-us/about-us.webp"],
   },
 };
