@@ -77,12 +77,11 @@ const ApplyNow: React.FC = () => {
         <div className="md:absolute md:right-0 md:top-0 w-full md:w-1/2">
           <div className="h-full sm:h-[550px] bg-(--blue-overlay-light) backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between gap-6" data-section>
             <div className="max-w-2xl ml-auto">
-              <Heading
-                level={4}
-                className="text-(--white-custom) uppercase mb-4 text-end"
+              <h3
+                className="text-(--white-custom) uppercase mb-4 text-end text-3xl sm:text-4xl lg:text-5xl font-bold"
               >
                 Apply Now
-              </Heading>
+              </h3>
             </div>
             <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
               <AutofillSuppressionFields />

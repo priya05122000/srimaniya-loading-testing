@@ -63,12 +63,12 @@ const CourseRow: FC<CourseRowProps> = ({
     </td>
     <td className="text-(--dark) pl-8 border-l border-(--grey-custom) py-10  ">
       {highlight && title && duration ? (
-        <Paragraph size="xl" className="text-(--dark) font-bold md:w-[75%] xl:w-[80%] ">
+        <h2 className="text-(--dark) text-lg sm:text-xl lg:text-2xl font-bold md:w-[75%] xl:w-[80%] ">
           {title}
           <span className="text-(--grey-light-custom) text-xl font-normal">
             &nbsp;- ({duration})
           </span>
-        </Paragraph>
+        </h2>
       ) : (
         children
       )}
@@ -89,9 +89,9 @@ const MobileCourseRow: FC<CourseRowProps> = ({
     <div className="min-w-[110px] shrink-0 flex flex-col items-start">
       {highlight && id !== undefined ? (
         <div className="flex items-baseline sm:items-center gap-2">
-          <Heading level={5} className="text-(--dark)">
+          <p className="text-(--dark)  text-2xl sm:text-3xl lg:text-4xl font-bold">
             {id.toString().padStart(2, "0")}
-          </Heading>
+          </p>
           <Paragraph size="xl" className="text-(--dark) font-bold">
             Course
           </Paragraph>
@@ -104,12 +104,12 @@ const MobileCourseRow: FC<CourseRowProps> = ({
     </div>
     <div className="flex-1">
       {highlight && title && duration ? (
-        <Heading level={6} className="text-(--dark)">
+        <h2 className="text-(--dark) text-xl sm:text-2xl lg:text-3xl font-bold">
           {title}
           <span className="text-(--dark) text-base font-normal">
             &nbsp;- ({duration})
           </span>
-        </Heading>
+        </h2>
       ) : (
         children
       )}

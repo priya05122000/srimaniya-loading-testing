@@ -37,34 +37,34 @@ const PlacementInfo: React.FC = () => {
             </Paragraph>
           </section>
           <section>
-            <Paragraph
-              size="xl"
-              className="text-(--blue) font-semibold my-4 uppercase"
+            <h2
+
+              className="text-(--blue) font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
             >
               Global Placements
-            </Paragraph>
+            </h2>
             <Paragraph size="base" className="text-(--dark) leading-relaxed">
               We partner with leading international hospitality brands and hotel chains to offer our students outstanding global placement opportunities. Our alumni hold positions at prestigious luxury hotels and prominent resorts in key destinations around the world, reflecting the effectiveness of our hotel management placement support in launching successful international careers.
             </Paragraph>
           </section>
           <section>
-            <Paragraph
-              size="xl"
-              className="text-(--blue) font-semibold my-4 uppercase"
+            <h2
+
+              className="text-(--blue) font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
             >
               Part-Time Placements
-            </Paragraph>
+            </h2>
             <Paragraph size="base" className="text-(--dark) leading-relaxed">
               We arrange part-time work opportunities for our students throughout their studies, allowing them to gain practical experience and develop professional skills that enhance their academic learning and future career prospects.
             </Paragraph>
           </section>
           <section>
-            <Paragraph
-              size="xl"
-              className="text-(--blue) uppercase font-semibold my-4"
+            <h2
+
+              className="text-(--blue) uppercase font-semibold my-4 text-lg sm:text-xl lg:text-2xl"
             >
               Our Commitment
-            </Paragraph>
+            </h2>
             <ParagraphList size="base" className="text-(--dark) leading-relaxed">
               <li>100% placement assistance</li>
               <li>Tie-ups with global hospitality leaders</li>

@@ -72,7 +72,7 @@ const ScholarForm: React.FC = () => {
     <div className="min-h-[100vh-80px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1.5fr]">
       <div className="flex items-center justify-center bg-(--blue) p-4 md:p-8" data-section>
         <div className="w-full max-w-xl">
-          <Heading level={4} className="uppercase text-end mb-6">Join With US</Heading>
+          <h3 className="uppercase text-end mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold">Join With US</h3>
           <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
             <AutofillSuppressionFields />
             <CommonEnquiryFields

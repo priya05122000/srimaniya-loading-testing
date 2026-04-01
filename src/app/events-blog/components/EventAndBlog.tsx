@@ -197,15 +197,21 @@ const EventAndBlog: React.FC = () => {
                   </div>
 
                   <div className="pt-3  z-10 relative text-(--blue)">
-                    <Paragraph
-                      size="lg"
-                      className="mb-3 font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug"
+                    <h2
+                      className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug"
                       onClick={() => handleBlogClick(blog.slug)}
                     >
                       {blog.sub_title}
-                    </Paragraph>
+                    </h2>
 
                     <span
+                      className="text-sm line-clamp-3"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          blog.description
+                      }}
+                    />
+                    {/* <span
                       className="text-sm"
                       dangerouslySetInnerHTML={{
                         __html:
@@ -214,7 +220,7 @@ const EventAndBlog: React.FC = () => {
                             ? "..."
                             : ""),
                       }}
-                    />
+                    /> */}
 
                     <div className="flex items-baseline mt-2">
                       <span className="font-bold text-xs">

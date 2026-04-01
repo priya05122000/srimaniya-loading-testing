@@ -80,7 +80,7 @@ const ScholarBanner: React.FC = () => {
                 />
                 <div className="absolute inset-0" style={GRADIENT_OVERLAY}></div>
                 <div className="absolute left-0 sm:left-8 bottom-8 sm:bottom-16 px-6 sm:px-0 w-full sm:w-2/3 xl:w-1/2">
-                    <Heading ref={headingRef} level={4} className="leading-tight scholarship ">{BANNER_HEADING}</Heading>
+                    <h1 ref={headingRef} className="leading-tight scholarship text-3xl sm:text-4xl lg:text-5xl font-bold">{BANNER_HEADING}</h1>
                 </div>
             </div>
         </div>

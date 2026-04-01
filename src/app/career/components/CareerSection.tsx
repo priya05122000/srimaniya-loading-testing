@@ -168,12 +168,12 @@ const CareerSection: React.FC = () => {
       </div>
       <Section className="py-10 sm:py-20" ref={openingRef}>
         <div>
-          <Heading
-            level={6}
-            className="text-(--blue) mb-10 job-opening-heading leading-tight"
+          <h2
+
+            className="text-(--blue) text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight"
           >
             Job Openings
-          </Heading>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
             {jobs.map((job, index) => (
               <JobCard key={job.id} job={job} index={index} />

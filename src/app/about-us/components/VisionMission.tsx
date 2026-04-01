@@ -24,13 +24,13 @@ const InfoBlock: FC<InfoBlockProps> = ({
   contentOrderClass = "",
 }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
-    <Heading
-      level={4}
-      className={`text-(--white-custom) px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
+    <h2
+
+      className={`text-(--white-custom) text-3xl sm:text-4xl lg:text-5xl font-bold px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       <span>{title}</span>
-    </Heading>
+    </h2>
     <div
       className={`text-(--dark) text-justify font-medium leading-relaxed text-base lg:text-lg ${contentOrderClass}`.trim()}
       dangerouslySetInnerHTML={{ __html: htmlContent }}

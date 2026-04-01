@@ -98,12 +98,11 @@ const OurStory: React.FC = () => {
           className="bg-(--blue) text-(--white-custom) flex flex-col justify-around py-10  pl-6 sm:pl-20 pr-6 sm:pr-20 space-y-6"
           data-section
         >
-          <Heading
-            level={6}
-            className="text-(--white-custom) font-bold our-story-heading leading-tight "
+          <h2
+            className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl  font-bold our-story-heading leading-tight "
           >
             Our Story
-          </Heading>
+          </h2>
           <div
             className="text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-[300px] xl:h-[450px] overflow-y-auto scroll-smooth"
             ref={paragraphRef}

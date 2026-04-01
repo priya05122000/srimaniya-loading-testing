@@ -64,13 +64,13 @@ const ScholarContent = () => {
               >
                 Sri Maniya Institute
               </Paragraph>
-              <h1
+              <h2
                 ref={headingRef}
 
                 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase facilities-title-sub"
               >
                 Scholarship
-              </h1>
+              </h2>
             </div>
             <div>
               <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">

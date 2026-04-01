@@ -35,26 +35,26 @@ const nextConfig: NextConfig = {
   },
 
   // ✅ ADD THIS BLOCK
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: `
-              default-src 'self';
-              img-src 'self' data: https:;
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
-              style-src 'self' 'unsafe-inline' https:;
-              font-src 'self' data: https:;
-              connect-src 'self' https:;
-            `.replace(/\n/g, ""),
-          },
-        ],
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/(.*)",
+  //       headers: [
+  //         {
+  //           key: "Content-Security-Policy",
+  //           value: `
+  //             default-src 'self';
+  //             img-src 'self' data: https:;
+  //             script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+  //             style-src 'self' 'unsafe-inline' https:;
+  //             font-src 'self' data: https:;
+  //             connect-src 'self' https:;
+  //           `.replace(/\n/g, ""),
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;

@@ -85,7 +85,7 @@ const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardPr
         ) : icon}
       </div>
       <div className="p-3 sm:px-6 sm:py-5 lg:h-32 border-l lg:border-l-0 lg:border-t border-(--grey-custom) flex flex-col justify-start">
-        <Paragraph size="xl" className="font-semibold mb-2">{title}</Paragraph>
+        <h2 className="font-semibold text-lg sm:text-xl lg:text-2xl mb-2">{title}</h2>
         {safeLines.length > 0 ? safeLines.map((line, idx) => renderContactLine(title, line, idx)) : <div className="text-wrap font-normal  text-base">—</div>}
         {/* <div className="block sm:hidden">
           {safeLines.length > 0 ? safeLines.slice(0, 1).map((line, idx) => renderContactLine(title, line, idx)) : <div className="font-normal  text-sm">—</div>}
