@@ -21,9 +21,12 @@ const slugToTitle = (slug?: string) => {
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: { course?: string }
+  searchParams: Promise<{ course?: string }>
 }): Promise<Metadata> {
-  const slug = searchParams.course;
+
+  const params = await searchParams; // ✅ important
+
+  const slug = params.course;
 
   const readableTitle = slugToTitle(slug);
 
@@ -165,7 +168,7 @@ export default function Page() {
     ],
   };
 
-  
+
 
   return (
     <>
