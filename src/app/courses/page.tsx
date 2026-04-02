@@ -21,12 +21,22 @@ const slugToTitle = (slug?: string) => {
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ course?: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+
 }): Promise<Metadata> {
 
-  const params = await searchParams; // ✅ important
 
-  const slug = params.course;
+  const params = await searchParams; // ✅ important
+  const courseParam = params.course;
+
+
+  // const slug = courseParam;
+  const slug =
+    typeof courseParam === "string"
+      ? courseParam
+      : Array.isArray(courseParam)
+      ? courseParam[0]
+      : undefined;
 
   const readableTitle = slugToTitle(slug);
 

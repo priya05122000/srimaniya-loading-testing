@@ -7,6 +7,13 @@ import ConditionalGlobalLoader from "@/components/ConditionalGlobalLoader";
 import AnalyticsListener from "./analytics-listener";
 import { Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  verification: {
+    google: "MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w",
+  },
+};
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -29,17 +36,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w"
-        />
 
-        {/* Unified gtag Script */}
+      <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
+
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
           strategy="lazyOnload"
         />
+
         <Script id="gtag-init" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -51,7 +55,8 @@ export default function RootLayout({
             gtag('config', 'AW-17863144213');
           `}
         </Script>
-        <Script
+
+        {/* <Script
           id="gtm-script"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -63,7 +68,8 @@ export default function RootLayout({
               })(window,document,'script','dataLayer','GTM-5RZZ4B5Z');
             `,
           }}
-        />
+        /> */}
+
         {/* Google Tag Manager for GTM-TLLR36TQ */}
         <Script
           id="gtm-script-TLLR36TQ"
@@ -78,6 +84,7 @@ export default function RootLayout({
             `,
           }}
         />
+
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -100,20 +107,21 @@ export default function RootLayout({
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1590176728705087&ev=PageView&noscript=1"
+            alt=""
           />
         </noscript>
-      </head>
 
-      <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
         {/* Google Tag Manager (noscript) for GTM-5RZZ4B5Z */}
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-5RZZ4B5Z"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           />
-        </noscript>
+        </noscript> */}
+
+
         {/* Google Tag Manager (noscript) for GTM-TLLR36TQ */}
         <noscript>
           <iframe
@@ -123,6 +131,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        
         <Suspense fallback={null}>
           <AnalyticsListener />
         </Suspense>
