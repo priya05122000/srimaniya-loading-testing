@@ -94,45 +94,45 @@ const TermsAndConditions = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Use of Website
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               Users are expected to use the website lawfully and must not attempt to disrupt or hack the site. Any unauthorized use can result in website access suspension or legal action.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Intellectual Property
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               All content featured such as text, images, videos, logos, and graphics—is owned by Sri Maniya Institute of Hotel Management unless otherwise specified. Copying, modifying, or distributing content without permission is strictly forbidden.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Third-Party Links
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               Links to external websites are provided solely for convenience and do not constitute endorsement. The Institute does not take responsibility for content, privacy, or accuracy of third-party sites.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Limitation of Liability
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               The Institute cannot be held liable for any direct or indirect damages from:
             </Paragraph>
@@ -143,32 +143,32 @@ const TermsAndConditions = () => {
             </ParagraphList>
           </div>
           <div className="my-8">
-            <h3
+            <h2
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Privacy
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               Use of the website is also covered by the Institute’s Privacy Policy, which details the handling of any personal information collected through the site.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Updates to Terms
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               The Institute reserves the right to update or revise these Terms and Conditions without prior notice. Continued use of the website implies your acceptance of any revised terms.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h3
+            <h2
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Contact Us
-            </h3>
+            </h2>
             <Paragraph size="lg" className="text-(--dark)">
               For any concerns or questions regarding these Terms and Conditions:
               <br />

@@ -164,7 +164,7 @@ const EventAndBlog: React.FC = () => {
                 Events & Blog
               </h1>
               <h2 className="sr-only">
-                Latest Events and Blog Updates from Sri Maniya Institute of Hotel Management
+                Hotel Management Events and Blogs
               </h2>
             </div>
             <div className="flex justify-end gap-4 mb-4 mt-10 sm:mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
@@ -178,6 +178,7 @@ const EventAndBlog: React.FC = () => {
               ))}
             </div>
           </div>
+
 
           <div className="pt-6 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

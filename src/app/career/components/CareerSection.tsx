@@ -166,6 +166,8 @@ const CareerSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+
       <Section className="py-10 sm:py-20" ref={openingRef}>
         <div>
           <h2

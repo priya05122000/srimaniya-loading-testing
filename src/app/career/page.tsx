@@ -2,9 +2,12 @@ import React from "react";
 import type { Metadata } from "next";
 import CareerPage from "./CareerPage";
 
+const BASE_URL = "https://srimaniyainstitute.in";
+
+
 export const metadata: Metadata = {
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/career`,
+    canonical: `${BASE_URL}/career`,
   },
   title: "Hospitality Careers in India & Abroad | Sri Maniya",
   description:
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/career/career.webp",
+        url: `${BASE_URL}/career/career.webp`,
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -52,7 +55,8 @@ export const metadata: Metadata = {
     title: "Hospitality Careers in India & Abroad | Sri Maniya",
     description:
       "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
-    images: ["https://srimaniyainstitute.in/career/career.webp"],
+    images: [`${BASE_URL}/career/career.webp`],
+
   },
 };
 
@@ -64,8 +68,8 @@ const page = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${BASE_URL}/career`,
+      name: "Careers at Sri Maniya Institute",
       url: `${BASE_URL}/career`,
-      "name": "Careers in Hospitality Industry in India & Abroad | Sri Maniya Institute",
       "description": "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
       "inLanguage": "en",
       "isPartOf": {

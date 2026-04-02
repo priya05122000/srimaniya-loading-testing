@@ -222,17 +222,17 @@ const AboutStats = () => {
             </Paragraph>
           </div>
           <div className="text-(--grey-custom) msg-wrapper text-center lg:text-left">
-            <Heading
-              level={2}
-              className="mt-4 tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block"
+            <p
+
+              className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block jakarta-heading "
             >
               Sri Maniya <br className="xl:hidden" /> Institute
-            </Heading>
-            <h2
-              className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden"
+            </p>
+            <p
+              className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden jakarta-heading"
             >
               Sri Maniya Institute
-            </h2>
+            </p>
           </div>
         </div>
       </div>

@@ -58,10 +58,10 @@ export async function generateMetadata({
       canonical: "https://srimaniyainstitute.in/courses",
     },
     // 🔥 ADD THIS
-    robots: {
-      index: !isQueryPage,   // ❌ query pages → noindex
-      follow: true,
-    },
+    // robots: {
+    //   index: !isQueryPage,
+    //   follow: true,
+    // },
     title: readableTitle
       ? `${readableTitle} | Sri Maniya Institute`
       : "Hotel Management Courses | Sri Maniya Institute",
