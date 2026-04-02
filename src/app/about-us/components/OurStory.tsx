@@ -87,7 +87,7 @@ const OurStory: React.FC = () => {
         >
           <Image
             src="/about-us/ourstory-old.webp"
-            alt="Sri Maniya Institute Our Story, hospitality management college tamil nadu, job opportunities after hotel management, global hospitality careers, practical training in hospitality"
+            alt="Our story of Sri Maniya Institute of Hotel Management"
             width={1000}
             height={1000}
             className="w-full h-full sm:h-[400px] lg:h-[450px] xl:h-[590px]  object-cover object-top image-tag"
@@ -98,11 +98,11 @@ const OurStory: React.FC = () => {
           className="bg-(--blue) text-(--white-custom) flex flex-col justify-around py-10  pl-6 sm:pl-20 pr-6 sm:pr-20 space-y-6"
           data-section
         >
-          <h2
+          <h3
             className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl  font-bold our-story-heading leading-tight "
           >
             Our Story
-          </h2>
+          </h3>
           <div
             className="text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-[300px] xl:h-[450px] overflow-y-auto scroll-smooth"
             ref={paragraphRef}

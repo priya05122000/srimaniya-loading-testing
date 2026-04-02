@@ -82,7 +82,7 @@ const ScholarContent = () => {
             <div>
               <Image
                 src={SCHOLAR_IMAGE}
-                alt="sri maniya institute scholarship, scholarship in hospitality management, hotel management scholarship in tamilnadu, merit based scholarship sri maniya institute, hotel management college scholarship tamil nadu, sports quota scholarship hotel management, Sri Maniya College scholarship eligibility"
+                alt="Student receiving scholarship at Sri Maniya Institute of Hotel Management"
                 width={SCHOLAR_IMAGE_DIMENSIONS.width}
                 height={SCHOLAR_IMAGE_DIMENSIONS.height}
                 style={{ objectFit: "cover" }}

@@ -66,7 +66,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
       pagination={{ clickable: true }}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       modules={[EffectFade, Pagination, Autoplay]}
-      // className="mySwiper"
+    // className="mySwiper"
     >
       {banners.map((banner, idx) => (
         <SwiperSlide key={idx}>
@@ -74,7 +74,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
             className="bg-(--blue) grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-[95vh] sm:h-[calc(90vh-80px)] hero-wrapper will-change-transform"
             style={{ transform: "translateZ(0)" }}
           >
-            <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-[300px] relative w-full">
+            <div className="border-b sm:border-b-0 sm:border-r border-(--grey-custom) h-full min-h-75 relative w-full">
               <CommonImage
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                 alt={banner.title}
@@ -88,17 +88,17 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                 <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
                 <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
                 {banner.button_text && (
-                  <Heading
-                    level={6}
-                    className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out px-6 sm:px-8 py-4 rounded-lg"
+                  <p
+
+                    className="text-end text-xl sm:text-2xl lg:text-3xl jakarta-heading font-semibold leading-snug transition-colors duration-300 ease-in-out px-6 sm:px-8 py-4 rounded-lg"
                   >
                     {banner.button_text}
-                  </Heading>
+                  </p>
                 )}
               </div>
             </div>
             {/* Hero Text Content */}
-            <div className="hero-content flex flex-col justify-center sm:justify-end text-end pl-6 pr-6 py-8 text-(--white-custom) min-h-[250px] sm:min-h-[380px]">
+            <div className="hero-content flex flex-col justify-center sm:justify-end text-end pl-6 pr-6 py-8 text-(--white-custom) min-h-62.5 sm:min-h-95">
               <div className="h-full flex sm:items-end">
                 <div>
                   <div className="flex gap-4 justify-end">
@@ -125,18 +125,16 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                       {banner.sub_title}
                     </Span>
                   )}
-                  <Heading
-                    level={4}
-                    className="leading-tight mt-4 animate-text hero-title hidden xl:block"
+                  <p
+                    className="leading-tight jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 animate-text hero-title hidden xl:block"
                   >
                     {banner.title}
-                  </Heading>
-                  <Heading
-                    level={5}
-                    className="leading-tight mt-4 animate-text hero-title block xl:hidden"
+                  </p>
+                  <p
+                    className="leading-tight jakarta-heading text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 animate-text hero-title block xl:hidden"
                   >
                     {banner.title}
-                  </Heading>
+                  </p>
                 </div>
               </div>
             </div>

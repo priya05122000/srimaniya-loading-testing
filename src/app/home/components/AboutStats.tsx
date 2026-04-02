@@ -96,18 +96,18 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
 // StatBlock: Reusable stat display
 const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
   <div className="text-center lg:text-left w-full lg:py-6 lg:border-b border-(--grey-custom)">
-    <Heading level={3} className="hidden lg:block">
+    <span className="hidden lg:block text-4xl sm:text-5xl lg:text-6xl font-bold jakarta-heading">
       <span className="flex items-baseline">
         <OdometerNumber value={parseInt(stat.value)} />
         <span className="ml-1">+</span>
       </span>
-    </Heading>
-    <Heading level={4} className="block lg:hidden">
+    </span>
+    <span className="block lg:hidden text-3xl sm:text-4xl lg:text-5xl font-bold jakarta-heading">
       <span className="flex items-baseline justify-center lg:justify-start">
         <OdometerNumber value={parseInt(stat.value)} />
         <span className="ml-1">+</span>
       </span>
-    </Heading>
+    </span>
     <Paragraph size="lg" className="font-normal hidden sm:block">
       {stat.label}
     </Paragraph>
@@ -228,11 +228,11 @@ const AboutStats = () => {
             >
               Sri Maniya <br className="xl:hidden" /> Institute
             </Heading>
-            <h3
+            <h2
               className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden"
             >
               Sri Maniya Institute
-            </h3>
+            </h2>
           </div>
         </div>
       </div>

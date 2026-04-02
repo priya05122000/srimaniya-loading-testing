@@ -117,13 +117,13 @@ export default function Partners() {
             Recruitment Partners
           </Paragraph>
 
-          <Heading
+          <p
             ref={headingRef}
-            level={4}
-            className="text-(--blue) mt-1 uppercase partners-explore-title leading-tight"
+
+            className="text-(--blue) jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
           >
             Explore Our <br /> Placement Partners
-          </Heading>
+          </p>
 
           <div className="brands_list-wrapper relative overflow-hidden mt-10 ">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />

@@ -24,12 +24,19 @@ type Course = {
 };
 
 // --- Utility Functions ---
-const stripHtmlAndTrim = (html: string, wordLimit: number = 50): string => {
-  // Remove HTML tags and &nbsp; entities
-  const text = html.replace(/<[^>]+>/g, " ").replace(/&nbsp;/gi, " ");
-  const words = text.split(/\s+/).filter(Boolean);
-  const trimmed = words.slice(0, wordLimit).join(" ");
-  return trimmed + (words.length > wordLimit ? "..." : "");
+// const stripHtmlAndTrim = (html: string, wordLimit: number = 50): string => {
+//   const text = html.replace(/<[^>]+>/g, " ").replace(/&nbsp;/gi, " ");
+//   const words = text.split(/\s+/).filter(Boolean);
+//   const trimmed = words.slice(0, wordLimit).join(" ");
+//   return trimmed + (words.length > wordLimit ? "..." : "");
+// };
+
+const stripHtmlAndTrim = (html: string): string => {
+  return html
+    .replace(/<[^>]+>/g, " ")   // remove HTML tags
+    .replace(/&nbsp;/gi, " ")   // remove &nbsp;
+    .replace(/\s+/g, " ")       // normalize spaces
+    .trim();
 };
 
 // --- CourseCard Component (reusable) ---
@@ -65,7 +72,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
             <div className="flex items-center gap-2">
               <div className="text-(--white-custom)">
                 {/* <Paragraph size='xl' className="font-semibold ">Description: </Paragraph>{" "} */}
-                <Paragraph size='base' className=" text-justify leading-relaxed ">{stripHtmlAndTrim(course.description)}</Paragraph>
+                <Paragraph size='base' className=" text-justify line-clamp-5 leading-relaxed ">{stripHtmlAndTrim(course.description)}</Paragraph>
               </div>
             </div>
             <div className="flex items-center gap-2 mt-5">
@@ -183,9 +190,9 @@ const Courses: React.FC = () => {
               <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title">
                 Courses
               </Paragraph>
-              <Heading ref={headingRef} level={4} className="text-(--white-custom) mt-1 leading-tight uppercase  courses-academic-title">
+              <h2 ref={headingRef} className="text-(--white-custom) text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 leading-tight uppercase  courses-academic-title">
                 Our Academic <br /> Programs
-              </Heading>
+              </h2>
             </div>
             {/* Sticky Overlap Cards */}
             <div className="relative">

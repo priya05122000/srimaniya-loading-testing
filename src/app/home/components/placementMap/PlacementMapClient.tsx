@@ -80,7 +80,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
       >
         <Image
           src={img}
-          alt={`Sri Maniya Institute of Hotel Management Placement - ${placement}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+          alt={`Hotel Management Placement at Sri Maniya Institute - ${placement}`}
           width={100}
           height={100}
           className="w-full h-full object-cover image-tag"
@@ -88,9 +88,8 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
         />
       </div>
       <Paragraph
-        className={`absolute ${
-          size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"
-        } left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}
+        className={`absolute ${size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"
+          } left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}
       >
         <span className="block">{placement}</span>
         <span>{ctc}</span>
@@ -118,7 +117,7 @@ const PlacementCard: React.FC<Placement> = ({
     <div className="w-20 h-12 relative shrink-0 aspect-square">
       <Image
         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${flag_img}`}
-        alt={`Sri Maniya Institute of Hotel Management Placement - ${name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+        alt={`Flag of ${name}`}
         width={80}
         height={48}
         sizes="(max-width: 768px) 100vw, 80px"
@@ -231,18 +230,18 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               >
                 Our Placement
               </Paragraph>
-              <Heading
+              <h2
                 ref={headingRef}
-                level={4}
-                className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
+
+                className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold"
               >
                 Connecting <br /> Talent to <br /> Global Brands
-              </Heading>
+              </h2>
             </div>
             <Paragraph
               size="lg"
               className="mb-2 text-(--dark) w-[90%] xl:w-[85%]"
-              // {...ANIMATIONS.fadeZoomIn}
+            // {...ANIMATIONS.fadeZoomIn}
             >
               Each pin on this map represents the global destinations where our
               talented graduates have embarked on successful careers. Every flag
@@ -267,7 +266,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
             <div className="shrink-0 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
                 src="/home/map.webp"
-                alt="Sri Maniya Institute of Hotel Management Placement Map - hotel management courses near me, best hotel management colleges near me, global career opportunities"
+                alt="Placement locations map of Sri Maniya Institute of Hotel Management"
                 width={2400}
                 height={1200}
                 className="h-full w-auto object-contain image-tag"
@@ -284,9 +283,9 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
             <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center">
               <div>
                 <div className="mb-8">
-                  <Heading level={5} className="text-(--blue) font-bold">
+                  <h2 className="text-(--blue)  text-2xl sm:text-3xl lg:text-4xl font-bold">
                     International Placement
-                  </Heading>
+                  </h2>
                 </div>
                 <div className="flex flex-col lg:gap-2">
                   {placements.map((placement, idx) => (
@@ -319,18 +318,17 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
                   >
                     Our Placement
                   </Paragraph>
-                  <Heading
+                  <h2
                     ref={headingRefDesktop}
-                    level={4}
-                    className="text-(--blue) leading-tight uppercase mt-2 connecting-title"
+                    className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold"
                   >
                     Connecting <br /> Talent to <br /> Global Brands
-                  </Heading>
+                  </h2>
                 </div>
                 <Paragraph
                   size="base"
                   className="mb-2 text-(--dark) w-[90%] xl:w-[70%] leading-relaxed"
-                  // {...ANIMATIONS.fadeZoomIn}
+                // {...ANIMATIONS.fadeZoomIn}
                 >
                   Each pin on this map represents the global destinations where
                   our talented graduates have embarked on successful careers.

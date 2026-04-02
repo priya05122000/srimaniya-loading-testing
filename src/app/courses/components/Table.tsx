@@ -36,6 +36,7 @@ const Table = ({ courses }: { courses: Course[] }) => {
 
   return (
     <Section className="py-10 sm:py-16 bg-(--blue)" data-section>
+      <h2 className="sr-only">All Courses</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
         {COURSE_CATEGORIES.map(({ key, label }, idx) => {
           const filteredCourses = getCoursesByCategory(key);
@@ -50,6 +51,7 @@ const Table = ({ courses }: { courses: Course[] }) => {
 
           return (
             <div className={borderClasses} key={key}>
+
               <Paragraph size="xl" className="text-white py-4 font-bold">
                 {label}
               </Paragraph>

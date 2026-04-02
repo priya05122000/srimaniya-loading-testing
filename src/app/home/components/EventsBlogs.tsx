@@ -160,9 +160,9 @@ const EventsBlogs: React.FC = () => {
             <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title">
               Events & Blogs
             </Paragraph>
-            <Heading ref={headingRef} level={4} className="text-(--blue) mt-1 leading-tight uppercase latest-title">
+            <p ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 leading-tight uppercase latest-title">
               Latest from Us
-            </Heading>
+            </p>
           </div>
           <Swiper
             modules={[Navigation, Autoplay]}

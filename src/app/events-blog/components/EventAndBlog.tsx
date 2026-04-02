@@ -75,13 +75,13 @@ const EventAndBlog: React.FC = () => {
         ]);
         const blogsData = Array.isArray(blogResult?.data)
           ? blogResult.data.filter((b: unknown) => {
-              return (
-                typeof b === "object" &&
-                b !== null &&
-                "active" in b &&
-                (b as { active: boolean }).active === true
-              );
-            })
+            return (
+              typeof b === "object" &&
+              b !== null &&
+              "active" in b &&
+              (b as { active: boolean }).active === true
+            );
+          })
           : [];
         setBlogs(blogsData);
         await preloadImages(blogsData);
@@ -126,29 +126,26 @@ const EventAndBlog: React.FC = () => {
     <button
       type="button"
       onClick={() => setActive(cat.id)}
-      className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 sm:min-w-[100px] px-2 ${
-        active === cat.id
-          ? "bg-(--blue)"
-          : "bg-(--white-custom) border border-(--blue)"
-      }`}
+      className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 sm:min-w-[100px] px-2 ${active === cat.id
+        ? "bg-(--blue)"
+        : "bg-(--white-custom) border border-(--blue)"
+        }`}
     >
       <span
-        className={`relative z-20 text-center no-underline w-full px-2 py-2 text-sm sm:text-base transition-all duration-300 ${
-          active === cat.id
-            ? "text-(--white-custom)"
-            : "text-(--blue) group-hover:text-(--white-custom)"
-        }`}
+        className={`relative z-20 text-center no-underline w-full px-2 py-2 text-sm sm:text-base transition-all duration-300 ${active === cat.id
+          ? "text-(--white-custom)"
+          : "text-(--blue) group-hover:text-(--white-custom)"
+          }`}
       >
         {cat.name === "News&Events"
           ? "Events"
           : cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
       </span>
       <span
-        className={`absolute left-0 top-0 w-full h-0 transition-all duration-300 ease-in-out z-10 ${
-          active === cat.id
-            ? "bg-(--white-custom)"
-            : "bg-(--blue) group-hover:h-full group-hover:top-auto group-hover:bottom-0"
-        }`}
+        className={`absolute left-0 top-0 w-full h-0 transition-all duration-300 ease-in-out z-10 ${active === cat.id
+          ? "bg-(--white-custom)"
+          : "bg-(--blue) group-hover:h-full group-hover:top-auto group-hover:bottom-0"
+          }`}
       />
     </button>
   ));
@@ -166,6 +163,9 @@ const EventAndBlog: React.FC = () => {
               >
                 Events & Blog
               </h1>
+              <h2 className="sr-only">
+                Latest Events and Blog Updates from Sri Maniya Institute of Hotel Management
+              </h2>
             </div>
             <div className="flex justify-end gap-4 mb-4 mt-10 sm:mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
               {categories.map((cat) => (
@@ -197,12 +197,12 @@ const EventAndBlog: React.FC = () => {
                   </div>
 
                   <div className="pt-3  z-10 relative text-(--blue)">
-                    <h2
+                    <p
                       className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug"
                       onClick={() => handleBlogClick(blog.slug)}
                     >
                       {blog.sub_title}
-                    </h2>
+                    </p>
 
                     <span
                       className="text-sm line-clamp-3"

@@ -266,6 +266,10 @@ h6 {
   font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif !important;
 }
 
+.jakarta-heading {
+  font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif !important;
+}
+
 /* ===================================================================
    UTILITY CLASSES
    ------------------------------------------------------------------- */

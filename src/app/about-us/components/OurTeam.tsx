@@ -136,7 +136,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       <div
         className={`w-full h-full md:w-full bg-linear-to-t from-[black]/50 to-[black]/0 p-6 space-y-3 flex flex-col justify-end ${reverseSm ? "sm:order-1" : "sm:order-2"} ${reverseXl ? "xl:order-1" : "xl:order-2"}`}
       >
-        <p className="mb-2 text-xl sm:text-2xl lg:text-3xl font-bold">
+        <p className="mb-2 jakarta-heading text-xl sm:text-2xl lg:text-3xl font-bold">
           {name}
         </p>
         <Paragraph size="lg" className="font-medium mb-1 text-(--grey)">
@@ -235,12 +235,12 @@ const OurTeam: React.FC = () => {
             >
               Our team
             </Paragraph>
-            <h2
+            <h3
               ref={headingRef}
               className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold  uppercase meet-team-title leading-tight"
             >
               Meet the team
-            </h2>
+            </h3>
           </div>
         </Section>
         <div>

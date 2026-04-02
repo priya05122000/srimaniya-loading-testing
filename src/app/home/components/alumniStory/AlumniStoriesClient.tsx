@@ -164,13 +164,12 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
               >
                 The Proof
               </Paragraph>
-              <Heading
+              <h2
                 ref={headingRef}
-                level={4}
-                className="text-(--blue) uppercase leading-tight proof-title mt-1"
+                className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Stories
-              </Heading>
+              </h2>
             </div>
           </Section>
           <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">

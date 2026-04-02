@@ -170,10 +170,10 @@ export default function PartBanner() {
       <div className="h-full sm:h-[calc(100vh-80px)] overflow-auto">
         <div className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly " data-section>
           <div className="max-w-full sm:max-w-2xl ml-auto">
-            <p className="uppercase text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
+            <p className="uppercase jakarta-heading text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
               Join With US
             </p>
-            <p className="uppercase text-end block xl:hidden text-2xl sm:text-3xl lg:text-4xl font-bold">
+            <p className="uppercase jakarta-heading text-end block xl:hidden text-2xl sm:text-3xl lg:text-4xl font-bold">
               Join With US
             </p>
           </div>

@@ -46,20 +46,18 @@ const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(
         <div className="absolute inset-0 z-20 pointer-events-none transition-all duration-300 group-hover:opacity-0 bg-no-repeat bg-[url('/designs/noise.svg')] bg-cover" />
         <div className="relative z-30 flex flex-col items-end justify-start h-full p-6 sm:p-8 gap-4 text-(--white-custom) w-10/12 lg:w-2/3 group">
           <div className="transition-all duration-300 ease-in-out rounded-lg">
-            <Heading
-              level={5}
-              className="mb-1 font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
+            <span
+              className="mb-1 jakarta-heading text-2xl sm:text-3xl lg:text-4xl font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
             >
               {feature.number}
-            </Heading>
+            </span>
           </div>
           <div className="transition-all duration-300 ease-in-out rounded-lg">
-            <Heading
-              level={6}
-              className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg"
+            <p
+              className="text-xl sm:text-2xl lg:text-3xl text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg jakarta-heading"
             >
               {feature.title}
-            </Heading>
+            </p>
           </div>
         </div>
       </div>
@@ -156,13 +154,12 @@ const CommitmentBanner: React.FC = () => {
           >
             Sri Maniya Institute of Hotel Management
           </Paragraph>
-          <Heading
+          <p
             ref={headingRef}
-            level={4}
-            className="text-(--white-custom) text-right leading-tight commitment-title uppercase "
+            className="text-(--white-custom) jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
           >
             Our commitment to build your trust
-          </Heading>
+          </p>
         </div>
         <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
           {features.map((feature, idx) => (
@@ -187,7 +184,7 @@ const CommitmentBanner: React.FC = () => {
             >
               <Image
                 src="/designs/rotate.svg"
-                alt="Rotating Ring - Sri Maniya Institute of Hotel Management, hotel management in tamil nadu, career opportunities in hotel management"
+                alt="Rotating Ring "
                 width={176}
                 height={176}
                 className="object-contain image-tag"
@@ -197,7 +194,7 @@ const CommitmentBanner: React.FC = () => {
             <div className="absolute inset-0 flex items-center justify-center z-10 aspect-square">
               <Image
                 src="/logos/sri-maniya-institute-logo.png"
-                alt="Sri Maniya Institute of Hotel Management - best hotel management colleges near me, hospitality management courses in tamilnadu"
+                alt="Sri Maniya Institute of Hotel Management"
                 width={120}
                 height={120}
                 className="object-contain image-tag w-10 h-10 sm:w-16 sm:h-16 lg:w-20 lg:h-20"
