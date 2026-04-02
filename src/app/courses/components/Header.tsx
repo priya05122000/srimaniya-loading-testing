@@ -1,7 +1,4 @@
-"use client";
-
 import React, { FC } from "react";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 
 // Reusable constants for styling

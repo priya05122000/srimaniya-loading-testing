@@ -1,17 +1,13 @@
 "use client";
 
-import React, { FC, ReactNode, useState, useEffect } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Section from "@/components/common/Section";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import CollapsibleHTML from "@/components/common/CollapsibleHTML";
-
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { GoDownload } from "react-icons/go";
-import { getAllCourses } from "@/services/courseService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 interface Course {
   id: number;
@@ -32,17 +28,10 @@ interface CourseRowProps {
   duration?: string;
 }
 
-// Reusable Course Row for desktop
-const CourseRow: FC<CourseRowProps> = ({
-  label,
-  children,
-  highlight = false,
-  id,
-  title,
-  duration,
-}) => (
+// 🔥 SAME COMPONENT (NO CHANGE)
+const CourseRow: FC<CourseRowProps> = ({ label, children, highlight = false, id, title, duration }) => (
   <tr className="align-top">
-    <td className="pr-4 flex items-start gap-2 md:pr-10 xl:pr-20 py-10  w-full sm:w-[260px] min-w-[180px] ">
+    <td className="pr-4 flex items-start gap-2 md:pr-10 xl:pr-20 py-10 w-full sm:w-[260px] min-w-[180px]">
       <div className="w-12 shrink-0 hidden md:flex flex-col items-center">
         <hr className="border-(--grey-custom) w-full mt-4" />
       </div>
@@ -61,7 +50,8 @@ const CourseRow: FC<CourseRowProps> = ({
         </Paragraph>
       )}
     </td>
-    <td className="text-(--dark) pl-8 border-l border-(--grey-custom) py-10  ">
+
+    <td className="pl-8 border-l py-10">
       {highlight && title && duration ? (
         <h2 className="text-(--dark) text-lg sm:text-xl lg:text-2xl font-bold md:w-[75%] xl:w-[80%] ">
           {title}
@@ -69,14 +59,11 @@ const CourseRow: FC<CourseRowProps> = ({
             &nbsp;- ({duration})
           </span>
         </h2>
-      ) : (
-        children
-      )}
+      ) : children}
     </td>
   </tr>
 );
 
-// Reusable Course Row for mobile
 const MobileCourseRow: FC<CourseRowProps> = ({
   label,
   children,
@@ -117,30 +104,24 @@ const MobileCourseRow: FC<CourseRowProps> = ({
   </div>
 );
 
-const useScrollToCourse = (courses: Course[], searchParams: ReturnType<typeof useSearchParams>) => {
-
+// 🔥 ONLY CHANGE → REMOVE STATE, USE PROPS
+const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    // if (!searchParams) return;
     if (!searchParams || courses.length === 0) return;
 
     const targetId = searchParams.get("course");
     if (!targetId) return;
 
     const createSlug = (text: string) =>
-      text
-        .toLowerCase()
-        .trim()
-        .replace(/&/g, "and")
-        .replace(/\+/g, "")
-        .replace(/\s+/g, "-");
+      text.toLowerCase().trim().replace(/&/g, "and").replace(/\+/g, "").replace(/\s+/g, "-");
 
     const validSlugs = courses.map((c) => createSlug(c.title));
 
-    // 🚨 INVALID → CLEAN URL
     if (!validSlugs.includes(targetId)) {
-      router.replace("/courses"); // 🔥 THIS IS THE KEY
+      router.replace("/courses");
       return;
     }
 
@@ -162,44 +143,9 @@ const useScrollToCourse = (courses: Course[], searchParams: ReturnType<typeof us
     }, 800);
     return () => clearTimeout(timer);
   }, [courses, searchParams]);
-};
-
-const useFetchCourses = (setCourses: React.Dispatch<React.SetStateAction<Course[]>>, setLoading: (loading: boolean) => void) => {
-  useEffect(() => {
-    const fetchCourses = async () => {
-      setLoading(true);
-      try {
-        const result = await getAllCourses();
-        setCourses(result?.data || []);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        } else {
-          console.error("Failed to fetch courses");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCourses();
-  }, [setLoading, setCourses]);
-};
-
-const CourseList: FC = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const { setLoading } = useGlobalLoader();
-  const searchParams = useSearchParams();
-
-  useScrollToCourse(courses, searchParams);
-  useFetchCourses(setCourses, setLoading);
 
   const createSlug = (text: string) =>
-    text
-      .toLowerCase()
-      .trim()
-      .replace(/&/g, "and")
-      .replace(/\+/g, "")        // 🔥 REMOVE +
-      .replace(/\s+/g, "-");
+    text.toLowerCase().trim().replace(/&/g, "and").replace(/\+/g, "").replace(/\s+/g, "-");
 
   return (
     <Section className="w-full relative">
