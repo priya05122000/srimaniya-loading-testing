@@ -1,6 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import EventsBlogPage from "./EventsBlogPage";
+import { getAllBlogPosts } from "@/services/blogPostService";
+import { getAllCategories } from "@/services/categoryService";
 
 export const metadata: Metadata = {
   alternates: {
@@ -37,20 +39,32 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
     description:
       "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
-    images: ["https://srimaniyainstitute.in/scholarship/scholarship-banner.webp"],
+    images: [
+      "https://srimaniyainstitute.in/scholarship/scholarship-banner.webp",
+    ],
   },
 };
 
-const page = () => {
+const page = async () => {
+  const [blogResult, categoryResult] = await Promise.all([
+    getAllBlogPosts(),
+    getAllCategories(),
+  ]);
+
+  const blogsData = Array.isArray(blogResult?.data)
+    ? blogResult.data.filter((b: any) => b.active === true)
+    : [];
+
+  const categories = categoryResult?.data || [];
+
   return (
     <div>
-      <EventsBlogPage />
+      <EventsBlogPage blogs={blogsData} categories={categories} />
     </div>
   );
 };

@@ -1,12 +1,18 @@
-import React from 'react'
-import EventAndBlog from './components/EventAndBlog'
+import React from "react";
+import EventAndBlog from "./components/EventAndBlog";
 
-const EventsBlogPage = () => {
+const EventsBlogPage = ({
+    blogs,
+    categories,
+}: {
+    blogs: any[];
+    categories: any[];
+}) => {
     return (
         <div>
-            <EventAndBlog />
+            <EventAndBlog blogs={blogs} categories={categories} />
         </div>
-    )
-}
+    );
+};
 
-export default EventsBlogPage
+export default EventsBlogPage;

@@ -21,6 +21,30 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+
+      {
+        source: "/online-application-form",
+        destination: "/registration-form",
+        permanent: true,
+      },
+      {
+        source: "/online-application-form/",
+        destination: "/registration-form",
+        permanent: true,
+      },
+
+      // Blog → Events blog
+      {
+        source: "/blog",
+        destination: "/events-blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/",
+        destination: "/events-blog",
+        permanent: true,
+      },
+
       {
         source: "/$",
         destination: "/",
@@ -35,26 +59,27 @@ const nextConfig: NextConfig = {
   },
 
   // ✅ ADD THIS BLOCK
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/(.*)",
-  //       headers: [
-  //         {
-  //           key: "Content-Security-Policy",
-  //           value: `
-  //             default-src 'self';
-  //             img-src 'self' data: https:;
-  //             script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
-  //             style-src 'self' 'unsafe-inline' https:;
-  //             font-src 'self' data: https:;
-  //             connect-src 'self' https:;
-  //           `.replace(/\n/g, ""),
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: `
+            default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+            script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;
+            style-src * 'unsafe-inline' data: blob:;
+            img-src * data: blob:;
+            font-src * data: blob:;
+            connect-src * data: blob: ws: wss:;
+            frame-ancestors *;
+          `.replace(/\n/g, ""),
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

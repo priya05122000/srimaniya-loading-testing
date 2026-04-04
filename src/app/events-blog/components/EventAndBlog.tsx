@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
 import Paragraph from "@/components/common/Paragraph";
@@ -9,8 +10,10 @@ import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
+// ❌ API imports kept but NOT used (as requested - not removed)
 import { getAllBlogPosts } from "@/services/blogPostService";
 import { getAllCategories } from "@/services/categoryService";
+
 import Span from "@/components/common/Span";
 
 interface Blog {
@@ -29,7 +32,7 @@ interface Category {
   name: string;
 }
 
-// Helper: Preload images (reusable)
+// Helper: Preload images (kept as is)
 const preloadImages = (blogs: Blog[]) => {
   return Promise.all(
     blogs.map((b) => {
@@ -43,7 +46,13 @@ const preloadImages = (blogs: Blog[]) => {
   );
 };
 
-const EventAndBlog: React.FC = () => {
+const EventAndBlog = ({
+  blogs,
+  categories,
+}: {
+  blogs: Blog[];
+  categories: Category[];
+}) => {
   const router = useRouter();
   const eventsBlogRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -55,16 +64,25 @@ const EventAndBlog: React.FC = () => {
     enabled: true,
   });
 
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  // ❌ OLD STATE KEPT (commented, not removed)
+  // const [blogs, setBlogs] = useState<Blog[]>([]);
+  // const [categories, setCategories] = useState<Category[]>([]);
+
   const [active, setActive] = useState<string>(() => {
     if (typeof window !== "undefined") {
-      return sessionStorage.getItem("eventsBlogActiveCategory") || "";
+      return (
+        sessionStorage.getItem("eventsBlogActiveCategory") ||
+        categories?.[0]?.id ||
+        ""
+      );
     }
-    return "";
+    return categories?.[0]?.id || "";
   });
+
   const { setLoading } = useGlobalLoader();
 
+  // ❌ OLD FETCH KEPT (commented, not removed)
+  /*
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -74,50 +92,36 @@ const EventAndBlog: React.FC = () => {
           getAllCategories(),
         ]);
         const blogsData = Array.isArray(blogResult?.data)
-          ? blogResult.data.filter((b: unknown) => {
-            return (
-              typeof b === "object" &&
-              b !== null &&
-              "active" in b &&
-              (b as { active: boolean }).active === true
-            );
-          })
+          ? blogResult.data.filter((b: any) => b.active === true)
           : [];
         setBlogs(blogsData);
         await preloadImages(blogsData);
         const cats = categoryResult?.data || [];
         setCategories(cats);
-        // Only set active if not already set (from sessionStorage or otherwise)
         if (cats.length > 0 && active === "") setActive(cats[0].id);
-      } catch (error: unknown) {
-        if (error && typeof error === "object" && "message" in error) {
-          console.error(
-            "Failed to load blogs/categories:",
-            (error as { message?: string }).message
-          );
-        } else {
-          console.error("Failed to load blogs/categories:", error);
-        }
+      } catch (error) {
+        console.error("Failed:", error);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, [setLoading]);
+  */
 
-  const filteredBlogs = blogs.filter((blog) => blog.category_id === active);
-  // const handleBlogClick = (id: string) => router.push(`/events-blog-view?id=${id}`);
+  const filteredBlogs = blogs.filter(
+    (blog) => blog.category_id === active
+  );
+
   const handleBlogClick = (slug: string) =>
     router.push(`/events-blog-view/${slug}`);
 
-  // Persist active category to sessionStorage on change
   useEffect(() => {
     if (active) {
       sessionStorage.setItem("eventsBlogActiveCategory", active);
     }
   }, [active]);
 
-  // Reusable category button
   const CategoryButton: React.FC<{
     cat: Category;
     active: string;
@@ -167,6 +171,7 @@ const EventAndBlog: React.FC = () => {
                 Hotel Management Events and Blogs
               </h2>
             </div>
+
             <div className="flex justify-end gap-4 mb-4 mt-10 sm:mt-4 md:mt-0 max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto px-0 md:px-4 lg:px-12 xl:px-0">
               {categories.map((cat) => (
                 <CategoryButton
@@ -178,7 +183,6 @@ const EventAndBlog: React.FC = () => {
               ))}
             </div>
           </div>
-
 
           <div className="pt-6 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -213,15 +217,15 @@ const EventAndBlog: React.FC = () => {
                       }}
                     />
                     {/* <span
-                      className="text-sm"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          blog.description.split(/\s+/).slice(0, 30).join(" ") +
-                          (blog.description.split(/\s+/).length > 30
-                            ? "..."
-                            : ""),
-                      }}
-                    /> */}
+                               className="text-sm"
+                               dangerouslySetInnerHTML={{
+                                 __html:
+                                   blog.description.split(/\s+/).slice(0, 30).join(" ") +
+                                   (blog.description.split(/\s+/).length > 30
+                                     ? "..."
+                                     : ""),
+                               }}
+                             /> */}
 
                     <div className="flex items-baseline mt-2">
                       <span className="font-bold text-xs">
