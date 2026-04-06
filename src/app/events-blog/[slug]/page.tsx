@@ -24,7 +24,7 @@ export async function generateMetadata({
       title: "Event Blog | Sri Maniya Institute",
       description: "Events and updates from Sri Maniya Institute",
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog-view`,
+        canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog`,
       },
     };
   }

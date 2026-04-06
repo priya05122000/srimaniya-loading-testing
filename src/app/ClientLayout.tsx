@@ -58,10 +58,17 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   useEffect(() => {
     // Only trigger popup once after mount
     if (hasPopupTriggered) return;
+    // ❌ Hide popup for blog detail pages
     if (
-      pathname.startsWith("/events-blog-view") ||
-      pathname === "/registration-form"
+      pathname.startsWith("/events-blog/") &&
+      pathname !== "/events-blog"
     ) {
+      setShowPopup(false);
+      return;
+    }
+
+    // ❌ Also hide for registration
+    if (pathname === "/registration-form") {
       setShowPopup(false);
       return;
     }
@@ -117,11 +124,10 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       {/* Navbar */}
       {pathname !== "/registration-form" && (
         <div
-          className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${
-            navbarVisible
+          className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${navbarVisible
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
-          }`}
+            }`}
         >
           <Navbar />
         </div>
@@ -141,9 +147,8 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${
-              pathname !== "/registration-form" ? " pt-20" : ""
-            }`}
+            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""
+              }`}
             style={{
               opacity:
                 pathname === "/registration-form" ? 1 : showOnlyFooter ? 0 : 1,
@@ -151,8 +156,8 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
                 pathname === "/registration-form"
                   ? "auto"
                   : showOnlyFooter
-                  ? "none"
-                  : "auto",
+                    ? "none"
+                    : "auto",
               transition: "opacity 0.2s",
             }}
           >
