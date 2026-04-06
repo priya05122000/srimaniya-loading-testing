@@ -1,55 +1,56 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-interface Course {
-  id: number;
-  title: string;
-}
+const CourseListClient = ({ courses }: { courses: any[] }) => {
 
-const CourseListClient = ({ courses }: { courses: Course[] }) => {
+  const scrollToHash = () => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
 
-  const searchParams = useSearchParams();
-  const router = useRouter();
+    let attempts = 0;
+
+    const tryScroll = () => {
+      const el = document.getElementById(`course-${hash}`);
+
+      if (el) {
+        const smoother = ScrollSmoother.get();
+
+        if (smoother) {
+          smoother.scrollTo(el, true, "top 80");
+        } else {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      } else if (attempts < 10) {
+        // 🔥 retry until element is ready
+        attempts++;
+        setTimeout(tryScroll, 100);
+      }
+    };
+
+    tryScroll();
+  };
 
   useEffect(() => {
-    if (!searchParams || courses.length === 0) return;
+    if (courses.length === 0) return;
 
-    const targetId = searchParams.get("course");
-    if (!targetId) return;
+    // ✅ initial load
+    scrollToHash();
 
-    const createSlug = (text: string) =>
-      text.toLowerCase().trim().replace(/&/g, "and").replace(/\+/g, "").replace(/\s+/g, "-");
+    // ❗ Next.js Link doesn't trigger properly → listen manually
+    const onClick = () => {
+      setTimeout(scrollToHash, 200);
+    };
 
-    const validSlugs = courses.map((c) => createSlug(c.title));
+    window.addEventListener("click", onClick);
 
-    if (!validSlugs.includes(targetId)) {
-      router.replace("/courses");
-      return;
-    }
+    return () => {
+      window.removeEventListener("click", onClick);
+    };
+  }, [courses]);
 
-    const timer = setTimeout(() => {
-      const targetElement = document.getElementById(`course-${targetId}`);
-      if (!targetElement) return;
-      if (window.innerWidth >= 768) {
-        const smoother = ScrollSmoother.get();
-        if (smoother) {
-          smoother.scrollTo(targetElement, true, "top 80");
-        } else {
-          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      } else {
-        const elementY = targetElement.getBoundingClientRect().top + window.scrollY;
-        const headerOffset = 80;
-        window.scrollTo({ top: elementY - headerOffset, behavior: "smooth" });
-      }
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [courses, searchParams]);
+  return null;
+};
 
-  return null
-}
-
-export default CourseListClient
+export default CourseListClient;

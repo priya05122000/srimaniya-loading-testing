@@ -72,7 +72,6 @@ const Table = ({ courses }: { courses: Course[] }) => {
                       </Link> */}
                       <Link
                         href={`/courses#${createSlug(course.title)}`}
-                        scroll={false}
                         className="cursor-pointer"
                       >
                         {course.title}
