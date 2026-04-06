@@ -1,11 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  CheckboxField,
-  InputField,
-  FileUploaderField,
-} from "@/components/ui/FormFields";
-import Heading from "@/components/common/Heading";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { createJobApplication } from "@/services/jobAppointmentService";
 import { toast } from "react-toastify";

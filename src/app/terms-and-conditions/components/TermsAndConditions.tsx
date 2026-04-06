@@ -178,7 +178,9 @@ const TermsAndConditions = () => {
               <br />
               <Link
                 href="https://srimaniyainstitute.in/"
+                target="_blank"
                 className="text-(--blue) underline font-bold"
+                rel="noopener noreferrer"
               >
                 www.srimaniyainstitute.in
               </Link>

@@ -132,7 +132,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog, categories }) => {
           ) : (
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-              alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, diploma in hotel management duration, best hotel management colleges, hotel management institute, best hospitality management colleges"
+              alt="Students training in hotel management at Sri Maniya Institute"
               width={800}
               height={800}
               className="object-cover h-full w-full image-tag"

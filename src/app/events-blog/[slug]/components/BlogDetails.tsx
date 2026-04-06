@@ -202,7 +202,7 @@ const BlogDetails: React.FC<{
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`}
-              alt={`Sri Maniya Institute of Hotel Management Recent Blog - ${b.title}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+              alt={`Sri Maniya Institute blog: ${b.title}`}
               className="w-full h-[120px] object-cover image-tag"
               width={800}
               height={500}

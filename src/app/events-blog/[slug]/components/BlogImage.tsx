@@ -22,7 +22,7 @@ const BlogImageBlock: FC<{
   >
     <Image
       src={src}
-      alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, diploma in hotel management duration, best hotel management colleges, hotel management institute, best hospitality management colleges"
+      alt="Hotel management students training at Sri Maniya Institute"
       width={800}
       height={800}
       className="object-cover"

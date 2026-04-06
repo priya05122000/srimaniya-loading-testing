@@ -331,6 +331,7 @@ const Footer = () => {
                                     href="https://izhtech.com/"
                                     target="_blank"
                                     className="underline"
+                                    rel="noopener noreferrer"
                                 >
                                     Izhtech Creative Solutions
                                 </Link>

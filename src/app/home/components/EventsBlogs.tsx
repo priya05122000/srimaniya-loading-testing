@@ -77,7 +77,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ 
       ) : (
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-          alt={`Sri Maniya Institute of Hotel Management Event/Blog - ${blog.title}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
+          alt={`${blog.title} - Sri Maniya Institute event`}
           priority={idx === 0}
           className="w-full h-full object-cover image-tag"
           width={500}

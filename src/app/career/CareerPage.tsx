@@ -2,10 +2,10 @@ import React from "react";
 import CareerSection from "./components/CareerSection";
 import ApplyNow from "./components/ApplyNow";
 
-const CareerPage = () => {
+const CareerPage = ({ jobs }: any) => {
   return (
     <div>
-      <CareerSection />
+      <CareerSection jobs={jobs} />
       <div id="apply-now-section">
         <ApplyNow />
       </div>

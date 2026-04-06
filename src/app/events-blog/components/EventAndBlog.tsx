@@ -191,8 +191,7 @@ const EventAndBlog = ({
                   <div className="w-full">
                     <Image
                       src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-                      alt="diploma in hotel management, diploma in catering and hotel management, hotel management career options, hotel management and catering technology course details, hotel management career opportunities, best hotel management colleges, hotel management institute, best hospitality management colleges"
-                      onClick={() => handleBlogClick(blog.slug)}
+                      alt="Hotel management training at Sri Maniya Institute" onClick={() => handleBlogClick(blog.slug)}
                       className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"
                       width={500}
                       height={500}

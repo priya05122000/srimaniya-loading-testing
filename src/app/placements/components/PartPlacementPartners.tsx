@@ -89,8 +89,7 @@ const PartPlacementPartners = () => {
                 >
                   <Image
                     src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${partner.logo_url}`}
-                    alt={`Sri Maniya Institute placement partners - hotel management placement, 100% placement assistance hotel management, top recruiters for hotel management students, career guidance in hospitality`}
-                    className="object-contain image-tag h-32 w-32 cursor-pointer"
+                    alt="Placement partners of Sri Maniya Institute of Hotel Management" className="object-contain image-tag h-32 w-32 cursor-pointer"
                     loading="lazy"
                     width={120}
                     height={120}

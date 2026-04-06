@@ -67,7 +67,7 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
       <Image
         src={placement.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.photo_url}` : PLACEHOLDER_IMAGE}
         className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
-        alt="Sri Maniya Institute placement - full time placements in hospitality, hotel management placement, 100% placement assistance hotel management, hotel management job opportunities, placement partners in hospitality industry"
+        alt="Hospitality placement at Sri Maniya Institute"
         width={300}
         height={150}
         style={{ objectFit: "cover" }}

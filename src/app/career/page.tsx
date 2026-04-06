@@ -1,9 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import CareerPage from "./CareerPage";
+import { getAllJobs } from "@/services/jobService";
 
 const BASE_URL = "https://srimaniyainstitute.in";
-
 
 export const metadata: Metadata = {
   alternates: {
@@ -13,14 +13,12 @@ export const metadata: Metadata = {
   description:
     "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
   keywords: [
-    // Main keywords
     "qualification required for hotel management",
     "hotel management study details",
     "hotel management process after 12th",
     "hotel management stream after 10th",
     "sri maniya institute of hotel management",
     "about hospitality management course",
-    // Secondary keywords
     "vocational training in hotel management",
     "hotel management degree course duration",
     "sri maniya institute placement",
@@ -32,7 +30,6 @@ export const metadata: Metadata = {
     "career opportunities in hotel management institutes",
     "Sri Maniya Institute career opportunities",
   ],
-
   openGraph: {
     title: "Hospitality Careers in India & Abroad | Sri Maniya",
     description:
@@ -49,20 +46,28 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Hospitality Careers in India & Abroad | Sri Maniya",
     description:
       "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
     images: [`${BASE_URL}/career/career.webp`],
-
   },
 };
 
-const page = () => {
-
+const page = async () => {
   const BASE_URL = "https://srimaniyainstitute.in";
+
+  // ✅ SSR DATA FETCH
+  let jobs = [];
+  try {
+    const result = await getAllJobs();
+    const data = result.data || [];
+    jobs = data.filter((job: any) => job.is_active);
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+  }
+
   const schema = [
     {
       "@context": "https://schema.org",
@@ -70,19 +75,19 @@ const page = () => {
       "@id": `${BASE_URL}/career`,
       name: "Careers at Sri Maniya Institute",
       url: `${BASE_URL}/career`,
-      "description": "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
-      "inLanguage": "en",
-      "isPartOf": {
+      description:
+        "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
+      inLanguage: "en",
+      isPartOf: {
         "@type": "WebSite",
-        "name": "Sri Maniya Institute of Hotel Management",
+        name: "Sri Maniya Institute of Hotel Management",
         url: BASE_URL,
       },
-      "about": {
+      about: {
         "@type": "Thing",
-        "name": "Hospitality Careers and Teaching Jobs"
-      }
+        name: "Hospitality Careers and Teaching Jobs",
+      },
     },
-
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -91,9 +96,6 @@ const page = () => {
       url: BASE_URL,
       logo: `${BASE_URL}/logos/navbarlogo.png`,
     },
-
-
-    // ✅ Breadcrumb (IMPORTANT)
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -112,7 +114,6 @@ const page = () => {
         },
       ],
     },
-
   ];
 
   return (
@@ -123,7 +124,8 @@ const page = () => {
           __html: JSON.stringify(schema),
         }}
       />
-      <CareerPage />
+      {/* ✅ PASS DATA */}
+      <CareerPage jobs={jobs} />
     </div>
   );
 };

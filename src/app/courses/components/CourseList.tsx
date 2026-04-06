@@ -149,6 +149,7 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                     <Link
                       href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${course.syllabus}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       download
                     >
                       <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">
@@ -185,6 +186,7 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                   <Link
                     href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${course.syllabus}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                     download
                   >
                     <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">

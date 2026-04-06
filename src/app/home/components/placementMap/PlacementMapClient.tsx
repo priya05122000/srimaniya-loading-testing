@@ -283,9 +283,9 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
             <div className="shrink-0 m-0 px-6 sm:px-8 lg:px-16 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center">
               <div>
                 <div className="mb-8">
-                  <h2 className="text-(--blue)  text-2xl sm:text-3xl lg:text-4xl font-bold">
+                  <h3 className="text-(--blue)  text-2xl sm:text-3xl lg:text-4xl font-bold">
                     International Placement
-                  </h2>
+                  </h3>
                 </div>
                 <div className="flex flex-col lg:gap-2">
                   {placements.map((placement, idx) => (
@@ -318,12 +318,12 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
                   >
                     Our Placement
                   </Paragraph>
-                  <h2
+                  <div
                     ref={headingRefDesktop}
                     className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold"
                   >
                     Connecting <br /> Talent to <br /> Global Brands
-                  </h2>
+                  </div>
                 </div>
                 <Paragraph
                   size="base"

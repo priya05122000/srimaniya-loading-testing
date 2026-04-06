@@ -59,7 +59,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
-          alt={alt || "Sri Maniya Institute Team - best hotel management institute in Tamilnadu, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management"}
+          alt={alt || "Team at Sri Maniya Institute of Hotel Management"}
           width={300}
           height={400}
           className="w-full h-[400px] image-tag object-cover object-top"
@@ -123,7 +123,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
-          alt={"Sri Maniya Institute Team - best hotel management institute in Tamilnadu, hospitality management college tamil nadu, global hospitality careers, job opportunities after hotel management"}
+          alt="Team at Sri Maniya Institute of Hotel Management"
           width={300}
           height={400}
           className="object-cover w-full h-full object-top image-tag"

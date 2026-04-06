@@ -138,8 +138,7 @@ export default function Partners() {
                     >
                       <Image
                         src={`${baseUrl}/${partner.logo_url}`}
-                        alt={`Sri Maniya Institute of Hotel Management - Recruitment Partner, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
-                        width={200}
+                        alt="Recruitment partner of Sri Maniya Institute of Hotel Management" width={200}
                         height={100}
                         className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
                         placeholder="empty"

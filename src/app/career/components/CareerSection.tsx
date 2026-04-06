@@ -1,14 +1,9 @@
 "use client";
-import React, { useRef, useState, useEffect, useContext } from "react";
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import Heading from "@/components/common/Heading";
+import React, { useRef } from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Image from "next/image";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-
-import { getAllJobs } from "@/services/jobService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Span from "@/components/common/Span";
 
 // Reusable constants
@@ -39,9 +34,11 @@ const scrollToApplyNow = () => {
   const distance = targetY - startY;
   const duration = 800;
   let startTime: number | null = null;
+
   function easeInOutQuad(t: number) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   }
+
   function animateScroll(currentTime: number) {
     if (!startTime) startTime = currentTime;
     const timeElapsed = currentTime - startTime;
@@ -50,6 +47,7 @@ const scrollToApplyNow = () => {
     window.scrollTo(0, startY + distance * ease);
     if (progress < 1) requestAnimationFrame(animateScroll);
   }
+
   requestAnimationFrame(animateScroll);
 };
 
@@ -87,28 +85,9 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
   </div>
 );
 
-const CareerSection: React.FC = () => {
+const CareerSection: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const openingRef = useRef<HTMLDivElement | null>(null);
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const { loading, setLoading } = useGlobalLoader();
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchJobs = async () => {
-      try {
-        const result = await getAllJobs();
-        const data = result.data || [];
-        const filtered = data.filter((job: Job) => job.is_active);
-        setJobs(filtered);
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-  }, [setLoading]);
 
   return (
     <section className="relative">
@@ -135,9 +114,7 @@ const CareerSection: React.FC = () => {
                   data-section
                 >
                   <div className="">
-                    <h1
-                      className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl font-bold  career-heading"
-                    >
+                    <h1 className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl font-bold career-heading">
                       Career
                     </h1>
                     <Paragraph
@@ -167,13 +144,9 @@ const CareerSection: React.FC = () => {
         </div>
       </div>
 
-
       <Section className="py-10 sm:py-20" ref={openingRef}>
         <div>
-          <h2
-
-            className="text-(--blue) text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight"
-          >
+          <h2 className="text-(--blue) text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight">
             Job Openings
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
