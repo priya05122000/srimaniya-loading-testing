@@ -181,7 +181,7 @@ const EventsBlogs: React.FC = () => {
           >
             {blogs.map((blog, idx) => (
               <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog-view/${blog.slug}`)} />
+                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog/${blog.slug}`)} />
               </SwiperSlide>
             ))}
           </Swiper>

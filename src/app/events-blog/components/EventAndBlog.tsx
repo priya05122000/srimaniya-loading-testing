@@ -114,7 +114,7 @@ const EventAndBlog = ({
   );
 
   const handleBlogClick = (slug: string) =>
-    router.push(`/events-blog-view/${slug}`);
+    router.push(`/events-blog/${slug}`);
 
   useEffect(() => {
     if (active) {

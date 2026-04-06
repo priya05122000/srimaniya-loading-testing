@@ -108,7 +108,7 @@
 //   const filteredBlogs = blogs.filter((blog) => blog.category_id === active);
 //   // const handleBlogClick = (id: string) => router.push(`/events-blog-view?id=${id}`);
 //   const handleBlogClick = (slug: string) =>
-//     router.push(`/events-blog-view/${slug}`);
+//     router.push(`/events-blog/${slug}`);
 
 //   // Persist active category to sessionStorage on change
 //   useEffect(() => {
