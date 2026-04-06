@@ -79,7 +79,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
                 alt={banner.title}
                 type="hero"
-                className="object-cover w-full h-full object-top hero-image"
+                className=" object-cover w-full h-full object-top hero-image"
                 priority={idx === 0}
               />
               {/* Overlay container */}
