@@ -195,9 +195,9 @@ const AboutStats = () => {
         {/* About Content Column */}
         <div className="lg:border-b-0 lg:border-l border-(--grey-custom) lg:pl-8">
           <div className="text-(--blue)">
-            <h2 className="font-bold text-base lg:text-lg tracking-wide mt-10 lg:mt-0 ">
+            <Paragraph size="lg" className="font-bold tracking-wide mt-10 lg:mt-0 ">
               Study Hotel Management in Tamil Nadu and Build a Global Career
-            </h2>
+            </Paragraph>
             <div className="text-justify ">
               <Paragraph size="base" className="mt-4 text-(--dark) leading-relaxed">
                 Recognized as a leading hotel management institute in Tamil Nadu, Sri Maniya Institute equips passionate individuals with strong academics and practical training to become industry-ready professionals.
