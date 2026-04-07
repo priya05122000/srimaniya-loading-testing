@@ -1,20 +1,12 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
-import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
 import Image from "next/image";
 import Section from "@/components/common/Section";
 import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
-// ❌ API imports kept but NOT used (as requested - not removed)
-import { getAllBlogPosts } from "@/services/blogPostService";
-import { getAllCategories } from "@/services/categoryService";
-
-import Span from "@/components/common/Span";
 
 interface Blog {
   id: string;
@@ -32,19 +24,7 @@ interface Category {
   name: string;
 }
 
-// Helper: Preload images (kept as is)
-const preloadImages = (blogs: Blog[]) => {
-  return Promise.all(
-    blogs.map((b) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
-};
+
 
 const EventAndBlog = ({
   blogs,
@@ -64,50 +44,24 @@ const EventAndBlog = ({
     enabled: true,
   });
 
-  // ❌ OLD STATE KEPT (commented, not removed)
-  // const [blogs, setBlogs] = useState<Blog[]>([]);
-  // const [categories, setCategories] = useState<Category[]>([]);
+  const [active, setActive] = useState<string>("");
 
-  const [active, setActive] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      return (
-        sessionStorage.getItem("eventsBlogActiveCategory") ||
-        categories?.[0]?.id ||
-        ""
-      );
-    }
-    return categories?.[0]?.id || "";
-  });
 
-  const { setLoading } = useGlobalLoader();
-
-  // ❌ OLD FETCH KEPT (commented, not removed)
-  /*
+  // ✅ Set after mount (SAFE)
   useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      try {
-        const [blogResult, categoryResult] = await Promise.all([
-          getAllBlogPosts(),
-          getAllCategories(),
-        ]);
-        const blogsData = Array.isArray(blogResult?.data)
-          ? blogResult.data.filter((b: any) => b.active === true)
-          : [];
-        setBlogs(blogsData);
-        await preloadImages(blogsData);
-        const cats = categoryResult?.data || [];
-        setCategories(cats);
-        if (cats.length > 0 && active === "") setActive(cats[0].id);
-      } catch (error) {
-        console.error("Failed:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [setLoading]);
-  */
+    if (categories.length > 0) {
+      const saved = sessionStorage.getItem("eventsBlogActiveCategory");
+      setActive(saved || categories[0].id);
+    }
+  }, [categories]);
+
+  // ✅ Save selection
+  useEffect(() => {
+    if (active) {
+      sessionStorage.setItem("eventsBlogActiveCategory", active);
+    }
+  }, [active]);
+
 
   const filteredBlogs = blogs.filter(
     (blog) => blog.category_id === active
@@ -116,11 +70,6 @@ const EventAndBlog = ({
   const handleBlogClick = (slug: string) =>
     router.push(`/events-blog/${slug}`);
 
-  useEffect(() => {
-    if (active) {
-      sessionStorage.setItem("eventsBlogActiveCategory", active);
-    }
-  }, [active]);
 
   const CategoryButton: React.FC<{
     cat: Category;
@@ -130,7 +79,7 @@ const EventAndBlog = ({
     <button
       type="button"
       onClick={() => setActive(cat.id)}
-      className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 sm:min-w-[100px] px-2 ${active === cat.id
+      className={`relative flex justify-center items-center rounded-full overflow-hidden cursor-pointer border-none group transition-all duration-300 sm:min-w-25 px-2 ${active === cat.id
         ? "bg-(--blue)"
         : "bg-(--white-custom) border border-(--blue)"
         }`}
@@ -192,7 +141,7 @@ const EventAndBlog = ({
                     <Image
                       src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
                       alt="Hotel management training at Sri Maniya Institute" onClick={() => handleBlogClick(blog.slug)}
-                      className="w-full h-[280px] object-cover object-bottom cursor-pointer image-tag"
+                      className="w-full h-70 object-cover object-center cursor-pointer image-tag"
                       width={500}
                       height={500}
                       priority={idx === 0}
@@ -215,16 +164,7 @@ const EventAndBlog = ({
                           blog.description
                       }}
                     />
-                    {/* <span
-                               className="text-sm"
-                               dangerouslySetInnerHTML={{
-                                 __html:
-                                   blog.description.split(/\s+/).slice(0, 30).join(" ") +
-                                   (blog.description.split(/\s+/).length > 30
-                                     ? "..."
-                                     : ""),
-                               }}
-                             /> */}
+
 
                     <div className="flex items-baseline mt-2">
                       <span className="font-bold text-xs">

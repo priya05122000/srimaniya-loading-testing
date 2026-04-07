@@ -4,6 +4,11 @@ import EventsBlogPage from "./EventsBlogPage";
 import { getAllBlogPosts } from "@/services/blogPostService";
 import { getAllCategories } from "@/services/categoryService";
 
+export const dynamic = "force-dynamic";
+
+export const revalidate = 0; // ✅ IMPORTANT (disable cache)
+
+
 export const metadata: Metadata = {
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog`,

@@ -124,7 +124,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog, categories }) => {
         </div>
 
         {/* IMAGE / VIDEO SECTION */}
-        <div className="relative w-full h-54 md:h-96 lg:h-[400px] xl:h-[450px] overflow-hidden shadow-md aspect-square">
+        <div className="relative w-full h-54 md:h-96 lg:h-100 xl:h-112.5 overflow-hidden shadow-md aspect-square">
           {blog.video_url ? (
             <video autoPlay loop muted className="w-full h-full object-contain">
               <source src={getVideoSrc(blog.video_url)} />
@@ -135,7 +135,7 @@ const HotelManagement: FC<HotelManagementProps> = ({ blog, categories }) => {
               alt="Students training in hotel management at Sri Maniya Institute"
               width={800}
               height={800}
-              className="object-cover h-full w-full image-tag"
+              className="object-cover object-center h-full w-full image-tag"
               priority
               unoptimized
             />

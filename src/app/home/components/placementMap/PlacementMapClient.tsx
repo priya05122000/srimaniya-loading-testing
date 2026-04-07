@@ -232,7 +232,6 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               </Paragraph>
               <h2
                 ref={headingRef}
-
                 className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold"
               >
                 Connecting <br /> Talent to <br /> Global Brands
