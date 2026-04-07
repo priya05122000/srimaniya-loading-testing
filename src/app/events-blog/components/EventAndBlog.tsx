@@ -37,6 +37,9 @@ const EventAndBlog = ({
   const eventsBlogRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
+  const { setLoading } = useGlobalLoader();
+
+
   useSplitTextHeadingAnimation({
     trigger: eventsBlogRef,
     first: headingRef,

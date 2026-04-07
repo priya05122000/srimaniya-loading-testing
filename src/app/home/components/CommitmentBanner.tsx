@@ -154,12 +154,12 @@ const CommitmentBanner: React.FC = () => {
           >
             Sri Maniya Institute of Hotel Management
           </Paragraph>
-          <p
+          <h2
             ref={headingRef}
             className="text-(--white-custom) jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
           >
             Our commitment to build your trust
-          </p>
+          </h2>
         </div>
         <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
           {features.map((feature, idx) => (
