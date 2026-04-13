@@ -1,21 +1,24 @@
-import React from 'react'
+import React from "react";
 import type { Metadata } from "next";
-import PlacementsPage from './PlacementsPage';
+import PlacementsPage from "./PlacementsPage";
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
+
+/* ---------------- SEO METADATA ---------------- */
 export const metadata: Metadata = {
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/placements`,
+    canonical: `${BASE_URL}/placements`,
   },
 
   title: "Hotel Management Placement Support | Sri Maniya",
   description:
     "Sri Maniya Institute offers hotel management courses with strong placement support, helping students build careers in hospitality across Tamil Nadu.",
+
   keywords: [
-    // Main keywords
     "Sri Maniya Institute placement",
     "hotel management placement",
     "hotel management course placement",
-    // Secondary keywords
     "placement after hotel management",
     "hotel management job opportunities",
     "hotel management career opportunities",
@@ -25,21 +28,21 @@ export const metadata: Metadata = {
     "100 % placement assistance hotel management",
     "Sri Maniya Institute career support",
     "career guidance in hospitality",
-    "placement partners in hospitality industry"
+    "placement partners in hospitality industry",
   ],
 
   openGraph: {
     title: "Hotel Management Placement Support | Sri Maniya",
     description:
-      "Sri Maniya Institute offers hotel management courses with strong placement support, helping students build careers in hospitality across Tamil Nadu.",
-    url: "https://srimaniyainstitute.in/placements",
+      "Sri Maniya Institute offers hotel management courses with strong placement support.",
+    url: `${BASE_URL}/placements`,
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/home/commitment-bg-1.webp",
+        url: `${BASE_URL}/home/commitment-bg-1.webp`,
         width: 1200,
         height: 630,
-        alt: "Sri Maniya Institute of Hotel Management",
+        alt: "Sri Maniya Institute Placement",
       },
     ],
     type: "website",
@@ -49,17 +52,92 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hotel Management Placement Support | Sri Maniya",
     description:
-      "Sri Maniya Institute offers hotel management courses with strong placement support, helping students build careers in hospitality across Tamil Nadu.",
-    images: ["https://srimaniyainstitute.in/home/commitment-bg-1.webp"],
+      "Sri Maniya Institute offers hotel management courses with strong placement support.",
+    images: [`${BASE_URL}/home/commitment-bg-1.webp`],
   },
 };
 
+/* ---------------- PAGE ---------------- */
 const page = () => {
-  return (
-    <div>
-      <PlacementsPage />
-    </div>
-  )
-}
+  /* ---------------- SCHEMA ---------------- */
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOccupationalProgram",
+        "@id": `${BASE_URL}/placements#program`,
+        name: "Hotel Management Placement Support Program",
+        description:
+          "Sri Maniya Institute provides 100% placement assistance with global hospitality brands, internships, part-time opportunities, and career training for students.",
+        provider: {
+          "@type": "Organization",
+          "@id": `${BASE_URL}/#organization`,
+        },
+        offers: {
+          "@type": "Offer",
+          name: "Placement Support",
+          description:
+            "Includes career guidance, interview preparation, internships, and global job placement opportunities in the hospitality industry.",
+          category: "Career Support",
+        },
+      },
 
-export default page
+      {
+        "@type": "Service",
+        "@id": `${BASE_URL}/placements#service`,
+        name: "Student Placement Assistance",
+        description:
+          "Comprehensive placement services including training, internship opportunities, part-time jobs, and full-time placement support in hotel management.",
+        provider: {
+          "@id": `${BASE_URL}/#organization`,
+        },
+        areaServed: {
+          "@type": "Place",
+          name: "India",
+        },
+      },
+
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${BASE_URL}/placements#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: BASE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Placements",
+            item: `${BASE_URL}/placements`,
+          },
+        ],
+      },
+
+      {
+        "@type": "Organization",
+        "@id": `${BASE_URL}/#organization`,
+        name: "Sri Maniya Institute of Hotel Management",
+        url: BASE_URL,
+      },
+    ],
+  };
+
+  return (
+    <>
+      {/* ✅ JSON-LD SCHEMA */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
+
+      <PlacementsPage />
+    </>
+  );
+};
+
+export default page;

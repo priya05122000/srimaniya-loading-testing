@@ -162,6 +162,20 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                 size="lg"
                 className="text-(--blue) font-bold alumni-title"
               >
+                Student Success Stories
+              </Paragraph>
+              <h2
+                ref={headingRef}
+                className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
+              >
+                Alumni Testimonials
+
+              </h2>
+              {/* <Paragraph
+                ref={paragraphRef}
+                size="lg"
+                className="text-(--blue) font-bold alumni-title"
+              >
                 The Proof
               </Paragraph>
               <h2
@@ -169,7 +183,7 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Stories
-              </h2>
+              </h2> */}
             </div>
           </Section>
           <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">

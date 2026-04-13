@@ -5,14 +5,7 @@ import { getAllCourses } from "@/services/courseService";
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
 
-// const slugToTitle = (slug?: string) => {
-//   if (!slug) return null;
-//   return slug
-//     .replace(/-/g, " ")
-//     .replace(/\band\b/g, "&")
-//     .replace(/\b\w/g, (char) => char.toUpperCase());
-// };
-
+/* ---------------- FORMAT TITLE ---------------- */
 const formatTitle = (slug?: string) => {
   if (!slug) return null;
 
@@ -20,15 +13,14 @@ const formatTitle = (slug?: string) => {
     .replace(/-/g, " ")
     .replace(/\band\b/g, "&")
     .split(" ")
-    .slice(0, 7); // 🔥 limit words (important)
+    .slice(0, 7);
 
-  const formatted = words
+  return words
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-
-  return formatted;
 };
 
+/* ---------------- SEO METADATA ---------------- */
 export async function generateMetadata({
   searchParams,
 }: {
@@ -46,36 +38,24 @@ export async function generateMetadata({
 
   const readableTitle = formatTitle(slug);
 
-  const isQueryPage = !!slug;
-
-
-  // const canonical = slug
-  //   ? `${BASE_URL}/courses?course=${slug}`
-  //   : `${BASE_URL}/courses`;
-
   return {
     alternates: {
-      canonical: "https://srimaniyainstitute.in/courses",
+      canonical: `${BASE_URL}/courses`,
     },
-    // 🔥 ADD THIS
-    // robots: {
-    //   index: !isQueryPage,
-    //   follow: true,
-    // },
+
     title: readableTitle
       ? `${readableTitle} | Sri Maniya Institute`
       : "Hotel Management Courses | Sri Maniya Institute",
+
     description:
       "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
 
     keywords: [
-      // Main keywords
       "hotel management degree course fees",
       "hotel management course fees after 12th",
       "hotel management diploma course fees",
       "bsc hotel management fees",
       "hotel management course apply online",
-      // Secondary keywords
       "hotel management degree course duration",
       "hotel management course 1 year fees",
       "hotel management course 2 years",
@@ -90,7 +70,7 @@ export async function generateMetadata({
       title: readableTitle
         ? `${readableTitle} Course | Sri Maniya Institute`
         : "Apply Online Hotel Management Courses | Sri Maniya Institute",
-      url: "https://srimaniyainstitute.in/courses",
+      url: `${BASE_URL}/courses`,
       description:
         "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
       siteName: "Sri Maniya Institute",
@@ -115,9 +95,67 @@ export async function generateMetadata({
   };
 }
 
+/* ---------------- PAGE ---------------- */
 export default async function Page() {
-  const result = await getAllCourses(); // ✅ SSR FETCH
+  const result = await getAllCourses();
   const courses = result?.data || [];
 
-  return <CoursesPage courses={courses} />;
+  /* ---------------- DYNAMIC SCHEMA ---------------- */
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "@id": `${BASE_URL}/courses#list`,
+        name: "Hotel Management Courses",
+        url: `${BASE_URL}/courses`,
+
+        itemListElement: courses.map((course: any, index: number) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Course",
+            "@id": `${BASE_URL}/courses#${course.id || index}`,
+            name: course.title,
+            description:
+              course.description ||
+              course.shortNote ||
+              "Hotel management course",
+
+            ...(course.slug && {
+              url: `${BASE_URL}/courses/${course.slug}`,
+            }),
+
+            provider: {
+              "@type": "EducationalOrganization",
+              "@id": `${BASE_URL}/#organization`,
+              name: "Sri Maniya Institute of Hotel Management",
+              sameAs: BASE_URL,
+            },
+          },
+        })),
+      },
+
+      {
+        "@type": "Organization",
+        "@id": `${BASE_URL}/#organization`,
+        name: "Sri Maniya Institute of Hotel Management",
+        url: BASE_URL,
+      },
+    ],
+  };
+
+  return (
+    <>
+      {/* ✅ JSON-LD SCHEMA */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
+      />
+
+      <CoursesPage courses={courses} />
+    </>
+  );
 }

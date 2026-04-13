@@ -78,6 +78,88 @@ const ScholarContent = () => {
               </Paragraph>
             </div>
           </div>
+
+          {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+
+            <div>
+              <Paragraph
+                size="lg"
+                className="text-(--blue) font-bold facilities-title-main"
+              >
+                Sri Maniya Institute
+              </Paragraph>
+
+              <h2 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase facilities-title-sub">
+                Hotel Management Scholarship
+              </h2>
+            </div>
+
+            <div>
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
+                Sri Maniya Institute of Hotel Management offers a hotel management scholarship in Tamil Nadu aimed at supporting and motivating deserving students. These include merit based scholarships, community based scholarships, and scholarships specific to the college.
+              </Paragraph>
+
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify mt-4">
+                The institute is committed to recognizing academic excellence and reducing financial barriers. This helps talented students get the opportunity to study quality hospitality courses and build a strong future.
+              </Paragraph>
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-16">
+            <div>
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
+                At Sri Maniya Institute, the support goes beyond fees. Students get strong training, real time practice, and career guidance. This makes learning more practical and useful.
+              </Paragraph>
+
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify mt-4">
+                This hotel management scholarship in Tamil Nadu helps reduce financial stress and gives more students access to quality education. It also opens doors to better career opportunities in hospitality.
+              </Paragraph>
+            </div>
+
+            <div className="text-end">
+              <Paragraph
+                size="lg"
+                className="text-(--blue) font-bold facilities-title-main"
+              >
+                Why Choose
+              </Paragraph>
+
+              <h2 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase facilities-title-sub">
+                Our Scholarship
+              </h2>
+            </div>
+
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-16">
+
+            <div>
+              <Paragraph
+                size="lg"
+                className="text-(--blue) font-bold facilities-title-main"
+              >
+                Apply Now
+              </Paragraph>
+
+              <h2 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight uppercase facilities-title-sub">
+                Start Your Journey
+              </h2>
+            </div>
+
+            <div>
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
+                If you are planning to study hotel management, apply now for the Sri Maniya institute scholarship. This is your chance to start your journey with the right support.
+              </Paragraph>
+
+              <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify mt-4">
+                Contact us today to know more about the scholarship for hotel management students and secure your future in hospitality.
+              </Paragraph>
+            </div>
+
+          </div> */}
+
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 mt-16">
             <div>
               <Image

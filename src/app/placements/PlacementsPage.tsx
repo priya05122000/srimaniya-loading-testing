@@ -6,6 +6,7 @@ import PartPlacementPartners from "./components/PartPlacementPartners";
 import PartBanner from "./components/PartBanner";
 import PlacedStudentsInfo from "./components/PlacedStudentsInfo";
 
+
 const PlacementsPage = () => {
     return (
         <div>

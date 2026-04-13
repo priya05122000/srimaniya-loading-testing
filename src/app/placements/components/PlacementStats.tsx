@@ -101,12 +101,12 @@ const PlacementStats: React.FC = () => (
                   <span className="ml-1">+</span>
                 </span>
               </Heading>
-              <p className="flex sm:hidden justify-center jakarta-heading text-xl sm:text-2xl lg:text-3xl font-bold">
+              <div className="flex sm:hidden justify-center jakarta-heading text-xl sm:text-2xl lg:text-3xl font-bold">
                 <span className="flex items-baseline">
                   <OdometerNumber value={parseInt(stat.value)} />
                   <span className="ml-1">+</span>
                 </span>
-              </p>
+              </div>
               <Paragraph
                 size="xl"
                 className="font-normal hidden sm:block text-center mt-2"

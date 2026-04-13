@@ -114,16 +114,31 @@ export default function Partners() {
             size="lg"
             className="text-(--blue) font-bold partners-title"
           >
-            Recruitment Partners
+            Top Hotel Placement Partners
           </Paragraph>
+          {/* <Paragraph
+            ref={paragraphRef}
+            size="lg"
+            className="text-(--blue) font-bold partners-title"
+          >
+            Recruitment Partners
+          </Paragraph> */}
 
           <h2
             ref={headingRef}
 
             className="text-(--blue)  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
           >
-            Explore Our <br /> Placement Partners
+            Explore Our <br /> Global Placement Network
+
           </h2>
+          {/* <h2
+            ref={headingRef}
+
+            className="text-(--blue)  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
+          >
+            Explore Our <br /> Placement Partners
+          </h2> */}
 
           <div className="brands_list-wrapper relative overflow-hidden mt-10 ">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />
