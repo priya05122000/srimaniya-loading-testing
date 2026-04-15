@@ -24,13 +24,13 @@ const InfoBlock: FC<InfoBlockProps> = ({
   contentOrderClass = "",
 }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
-    <h2
+    <h3
 
       className={`text-(--white-custom) text-3xl sm:text-4xl lg:text-5xl font-bold px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       <span>{title}</span>
-    </h2>
+    </h3>
     <div
       className={`text-(--dark) text-justify font-medium leading-relaxed text-base lg:text-lg ${contentOrderClass}`.trim()}
       dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -77,6 +77,8 @@ const VisionMission: FC = () => {
     <div className="bg-[linear-gradient(rgba(200,200,200,0.2)_0.1em,transparent_0.1em),linear-gradient(90deg,rgba(200,200,200,0.2)_0.1em,transparent_0.1em)] bg-size-[10em_5em]">
       <Section>
         <div className="py-10 sm:py-20 space-y-10 lg:space-y-20 lg:px-20">
+          <h2 className="sr-only">Our Vision and Mission</h2>
+
           <InfoBlock
             title="01  Vision"
             imageUrl="/about-us/vision.webp"

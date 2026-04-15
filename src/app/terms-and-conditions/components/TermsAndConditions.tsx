@@ -40,6 +40,9 @@ const TermsAndConditions = () => {
           <div className="flex justify-center my-6">
             <div className="w-20 h-1 bg-(--yellow) flex items-center"></div>
           </div>
+
+          <h2 className="sr-only">Terms and Conditions Details</h2>
+
           <div>
             <Paragraph size="lg" className="text-(--dark) ">
               <strong>Last Updated: </strong>04/11/2025
@@ -61,78 +64,78 @@ const TermsAndConditions = () => {
           </div>
 
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               General Information
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               This website provides information mainly for general informational and promotional purposes about academic programs, courses, and institutional activities. Although accuracy is a priority, there may occasionally be errors or outdated information, and completeness of all details is not guaranteed.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Courses, Fees, and Content
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               All course structures, fees, and admission criteria are subject to change at any time without prior notice. The Institute may modify, discontinue, or replace courses, faculty members, or facilities at its discretion.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Placement and Salary Disclaimer
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Any placement statistics, job offers, or salary package information shared through the website or promotional materials are illustrative only. These figures do not guarantee outcomes, placements, or specific salaries for any student. Placement success depends on individual merit, employer needs, and prevailing market conditions.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Use of Website
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Users are expected to use the website lawfully and must not attempt to disrupt or hack the site. Any unauthorized use can result in website access suspension or legal action.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Intellectual Property
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               All content featured such as text, images, videos, logos, and graphics—is owned by Sri Maniya Institute of Hotel Management unless otherwise specified. Copying, modifying, or distributing content without permission is strictly forbidden.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Third-Party Links
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Links to external websites are provided solely for convenience and do not constitute endorsement. The Institute does not take responsibility for content, privacy, or accuracy of third-party sites.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Limitation of Liability
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               The Institute cannot be held liable for any direct or indirect damages from:
             </Paragraph>
@@ -143,32 +146,32 @@ const TermsAndConditions = () => {
             </ParagraphList>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Privacy
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Use of the website is also covered by the Institute’s Privacy Policy, which details the handling of any personal information collected through the site.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Updates to Terms
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               The Institute reserves the right to update or revise these Terms and Conditions without prior notice. Continued use of the website implies your acceptance of any revised terms.
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Contact Us
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               For any concerns or questions regarding these Terms and Conditions:
               <br />

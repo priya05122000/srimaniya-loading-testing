@@ -164,13 +164,13 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
               >
                 Student Success Stories
               </Paragraph>
-              <h2
+              <h3
                 ref={headingRef}
                 className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Testimonials
 
-              </h2>
+              </h3>
               {/* <Paragraph
                 ref={paragraphRef}
                 size="lg"

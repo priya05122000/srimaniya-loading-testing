@@ -36,6 +36,8 @@ const PrivacyPolicy = () => {
           >
             Privacy Policy
           </h1>
+          <h2 className="sr-only">Privacy Policy Details</h2>
+
           <div className="flex justify-center my-6">
             <div className="w-20 h-1 bg-(--yellow) flex items-center"></div>
           </div>
@@ -48,12 +50,12 @@ const PrivacyPolicy = () => {
           </Paragraph>
 
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Information We Collect
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               We may collect personal
               information when you register for courses, request brochures,
@@ -64,12 +66,12 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
 
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Use of Information
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               We do not sell or share your personal information with any third party
               for commercial purposes. Your data is used solely to fulfill your
@@ -82,11 +84,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Cookies and Tracking
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Our website may use cookies, which are small files stored on your
               device, to enhance your browsing experience, remember your
@@ -96,11 +98,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Third-Party Tools
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               We may also use
               third-party analytics tools, such as Google Analytics and Meta Pixel,
@@ -118,11 +120,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               External Links
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               Our
               website may include links to external websites or social media
@@ -133,11 +135,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Data Protection
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               We take appropriate measures to protect your personal information from
               unauthorized access, misuse, or loss. However, please note that no
@@ -146,11 +148,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Updates to Policy
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               We may update this Privacy
               Policy periodically. Any changes will be posted on this page, and we
@@ -159,11 +161,11 @@ const PrivacyPolicy = () => {
             </Paragraph>
           </div>
           <div className="my-8">
-            <h2
+            <h3
               className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Contact Us
-            </h2>
+            </h3>
             <Paragraph size="lg" className="text-(--dark)">
               If you have any questions or concerns regarding this Privacy Policy or
               the handling of your personal information,
