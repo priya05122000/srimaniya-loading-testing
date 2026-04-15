@@ -111,9 +111,9 @@ const ScholarContent = () => {
                 Why Choose
               </Paragraph> */}
 
-              <h2 className="text-(--blue) leading-relaxed text-base lg:text-lg mb-4 font-bold  uppercase facilities-title-sub">
+              <Paragraph size="lg" className="text-(--blue) leading-relaxed mb-4 font-bold  uppercase facilities-title-sub">
                 Why Choose Our Scholarship
-              </h2>
+              </Paragraph>
 
               <div>
                 <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
@@ -181,9 +181,9 @@ const ScholarContent = () => {
               Apply Now
             </Paragraph> */}
 
-            <h2 className="text-(--blue) text-base lg:text-lg mb-4 font-bold leading-relaxed uppercase facilities-title-sub">
+            <Paragraph size="lg" className="text-(--blue)  mb-4 font-bold leading-relaxed uppercase facilities-title-sub">
               Apply for Sri Maniya Institute Scholarship
-            </h2>
+            </Paragraph>
 
             <div>
               <Paragraph size="base" className="text-(--dark) leading-relaxed text-justify">
