@@ -45,16 +45,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      {
-        source: "/$",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/&",
-        destination: "/",
-        permanent: true,
-      },
+      // {
+      //   source: "/$",
+      //   destination: "/",
+      //   permanent: true,
+      // },
+      // {
+      //   source: "/&",
+      //   destination: "/",
+      //   permanent: true,
+      // },
     ];
   },
 
