@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/terms-and-conditions`,
   },
 
-  title: "Terms and Conditions - Sri Maniya Institute",
+  title: "Terms and Conditions",
 
   description:
     "Read the terms and conditions for using Sri Maniya Institute of Hotel Management website and services.",
 
   openGraph: {
-    title: "Terms and Conditions - Sri Maniya Institute",
+    title: "Terms and Conditions",
     description:
       "Official terms and conditions of Sri Maniya Institute of Hotel Management.",
     url: `${BASE_URL}/terms-and-conditions`,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary",
-    title: "Terms and Conditions - Sri Maniya Institute",
+    title: "Terms and Conditions",
     description:
       "Official terms and conditions of Sri Maniya Institute website.",
   },

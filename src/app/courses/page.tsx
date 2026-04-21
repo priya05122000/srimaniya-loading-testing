@@ -45,7 +45,7 @@ export async function generateMetadata({
 
     title: readableTitle
       ? `${readableTitle} | Sri Maniya Institute`
-      : "Hotel Management Courses | Sri Maniya Institute",
+      : "Hotel Management Courses",
 
     description:
       "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",

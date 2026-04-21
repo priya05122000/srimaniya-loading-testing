@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/career`,
   },
-  title: "Hospitality Careers in India & Abroad | Sri Maniya",
+  title: "Hospitality Careers in India & Abroad",
   description:
     "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
   keywords: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "Sri Maniya Institute career opportunities",
   ],
   openGraph: {
-    title: "Hospitality Careers in India & Abroad | Sri Maniya",
+    title: "Hospitality Careers in India & Abroad",
     description:
       "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
     url: "https://srimaniyainstitute.in/career",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hospitality Careers in India & Abroad | Sri Maniya",
+    title: "Hospitality Careers in India & Abroad",
     description:
       "Start your teaching career at Sri Maniya Institute, Tamil Nadu, and mentor future hotel management professionals while growing your career.",
     images: [`${BASE_URL}/career/career.webp`],

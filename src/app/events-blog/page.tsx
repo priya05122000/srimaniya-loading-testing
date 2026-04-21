@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/events-blog`,
   },
-  title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
+  title: "Hospitality Career Blog & Insights",
   description:
     "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
   keywords: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "best hospitality management colleges",
   ],
   openGraph: {
-    title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
+    title: "Hospitality Career Blog & Insights",
     description:
       "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
     url: `${BASE_URL}/events-blog`,
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hospitality Career Insights & Tips | Sri Maniya Blog",
+    title: "Hospitality Career Blog & Insights",
     description:
       "Discover hotel management events and blogs from Sri Maniya Institute, sharing campus activities, industry insights, and student achievements.",
     images: [`${BASE_URL}/scholarship/scholarship-banner.webp`],

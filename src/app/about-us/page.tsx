@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about-us`,
   },
 
-  title: "About Us | Top hotel management college in Tamil Nadu",
+  title: "About Us",
   description:
     "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "About Us | Top hotel management college in Tamil Nadu",
+    title: "About Us",
     description:
       "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
     url: "https://srimaniyainstitute.in/about-us",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "About Us | Top hotel management college in Tamil Nadu",
+    title: "About Us",
     description:
       "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
     images: ["https://srimaniyainstitute.in/about-us/about-us.webp"],
