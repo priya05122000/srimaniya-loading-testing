@@ -36,9 +36,9 @@ export function ValidateRegistrationFormWithToast(
 ): boolean {
     if (!ValidateRegistrationForm(formData, _requireAgree, requiredName)) {
         if (requiredName && (!NAME_REGEX.test(formData.StudentName) || formData.StudentName.length < 2 || formData.StudentName.length > 50)) {
-            toast.error("Please enter a valid student name (letters and spaces only, 2–50 chars).");
+            toast.error("Please enter a valid student name (letters and spaces only, 2-50 chars).");
         } else if (!NAME_REGEX.test(formData.ParentName) || formData.ParentName.length < 2 || formData.ParentName.length > 50) {
-            toast.error("Please enter a valid parent name (letters and spaces only, 2–50 chars).");
+            toast.error("Please enter a valid parent name (letters and spaces only, 2-50 chars).");
         } else if (formData.StudentPhone && !MOBILE_REGEX.test(formData.StudentPhone)) {
             toast.error("Please enter a valid 10-digit student phone number starting with 6, 7, 8, or 9.");
         } else if (!MOBILE_REGEX.test(formData.ParentPhone)) {
@@ -48,9 +48,9 @@ export function ValidateRegistrationFormWithToast(
         } else if (formData.PinCode && !PINCODE_REGEX.test(formData.PinCode)) {
             toast.error("Please enter a valid 6-digit pin code (first digit 1-9, never 0).");
         } else if (!formData.Address || !ADDRESS_REGEX.test(formData.Address)) {
-            toast.error("Please enter a valid address (5–200 characters, only letters, numbers, spaces, and , . - / # ( ) allowed).");
+            toast.error("Please enter a valid address (5-200 characters, only letters, numbers, spaces, and , . - / # ( ) allowed).");
         } else if (formData.City && !CITY_REGEX.test(formData.City)) {
-            toast.error("Please enter a valid city/town/village name (letters, spaces, dot, hyphen only, 2–50 characters, no numbers).");
+            toast.error("Please enter a valid city/town/village name (letters, spaces, dot, hyphen only, 2-50 characters, no numbers).");
         } else if (!formData.State) {
             toast.error("Please select a state.");
         }

@@ -52,7 +52,7 @@ const ContactInfo = () => (
       <a href="http://www.srimaniyainstitute.in" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
     </Paragraph>
     <Paragraph size="base" className="mb-1">
-      Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu – 629702.
+      Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu - 629702.
     </Paragraph>
   </div>
 );

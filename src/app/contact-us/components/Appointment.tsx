@@ -27,7 +27,7 @@ type AppointmentFormFieldsProps = {
 // --- Constants ---
 const COMPANY_LIST: CompanyInfoProps[] = [
   { logoSrc: "/contact-us/seashore.webp", title: "Seashore & co", address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702" },
-  { logoSrc: "/contact-us/gtholidays.webp", title: "GT Holidays Pvt LTD", address: "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai – 600006 Tamil Nadu, India." },
+  { logoSrc: "/contact-us/gtholidays.webp", title: "GT Holidays Pvt LTD", address: "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai - 600006 Tamil Nadu, India." },
   { logoSrc: "/contact-us/follicle.webp", title: "Follicle", address: "NO 2/75, Customs Colony, OPP TO JAIN COLLEGE, Omr Service Road Ellaiamman Nagar, Thoraipakkam-600097 (OPP TO JAIN COLLEGE).", logoClassName: "w-32 h-20 flex items-end justify-center flex-shrink-0" },
 ];
 const HOTELS_LIST = "Hotel Sangam | Chennai Inn | Rameshwaram Grand | Temple Citi | AR Residency | Comorin Grand | Hotel Seaview | Hotel Seaface | Ocean Heritage | Triveni Tourist Home | Gopinivas Grand";

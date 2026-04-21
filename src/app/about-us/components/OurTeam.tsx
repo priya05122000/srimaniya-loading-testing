@@ -119,7 +119,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden " data-section>
       {/* Image */}
       <div
-        className={`relative w-full h-[400px] ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
+        className={`relative w-full h-100 ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}

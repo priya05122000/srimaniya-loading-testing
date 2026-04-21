@@ -32,7 +32,7 @@ interface Course {
 const SOCIALS = [
     {
         label: "Instagram",
-        href: "https://www.instagram.com/srimaniya_institute/?utm_source=qr&igsh=MTYwOXVzNmxidHVndA%3D%3D#",
+        href: "https://www.instagram.com/srimaniya_institute/",
         icon: <AiFillInstagram className="text-xl" />,
     },
     {
@@ -71,7 +71,7 @@ const CONTACTS1 = [
 
 const CONTACTS2 = [
     "No: 6/66-D1, Government Hospital Road,",
-    "Kanyakumari, Tamil Nadu – 629702.",
+    "Kanyakumari, Tamil Nadu - 629702.",
 ];
 
 const Footer = () => {

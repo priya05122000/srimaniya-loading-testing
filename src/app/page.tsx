@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
     description:
-      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+      "Join Sri Maniya Institute of Hotel Management - top hotel management college in Tamil Nadu.",
     url: "https://srimaniyainstitute.in",
     siteName: "Sri Maniya Institute",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
     description:
-      "Join Sri Maniya Institute of Hotel Management – top hotel management college in Tamil Nadu.",
+      "Join Sri Maniya Institute of Hotel Management - top hotel management college in Tamil Nadu.",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
   },
 };

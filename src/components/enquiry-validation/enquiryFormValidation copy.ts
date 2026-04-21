@@ -36,7 +36,7 @@ export function validateEnquiryForm(formData: EnquiryFormData): boolean {
 export function validateEnquiryFormWithToast(formData: EnquiryFormData): boolean {
     if (!validateEnquiryForm(formData)) {
         if (!/^[A-Za-z.\s]+$/.test(formData.name) || formData.name.length < 2 || formData.name.length > 50) {
-            toast.error("Please enter a valid full name (letters and spaces only, 2–50 chars).");
+            toast.error("Please enter a valid full name (letters and spaces only, 2-50 chars).");
         } else if (!/^[6-9]\d{9}$/.test(formData.mobile)) {
             toast.error("Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.");
         } else if (formData.email && !/^[A-Za-z0-9](?:[A-Za-z0-9._%+-]{0,63})@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/.test(formData.email)) {

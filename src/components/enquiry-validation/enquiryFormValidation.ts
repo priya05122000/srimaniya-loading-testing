@@ -47,7 +47,7 @@ export function validateEnquiryFormWithToast(
     const isCareerPage = typeof window !== 'undefined' && window.location.pathname === '/career';
     if (!validateEnquiryForm(formData, requireAgree, requiredName)) {
         if (requiredName && (!NAME_REGEX.test(formData.name) || formData.name.length < 2 || formData.name.length > 50)) {
-            toast.error("Please enter a valid full name (letters and spaces only, 2–50 chars).");
+            toast.error("Please enter a valid full name (letters and spaces only, 2-50 chars).");
         } else if (!MOBILE_REGEX.test(formData.mobile)) {
             toast.error("Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.");
         } else if (formData.email && !EMAIL_REGEX.test(formData.email)) {

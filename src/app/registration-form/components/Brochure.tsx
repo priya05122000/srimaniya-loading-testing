@@ -65,7 +65,7 @@ const ContactInfo = () => (
       </a>
     </Paragraph>
     <Paragraph size="lg" className="mb-1">
-      Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu –
+      Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu -
       629702.
     </Paragraph>
   </div>
