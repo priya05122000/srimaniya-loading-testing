@@ -5,49 +5,31 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 const CourseListClient = ({ courses }: { courses: any[] }) => {
 
-  const scrollToHash = () => {
-    const hash = window.location.hash.replace("#", "");
-    if (!hash) return;
+  useEffect(() => {
+    const course = sessionStorage.getItem("scrollToCourse");
+
+    if (!course || courses.length === 0) return;
 
     let attempts = 0;
 
-    const tryScroll = () => {
-      const el = document.getElementById(`course-${hash}`);
+    const scrollToCourse = () => {
+      const el = document.getElementById(`course-${course}`);
+      const smoother = ScrollSmoother.get();
 
-      if (el) {
-        const smoother = ScrollSmoother.get();
+      if (el && smoother) {
+        smoother.scrollTo(el, true, "top 80");
 
-        if (smoother) {
-          smoother.scrollTo(el, true, "top 80");
-        } else {
-          el.scrollIntoView({ behavior: "smooth" });
-        }
-      } else if (attempts < 10) {
-        // 🔥 retry until element is ready
+        // ✅ clear after use
+        sessionStorage.removeItem("scrollToCourse");
+      } else if (attempts < 50) {
         attempts++;
-        setTimeout(tryScroll, 100);
+        setTimeout(scrollToCourse, 100);
       }
     };
 
-    tryScroll();
-  };
+    // 🔥 wait for full render + GSAP
+    setTimeout(scrollToCourse, 500);
 
-  useEffect(() => {
-    if (courses.length === 0) return;
-
-    // ✅ initial load
-    scrollToHash();
-
-    // ❗ Next.js Link doesn't trigger properly → listen manually
-    const onClick = () => {
-      setTimeout(scrollToHash, 200);
-    };
-
-    window.addEventListener("click", onClick);
-
-    return () => {
-      window.removeEventListener("click", onClick);
-    };
   }, [courses]);
 
   return null;

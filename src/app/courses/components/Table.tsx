@@ -65,14 +65,26 @@ const Table = ({ courses }: { courses: Course[] }) => {
                   {filteredCourses.map((course) => (
                     <li key={course.id}>
                       {/* <Link
-                        href={`/courses?course=${createSlug(course.title)}`}
+                        href={`/courses?course=${createSlug(course.title)}`}  scroll={false} className="cursor-pointer"
+                      >
+                        {course.title}
+                      </Link> */}
+                      {/* <Link
+                        href={`/courses#${createSlug(course.title)}`}
+                        scroll={false}
                         className="cursor-pointer"
                       >
                         {course.title}
                       </Link> */}
                       <Link
-                        href={`/courses#${createSlug(course.title)}`}
+                        href="/courses"
                         scroll={false}
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            "scrollToCourse",
+                            createSlug(course.title)
+                          );
+                        }}
                         className="cursor-pointer"
                       >
                         {course.title}

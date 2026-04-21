@@ -10,8 +10,33 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  title: {
+    default: "Sri Maniya Institute of Hotel Management",
+    template: "%s | Sri Maniya Institute",
+  },
+  description:
+    "Best hotel management institute in Tamil Nadu offering diploma, degree and placement support for students.",
+  keywords: [
+    "hotel management",
+    "hotel management course Tamil Nadu",
+    "hospitality course",
+    "hotel management institute",
+  ],
+  metadataBase: new URL("https://srimaniyainstitute.in"),
   verification: {
     google: "MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w",
+  },
+  openGraph: {
+    title: "Sri Maniya Institute of Hotel Management",
+    description:
+      "Build your career in hotel management with top training and placement support.",
+    url: "https://srimaniyainstitute.in",
+    siteName: "Sri Maniya Institute",
+    type: "website",
+  },
+
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -131,7 +156,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        
+
         <Suspense fallback={null}>
           <AnalyticsListener />
         </Suspense>

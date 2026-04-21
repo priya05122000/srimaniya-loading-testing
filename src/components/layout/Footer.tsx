@@ -78,6 +78,14 @@ const Footer = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { setLoading } = useGlobalLoader();
 
+    const createSlug = (text: string) =>
+        text
+            .toLowerCase()
+            .trim()
+            .replace(/&/g, "and")
+            .replace(/\+/g, "")
+            .replace(/\s+/g, "-");
+
     useEffect(() => {
         const fetchCourses = async () => {
             setLoading(true);
@@ -200,9 +208,24 @@ const Footer = () => {
                                         <ul>
                                             {courses.map((item) => (
                                                 <li key={item.id} className="my-2 text-(--white-custom)">
-                                                    <Link
-                                                        href={`/courses?course=${item.id}`}
+                                                    {/* <Link
+                                                        href={`/courses?course=${createSlug(item.title)}`}
+                                                        scroll={false}
+                                                        // href={`/courses?course=${item.id}`}
                                                         aria-label={`View details for ${item.title}`}
+                                                    >
+                                                        <span className="text-xs">{item.title}</span>
+                                                    </Link> */}
+
+                                                    <Link
+                                                        href="/courses"
+                                                        scroll={false}
+                                                        onClick={() => {
+                                                            sessionStorage.setItem(
+                                                                "scrollToCourse",
+                                                                createSlug(item.title)
+                                                            );
+                                                        }}
                                                     >
                                                         <span className="text-xs">{item.title}</span>
                                                     </Link>

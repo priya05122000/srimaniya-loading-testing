@@ -46,6 +46,17 @@ type CourseCardProps = {
   total: number;
 };
 
+const createSlug = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/\+/g, "")
+    .replace(/\./g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
 const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
   <div
     className={`sticky-card h-full bg-(--blue) z-[${idx + 1}] ${idx === total - 1 ? "pb-16" : ""} ${idx === total - 2 ? "fifth-card" : ""}`}
@@ -83,13 +94,27 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <Link href={`/courses?course=${course.id}`} aria-label={`View details for ${course.title}`}>
+            {/* <Link href={`/courses?course=${course.id}`} aria-label={`View details for ${course.title}`}>
               <button
                 className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                 aria-label={`View details for ${course.title}`}
               >
                 <HiOutlineArrowNarrowRight className="font-normal text-(--white-custom) text-2xl hover:text-(--blue) " />
               </button>
+            </Link> */}
+            <Link
+              href="/courses"
+              scroll={false}
+              onClick={() => {
+                sessionStorage.setItem(
+                  "scrollToCourse",
+                  createSlug(course.title)
+                );
+              }}
+              className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+              aria-label={`View details for ${course.title}`}
+            >
+              <HiOutlineArrowNarrowRight className="text-(--white-custom) text-2xl hover:text-(--blue)" />
             </Link>
           </div>
         </div>
@@ -107,6 +132,8 @@ const Courses: React.FC = () => {
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+
+
 
   useSplitTextHeadingAnimation({
     trigger: coursesRef,
