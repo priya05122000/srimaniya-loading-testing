@@ -16,8 +16,11 @@ export default function robots(): MetadataRoute.Robots {
           "/api",
           "/blog/author/",
           "/blog/category/uncategorized/",
-          "/blog/author/*/feed/",
         ],
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`, // ✅ dynamic

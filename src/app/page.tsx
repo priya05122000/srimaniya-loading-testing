@@ -2,37 +2,56 @@ import type { Metadata } from "next";
 import HomePage from "./home/page";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://srimaniyainstitute.in"),
+
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL,
+    canonical: "/",
+  },
+  // alternates: {
+  //   canonical: process.env.NEXT_PUBLIC_BASE_URL,
+  // },
+
+  title:
+    "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
+  description:
+    "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th with industry-focused training. Apply now!",
+  // keywords: [
+  //   "Sri Maniya Institute of Hotel Management",
+  //   "hotel management in tamil nadu",
+  //   "best hotel management institute  near me",
+  //   "career opportunities in hotel management",
+  //   "hotel management courses near me",
+  //   "hotel management degree fees",
+  //   "hotel management diploma courses after 12th",
+  //   "hotel management course fees after 12th",
+  //   "sri maniya hotel management fees details",
+  //   "sri maniya hotel management courses",
+  //   "bsc in catering science and hotel management",
+  //   "hospitality management courses in tamilnadu",
+  //   "hotel management course scope",
+  //   "hotel management course fees after 12th",
+  //   "hotel management degree fees",
+  // ],
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 
-  title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
-  description:
-    "Srimaniya is the best hotel management Institute in tamil nadu that offers  hotel management career options after 12th &10th graduation.",
-  keywords: [
-    // Primary keywords
-    "Sri Maniya Institute of Hotel Management",
-    "hotel management in tamil nadu",
-    "best hotel management colleges near me",
-    "career opportunities in hotel management",
-    "hotel management courses near me",
-    // Secondary keywords
-    "hotel management degree fees",
-    "hotel management diploma courses after 12th",
-    "hotel management course fees after 12th",
-    "sri maniya hotel management fees details",
-    "sri maniya hotel management courses",
-    "bsc in catering science and hotel management",
-    "hospitality management courses in tamilnadu",
-    "hotel management course scope",
-    "hotel management course fees after 12th",
-    "hotel management degree fees",
-  ],
+  authors: [{ name: "Sri Maniya Institute" }],
+  creator: "Sri Maniya Institute",
+  publisher: "Sri Maniya Institute",
+  category: "Education",
 
   openGraph: {
-    title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
+    title:
+      "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
     description:
-      "Join Sri Maniya Institute of Hotel Management - top hotel management college in Tamil Nadu.",
+      "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th.",
     url: "https://srimaniyainstitute.in",
     siteName: "Sri Maniya Institute",
     images: [
@@ -43,15 +62,19 @@ export const metadata: Metadata = {
         alt: "Sri Maniya Institute of Hotel Management",
       },
     ],
+    locale: "en_IN",
     type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel Management Colleges in Tamil Nadu - Sri Maniya",
+    title: "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
     description:
-      "Join Sri Maniya Institute of Hotel Management - top hotel management college in Tamil Nadu.",
+      "Join Sri Maniya Institute for top hotel management courses after 10th & 12th.",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -75,6 +98,7 @@ export default function Home() {
         "@type": "ContactPoint",
         telephone: "+91-8903864444",
         contactType: "admissions",
+
       },
     ],
     sameAs: [

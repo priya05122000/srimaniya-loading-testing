@@ -27,9 +27,10 @@ export interface Banner {
   category: string;
 }
 
-const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
-  ssr: false,
-});
+// const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
+//   ssr: false,
+// });
+const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper));
 
 const HeroClient = ({ banners }: { banners: Banner[] }) => {
   const { setLoading } = useGlobalLoader();
