@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CoursesPage from "./CoursesPage";
 import { getAllCourses } from "@/services/courseService";
-import Script from "next/script";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -114,32 +113,28 @@ export default async function Page() {
         itemListElement: courses.map((course: any, index: number) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: course.slug
-            ? `${BASE_URL}/courses/${course.slug}`
-            : `${BASE_URL}/courses`,
+          item: {
+            "@type": "Course",
+            "@id": `${BASE_URL}/courses#${course.id || index}`,
+            name: course.title,
+            description:
+              course.description ||
+              course.shortNote ||
+              "Hotel management course",
+
+            ...(course.slug && {
+              url: `${BASE_URL}/courses/${course.slug}`,
+            }),
+
+            provider: {
+              "@type": "EducationalOrganization",
+              "@id": `${BASE_URL}/#organization`,
+              name: "Sri Maniya Institute of Hotel Management",
+              sameAs: BASE_URL,
+            },
+          },
         })),
       },
-
-      // ✅ ADD COURSE SEPARATELY (IMPORTANT)
-      ...courses.map((course: any, index: number) => ({
-        "@type": "Course",
-        "@id": `${BASE_URL}/courses#course-${course.id || index}`,
-        name: course.title,
-        description:
-          course.description ||
-          course.shortNote ||
-          "Hotel management course",
-
-        url: course.slug
-          ? `${BASE_URL}/courses/${course.slug}`
-          : `${BASE_URL}/courses`,
-
-        provider: {
-          "@type": "Organization",
-          name: "Sri Maniya Institute of Hotel Management",
-          sameAs: BASE_URL,
-        },
-      })),
 
       {
         "@type": "Organization",
@@ -153,10 +148,11 @@ export default async function Page() {
   return (
     <>
       {/* ✅ JSON-LD SCHEMA */}
-      <Script
-        id="course-schema"
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema),
+        }}
       />
 
       <CoursesPage courses={courses} />
