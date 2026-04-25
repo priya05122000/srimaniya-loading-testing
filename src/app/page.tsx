@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "College",
+    "@type": "EducationalOrganization",
     name: "Sri Maniya Institute of Hotel Management",
     url: "https://srimaniyainstitute.in/",
     logo: "https://srimaniyainstitute.in/logos/navbarlogo.png",
