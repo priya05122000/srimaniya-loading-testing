@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   // },
 
   title:
-    "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
+    "Best Hotel Management Institute | Sri Maniya",
   description:
-    "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th with industry-focused training. Apply now!",
+    "Looking for a hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th with industry-focused training.",
   // keywords: [
   //   "Sri Maniya Institute of Hotel Management",
   //   "hotel management in tamil nadu",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
+      "Best Hotel Management Institute | Sri Maniya",
     description:
       "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th.",
     url: "https://srimaniyainstitute.in",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
+    title: "Best Hotel Management Institute | Sri Maniya",
     description:
       "Join Sri Maniya Institute for top hotel management courses after 10th and 12th.",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": "College",
     name: "Sri Maniya Institute of Hotel Management",
     url: "https://srimaniyainstitute.in/",
     logo: "https://srimaniyainstitute.in/logos/navbarlogo.png",
