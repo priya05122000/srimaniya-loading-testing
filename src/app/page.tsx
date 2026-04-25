@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title:
     "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
   description:
-    "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th with industry-focused training. Apply now!",
+    "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th with industry-focused training. Apply now!",
   // keywords: [
   //   "Sri Maniya Institute of Hotel Management",
   //   "hotel management in tamil nadu",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title:
       "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
     description:
-      "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th.",
+      "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th.",
     url: "https://srimaniyainstitute.in",
     siteName: "Sri Maniya Institute",
     images: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Best Hotel Management Institute in Tamil Nadu | Sri Maniya Institute",
     description:
-      "Join Sri Maniya Institute for top hotel management courses after 10th & 12th.",
+      "Join Sri Maniya Institute for top hotel management courses after 10th and 12th.",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
   },
   icons: {

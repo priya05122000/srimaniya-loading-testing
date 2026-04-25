@@ -158,7 +158,7 @@ const EventsBlogs: React.FC = () => {
         <div className="py-10 sm:py-20">
           <div className="mb-8">
             <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold news-title">
-              Events & Blogs
+              Events and Blogs
             </Paragraph>
             <p ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 leading-tight uppercase latest-title jakarta-heading">
               Latest from Us

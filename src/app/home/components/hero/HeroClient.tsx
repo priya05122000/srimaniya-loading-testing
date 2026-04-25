@@ -2,7 +2,6 @@
 
 import CommonImage from "@/components/common/CommonImage";
 import React, { useEffect, useState } from "react";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Link from "next/link";
@@ -15,6 +14,7 @@ import "swiper/css/autoplay";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import dynamic from "next/dynamic";
+
 
 export interface Banner {
   image_desktop: string;

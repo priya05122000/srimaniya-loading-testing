@@ -136,7 +136,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
             )}
             {showField(fieldsToShow, "agree") && (
                 <CheckboxField
-                    label="By submitting this form, I agree to Sri Maniya Institute’s Terms & Conditions and Privacy Policy."
+                    label="By submitting this form, I agree to Sri Maniya Institute’s Terms and Conditions and Privacy Policy."
                     name="agree"
                     checked={formData.agree}
                     onChange={handleChange}

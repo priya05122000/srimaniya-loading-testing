@@ -15,6 +15,7 @@ import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Section from "../common/Section";
 import Paragraph from "../common/Paragraph";
 import Span from "../common/Span";
+import SafeEmail from "../common/SafeEmail";
 gsap.registerPlugin(ScrollToPlugin);
 
 const COMPANY = {
@@ -172,10 +173,12 @@ const Footer = () => {
                                             {CONTACTS1.map((item, idx) => (
                                                 <li key={idx} className="my-2 text-(--white-custom)">
                                                     <span className="text-xs">
-                                                        {item.includes('@') ? (
-                                                            <a href={`mailto:${item}`} className="underline">{item}</a>
+                                                        {item.includes("@") ? (
+                                                            <SafeEmail email={item} className="underline" />
                                                         ) : item.replace(/\s+/g, '').match(/^\+?\d+$/) ? (
-                                                            <a href={`tel:${item.replace(/\s+/g, '')}`} className="">{item}</a>
+                                                            <a href={`tel:${item.replace(/\s+/g, '')}`}>
+                                                                {item}
+                                                            </a>
                                                         ) : (
                                                             item
                                                         )}
@@ -345,7 +348,7 @@ const Footer = () => {
                                     Privacy Policy
                                 </Link>{" . "}
                                 <Link href="/terms-and-conditions" className="underline">
-                                    Terms & Conditions
+                                    Terms and Conditions
                                 </Link>
                             </span>
                             <span className="text-xs">
