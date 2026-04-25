@@ -116,6 +116,11 @@ export default function Home() {
           __html: JSON.stringify(schema),
         }}
       />
+      {/* ✅ SEO breadcrumb (best practice) */}
+      <nav aria-label="breadcrumb" className="sr-only">
+        <a href="/">Home</a>
+      </nav>
+
       <HomePage />
     </>
   );

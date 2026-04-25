@@ -195,28 +195,26 @@ const BlogDetails: React.FC<{
       </Paragraph>
       <div className="flex flex-col gap-4 sm:gap-6">
         {blogs.slice(0, 3).map((b) => (
-          <div
-            key={b.id}
-            className="flex flex-col items-start gap-2 sm:gap-0 cursor-pointer transition-transform duration-200 hover:scale-102"
-            onClick={() => router.push(`/events-blog/${b.slug}`)}
-          >
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`}
-              alt={`Sri Maniya Institute blog: ${b.title}`}
-              className="w-full h-[120px] object-cover image-tag"
-              width={800}
-              height={500}
-              unoptimized
-            />
-            <div className="">
-              <Paragraph size="base" className="mt-2 font-bold line-clamp-2">
-                {b.sub_title}
-              </Paragraph>
-              <Span className="text-xs line-clamp-2">
-                {b.description.replace(/<[^>]+>/g, "").slice(0, 60)}...
-              </Span>
+          <Link key={b.id} href={`/events-blog/${b.slug}`}>
+            <div className="flex flex-col items-start gap-2 sm:gap-0 cursor-pointer transition-transform duration-200 hover:scale-102">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`}
+                alt={`Sri Maniya Institute blog: ${b.title}`}
+                className="w-full h-30 object-cover image-tag"
+                width={800}
+                height={500}
+                unoptimized
+              />
+              <div>
+                <Paragraph size="base" className="mt-2 font-bold line-clamp-2">
+                  {b.sub_title}
+                </Paragraph>
+                <Span className="text-xs line-clamp-2">
+                  {b.description.replace(/<[^>]+>/g, "").slice(0, 60)}...
+                </Span>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

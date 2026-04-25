@@ -12,6 +12,7 @@ import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
 import { getAllBlogPosts } from "@/services/blogPostService";
 import { useRouter } from 'next/navigation';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
+import Link from 'next/link';
 
 // Reusable type for Blog
 export type Blog = {
@@ -66,47 +67,52 @@ const getVideoSources = (videoUrl: string) => {
 };
 
 // BlogCard: Reusable blog card for Swiper
-const BlogCard: React.FC<{ blog: Blog; idx: number; onClick: () => void }> = ({ blog, idx, onClick }) => (
-  <div className="overflow-hidden mx-auto relative cursor-pointer" onClick={onClick}>
-    <div className="w-full h-[300px] aspect-3/2 sm:aspect-auto">
-      {blog.video_url ? (
-        <video autoPlay loop muted className="w-full h-full object-cover">
-          {getVideoSources(blog.video_url)}
-          Your browser does not support the video tag.
-        </video>
-      ) : (
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-          alt={`${blog.title} - Sri Maniya Institute event`}
-          priority={idx === 0}
-          className="w-full h-full object-cover image-tag"
-          width={500}
-          height={500}
-          unoptimized
-        />
-      )}
-    </div>
-    <div className="absolute bottom-0 left-0 w-full bg-(--blue-overlay-strong) backdrop-blur-sm text-(--white-custom) border-t border-(--grey-custom) overflow-hidden" data-section>
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
-      <div className="p-3  z-10 relative flex flex-col justify-between">
-        {/* <Paragraph size="base" className="font-bold leading-snug">
+const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
+  <Link href={`/events-blog/${blog.slug}`}>
+    <div className="overflow-hidden mx-auto relative cursor-pointer">
+      <div className="w-full h-[300px] aspect-3/2 sm:aspect-auto">
+        {blog.video_url ? (
+          <video autoPlay loop muted className="w-full h-full object-cover">
+            {getVideoSources(blog.video_url)}
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
+            alt={`${blog.title} - Sri Maniya Institute event`}
+            priority={idx === 0}
+            className="w-full h-full object-cover image-tag"
+            width={500}
+            height={500}
+            unoptimized
+          />
+        )}
+      </div>
+      <div className="absolute bottom-0 left-0 w-full bg-(--blue-overlay-strong) backdrop-blur-sm text-(--white-custom) border-t border-(--grey-custom) overflow-hidden" data-section>
+        <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
+        <div className="p-3  z-10 relative flex flex-col justify-between">
+          {/* <Paragraph size="base" className="font-bold leading-snug">
           {blog.sub_title}
         </Paragraph> */}
 
-        <Paragraph size="base" className="mb-1 font-medium leading-relaxed">
-          {blog.sub_title.length > 20 ? blog.sub_title.slice(0, 20) + '...' : blog.sub_title}
-        </Paragraph>
-        <div className="flex items-baseline">
-          <span className="font-bold text-xs">
-            {new Date(blog.created_at).toLocaleDateString("en-GB", { day: "2-digit" })}
-          </span>
-          <span className="font-normal text-xs">
-            {new Date(blog.created_at).toLocaleDateString("en-GB", { month: "long" })}
-          </span>
+          <Paragraph size="base" className="mb-1 font-medium leading-relaxed line-clamp-1">
+            {blog.sub_title}
+          </Paragraph>
+          {/* <Paragraph size="base" className="mb-1 font-medium leading-relaxed">
+            {blog.sub_title.length > 20 ? blog.sub_title.slice(0, 20) + '...' : blog.sub_title}
+          </Paragraph> */}
+          <div className="flex items-baseline">
+            <span className="font-bold text-xs">
+              {new Date(blog.created_at).toLocaleDateString("en-GB", { day: "2-digit" })}
+            </span>
+            <span className="font-normal text-xs">
+              {new Date(blog.created_at).toLocaleDateString("en-GB", { month: "long" })}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </Link>
 );
 
 const EventsBlogs: React.FC = () => {
@@ -181,7 +187,8 @@ const EventsBlogs: React.FC = () => {
           >
             {blogs.map((blog, idx) => (
               <SwiperSlide key={blog.id}>
-                <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog/${blog.slug}`)} />
+                <BlogCard blog={blog} idx={idx} />
+                {/* <BlogCard blog={blog} idx={idx} onClick={() => router.push(`/events-blog/${blog.slug}`)} /> */}
               </SwiperSlide>
             ))}
           </Swiper>

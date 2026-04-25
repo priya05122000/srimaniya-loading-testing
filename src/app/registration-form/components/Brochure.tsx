@@ -56,7 +56,7 @@ const ContactInfo = () => (
       <span className="mx-1">|</span>
       Website :
       <a
-        href="http://www.srimaniyainstitute.in"
+        href="https://srimaniyainstitute.in"
         target="_blank"
         rel="noopener noreferrer"
         className="ml-1"

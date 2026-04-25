@@ -158,6 +158,20 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      <section className="sr-only">
+        <h1>Hotel Management Courses in Tamil Nadu</h1>
+
+        <p>
+          Sri Maniya Institute offers professional hotel management courses in Tamil Nadu,
+          including diploma, degree, and postgraduate programs. Our courses provide
+          practical training, industry exposure, and strong placement opportunities.
+        </p>
+
+        <p>
+          Students can join after 10th or 12th and gain skills in catering, hospitality,
+          food production, and hotel operations with expert guidance.
+        </p>
+      </section>
 
       <CoursesPage courses={courses} />
     </>

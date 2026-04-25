@@ -6,6 +6,7 @@ import Section from "@/components/common/Section";
 import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
+import Link from "next/link";
 
 
 interface Blog {
@@ -70,8 +71,8 @@ const EventAndBlog = ({
     (blog) => blog.category_id === active
   );
 
-  const handleBlogClick = (slug: string) =>
-    router.push(`/events-blog/${slug}`);
+  // const handleBlogClick = (slug: string) =>
+  //   router.push(`/events-blog/${slug}`);
 
 
   const CategoryButton: React.FC<{
@@ -140,25 +141,26 @@ const EventAndBlog = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredBlogs.map((blog, idx) => (
                 <div key={blog.id} className="overflow-hidden relative">
-                  <div className="w-full">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-                      alt="Hotel management training at Sri Maniya Institute" onClick={() => handleBlogClick(blog.slug)}
-                      className="w-full h-70 object-cover object-center cursor-pointer image-tag"
-                      width={500}
-                      height={500}
-                      priority={idx === 0}
-                      unoptimized
-                    />
-                  </div>
+                  <Link href={`/events-blog/${blog.slug}`}>
+                    <div className="w-full">
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
+                        alt="Hotel management training at Sri Maniya Institute"
+                        className="w-full h-70 object-cover object-center cursor-pointer image-tag"
+                        width={500}
+                        height={500}
+                        priority={idx === 0}
+                        unoptimized
+                      />
+                    </div>
+                  </Link>
 
                   <div className="pt-3  z-10 relative text-(--blue)">
-                    <p
-                      className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug"
-                      onClick={() => handleBlogClick(blog.slug)}
-                    >
-                      {blog.sub_title}
-                    </p>
+                    <Link href={`/events-blog/${blog.slug}`}>
+                      <p className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug">
+                        {blog.sub_title}
+                      </p>
+                    </Link>
 
                     <span
                       className="text-sm line-clamp-3"

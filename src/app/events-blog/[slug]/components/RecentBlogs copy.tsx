@@ -13,7 +13,6 @@ import { CgArrowLongLeft, CgArrowLongRight } from "react-icons/cg";
 import { useRouter } from "next/navigation";
 
 import { getAllBlogPosts } from "@/services/blogPostService";
-import Link from "next/link";
 
 type Blog = {
   id: string;
@@ -40,13 +39,13 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((b: unknown) => {
-            return (
-              typeof b === "object" &&
-              b !== null &&
-              "active" in b &&
-              (b as { active: boolean }).active === true
-            );
-          })
+              return (
+                typeof b === "object" &&
+                b !== null &&
+                "active" in b &&
+                (b as { active: boolean }).active === true
+              );
+            })
           : [];
         const filteredBlogs = blogsData.filter((b: any) => b.id !== blog_id);
         setBlogs(filteredBlogs);
@@ -100,91 +99,88 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
         >
           {blogs.map((blog, idx) => (
             <SwiperSlide key={idx}>
-              <Link href={`/events-blog/${blog.slug}`}>
-
-                <div
-                  className="overflow-hidden mx-auto relative cursor-pointer"
-                // onClick={() => router.push(`/events-blog/${blog.slug}`)}
-                >
-                  <div className="w-full h-75 lg:h-87.5 aspect-3/2 sm:aspect-auto">
-                    {blog.video_url ? (
-                      <video
-                        autoPlay
-                        loop
-                        muted
-                        className="w-full h-full object-cover"
-                      >
-                        {blog.video_url.endsWith(".mp4") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/mp4"
-                          />
-                        )}
-                        {blog.video_url.endsWith(".webm") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/webm"
-                          />
-                        )}
-                        {blog.video_url.endsWith(".ogg") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/ogg"
-                          />
-                        )}
-                        {/* fallback if extension is not recognized */}
-                        {blog.video_url &&
-                          ![".mp4", ".webm", ".ogg"].some(
-                            (ext) =>
-                              blog.video_url && blog.video_url.endsWith(ext)
-                          ) && <source src={getVideoSrc(blog.video_url)} />}
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-                        alt={blog.title}
-                        priority={idx === 0}
-                        className="w-full h-full object-cover"
-                        width={500}
-                        height={500}
-                      />
-                    )}
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-full bg-(--blue-overlay-strong) backdrop-blur-sm text-(--white) border-t border-grey-custom overflow-hidden">
-                    <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
-                    <div className="p-3 h-20 z-10 relative">
-                      <Paragraph
-                        size="lg"
-                        className="mb-1 font-medium"
+              <div
+                className="overflow-hidden mx-auto relative cursor-pointer"
+                onClick={() => router.push(`/events-blog/${blog.slug}`)}
+              >
+                <div className="w-full h-[300px] lg:h-[350px] aspect-3/2 sm:aspect-auto">
+                  {blog.video_url ? (
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      className="w-full h-full object-cover"
+                    >
+                      {blog.video_url.endsWith(".mp4") && (
+                        <source
+                          src={getVideoSrc(blog.video_url)}
+                          type="video/mp4"
+                        />
+                      )}
+                      {blog.video_url.endsWith(".webm") && (
+                        <source
+                          src={getVideoSrc(blog.video_url)}
+                          type="video/webm"
+                        />
+                      )}
+                      {blog.video_url.endsWith(".ogg") && (
+                        <source
+                          src={getVideoSrc(blog.video_url)}
+                          type="video/ogg"
+                        />
+                      )}
+                      {/* fallback if extension is not recognized */}
+                      {blog.video_url &&
+                        ![".mp4", ".webm", ".ogg"].some(
+                          (ext) =>
+                            blog.video_url && blog.video_url.endsWith(ext)
+                        ) && <source src={getVideoSrc(blog.video_url)} />}
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
+                      alt={blog.title}
+                      priority={idx === 0}
+                      className="w-full h-full object-cover"
+                      width={500}
+                      height={500}
+                    />
+                  )}
+                </div>
+                <div className="absolute bottom-0 left-0 w-full bg-(--blue-overlay-strong) backdrop-blur-sm text-(--white) border-t border-grey-custom overflow-hidden">
+                  <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
+                  <div className="p-3 h-20 z-10 relative">
+                    <Paragraph
+                      size="lg"
+                      className="mb-1 font-medium"
                       // {...ANIMATIONS.fadeZoomIn}
+                    >
+                      {blog.sub_title.slice(0, 30)}...
+                    </Paragraph>
+                    <div className="flex gap-1 items-baseline">
+                      <Paragraph
+                        // {...ANIMATIONS.fadeZoomIn}
+                        size="lg"
+                        className="font-bold"
                       >
-                        {blog.sub_title.slice(0, 30)}...
+                        {new Date(blog.created_at).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                        })}
                       </Paragraph>
-                      <div className="flex gap-1 items-baseline">
-                        <Paragraph
-                          // {...ANIMATIONS.fadeZoomIn}
-                          size="lg"
-                          className="font-bold"
-                        >
-                          {new Date(blog.created_at).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                          })}
-                        </Paragraph>
-                        <Paragraph
-                          // {...ANIMATIONS.fadeZoomIn}
-                          size="lg"
-                          className="font-normal"
-                        >
-                          {new Date(blog.created_at).toLocaleDateString("en-GB", {
-                            month: "long",
-                          })}
-                        </Paragraph>
-                      </div>
+                      <Paragraph
+                        // {...ANIMATIONS.fadeZoomIn}
+                        size="lg"
+                        className="font-normal"
+                      >
+                        {new Date(blog.created_at).toLocaleDateString("en-GB", {
+                          month: "long",
+                        })}
+                      </Paragraph>
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

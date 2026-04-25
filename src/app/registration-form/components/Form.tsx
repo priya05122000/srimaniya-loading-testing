@@ -14,6 +14,7 @@ import { useRegistrationForm } from "@/app/registration-form/subcomponents/useRe
 import CommonRegistrationFields, { AutofillSuppressionFields } from "@/app/registration-form/subcomponents/CommonRegistrationFields";
 import type { RegistrationFormData } from "@/app/registration-form/subcomponents/useRegistrationForm";
 import { ValidateRegistrationFormWithToast } from "@/app/registration-form/subcomponents/registrationFormValidation";
+import Link from "next/link";
 
 // -------------------- Types & Constants --------------------
 export const initialForm: RegistrationFormData = {
@@ -41,7 +42,9 @@ const ContactInfo = () => (
       <a href="mailto:admission@srimaniyainstitute.in" className="ml-1">admission@srimaniyainstitute.in</a>
       <span className="mx-1">|</span>
       Website :
-      <a href="http://www.srimaniyainstitute.in" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
+      <Link href="/" className="ml-1">
+        www.srimaniyainstitute.in
+      </Link>
     </Paragraph>
     <Paragraph size="base" className="mb-1 block sm:hidden">
       Email :
@@ -49,7 +52,7 @@ const ContactInfo = () => (
     </Paragraph>
     <Paragraph size="base" className="mb-1 block sm:hidden">
       Website :
-      <a href="http://www.srimaniyainstitute.in" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
+      <a href="https://srimaniyainstitute.in" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
     </Paragraph>
     <Paragraph size="base" className="mb-1">
       Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu - 629702.
@@ -167,8 +170,9 @@ const Form: React.FC = () => {
             />
           </div>
           {/* Heading */}
-          <Heading level={4} className="mb-8 ">Student Enquire Form</Heading>
-          {/* Form */}
+          {/* <Heading level={4} className="mb-8 ">Student Enquire Form</Heading> */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 ">Student Enquire Form</h1>
+          {/*  Form */}
           <form onSubmit={handleSubmit} className="space-y-2 mt-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-20">
               <AutofillSuppressionFields />

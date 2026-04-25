@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Site Info
+Site: Sri Maniya Institute of Hotel Management
+URL: https://srimaniyainstitute.in
+
+# Description
+Sri Maniya Institute provides hotel management courses in Tamil Nadu with practical training and career-focused education.
+
+# Contact
+Phone: +91-8903864444
