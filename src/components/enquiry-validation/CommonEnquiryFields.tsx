@@ -174,7 +174,7 @@ const DownloadBrochureButton: React.FC<{ loading?: boolean }> = ({ loading }) =>
         style={loading ? { pointerEvents: 'none', opacity: 0.7 } : {}}
     >
         <span className="relative z-20 gap-x-1 flex items-center text-center no-underline w-full text-(--blue) transition-all duration-300 group-hover:text-(--yellow)">
-            {loading ? "Downloading Brochure..." : "Download Brochure"} <GoDownload />
+            {loading ? "Downloading Brochure..." : "Download Brochure"} <GoDownload aria-label="Download Brochure" />
         </span>
         <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
     </button>

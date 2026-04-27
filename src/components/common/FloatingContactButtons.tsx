@@ -23,7 +23,7 @@ export default function FloatingContactButtons({ isBlueSection }: { isBlueSectio
         onClick={() => window.open("tel:+918903864444")}
         className="cursor-pointer"
       >
-        <MdOutlinePhone size={32} />
+        <MdOutlinePhone aria-label="Call Phone" size={32} />
       </button>
       <button
         type="button"
@@ -33,7 +33,7 @@ export default function FloatingContactButtons({ isBlueSection }: { isBlueSectio
         }
         className="cursor-pointer"
       >
-        <IoLogoWhatsapp size={32} />
+        <IoLogoWhatsapp aria-label="Open WhatsApp chat" size={32} />
       </button>
     </div>
   );

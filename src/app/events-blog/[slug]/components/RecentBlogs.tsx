@@ -202,7 +202,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
               aria-label="Previous"
               type="button"
             >
-              <CgArrowLongLeft />
+              <CgArrowLongLeft aria-label="Previous blog" />
             </button>
             <button
               ref={(node) => {
@@ -213,7 +213,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
               aria-label="Next"
               type="button"
             >
-              <CgArrowLongRight />
+              <CgArrowLongRight aria-label="Next blog" />
             </button>
           </div>
         </div>

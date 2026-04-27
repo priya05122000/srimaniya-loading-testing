@@ -218,7 +218,7 @@ const AboutStats = () => {
               <Span>Read Now</Span>
             </Link>
             <Paragraph size="lg" className="inline-block">
-              <GoArrowRight />
+              <GoArrowRight aria-label="Next" />
             </Paragraph>
           </div>
           <div className="text-(--grey-custom) msg-wrapper text-center lg:text-left">

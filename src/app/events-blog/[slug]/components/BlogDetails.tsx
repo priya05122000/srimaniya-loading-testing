@@ -85,12 +85,12 @@ const ShareSection: React.FC<ShareSectionProps> = memo(({ blog }) => {
     {
       label: "Facebook",
       href: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
-      icon: <FaFacebook />,
+      icon: <FaFacebook aria-label="Share on Facebook" />,
     },
     {
       label: "LinkedIn",
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
-      icon: <FaLinkedin />,
+      icon: <FaLinkedin aria-label="Share on LinkedIn" />,
     },
   ];
 

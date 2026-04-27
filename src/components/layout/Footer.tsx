@@ -34,22 +34,22 @@ const SOCIALS = [
     {
         label: "Instagram",
         href: "https://www.instagram.com/srimaniya_institute/",
-        icon: <AiFillInstagram className="text-xl" />,
+        icon: <AiFillInstagram aria-label="Instagram" className="text-xl" />,
     },
     {
         label: "Facebook",
         href: "https://www.facebook.com/SriManiyaInstitute",
-        icon: <FaFacebook className="text-xl" />,
+        icon: <FaFacebook aria-label="Facebook" className="text-xl" />,
     },
     {
         label: "Youtube",
         href: "https://www.youtube.com/@srimaniyainstitute",
-        icon: <FaYoutube className="text-xl" />,
+        icon: <FaYoutube aria-label="Youtube" className="text-xl" />,
     },
     {
         label: "Linked in",
         href: "#",
-        icon: <IoLogoLinkedin className="text-xl" />,
+        icon: <IoLogoLinkedin aria-label="LinkedIn" className="text-xl" />,
     },
 ];
 
@@ -152,7 +152,7 @@ const Footer = () => {
                                                 {item.label}
                                             </Paragraph>
                                         </div>
-                                        <LuArrowRight className="text-xl hidden sm:block" />
+                                        <LuArrowRight aria-label="Arrow Right" className="text-xl hidden sm:block" />
                                     </Link>
                                 ))}
                             </div>

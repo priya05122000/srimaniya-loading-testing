@@ -153,7 +153,7 @@ const Form: React.FC = () => {
           className="border rounded-full p-2 md:p-3 cursor-pointer"
           onClick={handleBack}
         >
-          <FaArrowLeft />
+          <FaArrowLeft aria-label="Back" />
         </button>
       </div>
       <div className="relative flex items-center justify-center pb-8 px-2">

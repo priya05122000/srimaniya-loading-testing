@@ -92,10 +92,10 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
                     <motion.div className="bg-(--blue) shadow-lg p-6 max-w-lg w-full relative"
                         initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} transition={{ duration: 0.3 }}>
                         <button className="absolute top-2 right-2 cursor-pointer text-2xl" onClick={onClose} aria-label="Close">
-                            <IoClose />
+                            <IoClose aria-label="Close" />
                         </button>
                         <div className="mb-8 flex justify-center">
-                            <Image src="/logos/navbarlogo.png" alt="Logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
+                            <Image src="/logos/navbarlogo.png" alt="Sri Maniya Institute logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
                         </div>
                         <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
                             <AutofillSuppressionFields />

@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   // },
 
   title:
-    "Best Hotel Management Institute | Sri Maniya",
+    "Best Hotel Management Institute | Sri Maniya Institute TN",
   description:
-    "Looking for a hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th & 12th with industry-focused training.",
+    "Looking for a hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses with industry training.",
   // keywords: [
   //   "Sri Maniya Institute of Hotel Management",
   //   "hotel management in tamil nadu",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Best Hotel Management Institute | Sri Maniya",
+      "Best Hotel Management Institute | Sri Maniya Institute TN",
     description:
       "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th.",
     url: "https://srimaniyainstitute.in",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel Management Institute | Sri Maniya",
+    title: "Best Hotel Management Institute | Sri Maniya Institute TN",
     description:
       "Join Sri Maniya Institute for top hotel management courses after 10th and 12th.",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],

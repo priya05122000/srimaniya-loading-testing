@@ -95,7 +95,7 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                             onClick={onClose}
                             aria-label="Close"
                         >
-                            <IoClose />
+                            <IoClose aria-label="Close" />
                         </button>
                         <Heading
                             level={6}

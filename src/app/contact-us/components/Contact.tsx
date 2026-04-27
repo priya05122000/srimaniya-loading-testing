@@ -133,16 +133,16 @@ const Contact = () => {
 
 
   const contactCards: ContactCardProps[] = [
-    { icon: <FiPhone size={34} />, title: "Phone", lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <FiMail size={34} />, title: "Email", lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <FiMapPin size={34} />, title: "Address", lines: siteInfo?.address ? Array.isArray(siteInfo.address) ? siteInfo.address : [siteInfo.address] : [], className: "w-full lg:w-[35%] xl:w-[30%]" },
+    { icon: <FiPhone size={34} aria-label="Phone" />, title: "Phone", lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
+    { icon: <FiMail size={34} aria-label="Email" />, title: "Email", lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
+    { icon: <FiMapPin size={34} aria-label="Address" />, title: "Address", lines: siteInfo?.address ? Array.isArray(siteInfo.address) ? siteInfo.address : [siteInfo.address] : [], className: "w-full lg:w-[35%] xl:w-[30%]" },
   ];
 
   return (
     <div ref={contactRef}>
       <LeftSpaceGridSection className="pt-10 sm:pt-20 pb-10" >
         <div className="mb-10">
-          <h1 ref={paragraphRef}  className="text-(--blue) text-base lg:text-lg font-bold contact-us-text">Sri Maniya Institute Contact</h1>
+          <h1 ref={paragraphRef} className="text-(--blue) text-base lg:text-lg font-bold contact-us-text">Sri Maniya Institute Contact</h1>
           <h2 ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</h2>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-end gap-4 lg:gap-0 w-full pr-0 sm:pr-8">

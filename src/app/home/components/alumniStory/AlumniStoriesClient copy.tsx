@@ -62,9 +62,8 @@ const AlumniImage: React.FC<{
           alt={`Sri Maniya Institute of Hotel Management Alumni - ${alumni.name}, hotel management in tamil nadu, career opportunities in hotel management, hospitality management courses in tamilnadu`}
           width={idx === 2 ? 144 : 80}
           height={idx === 2 ? 144 : 80}
-          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${
-            idx === 2 ? "" : "border-2 border-(--yellow)"
-          } `}
+          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"
+            } `}
           draggable={false}
           style={{ borderRadius: "9999px" }}
           priority={idx === 2}
@@ -154,121 +153,120 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
 
   return (
     mounted && (
-    <div ref={alumniRef}>
-      <div className="pt-10 sm:pt-20 relative w-full">
-        <Section>
-          <div>
-            <Paragraph
-              ref={paragraphRef}
-              size="lg"
-              className="text-(--blue) font-bold alumni-title"
-            >
-              The Proof
-            </Paragraph>
-            <Heading
-              ref={headingRef}
-              level={4}
-              className="text-(--blue) uppercase leading-tight proof-title mt-1"
-            >
-              Alumni Stories
-            </Heading>
-          </div>
-        </Section>
-        <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
-          <div className="w-full h-px bg-(--grey)" />
-          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
-            <FaQuoteLeft style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
-          </span>
-          <div className="w-full h-px bg-(--grey)" />
-        </div>
-        <Section>
-          <div className="h-[450px] sm:h-[490px] flex flex-col justify-between text-center ">
-            {currentAlumni && mounted && (
-              <>
-                <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
-                  <span
-                    dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
-                  />
-                </span>
-                <Paragraph
-                  size="lg"
-                  className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)"
-                >
-                  <span
-                    dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
-                  />
-                </Paragraph>
-              </>
-            )}
+      <div ref={alumniRef}>
+        <div className="pt-10 sm:pt-20 relative w-full">
+          <Section>
             <div>
-              <div
-                className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${
-                  isMobile ? "h-24" : "h-40"
-                }`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                {...(isMobile
-                  ? {
+              <Paragraph
+                ref={paragraphRef}
+                size="lg"
+                className="text-(--blue) font-bold alumni-title"
+              >
+                The Proof
+              </Paragraph>
+              <Heading
+                ref={headingRef}
+                level={4}
+                className="text-(--blue) uppercase leading-tight proof-title mt-1"
+              >
+                Alumni Stories
+              </Heading>
+            </div>
+          </Section>
+          <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
+            <div className="w-full h-px bg-(--grey)" />
+            <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
+              <FaQuoteLeft aria-label="Quote left" style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
+            </span>
+            <div className="w-full h-px bg-(--grey)" />
+          </div>
+          <Section>
+            <div className="h-[450px] sm:h-[490px] flex flex-col justify-between text-center ">
+              {currentAlumni && mounted && (
+                <>
+                  <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
+                    <span
+                      dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
+                    />
+                  </span>
+                  <Paragraph
+                    size="lg"
+                    className="max-w-3xl hidden sm:block mx-auto font-semibold leading-relaxed  text-(--blue)"
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{ __html: currentAlumni.story }}
+                    />
+                  </Paragraph>
+                </>
+              )}
+              <div>
+                <div
+                  className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? "h-24" : "h-40"
+                    }`}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  {...(isMobile
+                    ? {
                       onTouchStart: handleTouchStart,
                       onTouchMove: handleTouchMove,
                       onTouchEnd: handleTouchEnd,
                     }
-                  : {})}
-              >
-                {visible.map((alumni, idx) => (
-                  <AlumniImage
-                    key={alumni?.id || `empty-${idx}`}
-                    alumni={alumni}
-                    idx={isMobile ? 2 : idx}
-                    onClick={() => {
-                      if (isMobile) return; // No click navigation on mobile images
-                      if (idx === 1) goTo(-1);
-                      if (idx === 0) goTo(-2);
-                      if (idx === 3) goTo(1);
-                      if (idx === 4) goTo(2);
-                    }}
-                  />
-                ))}
-              </div>
-              {currentAlumni && (
-                <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
-                  <Paragraph size="xl" className="font-bold text-(--blue)">
-                    {currentAlumni.name}
-                  </Paragraph>
-                  <Paragraph size="base" className="text-(--dark)">
-                    ({currentAlumni.batch_year} batch - {currentAlumni.course})
-                  </Paragraph>
+                    : {})}
+                >
+                  {visible.map((alumni, idx) => (
+                    <AlumniImage
+                      key={alumni?.id || `empty-${idx}`}
+                      alumni={alumni}
+                      idx={isMobile ? 2 : idx}
+                      onClick={() => {
+                        if (isMobile) return; // No click navigation on mobile images
+                        if (idx === 1) goTo(-1);
+                        if (idx === 0) goTo(-2);
+                        if (idx === 3) goTo(1);
+                        if (idx === 4) goTo(2);
+                      }}
+                    />
+                  ))}
                 </div>
-              )}
-              {currentAlumni && (
-                <Paragraph size="base" className="  text-(--dark) mb-6">
-                  {currentAlumni.designation} - {currentAlumni.company}
-                  {currentAlumni.location ? `, ${currentAlumni.location}` : ""}
-                  {currentAlumni.country ? `, ${currentAlumni.country}` : ""}
-                </Paragraph>
-              )}
-              <div className="flex justify-center gap-4">
-                <button
-                  onClick={prevSlide}
-                  className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
-                  aria-label="Previous"
-                >
-                  <HiOutlineArrowNarrowLeft />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
-                  aria-label="Next"
-                >
-                  <HiOutlineArrowNarrowRight />
-                </button>
+                {currentAlumni && (
+                  <div className="flex flex-col sm:flex-row justify-center items-center sm:items-baseline gap-2 mb-1">
+                    <Paragraph size="xl" className="font-bold text-(--blue)">
+                      {currentAlumni.name}
+                    </Paragraph>
+                    <Paragraph size="base" className="text-(--dark)">
+                      ({currentAlumni.batch_year} batch - {currentAlumni.course})
+                    </Paragraph>
+                  </div>
+                )}
+                {currentAlumni && (
+                  <Paragraph size="base" className="  text-(--dark) mb-6">
+                    {currentAlumni.designation} - {currentAlumni.company}
+                    {currentAlumni.location ? `, ${currentAlumni.location}` : ""}
+                    {currentAlumni.country ? `, ${currentAlumni.country}` : ""}
+                  </Paragraph>
+                )}
+                <div className="flex justify-center gap-4">
+                  <button
+                    onClick={prevSlide}
+                    className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+                    aria-label="Previous"
+                  >
+                    <HiOutlineArrowNarrowLeft aria-label="Previous slide" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
+                    aria-label="Next"
+                  >
+                    <HiOutlineArrowNarrowRight aria-label="Next slide" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </Section>
+          </Section>
+        </div>
       </div>
-    </div>
-  ));
+    ));
 };
 
 export default AlumniStories;

@@ -141,7 +141,7 @@ export default function AlumniStoriesClient({ alumniData }: Props) {
       <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
         <div className="w-full h-px bg-(--grey)" />
         <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
-          <FaQuoteLeft style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
+          <FaQuoteLeft aria-label="Quote left" style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
         </span>
         <div className="w-full h-px bg-(--grey)" />
       </div>

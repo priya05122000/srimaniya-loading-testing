@@ -114,7 +114,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
               className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
               aria-label={`View details for ${course.title}`}
             >
-              <HiOutlineArrowNarrowRight className="text-(--white-custom) text-2xl hover:text-(--blue)" />
+              <HiOutlineArrowNarrowRight aria-label={`View details for ${course.title}`} className="text-(--white-custom) text-2xl hover:text-(--blue)" />
             </Link>
           </div>
         </div>

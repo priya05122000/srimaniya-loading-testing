@@ -153,8 +153,8 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                       download
                     >
                       <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">
-                        <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) text-base transition-all duration-300 group-hover:text-white)">
-                          Syllabus <GoDownload />
+                        <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) text-base transition-all duration-300 group-hover:text-white">
+                          Syllabus <GoDownload aria-label="Download syllabus" />
                         </span>
                         <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                       </button>
@@ -191,7 +191,7 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                   >
                     <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">
                       <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) text-base transition-all duration-300 group-hover:text-white">
-                        Syllabus <GoDownload />
+                        Syllabus <GoDownload aria-label="Download syllabus" />
                       </span>
                       <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                     </button>

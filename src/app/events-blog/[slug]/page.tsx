@@ -34,7 +34,9 @@ export async function generateMetadata({
     return text.length > limit ? text.slice(0, limit) + "…" : text;
   };
 
-  const description = cleanText(blog.description, 60);
+  const description =
+    cleanText(blog.description, 120) ||
+    `${blog.title} - Read blog from Sri Maniya Institute about hotel management and events.`;
 
   const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
 

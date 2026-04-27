@@ -218,7 +218,7 @@ const AlumniStories = () => {
         </Section>
         <div className='flex justify-center  items-center pt-10  gap-10 mb-4 '>
           <div className='w-full h-px bg-(--grey)' />
-          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><FaQuoteLeft style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
+          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><FaQuoteLeft aria-label="Quote left" style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
           <div className='w-full h-px bg-(--grey)' />
         </div>
         <Section>
@@ -275,14 +275,14 @@ const AlumniStories = () => {
                   className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                   aria-label="Previous"
                 >
-                  <HiOutlineArrowNarrowLeft />
+                  <HiOutlineArrowNarrowLeft aria-label="Previous slide" />
                 </button>
                 <button
                   onClick={nextSlide}
                   className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                   aria-label="Next"
                 >
-                  <HiOutlineArrowNarrowRight />
+                  <HiOutlineArrowNarrowRight aria-label="Next slide" />
                 </button>
               </div>
             </div>

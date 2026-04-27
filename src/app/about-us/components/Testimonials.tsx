@@ -74,7 +74,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
       </div>
       <div className="flex mt-4 space-x-1">
         {[...Array(testimonial.rating)].map((_, i) => (
-          <IoStarSharp key={i} className="text-(--yellow)" />
+          <IoStarSharp key={i} className="text-(--yellow)" aria-label='Star rating' />
         ))}
       </div>
     </div>
@@ -192,7 +192,7 @@ const Testimonials: React.FC = () => {
               aria-label="Previous"
               type="button"
             >
-              <CgArrowLongLeft />
+              <CgArrowLongLeft aria-label="Previous testimonial" />
             </button>
             <button
               className="text-2xl text-(--blue) focus:outline-none cursor-pointer"
@@ -200,7 +200,7 @@ const Testimonials: React.FC = () => {
               aria-label="Next"
               type="button"
             >
-              <CgArrowLongRight />
+              <CgArrowLongRight aria-label="Next testimonial" />
             </button>
           </div>
         </div>

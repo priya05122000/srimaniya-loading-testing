@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
   title: "Hotel Management Placement Support",
   description:
-    "Sri Maniya Institute offers hotel management courses with strong placement support, helping students build careers in hospitality across Tamil Nadu.",
+    "Sri Maniya Institute offers hotel management courses with placement support for hospitality careers in Tamil Nadu.",
 
   keywords: [
     "Sri Maniya Institute placement",

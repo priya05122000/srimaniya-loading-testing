@@ -73,7 +73,7 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
             onClick={scrollToApplyNow}
             aria-label="Scroll to Apply Now"
           >
-            <HiOutlineArrowNarrowRight className="font-normal text-(--dark) text-2xl" />
+            <HiOutlineArrowNarrowRight aria-label="Scroll to Apply Now" className="font-normal text-(--dark) text-2xl" />
           </button>
         </div>
       </div>

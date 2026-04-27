@@ -49,7 +49,7 @@ export async function generateMetadata({
       : "Hotel Management Courses",
 
     description:
-      "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
+      "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
 
     keywords: [
       "hotel management degree course fees",
@@ -73,7 +73,7 @@ export async function generateMetadata({
         : "Apply Online Hotel Management Courses | Sri Maniya Institute",
       url: `${BASE_URL}/courses`,
       description:
-        "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
+        "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
       siteName: "Sri Maniya Institute",
       images: [
         {
@@ -90,7 +90,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
       description:
-        "Explore Sri Maniya hospitality courses offering hands-on hotel management training, expert faculty guidance, and industry-ready skills for strong careers.",
+        "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
       images: [`${BASE_URL}/courses/courses.webp`],
     },
   };

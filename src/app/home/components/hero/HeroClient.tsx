@@ -114,7 +114,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                             Enquire Now
                           </span>
                           <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
-                          <FiArrowRight className="text-(--yellow) z-20 transition-all duration-300 group-hover:text-(--blue)" />
+                          <FiArrowRight aria-label="Arrow Right" className="text-(--yellow) z-20 transition-all duration-300 group-hover:text-(--blue)" />
                         </button>
                       </Link>
                     </div>
