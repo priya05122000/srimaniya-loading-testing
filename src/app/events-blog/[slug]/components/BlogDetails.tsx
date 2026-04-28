@@ -195,7 +195,7 @@ const BlogDetails: React.FC<{
       </Paragraph>
       <div className="flex flex-col gap-4 sm:gap-6">
         {blogs.slice(0, 3).map((b) => (
-          <Link key={b.id} href={`/events-blog/${b.slug}`}>
+          <Link key={b.id} hrefLang="en" href={`/events-blog/${b.slug}`}>
             <div className="flex flex-col items-start gap-2 sm:gap-0 cursor-pointer transition-transform duration-200 hover:scale-102">
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${b.image_url}`}

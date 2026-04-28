@@ -68,7 +68,7 @@ const getVideoSources = (videoUrl: string) => {
 
 // BlogCard: Reusable blog card for Swiper
 const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
-  <Link href={`/events-blog/${blog.slug}`}>
+  <Link href={`/events-blog/${blog.slug}`} hrefLang="en">
     <div className="overflow-hidden mx-auto relative cursor-pointer">
       <div className="w-full h-[300px] aspect-3/2 sm:aspect-auto">
         {blog.video_url ? (

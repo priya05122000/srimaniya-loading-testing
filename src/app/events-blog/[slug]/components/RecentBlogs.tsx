@@ -100,7 +100,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
         >
           {blogs.map((blog, idx) => (
             <SwiperSlide key={idx}>
-              <Link href={`/events-blog/${blog.slug}`}>
+              <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
 
                 <div
                   className="overflow-hidden mx-auto relative cursor-pointer"

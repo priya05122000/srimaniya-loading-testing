@@ -21,7 +21,7 @@ const SafeEmail: React.FC<SafeEmailProps> = ({ email, className }) => {
     if (!safeEmail) return null;
 
     return (
-        <a href={`mailto:${safeEmail}`} className={className}>
+        <a href={`mailto:${safeEmail}`} hrefLang="en" className={className}>
             {safeEmail}
         </a>
     );

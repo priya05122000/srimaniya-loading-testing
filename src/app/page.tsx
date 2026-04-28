@@ -118,7 +118,7 @@ export default function Home() {
       />
       {/* ✅ SEO breadcrumb (best practice) */}
       <nav aria-label="breadcrumb" className="sr-only">
-        <a href="/">Home</a>
+        <a href="/" hrefLang="en" >Home</a>
       </nav>
 
       <HomePage />

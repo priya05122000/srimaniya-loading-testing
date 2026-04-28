@@ -176,7 +176,7 @@ const Footer = () => {
                                                         {item.includes("@") ? (
                                                             <SafeEmail email={item} className="underline" />
                                                         ) : item.replace(/\s+/g, '').match(/^\+?\d+$/) ? (
-                                                            <a href={`tel:${item.replace(/\s+/g, '')}`}>
+                                                            <a href={`tel:${item.replace(/\s+/g, '')}`} hrefLang="en">
                                                                 {item}
                                                             </a>
                                                         ) : (
@@ -246,7 +246,7 @@ const Footer = () => {
                                             {NAV_EXPLORE.map((item) => (
                                                 <li key={item.label} className="my-2 text-(--white-custom)">
                                                     <span className="text-xs">
-                                                        <Link href={item.href}>
+                                                        <Link href={item.href} hrefLang="en">
                                                             {item.label}
                                                         </Link>
                                                     </span>
@@ -344,10 +344,10 @@ const Footer = () => {
                             <span className="text-start text-xs ">
                                 Copyright ©2025 srimaniya institute, All Rights Reserved.
                                 <br />
-                                <Link href="/privacy-policy" className="underline ">
+                                <Link href="/privacy-policy" className="underline " hrefLang="en">
                                     Privacy Policy
                                 </Link>{" . "}
-                                <Link href="/terms-and-conditions" className="underline">
+                                <Link href="/terms-and-conditions" className="underline" hrefLang="en">
                                     Terms and Conditions
                                 </Link>
                             </span>

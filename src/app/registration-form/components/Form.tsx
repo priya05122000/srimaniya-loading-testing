@@ -35,24 +35,24 @@ const ContactInfo = () => (
   <div className="contact-info mt-8 sm:text-center text-white text-base">
     <Paragraph size="base" className="mb-1">
       Phone :
-      <a href="tel:+918903864444" className="ml-1">+91 89038 64444</a>
+      <a href="tel:+918903864444" className="ml-1" hrefLang="en">+91 89038 64444</a>
     </Paragraph>
     <Paragraph size="base" className="mb-1 hidden sm:block">
       Email :
-      <a href="mailto:admission@srimaniyainstitute.in" className="ml-1">admission@srimaniyainstitute.in</a>
+      <a href="mailto:admission@srimaniyainstitute.in" hrefLang="en" className="ml-1">admission@srimaniyainstitute.in</a>
       <span className="mx-1">|</span>
       Website :
-      <Link href="/" className="ml-1">
+      <Link href="/" className="ml-1" hrefLang="en">
         www.srimaniyainstitute.in
       </Link>
     </Paragraph>
     <Paragraph size="base" className="mb-1 block sm:hidden">
       Email :
-      <a href="mailto:admission@srimaniyainstitute.in" className="ml-1">admission@srimaniyainstitute.in</a>
+      <a href="mailto:admission@srimaniyainstitute.in" hrefLang="en" className="ml-1">admission@srimaniyainstitute.in</a>
     </Paragraph>
     <Paragraph size="base" className="mb-1 block sm:hidden">
       Website :
-      <a href="https://srimaniyainstitute.in" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
+      <a href="https://srimaniyainstitute.in" hrefLang="en" target="_blank" rel="noopener noreferrer" className="ml-1">www.srimaniyainstitute.in</a>
     </Paragraph>
     <Paragraph size="base" className="mb-1">
       Address : No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu - 629702.

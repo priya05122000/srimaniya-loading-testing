@@ -141,7 +141,7 @@ const EventAndBlog = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredBlogs.map((blog, idx) => (
                 <div key={blog.id} className="overflow-hidden relative">
-                  <Link href={`/events-blog/${blog.slug}`}>
+                  <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
                     <div className="w-full">
                       <Image
                         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
@@ -156,7 +156,7 @@ const EventAndBlog = ({
                   </Link>
 
                   <div className="pt-3  z-10 relative text-(--blue)">
-                    <Link href={`/events-blog/${blog.slug}`}>
+                    <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
                       <p className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug">
                         {blog.sub_title}
                       </p>

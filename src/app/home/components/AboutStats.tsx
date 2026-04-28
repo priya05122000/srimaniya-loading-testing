@@ -214,7 +214,7 @@ const AboutStats = () => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-2 mt-4 text-(--blue)">
-            <Link href="/about-us" className="font-medium transition hover:underline">
+            <Link hrefLang="en" href="/about-us" className="font-medium transition hover:underline">
               <Span>Read Now</Span>
             </Link>
             <Paragraph size="lg" className="inline-block">

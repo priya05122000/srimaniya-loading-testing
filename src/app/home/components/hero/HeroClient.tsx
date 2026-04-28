@@ -108,7 +108,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                     <div className="flex gap-4 justify-end">
 
 
-                      <Link href="/registration-form">
+                      <Link href="/registration-form" hrefLang="en">
                         <button className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1">
                           <span className="relative z-20 text-center no-underline w-full text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
                             Enquire Now

@@ -44,13 +44,13 @@ const ContactInfo = () => (
   <div className="contact-info mt-8 md:mt-4 text-center text-white text-base">
     <Paragraph size="lg" className="mb-1">
       Phone :
-      <a href="tel:+918903864444" className="ml-1">
+      <a href="tel:+918903864444" className="ml-1" hrefLang="en">
         +91 89038 64444
       </a>
     </Paragraph>
     <Paragraph size="lg" className="mb-1">
       Email :
-      <a href="mailto:admission@srimaniyainstitute.in" className="ml-1">
+      <a href="mailto:admission@srimaniyainstitute.in" className="ml-1" hrefLang="en">
         admission@srimaniyainstitute.in
       </a>
       <span className="mx-1">|</span>

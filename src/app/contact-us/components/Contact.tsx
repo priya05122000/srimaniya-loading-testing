@@ -81,7 +81,7 @@ const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardPr
     <div className={`flex lg:flex-col bg-(--blue) text-(--white-custom) w-full lg:w-auto border-r border-(--grey-custom) ${className ?? ""} h-full`} data-section>
       <div className="p-6 lg:h-44 flex items-center">
         {iconHref ? (
-          <a href={iconHref} target={title === "Address" ? "_blank" : undefined} rel={title === "Address" ? "noopener noreferrer" : undefined} aria-label={title} className="inline-flex">{icon}</a>
+          <a href={iconHref} hrefLang="en" target={title === "Address" ? "_blank" : undefined} rel={title === "Address" ? "noopener noreferrer" : undefined} aria-label={title} className="inline-flex">{icon}</a>
         ) : icon}
       </div>
       <div className="p-3 sm:px-6 sm:py-5 lg:h-32 border-l lg:border-l-0 lg:border-t border-(--grey-custom) flex flex-col justify-start">

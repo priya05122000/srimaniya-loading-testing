@@ -96,7 +96,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                         <ul className="flex flex-col xl:flex-row xl:space-x-6 space-y-6 xl:space-y-0 mt-8 xl:mt-0">
                             {NAV_LINKS.map((link) => (
                                 <li key={link.name} className="relative group">
-                                    <Link href={link.href ?? "#"} className={`text-base text-(--white-custom) transition-colors duration-200 relative py-2 ${isActive(link.href ?? "#") ? "border-b border-(--white-custom)" : "hover:border-b hover:border-(--white-custom)"}`} onClick={() => setMenuOpen(false)}>
+                                    <Link href={link.href ?? "#"} hrefLang="en" className={`text-base text-(--white-custom) transition-colors duration-200 relative py-2 ${isActive(link.href ?? "#") ? "border-b border-(--white-custom)" : "hover:border-b hover:border-(--white-custom)"}`} onClick={() => setMenuOpen(false)}>
                                         {link.name}
                                     </Link>
                                 </li>
@@ -114,7 +114,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                     </div>
                 </div>
                 {/* Logo */}
-                <Link href="/" className="logo flex items-center justify-center order-2 pr-6 sm:pr-0">
+                <Link href="/" hrefLang="en" className="logo flex items-center justify-center order-2 pr-6 sm:pr-0">
                     <Image src="/logos/navbarlogo.png" alt="Company Logo" width={500} height={500} className="h-16 sm:h-12 w-auto object-contain image-tag" priority unoptimized />
                 </Link>
             </div>
