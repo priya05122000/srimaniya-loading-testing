@@ -158,7 +158,7 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="sr-only">
+      {/* <section className="sr-only">
         <h1>Hotel Management Courses in Tamil Nadu</h1>
 
         <p>
@@ -171,7 +171,7 @@ export default async function Page() {
           Students can join after 10th or 12th and gain skills in catering, hospitality,
           food production, and hotel operations with expert guidance.
         </p>
-      </section>
+      </section> */}
 
       <CoursesPage courses={courses} />
     </>
