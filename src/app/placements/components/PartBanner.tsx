@@ -6,9 +6,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
-import "swiper/css/navigation";
+// import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/autoplay";
+// import "swiper/css/autoplay";
 
 // import required modules
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -19,10 +19,11 @@ import { getAllCourses } from "@/services/courseService";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
 import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 
-import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
+import LazyCaptcha from "@/components/LazyCaptcha";
 
 interface CourseOption {
   id: number;
@@ -66,7 +67,7 @@ const preloadImages = (banners: Banner[]) => {
           img.onerror = resolve;
         });
       });
-    })
+    }),
   );
 };
 
@@ -74,7 +75,16 @@ export default function PartBanner() {
   const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
 
-  const { formData, handleChange, handleSubmit, loading, error, success, setError, setSuccess } = useEnquiryForm({
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    loading,
+    error,
+    success,
+    setError,
+    setSuccess,
+  } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
     captchaAction: "placement_form",
@@ -97,7 +107,8 @@ export default function PartBanner() {
         const data = result?.data;
         if (Array.isArray(data) && data.length > 0) {
           const placementBanners = data.filter(
-            (banner: Banner) => banner.is_active && banner.category.includes("Placement")
+            (banner: Banner) =>
+              banner.is_active && banner.category.includes("Placement"),
           );
           setBanners(placementBanners);
           preloadImages(placementBanners);
@@ -113,7 +124,7 @@ export default function PartBanner() {
       .then((result) => {
         const data = result?.data || [];
         setCourseOptions(
-          data.map((c: CourseOption) => ({ id: c.id, title: c.title }))
+          data.map((c: CourseOption) => ({ id: c.id, title: c.title })),
         );
       })
       .catch(() => setCourseOptions([]));
@@ -141,7 +152,10 @@ export default function PartBanner() {
                 />
               </picture>
               <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-2/3 md:w-1/2 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
-                <div data-section className="absolute inset-0 bg-(--blue-overlay-medium) -z-10" />
+                <div
+                  data-section
+                  className="absolute inset-0 bg-(--blue-overlay-medium) -z-10"
+                />
                 <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
                 <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
                 <div className="px-4 py-2 sm:py-4 ">
@@ -156,7 +170,7 @@ export default function PartBanner() {
                   {banner.button_text && (
                     <p
                       className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out "
-                      style={{ fontSize: '1.125rem' }}
+                      style={{ fontSize: "1.125rem" }}
                     >
                       {banner.button_text}
                     </p>
@@ -168,7 +182,10 @@ export default function PartBanner() {
         ))}
       </Swiper>
       <div className="h-full sm:h-[calc(100vh-80px)] overflow-auto">
-        <div className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly " data-section>
+        <div
+          className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly "
+          data-section
+        >
           <div className="max-w-full sm:max-w-2xl ml-auto">
             <p className="uppercase jakarta-heading text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
               Join With US
@@ -177,19 +194,25 @@ export default function PartBanner() {
               Join With US
             </p>
           </div>
-          <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
-            <AutofillSuppressionFields />
-            <CommonEnquiryFields
-              formData={formData}
-              handleChange={handleChange}
-              courseOptions={courseOptions.map((course) => ({
-                value: String(course.id),
-                label: course.title,
-              }))}
-              loading={loading}
-              submitText="Submit"
-            />
-          </form>
+          <LazyCaptcha>
+            <form
+              className="flex flex-col gap-y-2"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
+              <AutofillSuppressionFields />
+              <CommonEnquiryFields
+                formData={formData}
+                handleChange={handleChange}
+                courseOptions={courseOptions.map((course) => ({
+                  value: String(course.id),
+                  label: course.title,
+                }))}
+                loading={loading}
+                submitText="Submit"
+              />
+            </form>
+          </LazyCaptcha>
         </div>
       </div>
     </div>

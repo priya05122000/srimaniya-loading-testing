@@ -10,45 +10,98 @@ import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import CommonEnquiryFields from '@/components/enquiry-validation/CommonEnquiryFields';
-import { useEnquiryForm } from '@/components/enquiry-validation/useEnquiryForm';
+import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
+import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
 
-import { validateEnquiryFormWithToast } from '@/components/enquiry-validation/enquiryFormValidation';
+import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
+import LazyCaptcha from "@/components/LazyCaptcha";
 
 // --- Types ---
-type FormData = { name: string; email: string; mobile: string; message: string; agree: boolean };
+type FormData = {
+  name: string;
+  email: string;
+  mobile: string;
+  message: string;
+  agree: boolean;
+};
 type AddressInfoProps = { title: string; address: string; className?: string };
-type CompanyInfoProps = { logoSrc: string; title: string; address: string; className?: string; logoClassName?: string };
+type CompanyInfoProps = {
+  logoSrc: string;
+  title: string;
+  address: string;
+  className?: string;
+  logoClassName?: string;
+};
 type AppointmentFormFieldsProps = {
   formData: FormData;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 };
 
 // --- Constants ---
 const COMPANY_LIST: CompanyInfoProps[] = [
-  { logoSrc: "/contact-us/seashore.webp", title: "Seashore & co", address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702" },
-  { logoSrc: "/contact-us/gtholidays.webp", title: "GT Holidays Pvt LTD", address: "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai - 600006 Tamil Nadu, India." },
-  { logoSrc: "/contact-us/follicle.webp", title: "Follicle", address: "NO 2/75, Customs Colony, OPP TO JAIN COLLEGE, Omr Service Road Ellaiamman Nagar, Thoraipakkam-600097 (OPP TO JAIN COLLEGE).", logoClassName: "w-32 h-20 flex items-end justify-center flex-shrink-0" },
+  {
+    logoSrc: "/contact-us/seashore.webp",
+    title: "Seashore & co",
+    address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702",
+  },
+  {
+    logoSrc: "/contact-us/gtholidays.webp",
+    title: "GT Holidays Pvt LTD",
+    address:
+      "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai - 600006 Tamil Nadu, India.",
+  },
+  {
+    logoSrc: "/contact-us/follicle.webp",
+    title: "Follicle",
+    address:
+      "NO 2/75, Customs Colony, OPP TO JAIN COLLEGE, Omr Service Road Ellaiamman Nagar, Thoraipakkam-600097 (OPP TO JAIN COLLEGE).",
+    logoClassName: "w-32 h-20 flex items-end justify-center flex-shrink-0",
+  },
 ];
-const HOTELS_LIST = "Hotel Sangam | Chennai Inn | Rameshwaram Grand | Temple Citi | AR Residency | Comorin Grand | Hotel Seaview | Hotel Seaface | Ocean Heritage | Triveni Tourist Home | Gopinivas Grand";
+const HOTELS_LIST =
+  "Hotel Sangam | Chennai Inn | Rameshwaram Grand | Temple Citi | AR Residency | Comorin Grand | Hotel Seaview | Hotel Seaface | Ocean Heritage | Triveni Tourist Home | Gopinivas Grand";
 
 // --- Reusable UI Components ---
-const AddressInfo: React.FC<AddressInfoProps> = React.memo(({ title, address, className }) => (
-  <div className={className}>
-    <Paragraph size="lg" className="text-(--dark) font-semibold">{title}</Paragraph>
-    <div className="text-(--dark) text-sm xl:text-base" dangerouslySetInnerHTML={{ __html: address }} />
-  </div>
-));
+const AddressInfo: React.FC<AddressInfoProps> = React.memo(
+  ({ title, address, className }) => (
+    <div className={className}>
+      <Paragraph size="lg" className="text-(--dark) font-semibold">
+        {title}
+      </Paragraph>
+      <div
+        className="text-(--dark) text-sm xl:text-base"
+        dangerouslySetInnerHTML={{ __html: address }}
+      />
+    </div>
+  ),
+);
 AddressInfo.displayName = "AddressInfo";
 
-const CompanyInfo: React.FC<CompanyInfoProps> = React.memo(({ logoSrc, title, address, className = "flex flex-col sm:flex-row sm:items-end gap-6 xl:gap-8 px-6 lg:px-8", logoClassName = "w-32  h-auto flex items-end justify-center flex-shrink-0 " }) => (
-  <div className={className}>
-    <div className={logoClassName}>
-      <Image src={logoSrc} alt="Partner Logo" className="object-contain w-auto h-auto max-h-full  mr-auto image-tag" loading="lazy" width={120} height={120} />
+const CompanyInfo: React.FC<CompanyInfoProps> = React.memo(
+  ({
+    logoSrc,
+    title,
+    address,
+    className = "flex flex-col sm:flex-row sm:items-end gap-6 xl:gap-8 px-6 lg:px-8",
+    logoClassName = "w-32  h-auto flex items-end justify-center flex-shrink-0 ",
+  }) => (
+    <div className={className}>
+      <div className={logoClassName}>
+        <Image
+          src={logoSrc}
+          alt="Partner Logo"
+          className="object-contain w-auto h-auto max-h-full  mr-auto image-tag"
+          loading="lazy"
+          width={120}
+          height={120}
+        />
+      </div>
+      <AddressInfo title={title} address={address} />
     </div>
-    <AddressInfo title={title} address={address} />
-  </div>
-));
+  ),
+);
 CompanyInfo.displayName = "CompanyInfo";
 
 // --- Mobile Layout ---
@@ -85,27 +138,53 @@ const MobileLayout: React.FC<{
         </div>
       </section>
       {/* Form */}
-      <section className="section bg-(--blue) flex justify-center items-center w-full py-8 " data-section>
-        <form onSubmit={handleSubmit} className="space-y-4 w-full px-6" autoComplete="off">
-          {/* Hidden dummy input to suppress autofill */}
-          <input type="text" name="fakeusernameremembered" autoComplete="username" style={{ display: "none" }} tabIndex={-1} />
-          <input type="password" name="fakePassword" autoComplete="new-password" style={{ display: "none" }} tabIndex={-1} />
-          <CommonEnquiryFields
-            formData={formData}
-            handleChange={handleChange}
-            loading={loading}
-            submitText="Submit"
-            fieldsToShow={["name", "email", "mobile", "message", "agree"]}
-          />
-        </form>
+      <section
+        className="section bg-(--blue) flex justify-center items-center w-full py-8 "
+        data-section
+      >
+        <LazyCaptcha>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 w-full px-6"
+            autoComplete="off"
+          >
+            {/* Hidden dummy input to suppress autofill */}
+            <input
+              type="text"
+              name="fakeusernameremembered"
+              autoComplete="username"
+              style={{ display: "none" }}
+              tabIndex={-1}
+            />
+            <input
+              type="password"
+              name="fakePassword"
+              autoComplete="new-password"
+              style={{ display: "none" }}
+              tabIndex={-1}
+            />
+            <CommonEnquiryFields
+              formData={formData}
+              handleChange={handleChange}
+              loading={loading}
+              submitText="Submit"
+              fieldsToShow={["name", "email", "mobile", "message", "agree"]}
+            />
+          </form>
+        </LazyCaptcha>
       </section>
       {/* Image */}
       <section className="section flex flex-col items-start w-full sm:py-8">
         <div className="w-full">
           <div className="flex flex-col gap-4 h-full">
             <div className="w-full sm:h-40 bg-white flex items-center justify-center mb-4">
-              <Image src="/contact-us/contact.webp" alt="Contact Sri Maniya Institute of Hotel Management"
-                width={700} height={700} className="w-full h-full object-cover image-tag" />
+              <Image
+                src="/contact-us/contact.webp"
+                alt="Contact Sri Maniya Institute of Hotel Management"
+                width={700}
+                height={700}
+                className="w-full h-full object-cover image-tag"
+              />
             </div>
           </div>
         </div>
@@ -120,9 +199,16 @@ const MobileLayout: React.FC<{
           Our Group of Companies
         </Heading>
         <div className="space-y-6 lg:space-y-8 w-full">
-          {COMPANY_LIST.map((company) => (<CompanyInfo key={company.title} {...company} />))}
+          {COMPANY_LIST.map((company) => (
+            <CompanyInfo key={company.title} {...company} />
+          ))}
         </div>
-        <Paragraph size="lg" className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center">{HOTELS_LIST}</Paragraph>
+        <Paragraph
+          size="lg"
+          className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center"
+        >
+          {HOTELS_LIST}
+        </Paragraph>
       </section>
     </div>
   );
@@ -150,38 +236,88 @@ const DesktopLayout: React.FC<{
       />
     </section>
     {/* Form */}
-    <section className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] lg:w-1/2 ml-auto z-10" data-section>
-      <form onSubmit={handleSubmit} className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8 " autoComplete="off">
-        {/* Hidden dummy input to suppress autofill */}
-        <input type="text" name="fakeusernameremembered" autoComplete="username" style={{ display: "none" }} tabIndex={-1} />
-        <input type="password" name="fakePassword" autoComplete="new-password" style={{ display: "none" }} tabIndex={-1} />
-        <CommonEnquiryFields
-          formData={formData}
-          handleChange={handleChange}
-          loading={loading}
-          submitText="Submit"
-          fieldsToShow={["name", "email", "mobile", "message", "agree"]}
-        />
-      </form>
+    <section
+      className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] lg:w-1/2 ml-auto z-10"
+      data-section
+    >
+      <LazyCaptcha>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8 "
+          autoComplete="off"
+        >
+          {/* Hidden dummy input to suppress autofill */}
+          <input
+            type="text"
+            name="fakeusernameremembered"
+            autoComplete="username"
+            style={{ display: "none" }}
+            tabIndex={-1}
+          />
+          <input
+            type="password"
+            name="fakePassword"
+            autoComplete="new-password"
+            style={{ display: "none" }}
+            tabIndex={-1}
+          />
+          <CommonEnquiryFields
+            formData={formData}
+            handleChange={handleChange}
+            loading={loading}
+            submitText="Submit"
+            fieldsToShow={["name", "email", "mobile", "message", "agree"]}
+          />
+        </form>
+      </LazyCaptcha>
     </section>
     {/* Companies & Hotels */}
     <section className="layer-section flex justify-center items-start h-[calc(100vh-80px)] z-0">
       <div className="h-full w-full">
         <div className="flex flex-row gap-4 md:gap-0 h-full">
           <div className="w-full sm:w-[40%] lg:w-1/2 hidden md:block h-full">
-            <Image src="/contact-us/contact.webp" alt="Contact Sri Maniya Institute of Hotel Management"
-              width={700} height={700} className="w-full h-full object-cover image-tag" />
+            <Image
+              src="/contact-us/contact.webp"
+              alt="Contact Sri Maniya Institute of Hotel Management"
+              width={700}
+              height={700}
+              className="w-full h-full object-cover image-tag"
+            />
           </div>
           <div className="w-full sm:w-[60%] lg:w-1/2 flex flex-col md:justify-end py-8">
-            <Heading level={4} className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 leading-tight hidden xl:block">Our Group of <br /> Companies</Heading>
-            <Heading level={5} className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 hidden lg:block  leading-tight xl:hidden">Our Group of Companies</Heading>
-            <Heading level={5} className="text-(--blue) leading-tight mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-4 hidden sm:block lg:hidden">Our Group of Companies</Heading>
+            <Heading
+              level={4}
+              className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 leading-tight hidden xl:block"
+            >
+              Our Group of <br /> Companies
+            </Heading>
+            <Heading
+              level={5}
+              className="text-(--blue) mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-10 hidden lg:block  leading-tight xl:hidden"
+            >
+              Our Group of Companies
+            </Heading>
+            <Heading
+              level={5}
+              className="text-(--blue) leading-tight mt-2 uppercase  px-6 pt-6 lg:px-8 font-bold sm:py-4 hidden sm:block lg:hidden"
+            >
+              Our Group of Companies
+            </Heading>
             <div className="relative overflow-hidden">
               <div className="space-y-6 lg:space-y-8">
-                {COMPANY_LIST.map((company) => (<CompanyInfo key={company.title} {...company} />))}
+                {COMPANY_LIST.map((company) => (
+                  <CompanyInfo key={company.title} {...company} />
+                ))}
               </div>
-              <Paragraph size="base" className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center hidden xl:block">{HOTELS_LIST}</Paragraph>
-              <Span className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center block xl:hidden">{HOTELS_LIST}</Span>
+              <Paragraph
+                size="base"
+                className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center hidden xl:block"
+              >
+                {HOTELS_LIST}
+              </Paragraph>
+              <Span className="text-(--dark) font-semibold px-6 pt-6 lg:px-8 text-center block xl:hidden">
+                {HOTELS_LIST}
+              </Span>
             </div>
           </div>
         </div>
@@ -194,7 +330,16 @@ const DesktopLayout: React.FC<{
 const Appointment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { formData, handleChange, handleSubmit, loading, error, success, setError, setSuccess } = useEnquiryForm({
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    loading,
+    error,
+    success,
+    setError,
+    setSuccess,
+  } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
     captchaAction: "appointment_form",
@@ -213,7 +358,9 @@ const Appointment: React.FC = () => {
   }, [error, success, setError, setSuccess]);
 
   // Mount state for SSR/CSR safety
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // GSAP/ScrollTrigger for desktop layout
   useLayoutEffect(() => {
@@ -228,11 +375,38 @@ const Appointment: React.FC = () => {
           const isLast = i === layers.length - 1;
           if (pauseLayer) {
             gsap.set(layer, { marginBottom: "300vh" });
-            const slides = gsap.utils.toArray<HTMLElement>(".horizontal-slide", layer);
-            gsap.to(slides, { xPercent: -100 * (slides.length - 1), ease: "power1.inOut", scrollTrigger: { trigger: layer, start: "top top+=80", end: "+=300%", scrub: true } });
-            ScrollTrigger.create({ trigger: layer, start: "top top+=80", end: "+=400%", scrub: true, pin: true, pinSpacing: isLast, id: String(i + 1) });
+            const slides = gsap.utils.toArray<HTMLElement>(
+              ".horizontal-slide",
+              layer,
+            );
+            gsap.to(slides, {
+              xPercent: -100 * (slides.length - 1),
+              ease: "power1.inOut",
+              scrollTrigger: {
+                trigger: layer,
+                start: "top top+=80",
+                end: "+=300%",
+                scrub: true,
+              },
+            });
+            ScrollTrigger.create({
+              trigger: layer,
+              start: "top top+=80",
+              end: "+=400%",
+              scrub: true,
+              pin: true,
+              pinSpacing: isLast,
+              id: String(i + 1),
+            });
           } else {
-            ScrollTrigger.create({ trigger: layer, start: "top top+=80", end: "+=100%", pin: true, pinSpacing: isLast, id: String(i + 1) });
+            ScrollTrigger.create({
+              trigger: layer,
+              start: "top top+=80",
+              end: "+=100%",
+              pin: true,
+              pinSpacing: isLast,
+              id: String(i + 1),
+            });
           }
         });
         ScrollTrigger.refresh();
@@ -247,8 +421,18 @@ const Appointment: React.FC = () => {
   // --- Render ---
   return (
     <div ref={containerRef} className="w-full">
-      <MobileLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
-      <DesktopLayout formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
+      <MobileLayout
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
+      <DesktopLayout
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
     </div>
   );
 };

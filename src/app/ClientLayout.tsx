@@ -13,8 +13,6 @@ import Footer from "@/components/layout/Footer";
 import BackToTopButton from "@/components/common/BackToTopButton";
 import FloatingContactButtons from "@/components/common/FloatingContactButtons";
 import "react-toastify/dist/ReactToastify.css";
-import Script from "next/script";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useFooterReveal } from "@/hooks/useFooterReveal";
@@ -59,10 +57,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     // Only trigger popup once after mount
     if (hasPopupTriggered) return;
     // ❌ Hide popup for blog detail pages
-    if (
-      pathname.startsWith("/events-blog/") &&
-      pathname !== "/events-blog"
-    ) {
+    if (pathname.startsWith("/events-blog/") && pathname !== "/events-blog") {
       setShowPopup(false);
       return;
     }
@@ -81,7 +76,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
 
   useScrollSmoother(
     effectiveLoading,
-    smootherRef as React.RefObject<HTMLDivElement>
+    smootherRef as React.RefObject<HTMLDivElement>,
   );
   useEffect(() => {
     if (!effectiveLoading && window.location.hash !== "#enquire-form") {
@@ -105,10 +100,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
 
   // Render
   return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-      scriptProps={{ async: true, defer: true, appendTo: "body" }}
-    >
+    <>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -124,10 +116,11 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       {/* Navbar */}
       {pathname !== "/registration-form" && (
         <div
-          className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${navbarVisible
+          className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${
+            navbarVisible
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
-            }`}
+          }`}
         >
           <Navbar />
         </div>
@@ -147,8 +140,9 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       >
         <div className="smoother-content">
           <main
-            className={`relative z-10 ${pathname !== "/registration-form" ? " pt-20" : ""
-              }`}
+            className={`relative z-10 ${
+              pathname !== "/registration-form" ? " pt-20" : ""
+            }`}
             style={{
               opacity:
                 pathname === "/registration-form" ? 1 : showOnlyFooter ? 0 : 1,
@@ -178,7 +172,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
       </div>
       {/* Enquiry Popup */}
       <EnquiryPopup show={showPopup} onClose={handleClosePopup} />
-    </GoogleReCaptchaProvider>
+    </>
   );
 };
 
