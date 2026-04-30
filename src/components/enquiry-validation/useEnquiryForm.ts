@@ -95,7 +95,7 @@ export function useEnquiryForm({
         setLoading(true);
         try {
             const captchaToken = await executeRecaptcha(captchaAction);
-            console.log("Captcha token:", captchaToken);
+            // console.log("Captcha token:", captchaToken);
 
             let resumeUrl = null;
             if ((formData as any).resume) {

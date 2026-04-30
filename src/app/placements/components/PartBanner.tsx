@@ -6,29 +6,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
-// import "swiper/css/navigation";
 import "swiper/css/pagination";
-// import "swiper/css/autoplay";
 
 // import required modules
-import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
-
-import { toast } from "react-toastify";
-import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import { getAllCourses } from "@/services/courseService";
+import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
-import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFields";
-import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
-import { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 
-import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
 import LazyCaptcha from "@/components/LazyCaptcha";
+import BannerForm from "../subComponents/BannerForm";
 
-interface CourseOption {
-  id: number;
-  title: string;
-}
+
 
 interface Banner {
   image_desktop: string;
@@ -50,7 +38,7 @@ const SWIPER_CONFIG = {
   navigation: false,
   pagination: { clickable: true },
   autoplay: { delay: 3000, disableOnInteraction: false },
-  modules: [EffectFade, Navigation, Pagination, Autoplay],
+  modules: [EffectFade, Pagination, Autoplay],
   className: "partBannerSwiper h-[250px] ",
 };
 
@@ -72,34 +60,7 @@ const preloadImages = (banners: Banner[]) => {
 };
 
 export default function PartBanner() {
-  const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
-
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    loading,
-    error,
-    success,
-    setError,
-    setSuccess,
-  } = useEnquiryForm({
-    validateForm: validateEnquiryFormWithToast,
-    onSubmit: createAppoinmentRequest,
-    captchaAction: "placement_form",
-  });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError(null);
-    }
-    if (success) {
-      toast.success(success);
-      setSuccess(null);
-    }
-  }, [error, success, setError, setSuccess]);
 
   useEffect(() => {
     getAllBanners()
@@ -119,23 +80,12 @@ export default function PartBanner() {
       .catch(() => setBanners([]));
   }, []);
 
-  useEffect(() => {
-    getAllCourses()
-      .then((result) => {
-        const data = result?.data || [];
-        setCourseOptions(
-          data.map((c: CourseOption) => ({ id: c.id, title: c.title })),
-        );
-      })
-      .catch(() => setCourseOptions([]));
-  }, []);
-
   return (
     <div className="relative lg:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
       <Swiper key={banners.length} {...SWIPER_CONFIG}>
         {banners.map((banner, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[250px] sm:h-[calc(100vh-80px)]">
+            <div className="relative w-full h-62.5 sm:h-[calc(100vh-80px)]">
               <picture>
                 <source
                   media="(min-width:1024px)"
@@ -187,31 +137,15 @@ export default function PartBanner() {
           data-section
         >
           <div className="max-w-full sm:max-w-2xl ml-auto">
-            <p className="uppercase jakarta-heading text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
+            <p className="uppercase font-jakarta text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
               Join With US
             </p>
-            <p className="uppercase jakarta-heading text-end block xl:hidden text-2xl sm:text-3xl lg:text-4xl font-bold">
+            <p className="uppercase font-jakarta text-end block xl:hidden text-2xl sm:text-3xl lg:text-4xl font-bold">
               Join With US
             </p>
           </div>
           <LazyCaptcha>
-            <form
-              className="flex flex-col gap-y-2"
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <AutofillSuppressionFields />
-              <CommonEnquiryFields
-                formData={formData}
-                handleChange={handleChange}
-                courseOptions={courseOptions.map((course) => ({
-                  value: String(course.id),
-                  label: course.title,
-                }))}
-                loading={loading}
-                submitText="Submit"
-              />
-            </form>
+            <BannerForm />
           </LazyCaptcha>
         </div>
       </div>

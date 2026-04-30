@@ -1,44 +1,11 @@
 "use client";
-import Heading from "@/components/common/Heading";
+import { useRef } from "react";
 import Image from "next/image";
-import React, { useRef, useEffect } from "react";
-import { toast } from "react-toastify";
-import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import CommonEnquiryFields, {
-  AutofillSuppressionFields,
-} from "@/components/enquiry-validation/CommonEnquiryFields";
-import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
-import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import LazyCaptcha from "@/components/LazyCaptcha";
+import FormInner from "../subcomponents/FormInner";
 
 const EnquireForm: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    loading,
-    error,
-    success,
-    setError,
-    setSuccess,
-  } = useEnquiryForm({
-    validateForm: validateEnquiryFormWithToast,
-    onSubmit: createAppoinmentRequest,
-    captchaAction: "enquiry_form",
-  });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError(null);
-    }
-    if (success) {
-      toast.success(success);
-      setSuccess(null);
-    }
-  }, [error, success, setError, setSuccess]);
 
   return (
     <div className="md:h-[calc(100vh-80px)]" ref={sectionRef}>
@@ -61,25 +28,12 @@ const EnquireForm: React.FC = () => {
             data-section
           >
             <div className="max-w-2xl ml-auto">
-              <p className="text-(--white-custom) uppercase text-end jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold">
+              <p className="text-(--white-custom) uppercase text-end font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold">
                 Enquire
               </p>
             </div>
             <LazyCaptcha>
-              <form
-                className="flex flex-col gap-y-2"
-                onSubmit={handleSubmit}
-                autoComplete="off"
-              >
-                <AutofillSuppressionFields />
-                <CommonEnquiryFields
-                  formData={formData}
-                  handleChange={handleChange}
-                  loading={loading}
-                  submitText="Submit"
-                />
-                {/* Submit button is now handled by CommonEnquiryFields */}
-              </form>
+              <FormInner />
             </LazyCaptcha>
           </div>
         </div>

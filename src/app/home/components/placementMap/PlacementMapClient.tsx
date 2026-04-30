@@ -232,7 +232,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               </Paragraph>
               <h3
                 ref={headingRef}
-                className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold jakarta-heading"
+                className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta"
               >
                 Connecting <br /> Talent to <br /> Global Brands
               </h3>
@@ -319,7 +319,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
                   </Paragraph>
                   <div
                     ref={headingRefDesktop}
-                    className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold jakarta-heading"
+                    className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta"
                   >
                     Connecting <br /> Talent to <br /> Global Brands
                   </div>

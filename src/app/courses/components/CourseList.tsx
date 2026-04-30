@@ -76,7 +76,7 @@ const MobileCourseRow: FC<CourseRowProps> = ({
     <div className="min-w-[110px] shrink-0 flex flex-col items-start">
       {highlight && id !== undefined ? (
         <div className="flex items-baseline sm:items-center gap-2">
-          <p className="text-(--dark) jakarta-heading  text-2xl sm:text-3xl lg:text-4xl font-bold">
+          <p className="text-(--dark) font-jakarta  text-2xl sm:text-3xl lg:text-4xl font-bold">
             {id.toString().padStart(2, "0")}
           </p>
           <Paragraph size="xl" className="text-(--dark) font-bold">

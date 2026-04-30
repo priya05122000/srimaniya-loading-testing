@@ -43,7 +43,7 @@ const AboutUs = () => {
                   <div className="">
                     <h1
 
-                      className="text-white-custom text-xl sm:text-2xl lg:text-3xl  font-bold about-us-heading leading-tight"
+                      className="text-white-custom font-jakarta text-xl sm:text-2xl lg:text-3xl  font-bold about-us-heading leading-tight"
                     >
                       About Us
                     </h1>

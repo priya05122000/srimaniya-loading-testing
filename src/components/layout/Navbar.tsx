@@ -6,6 +6,7 @@ import Image from "next/image";
 import { GoDownload } from "react-icons/go";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";
+import LazyCaptcha from "../LazyCaptcha";
 
 // -------------------- Types -------------------
 interface NavLink {
@@ -121,12 +122,14 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
             {/* Overlay for mobile menu */}
             {menuOpen && <div className="fixed inset-0 bg-(--black)/30 z-30 md:hidden" onClick={() => setMenuOpen(false)}></div>}
             {/* Brochure Modal */}
-            <BrochureModal
-                open={showBrochureModal}
-                onClose={() => setShowBrochureModal(false)}
-                form={form}
-                onChange={() => { }} // No-op, BrochureModal manages state
-            />
+            <LazyCaptcha>
+                <BrochureModal
+                    open={showBrochureModal}
+                    onClose={() => setShowBrochureModal(false)}
+                    form={form}
+                    onChange={() => { }} // No-op, BrochureModal manages state
+                />
+            </LazyCaptcha>
         </nav>
     );
 };

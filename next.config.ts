@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     deviceSizes: [360, 640, 768, 1024, 1280, 1440, 1600],
     imageSizes: [64, 96, 128, 256, 384],
     domains: ["api.srimaniyainstitute.in", "localhost", "127.0.0.1"],
+    qualities: [70, 75, 80, 90],
   },
 
   compiler: {

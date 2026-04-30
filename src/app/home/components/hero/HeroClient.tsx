@@ -94,7 +94,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                   {banner.button_text && (
                     <p
 
-                      className="text-end text-xl sm:text-2xl lg:text-3xl jakarta-heading font-semibold leading-snug transition-colors duration-300 ease-in-out px-6 sm:px-8 py-4 rounded-lg"
+                      className="text-end text-xl sm:text-2xl lg:text-3xl font-jakarta font-semibold leading-snug transition-colors duration-300 ease-in-out px-6 sm:px-8 py-4 rounded-lg"
                     >
                       {banner.button_text}
                     </p>
@@ -132,12 +132,12 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                       </Span>
                     )}
                     <p
-                      className="leading-tight jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 animate-text hero-title hidden xl:block"
+                      className="leading-tight font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 animate-text hero-title hidden xl:block"
                     >
                       {banner.title}
                     </p>
                     <p
-                      className="leading-tight jakarta-heading text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 animate-text hero-title block xl:hidden"
+                      className="leading-tight font-jakarta text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 animate-text hero-title block xl:hidden"
                     >
                       {banner.title}
                     </p>

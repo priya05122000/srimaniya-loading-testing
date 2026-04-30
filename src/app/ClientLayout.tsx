@@ -18,6 +18,7 @@ import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useFooterReveal } from "@/hooks/useFooterReveal";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import EnquiryPopup from "@/components/common/EnquiryPopup";
+import LazyCaptcha from "@/components/LazyCaptcha";
 
 // GSAP plugin registration
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -171,7 +172,9 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
         </div>
       </div>
       {/* Enquiry Popup */}
-      <EnquiryPopup show={showPopup} onClose={handleClosePopup} />
+      <LazyCaptcha>
+        <EnquiryPopup show={showPopup} onClose={handleClosePopup} />
+      </LazyCaptcha>
     </>
   );
 };

@@ -127,7 +127,7 @@ export default function Partners() {
           <h2
             ref={headingRef}
 
-            className="text-(--blue)  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
+            className="text-(--blue) font-jakarta  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
           >
             Explore Our <br /> Global Placement Network
 

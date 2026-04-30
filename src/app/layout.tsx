@@ -6,7 +6,6 @@ import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
 import ConditionalGlobalLoader from "@/components/ConditionalGlobalLoader";
 import AnalyticsListener from "./analytics-listener";
 import { Suspense } from "react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,7 +43,7 @@ const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
-  variable: "--font-plus-jakarta",
+  variable: "--font-jakarta",
 });
 
 const inter = Inter({
@@ -62,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`${plusJakarta.variable} ${inter.variable} antialiased`}>
+      <body className={`${plusJakarta.variable} ${inter.variable} font-inter antialiased`}>
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
@@ -165,7 +164,6 @@ export default function RootLayout({
           <ConditionalGlobalLoader />
           <ClientLayout>{children}</ClientLayout>
         </GlobalLoaderProvider>
-        <SpeedInsights />
       </body>
     </html>
   );

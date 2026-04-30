@@ -48,7 +48,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     }
 
     const props: React.HTMLAttributes<HTMLHeadingElement> = {
-      className: `${baseClass} font-bold ${className}`,
+      className: `${baseClass} font-bold font-jakarta ${className}`,
       ...rest,
     };
     if (aos) {

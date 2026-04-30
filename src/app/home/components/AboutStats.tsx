@@ -96,13 +96,13 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
 // StatBlock: Reusable stat display
 const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
   <div className="text-center lg:text-left w-full lg:py-6 lg:border-b border-(--grey-custom)">
-    <span className="hidden lg:block text-4xl sm:text-5xl lg:text-6xl font-bold jakarta-heading">
+    <span className="hidden lg:block text-4xl sm:text-5xl lg:text-6xl font-bold font-jakarta">
       <span className="flex items-baseline">
         <OdometerNumber value={parseInt(stat.value)} />
         <span className="ml-1">+</span>
       </span>
     </span>
-    <span className="block lg:hidden text-3xl sm:text-4xl lg:text-5xl font-bold jakarta-heading">
+    <span className="block lg:hidden text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta">
       <span className="flex items-baseline justify-center lg:justify-start">
         <OdometerNumber value={parseInt(stat.value)} />
         <span className="ml-1">+</span>
@@ -224,12 +224,12 @@ const AboutStats = () => {
           <div className="text-(--grey-custom) msg-wrapper text-center lg:text-left">
             <p
 
-              className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block jakarta-heading "
+              className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block font-jakarta "
             >
               Sri Maniya <br className="xl:hidden" /> Institute
             </p>
             <p
-              className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden jakarta-heading"
+              className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden font-jakarta"
             >
               Sri Maniya Institute
             </p>

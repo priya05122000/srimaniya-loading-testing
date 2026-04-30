@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import Span from "@/components/common/Span";
 import { getAllBlogPosts } from "@/services/blogPostService";
 
+import styles from "./blog.module.css";
+
 // Types
 type Blog = {
   id: string;
@@ -239,7 +241,7 @@ const BlogDetails: React.FC<{
 
         {/* Main Content */}
         <main className="w-full lg:w-[75%] xl:w-[80%] space-y-8 lg:py-16">
-          <div>
+          <div className={styles["blog-content"]}>
             <div
               className="blog-content text-(--dark)"
               dangerouslySetInnerHTML={{ __html: blog?.description }}

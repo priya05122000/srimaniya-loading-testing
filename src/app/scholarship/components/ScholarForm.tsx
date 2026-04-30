@@ -1,31 +1,6 @@
-"use client";
-import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
-import { toast } from "react-toastify";
-import { createAppoinmentRequest } from "@/services/appoinmentRequestService";
-import { getAllCourses } from "@/services/courseService";
-import Heading from "@/components/common/Heading";
-import CommonEnquiryFields, {
-  AutofillSuppressionFields,
-} from "@/components/enquiry-validation/CommonEnquiryFields";
-import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
-import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import LazyCaptcha from "@/components/LazyCaptcha";
-
-// Types
-interface CourseOption {
-  id: number;
-  title: string;
-}
-
-interface FormData {
-  name: string;
-  email: string;
-  mobile: string;
-  message: string;
-  course: string;
-  agree: boolean;
-}
+import ScholarFormInner from "./ScholarFormInner";
 
 const IMAGE_PROPS = {
   src: "/scholarship/scholarform.webp",
@@ -37,44 +12,6 @@ const IMAGE_PROPS = {
 };
 
 const ScholarForm: React.FC = () => {
-  const [courseOptions, setCourseOptions] = useState<CourseOption[]>([]);
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    loading,
-    error,
-    success,
-    setError,
-    setSuccess,
-  } = useEnquiryForm({
-    validateForm: validateEnquiryFormWithToast,
-    onSubmit: createAppoinmentRequest,
-    captchaAction: "scholar_form",
-  });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError(null);
-    }
-    if (success) {
-      toast.success(success);
-      setSuccess(null);
-    }
-  }, [error, success, setError, setSuccess]);
-
-  useEffect(() => {
-    getAllCourses()
-      .then((result) => {
-        const data = result?.data || [];
-        setCourseOptions(
-          data.map((c: CourseOption) => ({ id: c.id, title: c.title })),
-        );
-      })
-      .catch(() => setCourseOptions([]));
-  }, []);
-
   return (
     <div className="min-h-[100vh-80px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1.5fr]">
       <div
@@ -86,23 +23,7 @@ const ScholarForm: React.FC = () => {
             Join With US
           </h3>
           <LazyCaptcha>
-            <form
-              className="flex flex-col gap-y-2"
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <AutofillSuppressionFields />
-              <CommonEnquiryFields
-                formData={formData}
-                handleChange={handleChange}
-                courseOptions={courseOptions.map((course) => ({
-                  value: String(course.id),
-                  label: course.title,
-                }))}
-                loading={loading}
-                submitText="Submit"
-              />
-            </form>
+            <ScholarFormInner />
           </LazyCaptcha>
         </div>
       </div>

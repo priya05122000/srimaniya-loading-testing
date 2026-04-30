@@ -15,6 +15,8 @@ import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
 
 import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import LazyCaptcha from "@/components/LazyCaptcha";
+import MobileForm from "./MobileForm";
+import DesktopForm from "./DesktopForm";
 
 // --- Types ---
 type FormData = {
@@ -105,12 +107,7 @@ const CompanyInfo: React.FC<CompanyInfoProps> = React.memo(
 CompanyInfo.displayName = "CompanyInfo";
 
 // --- Mobile Layout ---
-const MobileLayout: React.FC<{
-  formData: FormData;
-  handleChange: AppointmentFormFieldsProps["handleChange"];
-  handleSubmit: (e: React.FormEvent) => void;
-  loading: boolean;
-}> = ({ formData, handleChange, handleSubmit, loading }) => {
+const MobileLayout: React.FC = () => {
   // SplitText animation for mobile headings
   const headingRef = useRef<HTMLHeadingElement>(null);
   useSplitTextHeadingAnimation({
@@ -143,34 +140,7 @@ const MobileLayout: React.FC<{
         data-section
       >
         <LazyCaptcha>
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-4 w-full px-6"
-            autoComplete="off"
-          >
-            {/* Hidden dummy input to suppress autofill */}
-            <input
-              type="text"
-              name="fakeusernameremembered"
-              autoComplete="username"
-              style={{ display: "none" }}
-              tabIndex={-1}
-            />
-            <input
-              type="password"
-              name="fakePassword"
-              autoComplete="new-password"
-              style={{ display: "none" }}
-              tabIndex={-1}
-            />
-            <CommonEnquiryFields
-              formData={formData}
-              handleChange={handleChange}
-              loading={loading}
-              submitText="Submit"
-              fieldsToShow={["name", "email", "mobile", "message", "agree"]}
-            />
-          </form>
+          <MobileForm />
         </LazyCaptcha>
       </section>
       {/* Image */}
@@ -215,12 +185,7 @@ const MobileLayout: React.FC<{
 };
 
 // --- Desktop Layout ---
-const DesktopLayout: React.FC<{
-  formData: FormData;
-  handleChange: AppointmentFormFieldsProps["handleChange"];
-  handleSubmit: (e: React.FormEvent) => void;
-  loading: boolean;
-}> = ({ formData, handleChange, handleSubmit, loading }) => (
+const DesktopLayout: React.FC = () => (
   <div className="hidden md:block">
     {/* Map */}
     <section className="layer-section flex justify-center items-center h-[calc(100vh-80px)]">
@@ -241,34 +206,7 @@ const DesktopLayout: React.FC<{
       data-section
     >
       <LazyCaptcha>
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-3 xl:space-y-4 pt-10 px-6 lg:px-8 "
-          autoComplete="off"
-        >
-          {/* Hidden dummy input to suppress autofill */}
-          <input
-            type="text"
-            name="fakeusernameremembered"
-            autoComplete="username"
-            style={{ display: "none" }}
-            tabIndex={-1}
-          />
-          <input
-            type="password"
-            name="fakePassword"
-            autoComplete="new-password"
-            style={{ display: "none" }}
-            tabIndex={-1}
-          />
-          <CommonEnquiryFields
-            formData={formData}
-            handleChange={handleChange}
-            loading={loading}
-            submitText="Submit"
-            fieldsToShow={["name", "email", "mobile", "message", "agree"]}
-          />
-        </form>
+        <DesktopForm />
       </LazyCaptcha>
     </section>
     {/* Companies & Hotels */}
@@ -329,33 +267,7 @@ const DesktopLayout: React.FC<{
 // --- Main Appointment Component ---
 const Appointment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const {
-    formData,
-    handleChange,
-    handleSubmit,
-    loading,
-    error,
-    success,
-    setError,
-    setSuccess,
-  } = useEnquiryForm({
-    validateForm: validateEnquiryFormWithToast,
-    onSubmit: createAppoinmentRequest,
-    captchaAction: "appointment_form",
-  });
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError(null);
-    }
-    if (success) {
-      toast.success(success);
-      setSuccess(null);
-    }
-  }, [error, success, setError, setSuccess]);
 
   // Mount state for SSR/CSR safety
   useEffect(() => {
@@ -421,18 +333,8 @@ const Appointment: React.FC = () => {
   // --- Render ---
   return (
     <div ref={containerRef} className="w-full">
-      <MobileLayout
-        formData={formData}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
-      <DesktopLayout
-        formData={formData}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
+      <MobileLayout />
+      <DesktopLayout />
     </div>
   );
 };

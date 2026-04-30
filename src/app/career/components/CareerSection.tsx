@@ -114,7 +114,7 @@ const CareerSection: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
                   data-section
                 >
                   <div className="">
-                    <h1 className="text-(--white-custom) text-xl sm:text-2xl lg:text-3xl font-bold career-heading">
+                    <h1 className="text-(--white-custom) font-jakarta text-xl sm:text-2xl lg:text-3xl font-bold career-heading">
                       Career
                     </h1>
                     <Paragraph

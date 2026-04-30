@@ -19,16 +19,6 @@ export function useFooterReveal({
 
     if (loading) return;
 
-    // 👇 ADD CONSOLE HERE
-    console.log("FooterReveal Debug:", {
-      pathname,
-      loading,
-      width: window.innerWidth,
-      hash: window.location.hash,
-      footer: document.getElementById("footer"),
-      smoother: ScrollSmoother.get(),
-    });
-
     if (
       window.innerWidth < 1024 ||
       pathname === "/" ||

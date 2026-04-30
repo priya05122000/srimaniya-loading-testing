@@ -47,14 +47,14 @@ const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(
         <div className="relative z-30 flex flex-col items-end justify-start h-full p-6 sm:p-8 gap-4 text-(--white-custom) w-10/12 lg:w-2/3 group">
           <div className="transition-all duration-300 ease-in-out rounded-lg">
             <span
-              className="mb-1 jakarta-heading text-2xl sm:text-3xl lg:text-4xl font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
+              className="mb-1 font-jakarta text-2xl sm:text-3xl lg:text-4xl font-semibold transition-colors duration-300 ease-in-out bg-(--blue) p-2"
             >
               {feature.number}
             </span>
           </div>
           <div className="transition-all duration-300 ease-in-out rounded-lg">
             <p
-              className="text-xl sm:text-2xl lg:text-3xl text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg jakarta-heading"
+              className="text-xl sm:text-2xl lg:text-3xl text-end font-semibold leading-snug transition-colors duration-300 ease-in-out group-hover:text-white px-2 py-1 group-hover:backdrop-blur-md group-hover:bg-white/6 group-hover:drop-shadow-2xl group-hover:text-shadow-lg font-jakarta"
             >
               {feature.title}
             </p>
@@ -156,13 +156,13 @@ const CommitmentBanner: React.FC = () => {
           </Paragraph>
           {/* <h2
             ref={headingRef}
-            className="text-(--white-custom) jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
+            className="text-(--white-custom) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
           >
             Our commitment to build your trust
           </h2> */}
           <h3
             ref={headingRef}
-            className="text-(--white-custom) jakarta-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
+            className="text-(--white-custom) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
           >
             Why Choose Us
           </h3>
