@@ -243,7 +243,7 @@ const BlogDetails: React.FC<{
         <main className="w-full lg:w-[75%] xl:w-[80%] space-y-8 lg:py-16">
           <div className={styles["blog-content"]}>
             <div
-              className="blog-content text-(--dark)"
+              className="blog-content text-(--dark) "
               dangerouslySetInnerHTML={{ __html: blog?.description }}
             />
           </div>
