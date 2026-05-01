@@ -13,7 +13,7 @@ const GRID_CLASSES =
 
 const SECTION_CLASSES = "absolute pt-10 sm:pt-20 top-0";
 const HEADING_6_CLASSES = "font-semibold text-(--blue)";
-const HEADING_4_CLASSES = "text-(--blue) mb-8 leading-tight text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta bg-amber-100";
+const HEADING_4_CLASSES = "text-(--blue) mb-8 leading-tight text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta ";
 
 interface Blog {
   id: string;
