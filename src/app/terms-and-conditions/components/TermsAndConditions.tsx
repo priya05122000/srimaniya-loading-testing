@@ -33,7 +33,7 @@ const TermsAndConditions = () => {
           </Paragraph>
           <h1
             ref={headingRef}
-            className="my-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
+            className="my-2 text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
           >
             Terms and Conditions
           </h1>
@@ -66,7 +66,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               General Information
             </h3>
@@ -77,7 +77,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Courses, Fees, and Content
             </h3>
@@ -88,7 +88,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Placement and Salary Disclaimer
             </h3>
@@ -99,7 +99,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Use of Website
             </h3>
@@ -110,7 +110,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Intellectual Property
             </h3>
@@ -121,7 +121,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Third-Party Links
             </h3>
@@ -132,7 +132,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Limitation of Liability
             </h3>
@@ -147,7 +147,7 @@ const TermsAndConditions = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Privacy
             </h3>
@@ -157,7 +157,7 @@ const TermsAndConditions = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Updates to Terms
             </h3>
@@ -168,7 +168,7 @@ const TermsAndConditions = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Contact Us
             </h3>

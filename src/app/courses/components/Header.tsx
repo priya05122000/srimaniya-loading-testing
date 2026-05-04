@@ -29,7 +29,7 @@ const CONTENT_CLASSES = [
   "bg-(--blue-overlay-strong)",
   "relative",
 ].join(" ");
-const HEADING_CLASSES = "leading-tight animate-text uppercase text-3xl sm:text-4xl lg:text-5xl font-bold";
+const HEADING_CLASSES = "leading-tight font-jakarta animate-text uppercase text-3xl sm:text-4xl lg:text-5xl font-bold";
 const PARAGRAPH_TEXT =
   "Discover our hotel management courses designed to provide industry-relevant knowledge and practical skills, forming a solid foundation for a successful career in hospitality.";
 

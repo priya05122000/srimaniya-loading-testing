@@ -217,7 +217,7 @@ const Courses: React.FC = () => {
               <Paragraph ref={paragraphRef} size="lg" className="text-(--white-custom) font-bold courses-title ">
                 Courses
               </Paragraph>
-              <h3 ref={headingRef} className="text-(--white-custom) text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 leading-tight uppercase  courses-academic-title">
+              <h3 ref={headingRef} className="text-(--white-custom) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 leading-tight uppercase  courses-academic-title">
                 Our Academic <br /> Programs
               </h3>
             </div>

@@ -53,7 +53,7 @@ const CourseRow: FC<CourseRowProps> = ({ label, children, highlight = false, id,
 
     <td className="pl-8 border-l py-10">
       {highlight && title && duration ? (
-        <h3 className="text-(--dark) text-lg sm:text-xl lg:text-2xl font-bold md:w-[75%] xl:w-[80%] ">
+        <h3 className="text-(--dark) text-lg font-jakarta sm:text-xl lg:text-2xl font-bold md:w-[75%] xl:w-[80%] ">
           {title}
           <span className="text-(--grey-light-custom) text-xl font-normal">
             &nbsp;- ({duration})
@@ -91,7 +91,7 @@ const MobileCourseRow: FC<CourseRowProps> = ({
     </div>
     <div className="flex-1">
       {highlight && title && duration ? (
-        <h3 className="text-(--dark) text-xl sm:text-2xl lg:text-3xl font-bold">
+        <h3 className="text-(--dark) text-xl sm:text-2xl lg:text-3xl font-jakarta font-bold">
           {title}
           <span className="text-(--dark) text-base font-normal">
             &nbsp;- ({duration})

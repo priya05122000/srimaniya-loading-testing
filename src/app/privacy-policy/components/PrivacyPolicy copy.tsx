@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
           </Paragraph>
           <h1
             ref={headingRef}
-            className="my-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
+            className="my-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy font-jakarta uppercase"
           >
             Privacy Policy
           </h1>

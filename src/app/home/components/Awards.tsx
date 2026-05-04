@@ -135,7 +135,7 @@ export default function Awards() {
             </Paragraph>
             <h3
               ref={headingRef}
-              className="honors-title text-3xl sm:text-4xl lg:text-5xl font-bold text-(--white-custom) uppercase leading-tight mt-1"
+              className="honors-title font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-(--white-custom) uppercase leading-tight mt-1"
             >
               Honors <br className="hidden lg:block" /> and{" "}
               <br className="hidden lg:block" /> Recognition

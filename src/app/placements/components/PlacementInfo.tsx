@@ -27,7 +27,7 @@ const PlacementInfo: React.FC = () => {
           <section>
             <h1
               ref={headingRef}
-              className="mb-10 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
+              className="mb-10 font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
             >
               Placements at srimaniya institute
             </h1>
@@ -40,7 +40,7 @@ const PlacementInfo: React.FC = () => {
           <section>
             <h3
 
-              className="text-(--blue) font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
+              className="text-(--blue) font-jakarta font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
             >
               Global Placements
             </h3>
@@ -51,7 +51,7 @@ const PlacementInfo: React.FC = () => {
           <section>
             <h3
 
-              className="text-(--blue) font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
+              className="text-(--blue) font-jakarta font-semibold my-4 uppercase text-lg sm:text-xl lg:text-2xl"
             >
               Part-Time Placements
             </h3>
@@ -62,7 +62,7 @@ const PlacementInfo: React.FC = () => {
           <section>
             <h3
 
-              className="text-(--blue) uppercase font-semibold my-4 text-lg sm:text-xl lg:text-2xl"
+              className="text-(--blue) font-jakarta uppercase font-semibold my-4 text-lg sm:text-xl lg:text-2xl"
             >
               Our Commitment
             </h3>

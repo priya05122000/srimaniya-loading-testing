@@ -116,7 +116,7 @@ const EventAndBlog = ({
             <div>
               <h1
                 ref={headingRef}
-                className="font-bold text-3xl sm:text-4xl lg:text-5xl  text-(--blue) mb-2 events-blog-heading leading-tight uppercase"
+                className="font-bold text-3xl sm:text-4xl lg:text-5xl font-jakarta text-(--blue) mb-2 events-blog-heading leading-tight uppercase"
               >
                 Events & Blog
               </h1>

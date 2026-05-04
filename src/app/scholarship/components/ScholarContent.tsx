@@ -89,7 +89,7 @@ const ScholarContent = () => {
                 Sri Maniya Institute
               </Paragraph> */}
 
-              <h2 className=" leading-relaxed facilities-title-sub  text-(--blue) font-semibold mb-4 uppercase  text-base lg:text-lg">
+              <h2 className=" leading-relaxed font-jakarta facilities-title-sub  text-(--blue) font-semibold mb-4 uppercase  text-base lg:text-lg">
                 Hotel Management Scholarship at Sri Maniya Institute
               </h2>
 

@@ -170,7 +170,7 @@ const Testimonials: React.FC = () => {
               <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold testimonials-title">
                 Testimonials
               </Paragraph>
-              <h3 ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase testimonials-subtitle leading-tight">
+              <h3 ref={headingRef} className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase testimonials-subtitle leading-tight">
                 More than <br /> 2000 happy students <br /> trust us
               </h3>
             </div>

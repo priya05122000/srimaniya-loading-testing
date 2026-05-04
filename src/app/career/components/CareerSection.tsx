@@ -146,7 +146,7 @@ const CareerSection: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
 
       <Section className="py-10 sm:py-20" ref={openingRef}>
         <div>
-          <h2 className="text-(--blue) text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight">
+          <h2 className="text-(--blue) font-jakarta text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight">
             Job Openings
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">

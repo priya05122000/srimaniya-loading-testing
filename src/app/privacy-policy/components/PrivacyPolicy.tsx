@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
           </Paragraph>
           <h1
             ref={headingRef}
-            className="my-2 text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
+            className="my-2 font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
           >
             Privacy Policy
           </h1>
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Information We Collect
             </h3>
@@ -68,7 +68,7 @@ const PrivacyPolicy = () => {
           <div className="my-8">
             <h3
 
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Use of Information
             </h3>
@@ -85,7 +85,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Cookies and Tracking
             </h3>
@@ -99,7 +99,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Third-Party Tools
             </h3>
@@ -121,7 +121,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               External Links
             </h3>
@@ -136,7 +136,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Data Protection
             </h3>
@@ -149,7 +149,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Updates to Policy
             </h3>
@@ -162,7 +162,7 @@ const PrivacyPolicy = () => {
           </div>
           <div className="my-8">
             <h3
-              className="my-4 text-(--blue)  uppercase font-bold text-lg sm:text-xl lg:text-2xl"
+              className="my-4 text-(--blue) font-jakarta uppercase font-bold text-lg sm:text-xl lg:text-2xl"
             >
               Contact Us
             </h3>

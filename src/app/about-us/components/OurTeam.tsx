@@ -237,7 +237,7 @@ const OurTeam: React.FC = () => {
             </Paragraph>
             <h3
               ref={headingRef}
-              className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold  uppercase meet-team-title leading-tight"
+              className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold  uppercase meet-team-title leading-tight"
             >
               Meet the team
             </h3>

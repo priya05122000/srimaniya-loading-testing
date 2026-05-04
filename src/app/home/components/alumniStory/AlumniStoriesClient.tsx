@@ -166,7 +166,7 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
               </Paragraph>
               <h3
                 ref={headingRef}
-                className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
+                className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Testimonials
 

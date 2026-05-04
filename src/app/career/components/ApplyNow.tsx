@@ -29,7 +29,7 @@ const ApplyNow: React.FC = () => {
             data-section
           >
             <div className="max-w-2xl ml-auto">
-              <h3 className="text-(--white-custom) uppercase mb-4 text-end text-3xl sm:text-4xl lg:text-5xl font-bold">
+              <h3 className="text-(--white-custom) font-jakarta uppercase mb-4 text-end text-3xl sm:text-4xl lg:text-5xl font-bold">
                 Apply Now
               </h3>
             </div>

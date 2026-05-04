@@ -85,7 +85,7 @@ const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardPr
         ) : icon}
       </div>
       <div className="p-3 sm:px-6 sm:py-5 lg:h-32 border-l lg:border-l-0 lg:border-t border-(--grey-custom) flex flex-col justify-start">
-        <h3 className="font-semibold text-lg sm:text-xl lg:text-2xl mb-2">{title}</h3>
+        <h3 className="font-semibold font-jakarta text-lg sm:text-xl lg:text-2xl mb-2">{title}</h3>
         {safeLines.length > 0 ? safeLines.map((line, idx) => renderContactLine(title, line, idx)) : <div className="text-wrap font-normal  text-base">—</div>}
         {/* <div className="block sm:hidden">
           {safeLines.length > 0 ? safeLines.slice(0, 1).map((line, idx) => renderContactLine(title, line, idx)) : <div className="font-normal  text-sm">—</div>}
@@ -142,8 +142,8 @@ const Contact = () => {
     <div ref={contactRef}>
       <LeftSpaceGridSection className="pt-10 sm:pt-20 pb-10" >
         <div className="mb-10">
-          <h1 ref={paragraphRef} className="text-(--blue) text-base lg:text-lg font-bold contact-us-text">Sri Maniya Institute Contact</h1>
-          <h2 ref={headingRef} className="text-(--blue) text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</h2>
+          <h1 ref={paragraphRef} className="text-(--blue) font-jakarta text-base lg:text-lg font-bold contact-us-text">Sri Maniya Institute Contact</h1>
+          <h2 ref={headingRef} className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</h2>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-end gap-4 lg:gap-0 w-full pr-0 sm:pr-8">
           {contactCards.map((card) => <ContactCard key={card.title} {...card} />)}

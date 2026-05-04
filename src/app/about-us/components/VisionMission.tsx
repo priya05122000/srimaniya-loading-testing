@@ -26,7 +26,7 @@ const InfoBlock: FC<InfoBlockProps> = ({
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
     <h3
 
-      className={`text-(--white-custom) text-3xl sm:text-4xl lg:text-5xl font-bold px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
+      className={`text-(--white-custom) text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       <span>{title}</span>
