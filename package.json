@@ -30,6 +30,9 @@
     "swiper": "^12.1.2",
     "truncate-html": "^1.2.2"
   },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
@@ -39,7 +42,7 @@
     "@types/react-slick": "^0.23.13",
     "@types/react-toastify": "^4.0.2",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.2",
+    "eslint-config-next": "^16.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
