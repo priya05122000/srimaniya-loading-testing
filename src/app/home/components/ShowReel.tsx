@@ -9,29 +9,108 @@ import Section from "@/components/common/Section";
 gsap.registerPlugin(ScrollTrigger);
 
 // --- Utility: Responsive Video Component (reusable) ---
-const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
-  <video
-    src="/videos/reelvideo.mp4"
-    autoPlay
-    muted
-    loop
-    playsInline
-    className={className || "w-full h-full object-cover border-0"}
-  />
-);
+// const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
+//   <video
+//     src="/videos/reelvideo.mp4"
+//     autoPlay
+//     muted
+//     loop
+//     playsInline
+//     className={className || "w-full h-full object-cover border-0"}
+//   />
+// );
+
+const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
+  const [loadVideo, setLoadVideo] = React.useState(false);
+  const [videoReady, setVideoReady] = React.useState(false);
+
+  useEffect(() => {
+    const trigger = ScrollTrigger.create({
+      trigger: ".reveal-section",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        setLoadVideo(true);
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
+  }, []);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      {/* Poster Image */}
+      {!videoReady && (
+        <img
+          src="home/enquireform.webp"
+          alt="Sri Maniya Institute"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+
+      {/* Load Video Only After Scroll Trigger */}
+      {loadVideo && (
+        <video
+          src="/videos/reelvideo.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          onCanPlay={() => setVideoReady(true)}
+          className={`
+            w-full h-full object-cover border-0
+            transition-opacity duration-500
+            ${videoReady ? "opacity-100" : "opacity-0"}
+            ${className || ""}
+          `}
+        />
+      )}
+    </div>
+  );
+};
 
 // --- Utility: Masked SVG Overlay (reusable) ---
 const MaskedSVGOverlay: React.FC = () => (
   <svg className="hidden sm:block absolute inset-0 w-full h-full aspect-square">
     <defs>
-      <pattern id="grid-pattern" width="160" height="80" patternUnits="userSpaceOnUse">
-        <image href="/designs/grainy.svg" x="0" y="0" width="160" className="image-tag" height="80" preserveAspectRatio="none" />
+      <pattern
+        id="grid-pattern"
+        width="160"
+        height="80"
+        patternUnits="userSpaceOnUse"
+      >
+        <image
+          href="/designs/grainy.svg"
+          x="0"
+          y="0"
+          width="160"
+          className="image-tag"
+          height="80"
+          preserveAspectRatio="none"
+        />
         <rect width="160" height="80" fill="transparent" />
-        <path d="M 160 0 L 0 0 0 80" fill="none" stroke="#0B2351" strokeWidth="1.5" opacity="0.25" />
+        <path
+          d="M 160 0 L 0 0 0 80"
+          fill="none"
+          stroke="#0B2351"
+          strokeWidth="1.5"
+          opacity="0.25"
+        />
       </pattern>
       <mask id="rect-mask">
         <rect width="100%" height="100%" fill="white" />
-        <rect id="mask-rect" x="50%" y="50%" width="300" height="150" fill="black" transform="translate(-150, -75)" />
+        <rect
+          id="mask-rect"
+          x="50%"
+          y="50%"
+          width="300"
+          height="150"
+          fill="black"
+          transform="translate(-150, -75)"
+        />
       </mask>
     </defs>
     <g mask="url(#rect-mask)">
@@ -60,8 +139,13 @@ export default function ShowReel() {
       tl.to(rect, { scale: 8, transformOrigin: "50% 50%", ease: "none" });
       tl.to(leftText, { x: "-1000", ease: "none" }, "<");
       tl.to(rightText, { x: "1000", ease: "none" }, "<");
-      setTimeout(() => { ScrollTrigger.refresh(); }, 500);
-      return () => { tl.scrollTrigger?.kill(); tl.kill(); };
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+      return () => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      };
     }
   }, []);
 
@@ -79,12 +163,18 @@ export default function ShowReel() {
           <div className="grid grid-cols-3 xl:grid-cols-[2fr_1fr_2fr] items-center gap-14 lg:gap-10">
             <div id="left-text" className="text-end">
               <Span className="text-(--blue)">Started in </Span>
-              <Heading level={3} className="text-(--blue)">1984</Heading>
+              <Heading level={3} className="text-(--blue)">
+                1984
+              </Heading>
             </div>
             <div className="relative w-full h-[150px] overflow-hidden"></div>
             <div id="right-text">
-              <Span className="text-(--blue)">Institute of Hotel Management</Span>
-              <Heading level={3} className="text-(--blue)">Sri Maniya <br /> Institute</Heading>
+              <Span className="text-(--blue)">
+                Institute of Hotel Management
+              </Span>
+              <Heading level={3} className="text-(--blue)">
+                Sri Maniya <br /> Institute
+              </Heading>
             </div>
           </div>
         </div>
@@ -94,14 +184,18 @@ export default function ShowReel() {
       <Section className="block sm:hidden py-10 ">
         <div className="text-end">
           <Span className="text-(--blue)">Started in </Span>
-          <Heading level={3} className="text-(--blue)">1984</Heading>
+          <Heading level={3} className="text-(--blue)">
+            1984
+          </Heading>
         </div>
         <div className="my-6">
           <ShowReelVideo />
         </div>
         <div>
           <Span className="text-(--blue)">Institute of Hotel Management</Span>
-          <Heading level={3} className="text-(--blue)">Sri Maniya Institute</Heading>
+          <Heading level={3} className="text-(--blue)">
+            Sri Maniya Institute
+          </Heading>
         </div>
       </Section>
     </>
