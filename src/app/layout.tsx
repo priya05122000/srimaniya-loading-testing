@@ -1,9 +1,6 @@
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import ClientLayout from "./ClientLayout";
 import Script from "next/script";
-import GlobalLoaderProvider from "@/providers/GlobalLoaderProvider";
-import ConditionalGlobalLoader from "@/components/ConditionalGlobalLoader";
 import AnalyticsListener from "./analytics-listener";
 import { Suspense } from "react";
 import { Metadata } from "next";
@@ -60,9 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
-      <body className={`${plusJakarta.variable} ${inter.variable} font-inter antialiased`}>
-
+      <body
+        className={`${plusJakarta.variable} ${inter.variable} font-inter antialiased`}
+      >
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GFHYHS0PBP"
           strategy="lazyOnload"
@@ -134,19 +131,6 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
-
-        {/* Google Tag Manager (noscript) for GTM-5RZZ4B5Z */}
-        {/* <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5RZZ4B5Z"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript> */}
-
-
-        {/* Google Tag Manager (noscript) for GTM-TLLR36TQ */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TLLR36TQ"
@@ -159,11 +143,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <AnalyticsListener />
         </Suspense>
-
-        <GlobalLoaderProvider>
-          <ConditionalGlobalLoader />
-          <ClientLayout>{children}</ClientLayout>
-        </GlobalLoaderProvider>
+        {children}
       </body>
     </html>
   );

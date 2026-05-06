@@ -5,11 +5,10 @@ import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 export function useScrollSmoother(
-  loading: boolean,
   smootherRef: React.RefObject<HTMLDivElement>
 ) {
   useEffect(() => {
-    if (!loading && smootherRef.current && window.innerWidth >= 1024) {
+    if (smootherRef.current && window.innerWidth >= 1024) {
       const prevSmoother = ScrollSmoother.get();
       if (prevSmoother) prevSmoother.kill();
       const smoother = ScrollSmoother.create({
@@ -21,5 +20,5 @@ export function useScrollSmoother(
       ScrollTrigger.refresh();
       return () => smoother.kill();
     }
-  }, [loading, smootherRef]);
+  }, [smootherRef]);
 }

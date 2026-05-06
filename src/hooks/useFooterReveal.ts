@@ -2,14 +2,12 @@ import { useEffect } from "react";
 import ScrollSmoother from "gsap/ScrollSmoother";
 
 interface FooterRevealProps {
-  loading: boolean;
   pathname: string;
   setShowOnlyFooter: React.Dispatch<React.SetStateAction<boolean>>;
   setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function useFooterReveal({
-  loading,
   pathname,
   setShowOnlyFooter,
   setFooterVisible,
@@ -17,12 +15,9 @@ export function useFooterReveal({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (loading) return;
-
     if (
       window.innerWidth < 1024 ||
       pathname === "/" ||
-      loading ||
       window.location.hash === "#enquire-form"
     ) {
       setShowOnlyFooter(false);
@@ -56,5 +51,5 @@ export function useFooterReveal({
     return () => {
       if (t1) clearTimeout(t1);
     };
-  }, [loading, pathname, setShowOnlyFooter, setFooterVisible]);
+  }, [pathname, setShowOnlyFooter, setFooterVisible]);
 }

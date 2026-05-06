@@ -7,7 +7,6 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import { ToastContainer } from "react-toastify";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackToTopButton from "@/components/common/BackToTopButton";
@@ -36,9 +35,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   // Refs
   const smootherRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const isRegistrationForm = pathname === "/registration-form";
-  const { loading } = useGlobalLoader();
-  const effectiveLoading = isRegistrationForm ? false : loading;
 
   // State
   const [isBlueSection, setIsBlueSection] = useState(false);
@@ -76,17 +72,16 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   }, [hasPopupTriggered, pathname]);
 
   useScrollSmoother(
-    effectiveLoading,
     smootherRef as React.RefObject<HTMLDivElement>,
   );
+  
   useEffect(() => {
-    if (!effectiveLoading && window.location.hash !== "#enquire-form") {
+    if (window.location.hash !== "#enquire-form") {
       window.scrollTo(0, 0);
     }
-  }, [effectiveLoading]);
+  }, []);
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
   useFooterReveal({
-    loading: effectiveLoading,
     pathname,
     setShowOnlyFooter,
     setFooterVisible,

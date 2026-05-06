@@ -4,7 +4,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { getAllStaffProfiles } from "@/services/staffProfileService";
 import Span from "@/components/common/Span";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
@@ -62,7 +61,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           alt={alt || "Team at Sri Maniya Institute of Hotel Management"}
           width={300}
           height={400}
-          className="w-full h-[400px] image-tag object-cover object-top"
+          className="w-full h-100 image-tag object-cover object-top"
           priority={priority}
           onLoadingComplete={onLoadingComplete}
           unoptimized
@@ -78,7 +77,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         <div
           data-section
           className={
-            `absolute inset-0 bg-(--blue) bg-opacity-90 text-(--white-custom) flex flex-col justify-end border-b border-white/10 h-[400px]  transition-opacity duration-300` +
+            `absolute inset-0 bg-(--blue) bg-opacity-90 text-(--white-custom) flex flex-col justify-end border-b border-white/10 h-100 transition-opacity duration-300` +
             (mobile
               ? isOpen
                 ? " opacity-100 pointer-events-auto z-10"
@@ -160,15 +159,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 const OurTeam: React.FC = () => {
   const teamRef = useRef<HTMLDivElement | null>(null);
   const [staffProfiles, setStaffProfiles] = useState<StaffProfile[]>([]);
-  const { setLoading } = useGlobalLoader();
   const [openMobileIdx, setOpenMobileIdx] = useState<number | null>(null);
   const [imagesLoaded, setImagesLoaded] = useState(0);
 
   const handleImageLoad = () => {
     setImagesLoaded((prev) => prev + 1);
-    if (imagesLoaded + 1 >= staffProfiles.length) {
-      setLoading(false);
-    }
   };
 
   // SplitText animation refs
@@ -199,7 +194,6 @@ const OurTeam: React.FC = () => {
 
   useEffect(() => {
     const fetchStaffProfiles = async () => {
-      setLoading(true);
       try {
         const result = await getAllStaffProfiles();
         const profiles = result?.data || [];
@@ -216,12 +210,10 @@ const OurTeam: React.FC = () => {
         } else {
           console.error("Error fetching staff profiles:", error);
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchStaffProfiles();
-  }, [setLoading]);
+  }, []);
 
   return (
     <div ref={teamRef}>
