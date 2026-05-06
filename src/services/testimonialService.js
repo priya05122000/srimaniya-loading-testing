@@ -1,21 +1,15 @@
-import axiosInstance from "../lib/axios";
+import { apiRequest } from "../lib/apiRequest";
 
 // Get all testimonials
 export const getAllTestimonials = async () => {
-    try {
-        const response = await axiosInstance.get("/api/testimonial/all");
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch testimonials" };
-    }
+	return apiRequest({
+		endpoint: "/api/testimonial/all",
+	});
 };
 
 // Get testimonial by ID
 export const getTestimonialById = async (id) => {
-    try {
-        const response = await axiosInstance.get(`/api/testimonial/${id}`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch testimonial" };
-    }
+	return apiRequest({
+		endpoint: `/api/testimonial/${id}`,
+	});
 };

@@ -1,30 +1,19 @@
-import axiosInstance from "../lib/axios";
-
-const API_BASE = "/api/blog-post";
+import { apiRequest } from "../lib/apiRequest";
 
 export const getAllBlogPosts = async () => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/all`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch Blogs" };
-    }
+	return apiRequest({
+		endpoint: "/api/blog-post/all",
+	});
 };
 
 export const getBlogPostById = async (id) => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/${id}`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch Blog Post" };
-    }
+	return apiRequest({
+		endpoint: `/api/blog-post/${id}`,
+	});
 };
 
 export const getBlogPostBySlug = async (slug) => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/slug/${slug}`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch Blog Post" };
-    }
+	return apiRequest({
+		endpoint: `/api/blog-post/slug/${slug}`,
+	});
 };

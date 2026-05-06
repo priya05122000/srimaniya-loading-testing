@@ -1,0 +1,30 @@
+const BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.srimaniyainstitute.in";
+
+export const apiRequest = async ({
+	endpoint,
+	method = "GET",
+	body = null,
+	headers = {},
+	cache = "no-store",
+	isFormData = false,
+}) => {
+	const response = await fetch(`${BASE}${endpoint}`, {
+		method,
+		headers: {
+			...(isFormData ? {} : { "Content-Type": "application/json" }),
+			...headers,
+		},
+		cache,
+		...(body && {
+			body: isFormData ? body : JSON.stringify(body),
+		}),
+	});
+
+	const data = await response.json();
+
+	if (!response.ok) {
+		throw data || { message: "Something went wrong" };
+	}
+
+	return data;
+};

@@ -1,29 +1,21 @@
-import axiosInstance from "../lib/axios";
+import { apiRequest } from "../lib/apiRequest";
 
 // Upload image file
 export const uploadImageFile = async (fileData, token) => {
-    try {
-        const response = await axiosInstance.post("/api/fileUpload", fileData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to upload file" };
-    }
+	return apiRequest({
+		endpoint: "/api/fileUpload",
+		method: "POST",
+		body: fileData,
+		isFormData: true,
+	});
 };
 
+// Upload resume file
 export const uploadResumeFile = async (fileData) => {
-    try {
-        const response = await axiosInstance.post("/api/fileUpload/resume", fileData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to upload file" };
-    }
+	return apiRequest({
+		endpoint: "/api/fileUpload/resume",
+		method: "POST",
+		body: fileData,
+		isFormData: true,
+	});
 };

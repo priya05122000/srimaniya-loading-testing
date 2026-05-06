@@ -1,21 +1,13 @@
-import axiosInstance from "../lib/axios";
-
-const API_BASE = "/api/international-patient";
+import { apiRequest } from "../lib/apiRequest";
 
 export const getAllInternationalPatients = async () => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/all`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch Blogs" };
-    }
+	return apiRequest({
+		endpoint: "/api/international-patient/all",
+	});
 };
 
 export const getInternationalPatientById = async (id) => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/${id}`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch Blog Post" };
-    }
+	return apiRequest({
+		endpoint: `/api/international-patient/${id}`,
+	});
 };

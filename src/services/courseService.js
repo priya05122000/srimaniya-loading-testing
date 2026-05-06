@@ -1,23 +1,15 @@
-import axiosInstance from "../lib/axios";
+import { apiRequest } from "@/lib/apiRequest";
 
-const API_BASE = "/api/course";
-
-// Get all categories
+// Get all courses
 export const getAllCourses = async () => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/all`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch courses" };
-    }
+	return apiRequest({
+		endpoint: "/api/course/all",
+	});
 };
 
-// Get category by ID
+// Get course by ID
 export const getCourseById = async (id) => {
-    try {
-        const response = await axiosInstance.get(`${API_BASE}/${id}`);
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || { message: "Failed to fetch course" };
-    }
+	return apiRequest({
+		endpoint: `/api/course/${id}`,
+	});
 };

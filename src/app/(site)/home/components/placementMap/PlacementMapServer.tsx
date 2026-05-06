@@ -1,9 +1,9 @@
-import { getAllCountriesServer } from "@/services/serverComponent/countriesServiceServer";
+import { getAllCountries } from "@/services/countriesService";
 import PlacementMapClient from "./PlacementMapClient";
 import { Country } from "@/types";
 
 export default async function PlacementMap() {
-  const result = await getAllCountriesServer();
+  const result = await getAllCountries();
   const placements = Array.isArray(result?.data)
     ? result.data.filter((p: Country) => p.status)
     : [];

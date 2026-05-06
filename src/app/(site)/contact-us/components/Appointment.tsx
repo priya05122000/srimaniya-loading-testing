@@ -205,9 +205,11 @@ const DesktopLayout: React.FC = () => (
       className="layer-section bg-(--blue) flex justify-center items-center h-[calc(100vh-80px)] w-full sm:w-[60%] lg:w-1/2 ml-auto z-10"
       data-section
     >
-      <LazyCaptcha>
-        <DesktopForm />
-      </LazyCaptcha>
+      <div className="w-full flex items-center justify-center">
+        <LazyCaptcha>
+          <DesktopForm />
+        </LazyCaptcha>
+      </div>
     </section>
     {/* Companies & Hotels */}
     <section className="layer-section flex justify-center items-start h-[calc(100vh-80px)] z-0">

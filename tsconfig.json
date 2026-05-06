@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "global.d.ts"
-  ],
+, "src/lib/apiRequest.js"  ],
   "exclude": [
     "node_modules"
   ]
