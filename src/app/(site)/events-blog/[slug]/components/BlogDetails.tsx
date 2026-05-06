@@ -6,7 +6,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Link from "next/link";
 import Image from "next/image";
 import { getAdminById } from "@/services/authService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { useRouter } from "next/navigation";
 import Span from "@/components/common/Span";
 import { getAllBlogPosts } from "@/services/blogPostService";
@@ -121,14 +120,12 @@ const BlogDetails: React.FC<{
 }> = ({ blog, categories }) => {
   const [adminName, setAdminName] = useState<string>("Unknown Admin");
   const [allBlogs, setAllBlogs] = useState<Blog[]>([]);
-  const { setLoading } = useGlobalLoader();
   const router = useRouter();
 
   useEffect(() => {
     if (!categories || categories.length === 0 || !blog) return;
     async function fetchData() {
       try {
-        setLoading(true);
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((blog: Blog) => blog.active === true)
@@ -145,16 +142,13 @@ const BlogDetails: React.FC<{
         setAllBlogs(eventsBlogs);
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchData();
-  }, [setLoading, categories, blog]);
+  }, [categories, blog]);
 
   useEffect(() => {
     if (!blog?.created_by) return;
-    setLoading(true);
     const fetchAdmin = async () => {
       try {
         const response = await getAdminById(blog.created_by!);
@@ -163,12 +157,10 @@ const BlogDetails: React.FC<{
       } catch (err) {
         console.error("Failed to fetch admin:", err);
         setAdminName("Unknown Admin");
-      } finally {
-        setLoading(false);
       }
     };
     fetchAdmin();
-  }, [blog?.created_by, setLoading]);
+  }, [blog?.created_by]);
 
   if (!blog) return null;
 

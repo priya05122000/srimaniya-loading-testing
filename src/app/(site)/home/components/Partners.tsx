@@ -2,15 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getAllPartners } from "@/services/partnerService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-
-// import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-// import { Splide } from "@splidejs/splide";
 
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -23,7 +17,6 @@ interface Partner {
 
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
-  const { setLoading } = useGlobalLoader();
   const splideRef = useRef<HTMLDivElement | null>(null);
 
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
@@ -43,18 +36,15 @@ export default function Partners() {
   useEffect(() => {
     async function fetchData() {
       try {
-        setLoading(true);
         const result = await getAllPartners();
         const data = result?.data || [];
         setPartners(data);
       } catch (err) {
         console.error("Failed to fetch partners:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchData();
-  }, [setLoading, baseUrl]);
+  }, [baseUrl]);
 
   /* --------------------------- Init Splide ---------------------------- */
   useEffect(() => {
@@ -93,13 +83,8 @@ export default function Partners() {
       });
 
       splide.mount({ AutoScroll });
-      // autoScrollCleanup = () => splide.destroy();
     })();
 
-    // return () => {
-    //   if (autoScrollCleanup) autoScrollCleanup();
-    //   else if (splide) splide.destroy();
-    // };
     return () => {
       if (splide) splide.destroy();
     };
@@ -149,7 +134,7 @@ export default function Partners() {
                   {partners.map((partner, index) => (
                     <li
                       key={index}
-                      className="splide__slide image-partner bg-(--white-custom) h-32 w-[200px] shadow-sm flex items-center justify-center"
+                      className="splide__slide image-partner bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center"
                     >
                       <Image
                         src={`${baseUrl}/${partner.logo_url}`}

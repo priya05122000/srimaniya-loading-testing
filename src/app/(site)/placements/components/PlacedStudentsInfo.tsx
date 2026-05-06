@@ -6,7 +6,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import "swiper/css";
 import "swiper/css/navigation";
 import { getAllAlumniStories } from "@/services/alumniStoryService";
@@ -110,7 +109,6 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
 const PlacedStudentsInfo: React.FC = () => {
   const fullPlacementRef = useRef<HTMLDivElement | null>(null);
   const [placementData, setPlacementData] = useState<Placement[]>([]);
-  const { setLoading } = useGlobalLoader();
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
   useSplitTextHeadingAnimation({
@@ -122,7 +120,6 @@ const PlacedStudentsInfo: React.FC = () => {
 
   useEffect(() => {
     const fetchPlacement = async () => {
-      setLoading(true);
       try {
         const res = await getAllAlumniStories();
         const data: Placement[] = res?.data ?? [];
@@ -131,12 +128,10 @@ const PlacedStudentsInfo: React.FC = () => {
         await preloadImages(filtered);
       } catch (err) {
         console.error("Failed to fetch placement stories:", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchPlacement();
-  }, [setLoading]);
+  }, []);
 
   const { currentPage, setCurrentPage, totalPages, paginatedData } =
     usePagination(placementData, ITEMS_PER_PAGE);

@@ -5,7 +5,6 @@ import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
 import { getAllSiteInfo } from "@/services/siteInfoService";
 import { SiteInfo } from "@/types";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 // Reusable Section Block for Vision/Mission
 interface InfoBlockProps {
@@ -40,11 +39,9 @@ const InfoBlock: FC<InfoBlockProps> = ({
 
 const useSiteInfo = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-  const { setLoading } = useGlobalLoader();
 
   useEffect(() => {
     const fetchSiteInfo = async () => {
-      setLoading(true);
       try {
         const result = await getAllSiteInfo();
         const data = result?.data;
@@ -60,12 +57,10 @@ const useSiteInfo = () => {
         } else {
           console.error("Error fetching site info:", error);
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchSiteInfo();
-  }, [setLoading]);
+  }, []);
 
   return siteInfo;
 };

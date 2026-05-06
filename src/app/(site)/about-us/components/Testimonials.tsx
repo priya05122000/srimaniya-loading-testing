@@ -12,7 +12,6 @@ import Slider, { Settings as SlickSettings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getAllTestimonials } from '@/services/testimonialService';
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 type Testimonial = {
   id: string | number;
@@ -121,7 +120,6 @@ const Testimonials: React.FC = () => {
   const sliderRef = useRef<Slider | null>(null);
   const testimonialRef = useRef<HTMLDivElement | null>(null);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const { setLoading } = useGlobalLoader();
   const [mounted, setMounted] = useState(false);
   const settings = useResponsiveSliderSettings(baseSliderSettings);
 
@@ -140,7 +138,6 @@ const Testimonials: React.FC = () => {
   useEffect(() => {
     setMounted(true);
     const fetchTestimonials = async () => {
-      setLoading(true);
       try {
         const result = await getAllTestimonials();
         const testimonialsData = result?.data || [];
@@ -153,12 +150,10 @@ const Testimonials: React.FC = () => {
         } else {
           console.error("Error fetching testimonials:", error);
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchTestimonials();
-  }, [setLoading]);
+  }, []);
 
   return (
     <div ref={testimonialRef}>

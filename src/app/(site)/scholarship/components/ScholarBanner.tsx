@@ -8,11 +8,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import Heading from "@/components/common/Heading";
 import Image from "next/image";
 
 import { getAllJobs } from "@/services/jobService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 
 
@@ -39,7 +37,6 @@ interface Job {
 const ScholarBanner: React.FC = () => {
     const bannerRef = useRef<HTMLDivElement | null>(null);
     const headingRef = useRef<HTMLHeadingElement | null>(null); const [jobs, setJobs] = useState<Job[]>([]);
-    const { loading, setLoading } = useGlobalLoader();
 
 
     useSplitTextHeadingAnimation({
@@ -51,7 +48,6 @@ const ScholarBanner: React.FC = () => {
 
 
     useEffect(() => {
-        setLoading(true);
         const fetchJobs = async () => {
             try {
                 const result = await getAllJobs();
@@ -60,16 +56,14 @@ const ScholarBanner: React.FC = () => {
                 setJobs(filtered);
             } catch (error) {
                 console.error("Error fetching jobs:", error);
-            } finally {
-                setLoading(false);
             }
         };
         fetchJobs();
-    }, [setLoading]);
+    }, []);
 
     return (
         <div className="sm:h-[calc(100vh-80px)]" ref={bannerRef}>
-            <div className="h-full min-h-[300px] relative">
+            <div className="h-full min-h-75 relative">
                 <Image
                     src={BANNER_IMAGE}
                     alt="Scholarship program at Sri Maniya Institute of Hotel Management"

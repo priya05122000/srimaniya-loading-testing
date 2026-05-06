@@ -5,7 +5,6 @@ import Image from "next/image";
 import Section from "@/components/common/Section";
 import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Link from "next/link";
 
 
@@ -37,8 +36,6 @@ const EventAndBlog = ({
   const router = useRouter();
   const eventsBlogRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
-
-  const { setLoading } = useGlobalLoader();
 
 
   useSplitTextHeadingAnimation({

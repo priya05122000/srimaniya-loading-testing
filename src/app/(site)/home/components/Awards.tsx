@@ -3,12 +3,10 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllAwards } from "@/services/awardService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 // --- Types ---
 type Award = {
@@ -61,7 +59,6 @@ export default function Awards() {
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
   const [awards, setAwards] = useState<Award[]>([]);
-  const { setLoading } = useGlobalLoader();
 
   // Add state for mobile "Read More"
   const [showAllMobile, setShowAllMobile] = useState(false);
@@ -87,13 +84,11 @@ export default function Awards() {
         }
       } catch (err) {
         console.error("Failed to fetch awards:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchAwards();
     return () => { isMounted = false; };
-  }, [setLoading]);
+  }, []);
 
   useEffect(() => {
     const section = awardsRef.current;

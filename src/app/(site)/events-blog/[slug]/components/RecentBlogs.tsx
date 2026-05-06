@@ -59,8 +59,6 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
         } else {
           console.error("Failed to load blogs/categories:", error);
         }
-      } finally {
-        // setLoading(false);
       }
     };
     fetchData();

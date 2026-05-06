@@ -8,7 +8,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { SiteInfo } from "@/types";
 import { getAllSiteInfo } from "@/services/siteInfoService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 interface ContactCardProps {
   icon: React.ReactNode;
@@ -98,7 +97,6 @@ ContactCard.displayName = "ContactCard";
 
 const Contact = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-  const { setLoading } = useGlobalLoader();
   const contactRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
@@ -113,7 +111,6 @@ const Contact = () => {
 
   useEffect(() => {
     const fetchSiteInfo = async () => {
-      setLoading(true);
       try {
         const result = await getAllSiteInfo();
         const data = result?.data;
@@ -124,12 +121,10 @@ const Contact = () => {
         } else {
           console.error("Error fetching site info:", error);
         }
-      } finally {
-        setLoading(false);
       }
     };
     fetchSiteInfo();
-  }, [setLoading]);
+  }, []);
 
 
   const contactCards: ContactCardProps[] = [

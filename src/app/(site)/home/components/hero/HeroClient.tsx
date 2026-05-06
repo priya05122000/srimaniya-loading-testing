@@ -12,7 +12,6 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import dynamic from "next/dynamic";
 
 
@@ -27,17 +26,9 @@ export interface Banner {
   category: string;
 }
 
-// const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper), {
-//   ssr: false,
-// });
 const Swiper = dynamic(() => import("swiper/react").then((m) => m.Swiper));
 
 const HeroClient = ({ banners }: { banners: Banner[] }) => {
-  const { setLoading } = useGlobalLoader();
-
-  useEffect(() => {
-    setLoading(false);
-  }, [setLoading]);
 
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1024,

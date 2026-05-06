@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 
 import HotelManagement from "./components/HotelManagement";
 import BlogImage from "./components/BlogImage";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import BlogDetails from "./components/BlogDetails";
 import RecentBlogs from "./components/RecentBlogs";
@@ -51,21 +50,17 @@ function BlogViewPageContent() {
   const { slug } = useParams();
   const [blog, setBlog] = useState<Blog | null>(null);
   const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
-  const { setLoading } = useGlobalLoader();
 
   useEffect(() => {
     if (!slug) return;
 
     const fetchBlog = async () => {
-      setLoading(true);
       try {
         const result = await getBlogPostBySlug(slug);
         setBlog(result?.data);
         await preloadImages(result?.data);
       } catch (error: unknown) {
         console.error("Failed to load blog:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -77,13 +72,11 @@ function BlogViewPageContent() {
         setCategories(category?.data ?? []);
       } catch (error) {
         console.error("Error fetching categories:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchCategory();
-  }, [slug, setLoading]);
+  }, [slug]);
 
   const additionalImages = getAdditionalImages(blog);
 

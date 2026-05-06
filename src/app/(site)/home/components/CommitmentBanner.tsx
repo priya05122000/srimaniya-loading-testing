@@ -2,9 +2,7 @@
 
 import React, { useEffect, useRef, memo } from "react";
 import Image from "next/image";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 // --- Types & Constants ---
@@ -26,7 +24,7 @@ export const features: Feature[] = [
 // --- Feature Card Components ---
 const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(
   ({ feature, idx }) => (
-    <div className="min-h-[250px]">
+    <div className="min-h-62.5">
       <div
         className="flex flex-col justify-end items-end bg-cover bg-center relative w-full h-full overflow-hidden will-change-transform group"
         style={{
@@ -107,7 +105,6 @@ MobileFeatureCard.displayName = "MobileFeatureCard";
 
 // --- Main Component ---
 const CommitmentBanner: React.FC = () => {
-  const { setLoading } = useGlobalLoader();
   const logoRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -142,7 +139,7 @@ const CommitmentBanner: React.FC = () => {
 
   return (
     <div className="partners-bg" ref={splitTextTriggerRef}>
-      <div className="w-full relative mb-15 lg:mb-28 flex flex-col lg:min-h-[600px]">
+      <div className="w-full relative mb-15 lg:mb-28 flex flex-col lg:min-h-150">
         <div
           className="bg-(--blue) px-6 sm:px-8 py-10 flex flex-col items-end"
           data-section
@@ -167,7 +164,7 @@ const CommitmentBanner: React.FC = () => {
             Why Choose Us
           </h3>
         </div>
-        <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-[400px] xl:min-h-[420px]">
+        <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-100 xl:min-h-105">
           {features.map((feature, idx) => (
             <FeatureCard key={feature.number} feature={feature} idx={idx} />
           ))}

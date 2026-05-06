@@ -8,7 +8,6 @@ import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Span from "@/components/common/Span";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 import { useGSAP } from "@gsap/react";
 import { getAllSiteInfo } from "@/services/siteInfoService";
 
@@ -120,7 +119,6 @@ const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
 // AboutStats Component
 const AboutStats = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-  const { setLoading } = useGlobalLoader();
 
   useGSAP(() => {
     // Heading animation for all variants (mobile & desktop)
@@ -167,8 +165,6 @@ const AboutStats = () => {
         }
       } catch (err) {
         console.error("Failed to fetch Data:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchData();

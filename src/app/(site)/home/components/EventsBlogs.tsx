@@ -8,7 +8,6 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Span from '@/components/common/Span';
 import { CgArrowLongLeft, CgArrowLongRight } from 'react-icons/cg';
-import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
 import { getAllBlogPosts } from "@/services/blogPostService";
 import { useRouter } from 'next/navigation';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
@@ -70,7 +69,7 @@ const getVideoSources = (videoUrl: string) => {
 const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
   <Link href={`/events-blog/${blog.slug}`} hrefLang="en">
     <div className="overflow-hidden mx-auto relative cursor-pointer">
-      <div className="w-full h-[300px] aspect-3/2 sm:aspect-auto">
+      <div className="w-full h-75 aspect-3/2 sm:aspect-auto">
         {blog.video_url ? (
           <video autoPlay loop muted className="w-full h-full object-cover">
             {getVideoSources(blog.video_url)}
@@ -117,7 +116,6 @@ const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
 
 const EventsBlogs: React.FC = () => {
   const [navigation, setNavigation] = useState<{ prevEl: null | HTMLElement; nextEl: null | HTMLElement; }>({ prevEl: null, nextEl: null });
-  const { setLoading } = useGlobalLoader();
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const router = useRouter();
 
@@ -137,7 +135,6 @@ const EventsBlogs: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        setLoading(true);
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((b: unknown) =>
@@ -151,12 +148,10 @@ const EventsBlogs: React.FC = () => {
         await preloadMedia(blogsData); // Preload images and videos
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchData();
-  }, [setLoading]);
+  }, []);
 
   return (
     <div ref={eventsRef}>

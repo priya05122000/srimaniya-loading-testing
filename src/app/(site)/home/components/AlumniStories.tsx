@@ -7,9 +7,7 @@ import Paragraph from '@/components/common/Paragraph';
 import Heading from '@/components/common/Heading';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import Image from 'next/image';
-import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
-import Span from '@/components/common/Span';
 
 // Types
 export type Alumni = {
@@ -117,7 +115,6 @@ const AlumniStories = () => {
   const [alumniData, setAlumniData] = useState<Alumni[]>([]);
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const { setLoading } = useGlobalLoader();
   const total = alumniData.length;
   const [isMobile, setIsMobile] = useState(false);
 
@@ -159,7 +156,6 @@ const AlumniStories = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         const res = await getAllAlumniStories();
         const raw: Alumni[] = res?.data ?? [];
@@ -168,12 +164,10 @@ const AlumniStories = () => {
         await preloadAlumniMedia(active);
       } catch (err) {
         setAlumniData([]);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
-  }, [setLoading]);
+  }, []);
 
   useEffect(() => {
     // Responsive check for mobile
@@ -222,7 +216,7 @@ const AlumniStories = () => {
           <div className='w-full h-px bg-(--grey)' />
         </div>
         <Section>
-          <div className='h-[450px] sm:h-[490px] flex flex-col justify-between text-center '>
+          <div className='h-112.5 sm:h-122.5 flex flex-col justify-between text-center '>
             {currentAlumni && (
               <>
                 <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">

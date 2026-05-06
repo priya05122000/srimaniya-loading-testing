@@ -7,7 +7,6 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { getAllCourses } from "@/services/courseService";
-import { useGlobalLoader } from '@/providers/GlobalLoaderProvider';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -127,7 +126,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
 const Courses: React.FC = () => {
   const coursesRef = useRef<HTMLDivElement | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
-  const { loading, setLoading } = useGlobalLoader();
 
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -144,7 +142,7 @@ const Courses: React.FC = () => {
   });
 
   useGSAP(() => {
-    if (loading || !courses.length) return;
+    if (!courses.length) return;
     const width = window.innerWidth;
     if (width < 640) return;
     const cards = gsap.utils.toArray<HTMLElement>(".sticky-card");
@@ -174,28 +172,25 @@ const Courses: React.FC = () => {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [loading, courses.length]);
+  }, [courses.length]);
 
   useEffect(() => {
     async function fetchCourses() {
       try {
-        setLoading(true);
         const result = await getAllCourses();
         setCourses(result?.data || []);
       } catch (err) {
         console.error("Failed to fetch courses:", err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchCourses();
   }, []);
 
   useEffect(() => {
-    if (!loading && courses.length) {
+    if (courses.length) {
       ScrollTrigger.refresh();
     }
-  }, [courses, loading]);
+  }, [courses]);
 
   useEffect(() => {
     const handleResize = () => {

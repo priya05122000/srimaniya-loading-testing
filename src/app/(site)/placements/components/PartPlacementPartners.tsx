@@ -7,7 +7,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllPartners } from "@/services/partnerService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +35,6 @@ const PartPlacementPartners = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const partnersRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const { setLoading } = useGlobalLoader();
 
   useSplitTextHeadingAnimation({
     trigger: partnersRef,
@@ -47,7 +45,6 @@ const PartPlacementPartners = () => {
 
   useEffect(() => {
     const fetchPartners = async () => {
-      setLoading(true);
       try {
         const result = await getAllPartners();
         const data = result?.data || [];
@@ -56,18 +53,12 @@ const PartPlacementPartners = () => {
         await preloadImages(activeData);
       } catch {
         setPartners([]);
-      } finally {
-        setLoading(false);
       }
     };
     fetchPartners();
-  }, [setLoading]);
+  }, []);
 
   const scrollingPartners = [...partners];
-
-  // const handleClick = (url: string) => () => {
-  //   window.open(url, "_blank");
-  // };
 
   return (
     <div className="partners-bg" ref={partnersRef}>

@@ -11,7 +11,6 @@ import "swiper/css/navigation";
 import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
 import Image from "next/image";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
 
 type Placement = {
   id: string;
@@ -52,8 +51,8 @@ const preloadImages = (placements: Placement[]) => {
 
 // Student Card component for reuse
 const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
-  <div className="placement relative h-[220px] sm:h-[200px] flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
-    <div className="relative w-[250px] h-full">
+  <div className="placement relative h-55 sm:h-50 flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
+    <div className="relative w-62.5 h-full">
       <Image
         src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
         className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
@@ -101,7 +100,6 @@ const PartTimeStudentsInfo = () => {
   const partPlacementRef = useRef<HTMLDivElement | null>(null);
   const [placementData, setPlacementData] = useState<Placement[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const { setLoading } = useGlobalLoader();
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
   useSplitTextHeadingAnimation({
@@ -113,7 +111,6 @@ const PartTimeStudentsInfo = () => {
 
   useEffect(() => {
     const fetchPlacement = async () => {
-      setLoading(true);
       try {
         const res = await getAllPlacements();
         const data: Placement[] = res?.data ?? [];
@@ -122,12 +119,10 @@ const PartTimeStudentsInfo = () => {
         await preloadImages(filtered);
       } catch (err) {
         console.error("Failed to fetch placement stories:", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchPlacement();
-  }, [setLoading]);
+  }, []);
 
   // Pagination logic
   const totalPages = Math.ceil(placementData.length / ITEMS_PER_PAGE);
