@@ -7,13 +7,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Paragraph from "@/components/common/Paragraph";
-import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-
-import { useEffect, useState } from "react";
-import { getAllCountries } from "@/services/countriesService";
-import { useGlobalLoader } from "@/providers/GlobalLoaderProvider";
-import { Country } from "@/types";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 

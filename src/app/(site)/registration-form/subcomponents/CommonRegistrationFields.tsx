@@ -6,7 +6,7 @@ import {
     TextAreaField,
     SelectField,
 } from "@/components/ui/FormFields";
-import type { RegistrationFormData } from "@/app/registration-form/subcomponents/useRegistrationForm";
+import type { RegistrationFormData } from "./useRegistrationForm";
 
 // -------------------- Types --------------------
 export type CommonRegistrationFieldsProps = {
