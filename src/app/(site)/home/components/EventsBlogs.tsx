@@ -169,7 +169,7 @@ const EventsBlogs: React.FC = () => {
             modules={[Navigation, Autoplay]}
             spaceBetween={16}
             slidesPerView={5}
-            loop
+            loop={blogs.length >= 5}  
             grabCursor={true}
             navigation={navigation}
             autoplay={{ delay: 3000, disableOnInteraction: false }}

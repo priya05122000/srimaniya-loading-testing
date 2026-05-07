@@ -5,15 +5,15 @@ import { toast } from "react-toastify";
 import districts from "./districts.json";
 import Paragraph from "@/components/common/Paragraph";
 
-import { useRegistrationForm } from "@/app/registration-form/subcomponents/useRegistrationForm";
+import { useRegistrationForm } from "../subcomponents/useRegistrationForm";
 
 import CommonRegistrationFields, {
   AutofillSuppressionFields,
-} from "@/app/registration-form/subcomponents/CommonRegistrationFields";
+} from "../subcomponents/CommonRegistrationFields";
 
-import type { RegistrationFormData } from "@/app/registration-form/subcomponents/useRegistrationForm";
+import type { RegistrationFormData } from "../subcomponents/useRegistrationForm";
 
-import { ValidateRegistrationFormWithToast } from "@/app/registration-form/subcomponents/registrationFormValidation";
+import { ValidateRegistrationFormWithToast } from "../subcomponents/registrationFormValidation";
 
 export const initialForm: RegistrationFormData = {
   StudentName: "",

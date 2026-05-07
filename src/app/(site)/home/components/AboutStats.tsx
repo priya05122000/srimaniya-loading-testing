@@ -140,19 +140,19 @@ const AboutStats = () => {
       });
     });
     // AboutStats title animation
-    const aboutSplit = SplitText.create('.aboutstats-title', { type: 'chars' });
-    gsap.from(aboutSplit.chars, {
-      x: 150,
-      opacity: 0,
-      duration: 0.7,
-      ease: "power4",
-      stagger: 0.04,
-      scrollTrigger: {
-        trigger: ".aboutstats-title",
-        start: "top 90%",
-        once: true,
-      },
-    });
+    // const aboutSplit = SplitText.create('.aboutstats-title', { type: 'chars' });
+    // gsap.from(aboutSplit.chars, {
+    //   x: 150,
+    //   opacity: 0,
+    //   duration: 0.7,
+    //   ease: "power4",
+    //   stagger: 0.04,
+    //   scrollTrigger: {
+    //     trigger: ".aboutstats-title",
+    //     start: "top 90%",
+    //     once: true,
+    //   },
+    // });
   });
 
   useEffect(() => {

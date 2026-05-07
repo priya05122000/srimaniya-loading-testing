@@ -105,7 +105,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                         </ul>
                         {/* Brochure Button */}
                         <div className="mt-6 xl:mt-0 xl:ml-4">
-                            <button className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1 min-w-[110px]" onClick={() => setShowBrochureModal(true)}>
+                            <button className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1 min-w-27.5" onClick={() => setShowBrochureModal(true)}>
                                 <Paragraph size="base" className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">
                                     Brochure <GoDownload aria-label="Download brochure" />
                                 </Paragraph>
@@ -122,14 +122,14 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
             {/* Overlay for mobile menu */}
             {menuOpen && <div className="fixed inset-0 bg-(--black)/30 z-30 md:hidden" onClick={() => setMenuOpen(false)}></div>}
             {/* Brochure Modal */}
-            <LazyCaptcha>
+            {/* <LazyCaptcha>
                 <BrochureModal
                     open={showBrochureModal}
                     onClose={() => setShowBrochureModal(false)}
                     form={form}
                     onChange={() => { }} // No-op, BrochureModal manages state
                 />
-            </LazyCaptcha>
+            </LazyCaptcha> */}
         </nav>
     );
 };

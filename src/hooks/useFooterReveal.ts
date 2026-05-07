@@ -45,9 +45,9 @@ export function useFooterReveal({
           } else {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }
-        }, 100);
-      }, 150);
-    }, 150);
+        }, 10);
+      }, 10);
+    }, 10);
     return () => {
       if (t1) clearTimeout(t1);
     };
