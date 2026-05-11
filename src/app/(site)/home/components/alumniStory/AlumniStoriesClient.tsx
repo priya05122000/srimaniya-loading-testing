@@ -13,20 +13,43 @@ import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimati
 import { AlumniStory } from "@/types";
 
 // Utility: Get visible alumni for carousel (reusable)
+// const getVisibleAlumni = (
+//   alumniData: AlumniStory[],
+//   current: number,
+//   isMobile: boolean
+// ): (AlumniStory | undefined)[] => {
+//   const total = alumniData.length;
+//   if (isMobile) {
+//     // Only show the current alumni on mobile
+//     return [alumniData[current]];
+//   }
+//   return Array.from(
+//     { length: 5 },
+//     (_, i) => alumniData[(current + i - 2 + total) % total]
+//   );
+// };
+
 const getVisibleAlumni = (
   alumniData: AlumniStory[],
   current: number,
-  isMobile: boolean
-): (AlumniStory | undefined)[] => {
+  isMobile: boolean,
+): AlumniStory[] => {
   const total = alumniData.length;
-  if (isMobile) {
-    // Only show the current alumni on mobile
+
+  if (!total) return [];
+
+  if (isMobile || total <= 1) {
     return [alumniData[current]];
   }
-  return Array.from(
-    { length: 5 },
-    (_, i) => alumniData[(current + i - 2 + total) % total]
-  );
+
+  // Only render available items
+  const visibleCount = Math.min(total, 5);
+
+  const offset = Math.floor(visibleCount / 2);
+
+  return Array.from({ length: visibleCount }, (_, i) => {
+    return alumniData[(current + i - offset + total) % total];
+  });
 };
 
 // Utility: Position and scale maps for carousel (reusable)
@@ -34,47 +57,55 @@ const positionMap = ["-300px", "-180px", "0px", "180px", "300px"] as const;
 const scaleMapLg = ["1", "1.5", "1.25", "1.5", "1"] as const;
 // const scaleMapMd = ["1", "1.5", "1.25", "1.5", "1"] as const;
 
-// Reusable: Alumni image carousel item
-const AlumniImage: React.FC<{
+interface AlumniImageProps {
   alumni?: AlumniStory;
   idx: number;
   onClick: () => void;
-}> = ({ alumni, idx, onClick }) => (
-  <div
-    className="absolute transition-all duration-500 ease-out cursor-pointer"
-    onClick={onClick}
-    style={{
-      transform: `translateX(${positionMap[idx]})  scale(${scaleMapLg[idx]})`,
-      zIndex: idx === 2 ? 10 : 1,
-      willChange: "transform, opacity",
-    }}
-  >
+}
+
+const AlumniImage = React.memo(
+  ({ alumni, idx, onClick }: AlumniImageProps) => (
     <div
-      className={
-        idx === 2
-          ? "w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-(--blue) shadow-lg"
-          : "w-24 h-24 sm:w-20 sm:h-20 rounded-full overflow-hidden "
-      }
+      className="absolute transition-all duration-500 ease-out cursor-pointer"
+      onClick={onClick}
+      style={{
+        transform: `translateX(${positionMap[idx]}) scale(${scaleMapLg[idx]})`,
+        zIndex: idx === 2 ? 10 : 1,
+        willChange: "transform, opacity",
+      }}
     >
-      {alumni?.photo_url ? (
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${alumni.photo_url}`}
-          alt={`${alumni.name}, alumni of Sri Maniya Institute of Hotel Management`}
-          width={idx === 2 ? 144 : 80}
-          height={idx === 2 ? 144 : 80}
-          className={`w-full image-tag h-full object-top object-cover pointer-events-none  ${idx === 2 ? "" : "border-2 border-(--yellow)"
-            } `}
-          draggable={false}
-          style={{ borderRadius: "9999px" }}
-          priority={idx === 2}
-          unoptimized
-        />
-      ) : (
-        <div className="w-full h-full" />
-      )}
+      <div
+        className={
+          idx === 2
+            ? "w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-(--blue) shadow-lg"
+            : "w-24 h-24 sm:w-20 sm:h-20 rounded-full overflow-hidden"
+        }
+      >
+        {alumni?.photo_url ? (
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${alumni.photo_url}`}
+            alt={`${alumni.name}, alumni of Sri Maniya Institute of Hotel Management`}
+            width={idx === 2 ? 144 : 80}
+            height={idx === 2 ? 144 : 80}
+            className={`w-full h-full object-cover object-top pointer-events-none image-tag ${
+              idx === 2 ? "" : "border-2 border-(--yellow)"
+            }`}
+            draggable={false}
+            style={{ borderRadius: "9999px" }}
+            unoptimized
+          />
+        ) : (
+          <div className="w-full h-full" />
+        )}
+      </div>
     </div>
-  </div>
+  ),
+  (prev, next) => {
+    return prev.alumni?.id === next.alumni?.id && prev.idx === next.idx;
+  },
 );
+
+AlumniImage.displayName = "AlumniImage";
 
 const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
   const [current, setCurrent] = useState(0);
@@ -111,7 +142,8 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
     if (touchStartX.current !== null && touchEndX.current !== null) {
       const diff = touchStartX.current - touchEndX.current;
       if (Math.abs(diff) > 40) {
-        if (diff > 0) nextSlide(); // swipe left
+        if (diff > 0)
+          nextSlide(); // swipe left
         else prevSlide(); // swipe right
       }
     }
@@ -127,15 +159,17 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => setMounted(true), [100]);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (isHovered) return;
+    if (isHovered || total <= 1) return;
+
     const interval = setInterval(() => {
-      nextSlide();
+      setCurrent((prev) => (prev + 1) % total);
     }, 3000);
+
     return () => clearInterval(interval);
-  }, [current, isHovered, total]);
+  }, [isHovered, total]);
 
   const goTo = (steps: number) =>
     setCurrent((prev) => (prev + steps + total) % total);
@@ -148,7 +182,10 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
     );
   }
 
-  const visible = getVisibleAlumni(alumniData, current, isMobile);
+  const visible = React.useMemo(
+    () => getVisibleAlumni(alumniData, current, isMobile),
+    [alumniData, current, isMobile],
+  );
   const currentAlumni = alumniData[current];
 
   return (
@@ -169,7 +206,6 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                 className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Testimonials
-
               </h3>
               {/* <Paragraph
                 ref={paragraphRef}
@@ -189,12 +225,15 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
           <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
             <div className="w-full h-px bg-(--grey)" />
             <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
-              <FaQuoteLeft aria-label="Quote Icon" style={{ stroke: "var(--yellow)", strokeWidth: 10 }} />
+              <FaQuoteLeft
+                aria-label="Quote Icon"
+                style={{ stroke: "var(--yellow)", strokeWidth: 10 }}
+              />
             </span>
             <div className="w-full h-px bg-(--grey)" />
           </div>
           <Section>
-            <div className="h-[450px] sm:h-[490px] flex flex-col justify-between text-center ">
+            <div className="h-122.5 sm:h-122.5 flex flex-col justify-between text-center ">
               {currentAlumni && mounted && (
                 <>
                   <span className="text-xs block sm:hidden  font-semibold leading-relaxed  text-(--blue)">
@@ -214,21 +253,22 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
               )}
               <div>
                 <div
-                  className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${isMobile ? "h-24" : "h-40"
-                    }`}
+                  className={`flex  justify-center items-center mb-6 sm:mb-10 relative ${
+                    isMobile ? "h-24" : "h-40"
+                  }`}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                   {...(isMobile
                     ? {
-                      onTouchStart: handleTouchStart,
-                      onTouchMove: handleTouchMove,
-                      onTouchEnd: handleTouchEnd,
-                    }
+                        onTouchStart: handleTouchStart,
+                        onTouchMove: handleTouchMove,
+                        onTouchEnd: handleTouchEnd,
+                      }
                     : {})}
                 >
                   {visible.map((alumni, idx) => (
                     <AlumniImage
-                      key={alumni?.id || `empty-${idx}`}
+                      key={alumni?.id}
                       alumni={alumni}
                       idx={isMobile ? 2 : idx}
                       onClick={() => {
@@ -247,14 +287,17 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                       {currentAlumni.name}
                     </Paragraph>
                     <Paragraph size="base" className="text-(--dark)">
-                      ({currentAlumni.batch_year} batch - {currentAlumni.course})
+                      ({currentAlumni.batch_year} batch - {currentAlumni.course}
+                      )
                     </Paragraph>
                   </div>
                 )}
                 {currentAlumni && (
                   <Paragraph size="base" className="  text-(--dark) mb-6">
                     {currentAlumni.designation} - {currentAlumni.company}
-                    {currentAlumni.location ? `, ${currentAlumni.location}` : ""}
+                    {currentAlumni.location
+                      ? `, ${currentAlumni.location}`
+                      : ""}
                     {currentAlumni.country ? `, ${currentAlumni.country}` : ""}
                   </Paragraph>
                 )}
@@ -279,7 +322,8 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
           </Section>
         </div>
       </div>
-    ));
+    )
+  );
 };
 
 export default AlumniStories;

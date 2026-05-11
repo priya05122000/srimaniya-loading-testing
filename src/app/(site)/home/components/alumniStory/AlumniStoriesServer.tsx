@@ -7,7 +7,7 @@ export default async function AlumniStories() {
   const alumni = Array.isArray(res?.data)
     ? res.data.filter((a: AlumniStory) => a.status)
     : [];
-
+  console.log("Fetched Alumni Stories:", alumni);
   if (!alumni.length) return null;
 
   return <AlumniStoriesClient alumniData={alumni} />;
