@@ -60,12 +60,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
 
   useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
 
-  useEffect(() => {
-    if (window.gtag) {
-      window.gtag("config", "G-GFHYHS0PBP", { page_path: pathname });
-    }
-  }, [pathname]);
-
   // Render
   return (
     <>

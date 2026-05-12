@@ -1,7 +1,5 @@
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import type { Metadata } from "next";
-import Script from "next/script";
-import { Suspense } from "react";
 
 import "./globals.css";
 import GTM from "@/components/GTM";
