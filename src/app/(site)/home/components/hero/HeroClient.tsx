@@ -7,10 +7,7 @@ import Span from "@/components/common/Span";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
+
 
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import dynamic from "next/dynamic";
