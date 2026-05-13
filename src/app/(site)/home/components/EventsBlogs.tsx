@@ -8,7 +8,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Span from '@/components/common/Span';
 import { CgArrowLongLeft, CgArrowLongRight } from 'react-icons/cg';
-import { getAllBlogPosts } from "@/services/blogPostService";
+import { getAllBlogPosts, getHomeBlogPosts } from "@/services/blogPostService";
 import { useRouter } from 'next/navigation';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 import Link from 'next/link';
@@ -135,7 +135,7 @@ const EventsBlogs: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await getAllBlogPosts();
+        const res = await getHomeBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((b: unknown) =>
             typeof b === "object" &&
