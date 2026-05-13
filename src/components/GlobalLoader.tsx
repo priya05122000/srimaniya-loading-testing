@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import "@/components/Styles/loader.css"
 
 export default function GlobalLoader() {
   return (
