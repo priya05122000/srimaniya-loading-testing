@@ -1,0 +1,20 @@
+.splide__slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  flex: 0 0 auto !important;
+}
+
+.splide__track,
+.splide__list {
+  display: flex;
+  align-items: center;
+}
+
+.splide__slide img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  padding: 0 8px;
+}

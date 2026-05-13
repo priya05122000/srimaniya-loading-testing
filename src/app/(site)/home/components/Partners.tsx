@@ -6,6 +6,8 @@ import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Image from "next/image";
 
+import "@/components/Styles/splidePartner.css";
+
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 interface Partner {
@@ -71,7 +73,7 @@ export default function Partners() {
         perPage: 6,
         a11y: false,
         autoScroll: {
-          speed: 1.5,
+          speed: 1,
           pauseOnHover: false,
           pauseOnFocus: false,
         },

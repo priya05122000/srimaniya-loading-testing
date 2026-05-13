@@ -95,156 +95,10 @@ body::after {
   pointer-events: none;
 }
 
-/* ===================================================================
-   BUTTONS & CTA
-   ------------------------------------------------------------------- */
-.floating-cta-btn::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 0%;
-  background: #eeecea;
-  z-index: 10;
-  transition: all 0.4s ease-in-out;
-  top: 0;
-}
-
-.floating-cta-btn:hover::after {
-  top: auto;
-  bottom: 0;
-  height: 100%;
-}
-
-.floating-cta-btn .floating-cta-text {
-  position: relative;
-  z-index: 20;
-  transition: all 0.3s ease-in-out;
-}
-
-.floating-cta-btn:hover .floating-cta-text {
-  color: #0b2351 !important;
-  animation: scaleUp 0.3s ease-in-out;
-}
-
-@keyframes scaleUp {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.95);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
 .grecaptcha-badge {
   visibility: hidden;
 }
 
-/* ===================================================================
-   MARQUEE ANIMATIONS & STYLES
-   ------------------------------------------------------------------- */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  display: flex;
-  flex-wrap: nowrap;
-  min-width: max-content;
-  animation: marquee 20s linear infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-.marquee {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  height: 1.5em;
-  background: var(--white-custom);
-  color: var(--blue);
-}
-
-.marquee__inner {
-  display: inline-block;
-  min-width: 200%;
-  white-space: nowrap;
-  animation: marquee 4s linear infinite;
-  color: var(--blue);
-}
-
-.marquee-fade {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background: linear-gradient(to right,
-      var(--white-custom) 0%,
-      rgba(251, 255, 250, 0.1) 10%,
-      rgba(251, 255, 250, 0.1) 80%,
-      var(--white-custom) 100%);
-}
-
-/* ===================================================================
-   SWIPER & SPLIDE STYLES
-   ------------------------------------------------------------------- */
-.swiper-fade .swiper-slide {
-  background: transparent !important;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-}
-
-.swiper-pagination-bullet,
-.swiper-pagination-bullet-active {
-  background: #ffff !important;
-}
-
-.splide__slide {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  width: auto !important;
-  flex: 0 0 auto !important;
-}
-
-.splide__track,
-.splide__list {
-  display: flex;
-  align-items: center;
-}
-
-.splide__slide img {
-  width: 160px;
-  height: auto;
-  object-fit: contain;
-  padding: 0 8px;
-}
 
 /* ===================================================================
    UTILITY CLASSES
@@ -255,51 +109,7 @@ body::after {
   background-size: 10em 5em;
 }
 
-.animate-spin-slow {
-  animation: spin 10s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.fifth-card.is-overlapped {
-  border-bottom: none !important;
-}
-
-.spin-circle {
-  animation: spin-circle 20s linear infinite;
-}
-
-@keyframes spin-circle {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.navbar--hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.navbar--visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.reveal-section,
-.reveal-section iframe,
-.reveal-section svg {
+.reveal-section {
   transform: translateZ(0);
   will-change: transform, opacity;
   backface-visibility: hidden;
@@ -310,60 +120,10 @@ body::after {
   z-index: 2;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  isolation: isolate;
-}
-
-.fixed-logo {
-  position: fixed !important;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999 !important;
-  pointer-events: none;
-  will-change: transform;
-}
-
-@keyframes gpu-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.rotate-test {
-  animation: gpu-spin 30s linear infinite;
-  transform-origin: center;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  contain: layout paint;
-}
-
 #rotating-logo {
   transform: translateZ(0);
   backface-visibility: hidden;
   will-change: transform;
-}
-
-.fade-transition {
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.fade-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.fade-visible {
-  opacity: 1;
 }
 
 .settings:after {
@@ -404,15 +164,10 @@ body::after {
 /* ===================================================================
    PERFORMANCE: will-change & GPU Hints
    ------------------------------------------------------------------- */
-#smooth-content,
-[data-section],
-.course-card,
 .hero-content,
+.horizontal-wrapper,
 .mySwiper,
-img,
-.image-tag,
-.brands_list-wrapper,
-.image-partner {
+.image-tag {
   will-change: transform;
   transform: translateZ(0);
 }
@@ -441,13 +196,4 @@ img,
 .hero-content {
   will-change: transform, opacity;
   transform: translateZ(0);
-}
-
-/* ===================================================================
-   PARTNERS MARQUEE TRACK
-   ------------------------------------------------------------------- */
-.partners-track {
-  display: flex;
-  gap: 2rem;
-  will-change: transform;
 }

@@ -11,7 +11,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackToTopButton from "@/components/common/BackToTopButton";
 import FloatingContactButtons from "@/components/common/FloatingContactButtons";
-import "react-toastify/dist/ReactToastify.css";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useFooterReveal } from "@/hooks/useFooterReveal";
