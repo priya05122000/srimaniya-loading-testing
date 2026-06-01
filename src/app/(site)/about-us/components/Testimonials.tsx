@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import type { Swiper as SwiperType } from 'swiper';
 import { getAllTestimonials } from '@/services/testimonialService';
 import { Star, ArrowLongLeft, ArrowLongRight } from '@/components/icons/Icons';

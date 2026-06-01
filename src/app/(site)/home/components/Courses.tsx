@@ -10,8 +10,8 @@ import { getAllCourses } from "@/services/courseService";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
+gsap.registerPlugin(ScrollTrigger);
 
 // --- Types ---
 type Course = {

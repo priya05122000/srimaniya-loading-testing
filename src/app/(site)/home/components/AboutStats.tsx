@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
 import gsap from "gsap";
-import { SplitText } from "gsap/all";
+import { SplitText } from "gsap/SplitText";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
