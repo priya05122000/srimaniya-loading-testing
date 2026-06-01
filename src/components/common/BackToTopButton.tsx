@@ -1,4 +1,4 @@
-import { FaArrowUpLong } from "react-icons/fa6";
+import { ArrowUp } from "@/components/icons/Icons";
 
 export default function BackToTopButton({
   isBlueSection,
@@ -62,7 +62,7 @@ export default function BackToTopButton({
         />
       </svg>
       <span className="relative z-10 flex items-center justify-center w-full h-full">
-        <FaArrowUpLong aria-label="Back to top" className="w-4 h-4 sm:w-5 sm:h-5" />
+        <ArrowUp aria-label="Back to top" className="w-4 h-4 sm:w-5 sm:h-5" />
       </span>
     </button>
   );

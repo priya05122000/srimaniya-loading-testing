@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { getAllAlumniStories } from '@/services/alumniStoryService';
 import Section from '@/components/common/Section';
-import { FaQuoteLeft } from 'react-icons/fa';
 import Paragraph from '@/components/common/Paragraph';
 import Heading from '@/components/common/Heading';
-import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { QuoteLeft, ArrowNarrowLeft, ArrowNarrowRight } from '@/components/icons/Icons';
 import Image from 'next/image';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 
@@ -212,7 +211,7 @@ const AlumniStories = () => {
         </Section>
         <div className='flex justify-center  items-center pt-10  gap-10 mb-4 '>
           <div className='w-full h-px bg-(--grey)' />
-          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><FaQuoteLeft aria-label="Quote left" style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
+          <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold"><QuoteLeft aria-label="Quote left" style={{ stroke: 'var(--yellow)', strokeWidth: 10 }} /></span>
           <div className='w-full h-px bg-(--grey)' />
         </div>
         <Section>
@@ -269,14 +268,14 @@ const AlumniStories = () => {
                   className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                   aria-label="Previous"
                 >
-                  <HiOutlineArrowNarrowLeft aria-label="Previous slide" />
+                  <ArrowNarrowLeft aria-label="Previous slide" />
                 </button>
                 <button
                   onClick={nextSlide}
                   className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                   aria-label="Next"
                 >
-                  <HiOutlineArrowNarrowRight aria-label="Next slide" />
+                  <ArrowNarrowRight aria-label="Next slide" />
                 </button>
               </div>
             </div>

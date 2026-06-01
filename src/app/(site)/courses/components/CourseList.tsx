@@ -5,7 +5,7 @@ import Link from "next/link";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import CollapsibleHTML from "@/components/common/CollapsibleHTML";
-import { GoDownload } from "react-icons/go";
+import { Download } from "@/components/icons/Icons";
 import CourseListClient from "./CourseListClient";
 
 
@@ -31,7 +31,7 @@ interface CourseRowProps {
 // 🔥 SAME COMPONENT (NO CHANGE)
 const CourseRow: FC<CourseRowProps> = ({ label, children, highlight = false, id, title, duration }) => (
   <tr className="align-top">
-    <td className="pr-4 flex items-start gap-2 md:pr-10 xl:pr-20 py-10 w-full sm:w-[260px] min-w-[180px]">
+    <td className="pr-4 flex items-start gap-2 md:pr-10 xl:pr-20 py-10 w-full sm:w-65 min-w-45">
       <div className="w-12 shrink-0 hidden md:flex flex-col items-center">
         <hr className="border-(--grey-custom) w-full mt-4" />
       </div>
@@ -73,7 +73,7 @@ const MobileCourseRow: FC<CourseRowProps> = ({
   duration,
 }) => (
   <div className="flex items-start gap-4 py-4">
-    <div className="min-w-[110px] shrink-0 flex flex-col items-start">
+    <div className="min-w-27.5 shrink-0 flex flex-col items-start">
       {highlight && id !== undefined ? (
         <div className="flex items-baseline sm:items-center gap-2">
           <p className="text-(--dark) font-jakarta  text-2xl sm:text-3xl lg:text-4xl font-bold">
@@ -154,7 +154,7 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                     >
                       <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">
                         <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) text-base transition-all duration-300 group-hover:text-white">
-                          Syllabus <GoDownload aria-label="Download syllabus" />
+                          Syllabus <Download aria-label="Download syllabus" />
                         </span>
                         <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                       </button>
@@ -191,7 +191,7 @@ const CourseList: FC<{ courses: Course[] }> = ({ courses }) => {
                   >
                     <button className="relative flex justify-center items-center gap-1 rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--blue) group transition-all duration-300 px-3 py-1">
                       <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--blue) text-base transition-all duration-300 group-hover:text-white">
-                        Syllabus <GoDownload aria-label="Download syllabus" />
+                        Syllabus <Download aria-label="Download syllabus" />
                       </span>
                       <span className="absolute left-0 top-0 w-full h-0 bg-(--blue) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                     </button>

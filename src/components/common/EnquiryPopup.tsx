@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { IoClose } from "react-icons/io5";
+import { Close } from "@/components/icons/Icons";
 import Heading from "@/components/common/Heading";
 import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
@@ -10,7 +9,6 @@ import { toast } from "react-toastify";
 interface EnquiryPopupProps {
     show: boolean;
     onClose: () => void;
-    // Optionally accept initial values if needed
 }
 
 const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
@@ -19,7 +17,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
         onSubmit: async (payload) => {
             const popupName = "(Enquiry popup)";
             try {
-                // Send to Google Script (send name as popupName and StudentPhone with +91)
                 await fetch(
                     "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
                     {
@@ -32,7 +29,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                         }),
                     }
                 );
-                // Send to backend
                 const response = await import("@/services/appoinmentRequestService").then(m => m.createAppoinmentRequest({
                     name: popupName,
                     phone_number: payload.phone_number,
@@ -43,13 +39,7 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                     return;
                 }
                 toast.success("Form submitted successfully!");
-                setFormData({
-                    name: "",
-                    email: "",
-                    mobile: "",
-                    message: "",
-                    agree: false,
-                });
+                setFormData({ name: "", email: "", mobile: "", message: "", agree: false });
                 onClose();
             } catch (err) {
                 console.error(err);
@@ -60,65 +50,48 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
         requiredName: false,
     });
 
-    // Reset form when popup opens
     useEffect(() => {
         if (show) {
-            setFormData({
-                name: "",
-                email: "",
-                mobile: "",
-                message: "",
-                agree: false,
-            });
+            setFormData({ name: "", email: "", mobile: "", message: "", agree: false });
         }
     }, [show, setFormData]);
 
+    if (!show) return null;
+
     return (
-        <AnimatePresence>
-            {show && (
-                <motion.div
-                    className="fixed inset-0 z-100 flex items-center justify-center bg-(--black)/60 p-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+        <div
+            className="fixed inset-0 z-100 flex items-center justify-center bg-(--black)/60 p-6 animate-modal-overlay"
+        >
+            <div
+                className="bg-(--blue-overlay-custom) shadow-2xl p-6 w-[400px] relative backdrop-blur-md animate-modal-content"
+            >
+                <button
+                    className="absolute top-2 right-2 cursor-pointer text-xl text-(--bg-grey)"
+                    onClick={onClose}
+                    aria-label="Close"
                 >
-                    <motion.div
-                        className="bg-(--blue-overlay-custom) shadow-2xl p-6  w-[400px] relative backdrop-blur-md"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.8, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <button
-                            className="absolute top-2 right-2 cursor-pointer text-xl text-(--bg-grey)"
-                            onClick={onClose}
-                            aria-label="Close"
-                        >
-                            <IoClose aria-label="Close" />
-                        </button>
-                        <Heading
-                            level={6}
-                            className="font-bold my-6 leading-tight text-center text-(--white) uppercase"
-                        >
-                            Enquire Now
-                        </Heading>
-                        <form onSubmit={handleSubmit} className="space-y-2 w-full mx-auto">
-                            <AutofillSuppressionFields />
-                            <CommonEnquiryFields
-                                formData={formData}
-                                handleChange={handleChange}
-                                requiredMobile={true}
-                                requiredName={false}
-                                fieldsToShow={["mobile"]}
-                                loading={loading}
-                                submitText="Submit"
-                            />
-                        </form>
-                    </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+                    <Close aria-label="Close" />
+                </button>
+                <Heading
+                    level={6}
+                    className="font-bold my-6 leading-tight text-center text-(--white) uppercase"
+                >
+                    Enquire Now
+                </Heading>
+                <form onSubmit={handleSubmit} className="space-y-2 w-full mx-auto">
+                    <AutofillSuppressionFields />
+                    <CommonEnquiryFields
+                        formData={formData}
+                        handleChange={handleChange}
+                        requiredMobile={true}
+                        requiredName={false}
+                        fieldsToShow={["mobile"]}
+                        loading={loading}
+                        submitText="Submit"
+                    />
+                </form>
+            </div>
+        </div>
     );
 };
 

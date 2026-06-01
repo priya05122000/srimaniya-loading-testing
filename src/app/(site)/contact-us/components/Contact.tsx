@@ -1,6 +1,6 @@
 "use client";
 import Heading from "@/components/common/Heading";
-import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
+import { Phone, Mail, MapPin } from "@/components/icons/Icons";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
 import Paragraph from "@/components/common/Paragraph";
 
@@ -128,9 +128,9 @@ const Contact = () => {
 
 
   const contactCards: ContactCardProps[] = [
-    { icon: <FiPhone size={34} aria-label="Phone" />, title: "Phone", lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <FiMail size={34} aria-label="Email" />, title: "Email", lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <FiMapPin size={34} aria-label="Address" />, title: "Address", lines: siteInfo?.address ? Array.isArray(siteInfo.address) ? siteInfo.address : [siteInfo.address] : [], className: "w-full lg:w-[35%] xl:w-[30%]" },
+    { icon: <Phone className="w-8 h-8" aria-label="Phone" />, title: "Phone", lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
+    { icon: <Mail className="w-8 h-8" aria-label="Email" />, title: "Email", lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
+    { icon: <MapPin className="w-8 h-8" aria-label="Address" />, title: "Address", lines: siteInfo?.address ? Array.isArray(siteInfo.address) ? siteInfo.address : [siteInfo.address] : [], className: "w-full lg:w-[35%] xl:w-[30%]" },
   ];
 
   return (

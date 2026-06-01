@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, memo } from "react";
-import { FaFacebook, FaLinkedin } from "react-icons/fa";
+import { Facebook, LinkedIn } from "@/components/icons/Icons";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Link from "next/link";
@@ -86,12 +86,12 @@ const ShareSection: React.FC<ShareSectionProps> = memo(({ blog }) => {
     {
       label: "Facebook",
       href: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
-      icon: <FaFacebook aria-label="Share on Facebook" />,
+      icon: <Facebook aria-label="Share on Facebook" />,
     },
     {
       label: "LinkedIn",
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
-      icon: <FaLinkedin aria-label="Share on LinkedIn" />,
+      icon: <LinkedIn aria-label="Share on LinkedIn" />,
     },
   ];
 

@@ -5,7 +5,6 @@ import { getAllPartners } from "@/services/partnerService";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Image from "next/image";
-
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 interface Partner {
@@ -14,10 +13,8 @@ interface Partner {
   website_url: string;
 }
 
-
 export default function Partners() {
   const [partners, setPartners] = useState<Partner[]>([]);
-  const splideRef = useRef<HTMLDivElement | null>(null);
 
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -37,62 +34,20 @@ export default function Partners() {
     async function fetchData() {
       try {
         const result = await getAllPartners();
-        const data = result?.data || [];
-        setPartners(data);
+        setPartners(result?.data || []);
       } catch (err) {
         console.error("Failed to fetch partners:", err);
       }
     }
     fetchData();
-  }, [baseUrl]);
+  }, []);
 
-  /* --------------------------- Init Splide ---------------------------- */
-  useEffect(() => {
-    if (!splideRef.current || partners.length === 0) return;
-
-    const el = splideRef.current;
-
-    let splide: any;
-    // let autoScrollCleanup: (() => void) | undefined;
-
-    (async () => {
-      const Splide = (await import("@splidejs/splide")).default;
-      const { AutoScroll } = await import("@splidejs/splide-extension-auto-scroll");
-      if (!el) return;
-
-      splide = new Splide(el, {
-        // splide = new Splide(splideRef.current!, {
-        type: "loop",
-        drag: "free",
-        focus: "center",
-        pagination: false,
-        arrows: false,
-        gap: "2rem",
-        perPage: 6,
-        a11y: false,
-        autoScroll: {
-          speed: 1,
-          pauseOnHover: false,
-          pauseOnFocus: false,
-        },
-        breakpoints: {
-          1024: { perPage: 4 },
-          768: { perPage: 3 },
-          480: { perPage: 2 },
-        },
-      });
-
-      splide.mount({ AutoScroll });
-    })();
-
-    return () => {
-      if (splide) splide.destroy();
-    };
-  }, [partners]);
+  // Duplicate list so the seamless loop works (CSS translateX -50%)
+  const displayed = [...partners, ...partners];
 
   return (
     <div className="partners-bg" ref={splitTextTriggerRef}>
-      <Section className="py-10 sm:py-20" >
+      <Section className="py-10 sm:py-20">
         <div className="lg:px-20">
           <Paragraph
             ref={paragraphRef}
@@ -101,56 +56,34 @@ export default function Partners() {
           >
             Top Hotel Placement Partners
           </Paragraph>
-          {/* <Paragraph
-            ref={paragraphRef}
-            size="lg"
-            className="text-(--blue) font-bold partners-title"
-          >
-            Recruitment Partners
-          </Paragraph> */}
-
           <h2
             ref={headingRef}
-
-            className="text-(--blue) font-jakarta  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
+            className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
           >
             Explore Our <br /> Global Placement Network
-
           </h2>
-          {/* <h2
-            ref={headingRef}
 
-            className="text-(--blue)  text-3xl sm:text-4xl lg:text-5xl font-bold mt-1 uppercase partners-explore-title leading-tight"
-          >
-            Explore Our <br /> Placement Partners
-          </h2> */}
-
-          <div className="brands_list-wrapper relative overflow-hidden mt-10 ">
+          <div className="brands_list-wrapper relative overflow-hidden mt-10">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />
-
-            <div className="splide" ref={splideRef}>
-              <div className="splide__track">
-                <ul className="splide__list" role="presentation">
-                  {partners.map((partner, index) => (
-                    <li
-                      key={index}
-                      className="splide__slide image-partner bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center"
-                    >
-                      <Image
-                        src={`${baseUrl}/${partner.logo_url}`}
-                        alt="Recruitment partner of Sri Maniya Institute of Hotel Management" width={200}
-                        height={100}
-                        className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
-                        placeholder="empty"
-                        unoptimized
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="flex animate-marquee" style={{ width: "max-content" }}>
+              {displayed.map((partner, index) => (
+                <div
+                  key={index}
+                  className="bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center shrink-0 mx-4"
+                >
+                  <Image
+                    src={`${baseUrl}/${partner.logo_url}`}
+                    alt="Recruitment partner of Sri Maniya Institute of Hotel Management"
+                    width={200}
+                    height={100}
+                    className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
+                    placeholder="empty"
+                    unoptimized
+                  />
+                </div>
+              ))}
             </div>
           </div>
-
         </div>
       </Section>
     </div>

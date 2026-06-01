@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
-import { FaQuoteLeft } from "react-icons/fa";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
 import {
-  HiOutlineArrowNarrowLeft,
-  HiOutlineArrowNarrowRight,
-} from "react-icons/hi";
+  QuoteLeft,
+  ArrowNarrowLeft,
+  ArrowNarrowRight,
+  QuoteRight,
+} from "@/components/icons/Icons";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { AlumniStory } from "@/types";
@@ -225,9 +226,16 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
           <div className="flex justify-center  items-center pt-10  gap-10 mb-4 ">
             <div className="w-full h-px bg-(--grey)" />
             <span className="text-(--blue) text-4xl sm:text-5xl lg:text-6xl font-bold">
-              <FaQuoteLeft
+              <QuoteRight
                 aria-label="Quote Icon"
-                style={{ stroke: "var(--yellow)", strokeWidth: 10 }}
+                style={{
+                  stroke: "var(--yellow)",
+                  strokeWidth: 1.5,
+                  paintOrder: "stroke",
+                  width: "1.2em",
+                  height: "1.2em",
+                  transform: "rotate(180deg)",
+                }}
               />
             </span>
             <div className="w-full h-px bg-(--grey)" />
@@ -307,14 +315,14 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
                     className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                     aria-label="Previous"
                   >
-                    <HiOutlineArrowNarrowLeft aria-label="Previous Slide" />
+                    <ArrowNarrowLeft aria-label="Previous Slide" />
                   </button>
                   <button
                     onClick={nextSlide}
                     className="border border-(--blue)   text-2xl text-(--blue)  hover:bg-(--blue) hover:text-white    rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                     aria-label="Next"
                   >
-                    <HiOutlineArrowNarrowRight aria-label="Next Slide" />
+                    <ArrowNarrowRight aria-label="Next Slide" />
                   </button>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaArrowLeft } from "react-icons/fa6";
+import { ArrowLeft } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";
 
 import Paragraph from "@/components/common/Paragraph"
@@ -78,7 +78,7 @@ const Form: React.FC = () => {
           className="border rounded-full p-2 md:p-3 cursor-pointer"
           onClick={handleBack}
         >
-          <FaArrowLeft aria-label="Back" />
+          <ArrowLeft aria-label="Back" />
         </button>
       </div>
       <div className="relative flex items-center justify-center pb-8 px-2">

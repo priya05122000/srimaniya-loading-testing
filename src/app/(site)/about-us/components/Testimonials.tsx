@@ -1,17 +1,15 @@
 "use client"
-import Heading from '@/components/common/Heading';
 import LeftSpaceGridSection from '@/components/common/LeftSpaceGridSection'
 import Paragraph from '@/components/common/Paragraph';
 import Span from '@/components/common/Span';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
-import { CgArrowLongLeft, CgArrowLongRight } from 'react-icons/cg';
-import { IoStarSharp } from 'react-icons/io5';
-import Slider, { Settings as SlickSettings } from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import { getAllTestimonials } from '@/services/testimonialService';
+import { Star, ArrowLongLeft, ArrowLongRight } from '@/components/icons/Icons';
 
 type Testimonial = {
   id: string | number;
@@ -23,23 +21,6 @@ type Testimonial = {
   status: boolean;
 };
 
-const baseSliderSettings: SlickSettings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  arrows: false,
-  lazyLoad: "ondemand",
-  autoplay: true,
-  autoplaySpeed: 2000,
-  responsive: [
-    { breakpoint: 1280, settings: { slidesToShow: 2 } },
-    { breakpoint: 768, settings: { slidesToShow: 1 } },
-  ],
-};
-
-// Reusable Testimonial Card
 interface TestimonialCardProps {
   testimonial: Testimonial;
 }
@@ -73,57 +54,19 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
       </div>
       <div className="flex mt-4 space-x-1">
         {[...Array(testimonial.rating)].map((_, i) => (
-          <IoStarSharp key={i} className="text-(--yellow)" aria-label='Star rating' />
+          <Star key={i} className="text-(--yellow)" aria-label="Star rating" />
         ))}
       </div>
     </div>
   </div>
 );
 
-// Helper: Preload images (reusable)
-const preloadImages = (testimonials: Testimonial[]) => {
-  return Promise.all(
-    testimonials.map((t) => {
-      const img = new window.Image();
-      img.src = t.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${t.photo_url}` : "/about-us/profile.webp";
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
-};
-
-const useResponsiveSliderSettings = (base: SlickSettings) => {
-  const [settings, setSettings] = useState<SlickSettings>(base);
-  useEffect(() => {
-    const updateSettings = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        setSettings({ ...base, slidesToShow: 1 });
-      } else if (width < 1024) {
-        setSettings({ ...base, slidesToShow: 1 });
-      } else if (width < 1280) {
-        setSettings({ ...base, slidesToShow: 2 });
-      } else {
-        setSettings(base);
-      }
-    };
-    updateSettings();
-    window.addEventListener("resize", updateSettings);
-    return () => window.removeEventListener("resize", updateSettings);
-  }, [base]);
-  return settings;
-};
-
 const Testimonials: React.FC = () => {
-  const sliderRef = useRef<Slider | null>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
   const testimonialRef = useRef<HTMLDivElement | null>(null);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [mounted, setMounted] = useState(false);
-  const settings = useResponsiveSliderSettings(baseSliderSettings);
 
-  // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
@@ -141,9 +84,7 @@ const Testimonials: React.FC = () => {
       try {
         const result = await getAllTestimonials();
         const testimonialsData = result?.data || [];
-        const activeTestimonials = testimonialsData.filter((t: Testimonial) => t.status);
-        setTestimonials(activeTestimonials);
-        await preloadImages(activeTestimonials);
+        setTestimonials(testimonialsData.filter((t: Testimonial) => t.status));
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error("Error fetching testimonials:", (error as { message?: string }).message);
@@ -157,9 +98,8 @@ const Testimonials: React.FC = () => {
 
   return (
     <div ref={testimonialRef}>
-
-      <LeftSpaceGridSection className="py-10 sm:py-20" >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_2fr] gap-4 ">
+      <LeftSpaceGridSection className="py-10 sm:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_2fr] gap-4">
           <div className="flex flex-col gap-10 justify-center">
             <div>
               <Paragraph ref={paragraphRef} size="lg" className="text-(--blue) font-bold testimonials-title">
@@ -170,12 +110,27 @@ const Testimonials: React.FC = () => {
               </h3>
             </div>
           </div>
-          <div className="overflow-hidden flex flex-col justify-end cursor-grab">
-            <Slider ref={sliderRef} {...settings} className="-ml-4 -mr-4 lg:-mr-20">
+          <div className="overflow-hidden flex flex-col justify-end">
+            <Swiper
+              modules={[Autoplay]}
+              slidesPerView={1}
+              spaceBetween={0}
+              loop={testimonials.length > 1}
+              autoplay={{ delay: 2000, disableOnInteraction: false }}
+              breakpoints={{
+                768: { slidesPerView: 1 },
+                1024: { slidesPerView: 2 },
+                1280: { slidesPerView: 3 },
+              }}
+              onSwiper={(swiper) => { swiperRef.current = swiper; }}
+              className="-ml-4 -mr-4 lg:-mr-20 cursor-grab"
+            >
               {testimonials.map((testimonial, idx) => (
-                <TestimonialCard key={idx} testimonial={testimonial} />
+                <SwiperSlide key={idx}>
+                  <TestimonialCard testimonial={testimonial} />
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           </div>
         </div>
         <div className="flex flex-col items-end mt-4 px-0 sm:px-8">
@@ -183,19 +138,19 @@ const Testimonials: React.FC = () => {
           <div className="flex items-center space-x-4">
             <button
               className="text-2xl text-(--blue) focus:outline-none cursor-pointer"
-              onClick={() => sliderRef.current?.slickPrev()}
+              onClick={() => swiperRef.current?.slidePrev()}
               aria-label="Previous"
               type="button"
             >
-              <CgArrowLongLeft aria-label="Previous testimonial" />
+              <ArrowLongLeft aria-label="Previous testimonial" />
             </button>
             <button
               className="text-2xl text-(--blue) focus:outline-none cursor-pointer"
-              onClick={() => sliderRef.current?.slickNext()}
+              onClick={() => swiperRef.current?.slideNext()}
               aria-label="Next"
               type="button"
             >
-              <CgArrowLongRight aria-label="Next testimonial" />
+              <ArrowLongRight aria-label="Next testimonial" />
             </button>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React, { FC, ChangeEvent, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { IoClose } from "react-icons/io5";
+import { Close } from "@/components/icons/Icons";
 import Image from "next/image";
 import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
@@ -74,47 +73,39 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
         handleChange(e);
         const { name, value } = e.target;
         if (name === "name") {
-            onChange({
-                target: { name: "StudentName", value } as any
-            } as React.ChangeEvent<HTMLInputElement>);
+            onChange({ target: { name: "StudentName", value } as any } as React.ChangeEvent<HTMLInputElement>);
         } else if (name === "mobile") {
-            onChange({
-                target: { name: "StudentPhone", value } as any
-            } as React.ChangeEvent<HTMLInputElement>);
+            onChange({ target: { name: "StudentPhone", value } as any } as React.ChangeEvent<HTMLInputElement>);
         }
     };
 
+    if (!open) return null;
+
     return (
-        <AnimatePresence>
-            {open && (
-                <motion.div className="fixed inset-0 z-100 flex items-center justify-center bg-(--grey-custom)/40 p-6"
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-                    <motion.div className="bg-(--blue) shadow-lg p-6 max-w-lg w-full relative"
-                        initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} transition={{ duration: 0.3 }}>
-                        <button className="absolute top-2 right-2 cursor-pointer text-2xl" onClick={onClose} aria-label="Close">
-                            <IoClose aria-label="Close" />
-                        </button>
-                        <div className="mb-8 flex justify-center">
-                            <Image src="/logos/navbarlogo.png" alt="Sri Maniya Institute logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
-                        </div>
-                        <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
-                            <AutofillSuppressionFields />
-                            <div className="grid grid-cols-1 gap-y-4 gap-x-6">
-                                <CommonEnquiryFields
-                                    formData={formData}
-                                    handleChange={handleMappedChange}
-                                    requiredMobile={true}
-                                    requiredName={true}
-                                    fieldsToShow={["name", "mobile"]}
-                                    submitText="Download Brochure"
-                                    loading={loading}
-                                />
-                            </div>
-                        </form>
-                    </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-(--grey-custom)/40 p-6 animate-modal-overlay">
+            <div className="bg-(--blue) shadow-lg p-6 max-w-lg w-full relative animate-modal-content">
+                <button className="absolute top-2 right-2 cursor-pointer text-2xl" onClick={onClose} aria-label="Close">
+                    <Close aria-label="Close" />
+                </button>
+                <div className="mb-8 flex justify-center">
+                    <Image src="/logos/navbarlogo.png" alt="Sri Maniya Institute logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
+                </div>
+                <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
+                    <AutofillSuppressionFields />
+                    <div className="grid grid-cols-1 gap-y-4 gap-x-6">
+                        <CommonEnquiryFields
+                            formData={formData}
+                            handleChange={handleMappedChange}
+                            requiredMobile={true}
+                            requiredName={true}
+                            fieldsToShow={["name", "mobile"]}
+                            submitText="Download Brochure"
+                            loading={loading}
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
     );
 };
 

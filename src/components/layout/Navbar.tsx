@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { GoDownload } from "react-icons/go";
+import { Download } from "@/components/icons/Icons";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";
 import LazyCaptcha from "../LazyCaptcha";
@@ -107,7 +107,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                         <div className="mt-6 xl:mt-0 xl:ml-4">
                             <button className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1 min-w-27.5" onClick={() => setShowBrochureModal(true)}>
                                 <Paragraph size="base" className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">
-                                    Brochure <GoDownload aria-label="Download brochure" />
+                                    Brochure <Download aria-label="Download brochure" />
                                 </Paragraph>
                                 <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                             </button>

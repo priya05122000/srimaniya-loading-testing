@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Image from "next/image";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { ArrowNarrowRight } from "@/components/icons/Icons";
 import Span from "@/components/common/Span";
 
 // Reusable constants
@@ -73,7 +73,7 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
             onClick={scrollToApplyNow}
             aria-label="Scroll to Apply Now"
           >
-            <HiOutlineArrowNarrowRight aria-label="Scroll to Apply Now" className="font-normal text-(--dark) text-2xl" />
+            <ArrowNarrowRight aria-label="Scroll to Apply Now" className="font-normal text-(--dark) text-2xl" />
           </button>
         </div>
       </div>

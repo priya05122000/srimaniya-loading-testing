@@ -9,7 +9,7 @@ import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
 import Image from "next/image";
 import Span from "@/components/common/Span";
-import { CgArrowLongLeft, CgArrowLongRight } from "react-icons/cg";
+import { ArrowLongLeft, ArrowLongRight } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";
 
 import { getAllBlogPosts } from "@/services/blogPostService";
@@ -200,7 +200,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
               aria-label="Previous"
               type="button"
             >
-              <CgArrowLongLeft aria-label="Previous blog" />
+              <ArrowLongLeft aria-label="Previous blog" />
             </button>
             <button
               ref={(node) => {
@@ -211,7 +211,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
               aria-label="Next"
               type="button"
             >
-              <CgArrowLongRight aria-label="Next blog" />
+              <ArrowLongRight aria-label="Next blog" />
             </button>
           </div>
         </div>

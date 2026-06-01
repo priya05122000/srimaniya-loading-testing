@@ -1,16 +1,9 @@
 import ClientLayout from "./ClientLayout";
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body>
-        <ClientLayout>{children}</ClientLayout>
-        {/* {children} */}
-      </body>
-    </html>
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }

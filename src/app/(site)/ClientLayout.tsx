@@ -1,25 +1,24 @@
 "use client";
 
-// Imports
 import React, { useEffect, useState, useRef, ReactNode, Suspense } from "react";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ScrollSmoother from "gsap/ScrollSmoother";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import BackToTopButton from "@/components/common/BackToTopButton";
-import FloatingContactButtons from "@/components/common/FloatingContactButtons";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useFooterReveal } from "@/hooks/useFooterReveal";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 
-// GSAP plugin registration
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+// Register only ScrollTrigger at layout level; ScrollSmoother registered inside useScrollSmoother
+gsap.registerPlugin(ScrollTrigger);
 
-// Types
+const BackToTopButton = dynamic(() => import("@/components/common/BackToTopButton"), { ssr: false });
+const FloatingContactButtons = dynamic(() => import("@/components/common/FloatingContactButtons"), { ssr: false });
+
 interface ClientLayoutProps {
   children: ReactNode;
   showSmoother?: boolean;
@@ -29,15 +28,13 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   children,
   showSmoother = true,
 }) => {
-  // Refs
   const smootherRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // State
   const [isBlueSection, setIsBlueSection] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showOnlyFooter, setShowOnlyFooter] = useState(true);
+  const [, setShowOnlyFooter] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(true);
 
@@ -59,7 +56,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
 
   useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
 
-  // Render
   return (
     <>
       <ToastContainer
@@ -74,7 +70,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
         pauseOnHover
         theme="light"
       />
-      {/* Navbar */}
       {pathname !== "/registration-form" && (
         <div
           className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${
@@ -86,14 +81,12 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
           <Navbar />
         </div>
       )}
-      {/* Back to Top & Floating Buttons */}
       <BackToTopButton
         isBlueSection={isBlueSection}
         scrollProgress={scrollProgress}
         show={showBackToTop}
       />
       <FloatingContactButtons isBlueSection={isBlueSection} />
-      {/* Main Content & Footer */}
       <div
         ref={smootherRef}
         id="smooth-wrapper"
@@ -104,17 +97,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
             className={`relative z-10 ${
               pathname !== "/registration-form" ? " pt-20" : ""
             }`}
-            // style={{
-            //   opacity:
-            //     pathname === "/registration-form" ? 1 : showOnlyFooter ? 0 : 1,
-            //   pointerEvents:
-            //     pathname === "/registration-form"
-            //       ? "auto"
-            //       : showOnlyFooter
-            //         ? "none"
-            //         : "auto",
-            //   transition: "opacity 0.2s",
-            // }}
           >
             {children}
           </main>

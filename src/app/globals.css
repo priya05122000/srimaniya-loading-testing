@@ -65,7 +65,7 @@
    ------------------------------------------------------------------- */
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior handled by GSAP ScrollSmoother — native smooth scroll conflicts with it */
 }
 
 body {
@@ -114,7 +114,6 @@ body::after {
 
 .reveal-section {
   transform: translateZ(0);
-  will-change: transform, opacity;
   backface-visibility: hidden;
 }
 
@@ -150,11 +149,11 @@ body::after {
 }
 
 .horizontal-wrapper {
-  will-change: transform;
+  /* will-change added/removed dynamically by GSAP during animation */
 }
 
 .sri-maniya-institute-heading span {
-  will-change: transform, opacity;
+  /* will-change added/removed dynamically by GSAP during animation */
 }
 
 @media (min-width: 640px) {
@@ -165,20 +164,15 @@ body::after {
 }
 
 /* ===================================================================
-   PERFORMANCE: will-change & GPU Hints
+   PERFORMANCE: GPU Hints — only for continuously-animating elements
    ------------------------------------------------------------------- */
-.hero-content,
-.horizontal-wrapper,
-.mySwiper,
 .image-tag {
-  will-change: transform;
   transform: translateZ(0);
 }
 
 .line {
   display: block;
   overflow: hidden;
-  will-change: transform, opacity;
 }
 
 .commitment-title .line,
@@ -189,15 +183,40 @@ body::after {
 }
 
 /* ===================================================================
+   Modal Animations
+   ------------------------------------------------------------------- */
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes modal-content-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-modal-overlay { animation: modal-overlay-in 0.3s ease forwards; }
+.animate-modal-content { animation: modal-content-in 0.3s ease forwards; }
+
+/* ===================================================================
+   Partners Marquee
+   ------------------------------------------------------------------- */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ===================================================================
    Hero Section
    ------------------------------------------------------------------- */
 
-/* GPU acceleration for hero & heavy sections */
-.hero-wrapper,
-.hero-image,
-.hero-overlay,
-.hero-content {
-  will-change: transform, opacity;
+/* GPU acceleration only for the hero image layer that GSAP continuously animates */
+.hero-image {
   transform: translateZ(0);
 }
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import { FaArrowLeft } from "react-icons/fa6";
+import { ArrowLeft } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";
 
 // Custom Components
@@ -156,7 +156,7 @@ const Form: React.FC = () => {
           className="border rounded-full p-2 md:p-3 cursor-pointer"
           onClick={handleBack}
         >
-          <FaArrowLeft aria-label="Back" />
+          <ArrowLeft aria-label="Back" />
         </button>
       </div>
 

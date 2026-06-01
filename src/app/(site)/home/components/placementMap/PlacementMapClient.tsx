@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Paragraph from "@/components/common/Paragraph";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -214,7 +213,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
     <div ref={parentRef} className="relative">
       {/* Mobile version */}
       <div className="block sm:hidden">
-        <motion.div className="relative z-10 w-full h-full flex flex-col justify-center py-10 px-6">
+        <div className="relative z-10 w-full h-full flex flex-col justify-center py-10 px-6">
           <div className="relative z-10 ">
             <div className="mb-10 sm:mb-14">
               <Paragraph
@@ -242,7 +241,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               to the world stage.
             </Paragraph>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Desktop version with horizontal scroll */}
@@ -291,8 +290,8 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
 
           {/* Overlay text */}
           <div className="absolute top-0 left-0 h-full w-[40%] items-center hidden sm:flex">
-            <motion.div className="relative z-10 h-full flex flex-col justify-center p-6">
-              <motion.div
+            <div className="relative z-10 h-full flex flex-col justify-center p-6">
+              <div
                 className="absolute left-0 top-0 h-full w-full z-0"
                 style={{
                   backdropFilter: "blur(16px)",
@@ -329,7 +328,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
                   welcomes our alumni to the world stage.
                 </Paragraph>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>

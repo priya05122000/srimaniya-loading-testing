@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight } from "@/components/icons/Icons";
 import { SwiperSlide } from "swiper/react";
 
 
@@ -93,7 +93,7 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
                             Enquire Now
                           </span>
                           <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
-                          <FiArrowRight aria-label="Arrow Right" className="text-(--yellow) z-20 transition-all duration-300 group-hover:text-(--blue)" />
+                          <ArrowRight aria-label="Arrow Right" className="text-(--yellow) z-20 transition-all duration-300 group-hover:text-(--blue)" />
                         </button>
                       </Link>
                     </div>

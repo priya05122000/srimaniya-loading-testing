@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Span from '@/components/common/Span';
-import { CgArrowLongLeft, CgArrowLongRight } from 'react-icons/cg';
+import { ArrowLongLeft, ArrowLongRight } from "@/components/icons/Icons";
 import { getAllBlogPosts, getHomeBlogPosts } from "@/services/blogPostService";
 import { useRouter } from 'next/navigation';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
@@ -199,7 +199,7 @@ const EventsBlogs: React.FC = () => {
                 aria-label="Previous"
                 type="button"
               >
-                <CgArrowLongLeft aria-label="Previous blog" />
+                <ArrowLongLeft aria-label="Previous blog" />
               </button>
               <button
                 ref={(node) => {
@@ -210,7 +210,7 @@ const EventsBlogs: React.FC = () => {
                 aria-label="Next"
                 type="button"
               >
-                <CgArrowLongRight aria-label="Next blog" />
+                <ArrowLongRight aria-label="Next blog" />
               </button>
             </div>
           </div>

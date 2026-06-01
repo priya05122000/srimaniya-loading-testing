@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { GoArrowRight } from "react-icons/go";
+import { ArrowRight } from "@/components/icons/Icons";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import Heading from "@/components/common/Heading";
@@ -214,7 +214,7 @@ const AboutStats = () => {
               <Span>Read Now</Span>
             </Link>
             <Paragraph size="lg" className="inline-block">
-              <GoArrowRight aria-label="Next" />
+              <ArrowRight aria-label="Next" />
             </Paragraph>
           </div>
           <div className="text-(--grey-custom) msg-wrapper text-center lg:text-left">

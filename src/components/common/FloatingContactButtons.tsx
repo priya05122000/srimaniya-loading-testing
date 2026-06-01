@@ -1,5 +1,4 @@
-import { MdOutlinePhone } from "react-icons/md";
-import { IoLogoWhatsapp } from "react-icons/io5";
+import { Phone, WhatsApp } from "@/components/icons/Icons";
 
 function whatsappUrl() {
   const phone = "+918903864444";
@@ -23,7 +22,7 @@ export default function FloatingContactButtons({ isBlueSection }: { isBlueSectio
         onClick={() => window.open("tel:+918903864444")}
         className="cursor-pointer"
       >
-        <MdOutlinePhone aria-label="Call Phone" size={32} />
+        <Phone aria-label="Call Phone" className="w-8 h-8" />
       </button>
       <button
         type="button"
@@ -33,7 +32,7 @@ export default function FloatingContactButtons({ isBlueSection }: { isBlueSectio
         }
         className="cursor-pointer"
       >
-        <IoLogoWhatsapp aria-label="Open WhatsApp chat" size={32} />
+        <WhatsApp aria-label="Open WhatsApp chat" className="w-8 h-8" />
       </button>
     </div>
   );

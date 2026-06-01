@@ -5,7 +5,7 @@ import Section from '@/components/common/Section';
 import Span from '@/components/common/Span';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
-import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { ArrowNarrowRight } from "@/components/icons/Icons";
 import { getAllCourses } from "@/services/courseService";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -98,7 +98,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
                 className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
                 aria-label={`View details for ${course.title}`}
               >
-                <HiOutlineArrowNarrowRight className="font-normal text-(--white-custom) text-2xl hover:text-(--blue) " />
+                <ArrowNarrowRight className="font-normal text-(--white-custom) text-2xl hover:text-(--blue) " />
               </button>
             </Link> */}
             <Link
@@ -113,7 +113,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
               className="border border-white hover:bg-white rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
               aria-label={`View details for ${course.title}`}
             >
-              <HiOutlineArrowNarrowRight aria-label={`View details for ${course.title}`} className="text-(--white-custom) text-2xl hover:text-(--blue)" />
+              <ArrowNarrowRight aria-label={`View details for ${course.title}`} className="text-(--white-custom) text-2xl hover:text-(--blue)" />
             </Link>
           </div>
         </div>

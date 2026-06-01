@@ -2,11 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { LuArrowRight } from "react-icons/lu";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaFacebook } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa6";
-import { IoLogoLinkedin } from "react-icons/io5";
+import { ArrowRight, Instagram, Facebook, YouTube, LinkedIn } from "@/components/icons/Icons";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 
@@ -33,22 +29,22 @@ const SOCIALS = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/srimaniya_institute/",
-    icon: <AiFillInstagram aria-label="Instagram" className="text-xl" />,
+    icon: <Instagram aria-label="Instagram" className="text-xl" />,
   },
   {
     label: "Facebook",
     href: "https://www.facebook.com/SriManiyaInstitute",
-    icon: <FaFacebook aria-label="Facebook" className="text-xl" />,
+    icon: <Facebook aria-label="Facebook" className="text-xl" />,
   },
   {
     label: "Youtube",
     href: "https://www.youtube.com/@srimaniyainstitute",
-    icon: <FaYoutube aria-label="Youtube" className="text-xl" />,
+    icon: <YouTube aria-label="Youtube" className="text-xl" />,
   },
   {
     label: "Linked in",
     href: "#",
-    icon: <IoLogoLinkedin aria-label="LinkedIn" className="text-xl" />,
+    icon: <LinkedIn aria-label="LinkedIn" className="text-xl" />,
   },
 ];
 
@@ -149,7 +145,7 @@ const Footer = () => {
                         {item.label}
                       </Paragraph>
                     </div>
-                    <LuArrowRight
+                    <ArrowRight
                       aria-label="Arrow Right"
                       className="text-xl hidden sm:block"
                     />
