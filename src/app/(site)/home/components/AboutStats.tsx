@@ -2,13 +2,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Span from "@/components/common/Span";
+import { useGSAP } from "@gsap/react";
 import { getAllSiteInfo } from "@/services/siteInfoService";
 
-// Types
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
+// Types
 type SiteInfo = {
   student_count: string;
   staff_count: string;
@@ -38,8 +43,7 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
       { threshold: 0.6 }
     );
     observer.observe(el);
-    async function animateDigits() {
-      const { default: gsap } = await import("gsap");
+    function animateDigits() {
       const digitHeight = el.querySelector(".digit-span")?.clientHeight || 24;
       const digits = value.toString().split("");
       digits.forEach((digit, i) => {
@@ -56,6 +60,7 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
         });
       });
     }
+    return () => observer.disconnect();
   }, [value]);
   return (
     <div
@@ -117,46 +122,33 @@ const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
 const AboutStats = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
 
-  // Dynamic GSAP import — SplitText only runs when the section enters the viewport
-  useEffect(() => {
-    let ctx: { revert: () => void } | undefined;
-    (async () => {
-      const [{ default: gsap }, { SplitText }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
-        import("gsap/SplitText"),
-        import("gsap/ScrollTrigger"),
-      ]);
-      gsap.registerPlugin(SplitText, ScrollTrigger);
-
-      ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: ".message-content",
-          start: "top center",
-          once: true,
-          onEnter: () => {
-            const headings = document.querySelectorAll(".sri-maniya-institute-heading");
-            headings.forEach((el) => {
-              const split = SplitText.create(el, { type: "chars" });
-              gsap.to(split.chars, {
-                opacity: 1,
-                color: "#0b2351",
-                ease: "power2.in",
-                stagger: 0.08,
-                duration: 2,
-                scrollTrigger: {
-                  trigger: ".message-content",
-                  start: "top center",
-                  end: "bottom center",
-                  scrub: true,
-                },
-              });
-            });
-          },
+  // SplitText deferred to onEnter — only runs when the section scrolls into view
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: ".message-content",
+      start: "top center",
+      once: true,
+      onEnter: () => {
+        const headings = document.querySelectorAll(".sri-maniya-institute-heading");
+        headings.forEach((el) => {
+          const split = SplitText.create(el, { type: "chars" });
+          gsap.to(split.chars, {
+            opacity: 1,
+            color: "#0b2351",
+            ease: "power2.in",
+            stagger: 0.08,
+            duration: 2,
+            scrollTrigger: {
+              trigger: ".message-content",
+              start: "top center",
+              end: "bottom center",
+              scrub: true,
+            },
+          });
         });
-      });
-    })();
-    return () => ctx?.revert();
-  }, []);
+      },
+    });
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -173,7 +165,6 @@ const AboutStats = () => {
     fetchData();
   }, []);
 
-  // Only create stats if siteInfo is loaded
   const stats: Stat[] = siteInfo
     ? [
       { value: siteInfo.student_count, label: "Alumni" },
@@ -184,20 +175,18 @@ const AboutStats = () => {
 
   return (
     <Section className="py-10 sm:py-20">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] xl:grid-cols-[1fr_5fr] lg:gap-8 message-content  lg:px-20">
-        {/* Stats Column */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] xl:grid-cols-[1fr_5fr] lg:gap-8 message-content lg:px-20">
         <div className="flex count-wrapper lg:flex-col flex-row justify-between sm:justify-around lg:justify-evenly items-start md:items-start text-(--blue) sm:gap-2">
           {stats.map((stat) => (
             <StatBlock key={stat.label} stat={stat} />
           ))}
         </div>
-        {/* About Content Column */}
         <div className="lg:border-b-0 lg:border-l border-(--grey-custom) lg:pl-8">
           <div className="text-(--blue)">
-            <Paragraph size="lg" className="font-bold tracking-wide mt-10 lg:mt-0 ">
+            <Paragraph size="lg" className="font-bold tracking-wide mt-10 lg:mt-0">
               Study Hotel Management in Tamil Nadu and Build a Global Career
             </Paragraph>
-            <div className="text-justify ">
+            <div className="text-justify">
               <Paragraph size="base" className="mt-4 text-(--dark) leading-relaxed">
                 Recognized as a leading hotel management institute in Tamil Nadu, Sri Maniya Institute equips passionate individuals with strong academics and practical training to become industry-ready professionals.
               </Paragraph>
@@ -221,15 +210,10 @@ const AboutStats = () => {
             </Paragraph>
           </div>
           <div className="text-(--grey-custom) msg-wrapper text-center lg:text-left">
-            <p
-
-              className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block font-jakarta "
-            >
+            <p className="mt-4 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider leading-tight uppercase sri-maniya-institute-heading block sm:hidden lg:block font-jakarta">
               Sri Maniya <br className="xl:hidden" /> Institute
             </p>
-            <p
-              className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden font-jakarta"
-            >
+            <p className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wide leading-tight uppercase sri-maniya-institute-heading hidden sm:block lg:hidden font-jakarta">
               Sri Maniya Institute
             </p>
           </div>

@@ -187,23 +187,15 @@ const Courses: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!courses.length) return;
-    // Defer refresh until after the browser has painted the new course cards
-    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
-    return () => cancelAnimationFrame(id);
+    if (courses.length) {
+      ScrollTrigger.refresh();
+    }
   }, [courses]);
 
   useEffect(() => {
-    let rafId: number | null = null;
-    const handleResize = () => {
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => { ScrollTrigger.refresh(); rafId = null; });
-    };
+    const handleResize = () => { ScrollTrigger.refresh(); };
     window.addEventListener("resize", handleResize, { passive: true });
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
