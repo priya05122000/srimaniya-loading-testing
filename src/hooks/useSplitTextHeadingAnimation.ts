@@ -1,10 +1,5 @@
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RefObject } from "react";
-
-gsap.registerPlugin(SplitText, ScrollTrigger);
 
 type UseSplitTextHeadingAnimationProps = {
   trigger: RefObject<HTMLElement | null> | string;
@@ -40,14 +35,23 @@ export function useSplitTextHeadingAnimation({
 
     mounted.current = true;
 
-    let splitFirst: SplitText | null = null;
-    let splitSecond: SplitText | null = null;
-    let tl: gsap.core.Timeline | null = null;
-    let st: ScrollTrigger | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let splitFirst: any = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let splitSecond: any = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let tl: any = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let st: any = null;
 
     const run = async () => {
       await waitForFonts();
       if (!mounted.current) return;
+
+      const { default: gsap } = await import("gsap");
+      const { SplitText } = await import("gsap/SplitText");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(SplitText, ScrollTrigger);
 
       tl = gsap.timeline({
         scrollTrigger: {
@@ -58,7 +62,7 @@ export function useSplitTextHeadingAnimation({
         },
       });
 
-      st = tl.scrollTrigger as ScrollTrigger;
+      st = tl.scrollTrigger as typeof ScrollTrigger;
 
       // FIRST TEXT
       if (firstNode) {
@@ -90,7 +94,7 @@ export function useSplitTextHeadingAnimation({
             ease: "expo.out",
             stagger: 0.15,
           },
-          delay // starts after custom delay
+          delay
         );
       }
     };

@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   images: {
-    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 640, 768, 1024, 1280, 1440, 1600],
     imageSizes: [64, 96, 128, 256, 384],
@@ -13,7 +12,7 @@ const nextConfig: NextConfig = {
   },
 
   compiler: {
-    removeConsole: false,
+    removeConsole: { exclude: ["error"] },
   },
 
   experimental: {

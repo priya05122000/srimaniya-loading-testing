@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import ScrollSmoother from "gsap/ScrollSmoother";
 
 interface FooterRevealProps {
   pathname: string;
@@ -26,8 +25,9 @@ export function useFooterReveal({
     }
     setShowOnlyFooter(true);
     setFooterVisible(false);
-    const t1 = setTimeout(() => {
+    const t1 = setTimeout(async () => {
       setFooterVisible(true);
+      const { default: ScrollSmoother } = await import("gsap/ScrollSmoother");
       const footer = document.getElementById("footer");
       const smoother = ScrollSmoother.get();
       if (footer && smoother) {
@@ -37,9 +37,10 @@ export function useFooterReveal({
       }
       setTimeout(() => {
         setShowOnlyFooter(false);
-        setTimeout(() => {
+        setTimeout(async () => {
+          const { default: ScrollSmoother2 } = await import("gsap/ScrollSmoother");
           const footer2 = document.getElementById("footer");
-          const smoother2 = ScrollSmoother.get();
+          const smoother2 = ScrollSmoother2.get();
           if (footer2 && smoother2) {
             smoother2.scrollTo(0, true);
           } else {

@@ -1,6 +1,10 @@
 import { getAllBanners } from "@/services/bannerService";
-import HeroClient from "./HeroClient";
+import dynamic from "next/dynamic";
 import { Banner } from "@/types";
+
+const HeroClient = dynamic(() => import("./HeroClient"), {
+  loading: () => <div className="h-[95vh] bg-(--blue)" />,
+});
 
 export default async function HeroServer() {
   const result = await getAllBanners();

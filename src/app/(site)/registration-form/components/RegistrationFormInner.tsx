@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import districts from "./districts.json";
+import districts from "@/lib/districts.json";
 import Paragraph from "@/components/common/Paragraph";
 
 import { useRegistrationForm } from "../subcomponents/useRegistrationForm";

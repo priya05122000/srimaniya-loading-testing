@@ -10,7 +10,7 @@ import { InputField, SelectField } from "@/components/ui/FormFields";
 // import Section from "@/components/Section";
 import Paragraph from "@/components/common/Paragraph";
 
-import districts from "./districts.json";
+import districts from "@/lib/districts.json";
 
 // Types
 type FormData = {

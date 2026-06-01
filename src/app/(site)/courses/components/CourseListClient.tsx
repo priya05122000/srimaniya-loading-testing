@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 const CourseListClient = ({ courses }: { courses: any[] }) => {
 
@@ -12,14 +11,13 @@ const CourseListClient = ({ courses }: { courses: any[] }) => {
 
     let attempts = 0;
 
-    const scrollToCourse = () => {
+    const scrollToCourse = async () => {
       const el = document.getElementById(`course-${course}`);
+      const { ScrollSmoother } = await import("gsap/ScrollSmoother");
       const smoother = ScrollSmoother.get();
 
       if (el && smoother) {
         smoother.scrollTo(el, true, "top 80");
-
-        // ✅ clear after use
         sessionStorage.removeItem("scrollToCourse");
       } else if (attempts < 50) {
         attempts++;
@@ -27,7 +25,6 @@ const CourseListClient = ({ courses }: { courses: any[] }) => {
       }
     };
 
-    // 🔥 wait for full render + GSAP
     setTimeout(scrollToCourse, 500);
 
   }, [courses]);
