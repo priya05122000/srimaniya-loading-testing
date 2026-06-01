@@ -68,6 +68,7 @@ export default function CommonImage({
       quality={quality}
       loading={priority ? "eager" : loading}
       priority={priority}
+      fetchPriority={priority ? "high" : "auto"}
       className={className}
     />
   );

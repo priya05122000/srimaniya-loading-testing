@@ -55,14 +55,14 @@ export const metadata: Metadata = {
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  display: "swap",
+  display: "optional",
   variable: "--font-jakarta",
 });
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  display: "swap",
+  display: "optional",
   variable: "--font-inter",
 });
 
