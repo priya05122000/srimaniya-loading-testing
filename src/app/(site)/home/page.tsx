@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-// const Partners = dynamic(() => import("./components/Partners"));
+import Partners from "./components/PartnersClient";
 const AboutStats = dynamic(() => import("./components/AboutStats"));
 const Courses = dynamic(() => import("./components/Courses"));
 // const AlumniStories = dynamic(() => import("./components/AlumniStories"));
@@ -14,7 +14,6 @@ const PlacementMapServer = dynamic(() => import("./components/placementMap/Place
 const AlumniStoriesServer = dynamic(() => import("./components/alumniStory/AlumniStoriesServer"));
 
 import HeroServer from "./components/hero/HeroServer";
-import Partners from "./components/Partners";
 
 
 const HomePage = () => {

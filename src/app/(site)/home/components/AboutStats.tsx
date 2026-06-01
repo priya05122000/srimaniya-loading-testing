@@ -2,16 +2,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Span from "@/components/common/Span";
-import { useGSAP } from "@gsap/react";
 import { getAllSiteInfo } from "@/services/siteInfoService";
-
-gsap.registerPlugin(SplitText, ScrollTrigger);
 
 // Types
 type SiteInfo = {
@@ -33,33 +27,31 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
     const el = wrapperRef.current;
     let hasAnimated = false;
     const observer = new IntersectionObserver(
-      (entries) => {
+      async (entries) => {
         if (entries[0].isIntersecting && !hasAnimated) {
           hasAnimated = true;
-          animateDigits();
           observer.disconnect();
+          const { default: gsap } = await import("gsap");
+          const digitHeight = el.querySelector(".digit-span")?.clientHeight || 24;
+          const digits = value.toString().split("");
+          digits.forEach((digit, i) => {
+            const digitContainer = el.children[i] as HTMLElement;
+            if (!digitContainer) return;
+            const digitColumn = digitContainer.querySelector(".digit-column") as HTMLElement;
+            if (!digitColumn) return;
+            gsap.set(digitColumn, { y: 0 });
+            gsap.to(digitColumn, {
+              y: -Number(digit) * digitHeight,
+              duration: 2,
+              delay: i * 0.15,
+              ease: "power2.inOut",
+            });
+          });
         }
       },
       { threshold: 0.6 }
     );
     observer.observe(el);
-    function animateDigits() {
-      const digitHeight = el.querySelector(".digit-span")?.clientHeight || 24;
-      const digits = value.toString().split("");
-      digits.forEach((digit, i) => {
-        const digitContainer = el.children[i] as HTMLElement;
-        if (!digitContainer) return;
-        const digitColumn = digitContainer.querySelector(".digit-column") as HTMLElement;
-        if (!digitColumn) return;
-        gsap.set(digitColumn, { y: 0 });
-        gsap.to(digitColumn, {
-          y: -Number(digit) * digitHeight,
-          duration: 2,
-          delay: i * 0.15,
-          ease: "power2.inOut",
-        });
-      });
-    }
     return () => observer.disconnect();
   }, [value]);
   return (
@@ -123,32 +115,41 @@ const AboutStats = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
 
   // SplitText deferred to onEnter — only runs when the section scrolls into view
-  useGSAP(() => {
-    ScrollTrigger.create({
-      trigger: ".message-content",
-      start: "top center",
-      once: true,
-      onEnter: () => {
-        const headings = document.querySelectorAll(".sri-maniya-institute-heading");
-        headings.forEach((el) => {
-          const split = SplitText.create(el, { type: "chars" });
-          gsap.to(split.chars, {
-            opacity: 1,
-            color: "#0b2351",
-            ease: "power2.in",
-            stagger: 0.08,
-            duration: 2,
-            scrollTrigger: {
-              trigger: ".message-content",
-              start: "top center",
-              end: "bottom center",
-              scrub: true,
-            },
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let st: any = null;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { SplitText } = await import("gsap/SplitText");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(SplitText, ScrollTrigger);
+      st = ScrollTrigger.create({
+        trigger: ".message-content",
+        start: "top center",
+        once: true,
+        onEnter: () => {
+          const headings = document.querySelectorAll(".sri-maniya-institute-heading");
+          headings.forEach((el) => {
+            const split = SplitText.create(el, { type: "chars" });
+            gsap.to(split.chars, {
+              opacity: 1,
+              color: "#0b2351",
+              ease: "power2.in",
+              stagger: 0.08,
+              duration: 2,
+              scrollTrigger: {
+                trigger: ".message-content",
+                start: "top center",
+                end: "bottom center",
+                scrub: true,
+              },
+            });
           });
-        });
-      },
-    });
-  });
+        },
+      });
+    })();
+    return () => st?.kill();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {

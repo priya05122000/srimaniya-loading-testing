@@ -23,7 +23,7 @@ export default function CommonImage({
   let width = 400;
   let height = 300;
   let sizes = "100vw";
-  let quality = 60;
+  let quality = 100;
   let loading: "lazy" | "eager" = "lazy";
 
   switch (type) {
@@ -32,7 +32,7 @@ export default function CommonImage({
       height = 800;
       sizes =
         "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1440px";
-      quality = 70;
+      quality = 100;
       loading = "eager";
       break;
 
@@ -41,7 +41,7 @@ export default function CommonImage({
       height = 385;
       sizes =
         "(max-width: 640px) 90vw, (max-width: 1024px) 33vw, 420px";
-      quality = 60;
+      quality = 100;
       break;
 
     case "avatar":
@@ -49,14 +49,14 @@ export default function CommonImage({
       height = 470;
       sizes =
         "(max-width: 640px) 90vw, 420px";
-      quality = 65;
+      quality = 100;
       break;
 
     case "icon":
       width = 160;
       height = 160;
       sizes = "160px";
-      quality = 55;
+      quality = 100;
       break;
   }
 

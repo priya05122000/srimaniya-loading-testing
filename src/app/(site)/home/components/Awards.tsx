@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useContext } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, useEffect, useState } from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
@@ -49,9 +47,6 @@ const AwardMobileCard: React.FC<{ award: Award }> = ({ award }) => (
   </div>
 );
 
-// --- Register Plugin ---
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Awards() {
   const awardsRef = useRef<HTMLDivElement | null>(null);
   const leftRef = useRef<HTMLDivElement | null>(null);
@@ -93,26 +88,29 @@ export default function Awards() {
   useEffect(() => {
     const section = awardsRef.current;
     const left = leftRef.current;
-
     if (!section || !left) return;
 
-    // 🟢 Only enable pinning for desktop screens
-    const mm = gsap.matchMedia();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let mm: any = null;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
 
-    mm.add("(min-width: 768px)", () => {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top+=80", // pin starts when section top hits 100px from viewport top
-        end: "bottom bottom-=200", // ends near bottom of section
-        pin: left,
-        pinSpacing: false, // no extra blank space after unpin
-        scrub: true,
+      mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top+=80",
+          end: "bottom bottom-=200",
+          pin: left,
+          pinSpacing: false,
+          scrub: true,
+        });
       });
-    });
+    })();
 
-    return () => {
-      mm.revert(); // cleanup on unmount
-    };
+    return () => mm?.revert();
   }, []);
 
   return (

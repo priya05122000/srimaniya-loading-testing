@@ -1,12 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Span from "@/components/common/Span";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
-
-gsap.registerPlugin(ScrollTrigger);
 
 // --- Utility: Responsive Video Component (reusable) ---
 // const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
@@ -25,18 +21,20 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
   const [videoReady, setVideoReady] = React.useState(false);
 
   useEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: ".reveal-section",
-      start: "top 80%",
-      once: true,
-      onEnter: () => {
-        setLoadVideo(true);
-      },
-    });
-
-    return () => {
-      trigger.kill();
-    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let trigger: any = null;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      trigger = ScrollTrigger.create({
+        trigger: ".reveal-section",
+        start: "top 80%",
+        once: true,
+        onEnter: () => setLoadVideo(true),
+      });
+    })();
+    return () => trigger?.kill();
   }, []);
 
   return (
@@ -123,30 +121,35 @@ const MaskedSVGOverlay: React.FC = () => (
 export default function ShowReel() {
   useEffect(() => {
     if (window.innerWidth < 640) return;
-    const rect = document.querySelector<SVGRectElement>("#mask-rect");
-    const leftText = document.querySelector<HTMLElement>("#left-text");
-    const rightText = document.querySelector<HTMLElement>("#right-text");
-    if (rect && leftText && rightText) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".reveal-section",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          pin: true,
-        },
-      });
-      tl.to(rect, { scale: 8, transformOrigin: "50% 50%", ease: "none" });
-      tl.to(leftText, { x: "-1000", ease: "none" }, "<");
-      tl.to(rightText, { x: "1000", ease: "none" }, "<");
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 500);
-      return () => {
-        tl.scrollTrigger?.kill();
-        tl.kill();
-      };
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let tl: any = null;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      const rect = document.querySelector<SVGRectElement>("#mask-rect");
+      const leftText = document.querySelector<HTMLElement>("#left-text");
+      const rightText = document.querySelector<HTMLElement>("#right-text");
+      if (rect && leftText && rightText) {
+        tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".reveal-section",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            pin: true,
+          },
+        });
+        tl.to(rect, { scale: 8, transformOrigin: "50% 50%", ease: "none" });
+        tl.to(leftText, { x: "-1000", ease: "none" }, "<");
+        tl.to(rightText, { x: "1000", ease: "none" }, "<");
+        setTimeout(() => ScrollTrigger.refresh(), 500);
+      }
+    })();
+    return () => {
+      tl?.scrollTrigger?.kill();
+      tl?.kill();
+    };
   }, []);
 
   return (

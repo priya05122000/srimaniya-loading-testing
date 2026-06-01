@@ -4,11 +4,13 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   images: {
-    // unoptimized: true,
+    // Skip Next.js image optimization in dev — api.srimaniyainstitute.in resolves via NAT64
+    // which Next.js blocks as a "private IP". Production has direct IPv4 and optimizes correctly.
+    unoptimized: process.env.NODE_ENV === "development",
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 640, 768, 1024, 1280, 1440, 1600],
     imageSizes: [64, 96, 128, 256, 384],
-    qualities: [70, 75, 80, 90],
+    qualities: [100],
     remotePatterns: [
       {
         protocol: "https",
@@ -33,6 +35,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
+    optimizePackageImports: ["swiper"],
     forceSwcTransforms: false,
     cssChunking: "strict",
   },

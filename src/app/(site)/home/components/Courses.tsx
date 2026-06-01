@@ -7,11 +7,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
 import { ArrowNarrowRight } from "@/components/icons/Icons";
 import { getAllCourses } from "@/services/courseService";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
-gsap.registerPlugin(ScrollTrigger);
 
 // --- Types ---
 type Course = {
@@ -141,37 +137,42 @@ const Courses: React.FC = () => {
     enabled: true,
   });
 
-  useGSAP(() => {
+  useEffect(() => {
     if (!courses.length) return;
     const width = window.innerWidth;
     if (width < 640) return;
-    const cards = gsap.utils.toArray<HTMLElement>(".sticky-card");
-    cards.forEach((card, idx) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top top+=80",
-        end: () => {
-          if (idx === cards.length - 2) {
-            if (width >= 640 && width < 1024) {
-              return `+=${card.offsetHeight * 0.8}`;
-            }
-            return `+=${card.offsetHeight * 0.9}`;
-          } else if (idx === cards.length - 1) {
-            if (width >= 640 && width < 1024) {
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let cleanup: (() => void) | undefined;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      const cards = gsap.utils.toArray<HTMLElement>(".sticky-card");
+      cards.forEach((card, idx) => {
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top top+=80",
+          end: () => {
+            if (idx === cards.length - 2) {
+              return width >= 640 && width < 1024
+                ? `+=${card.offsetHeight * 0.8}`
+                : `+=${card.offsetHeight * 0.9}`;
+            } else if (idx === cards.length - 1) {
               return `+=${card.offsetHeight * 0.05}`;
             }
-            return `+=${card.offsetHeight * 0.05}`;
-          }
-          return `+=${card.offsetHeight}`;
-        },
-        pin: true,
-        pinSpacing: false,
-        id: `card-${idx}`,
+            return `+=${card.offsetHeight}`;
+          },
+          pin: true,
+          pinSpacing: false,
+          id: `card-${idx}`,
+        });
       });
-    });
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+      cleanup = () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    })();
+
+    return () => cleanup?.();
   }, [courses.length]);
 
   useEffect(() => {
@@ -187,13 +188,22 @@ const Courses: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (courses.length) {
+    if (!courses.length) return;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
       ScrollTrigger.refresh();
-    }
+    })();
   }, [courses]);
 
   useEffect(() => {
-    const handleResize = () => { ScrollTrigger.refresh(); };
+    const handleResize = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.refresh();
+    };
     window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);

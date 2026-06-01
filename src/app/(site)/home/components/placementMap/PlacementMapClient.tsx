@@ -1,14 +1,8 @@
 "use client";
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { useGSAP } from "@gsap/react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Paragraph from "@/components/common/Paragraph";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 type Placement = {
   flag_img: string;
@@ -164,18 +158,25 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
   const horizontalScrollRef = useRef<HTMLDivElement>(null);
   const horizontalWrapperRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const wrapper = horizontalWrapperRef.current;
-      const scrollSection = horizontalScrollRef.current;
-      if (!wrapper || !scrollSection) return;
+  useEffect(() => {
+    const wrapper = horizontalWrapperRef.current;
+    const scrollSection = horizontalScrollRef.current;
+    if (!wrapper || !scrollSection) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let cleanup: (() => void) | undefined;
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { ScrollToPlugin } = await import("gsap/ScrollToPlugin");
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
       const tween = gsap.to(wrapper, {
         x: () => -(wrapper.scrollWidth - window.innerWidth),
         ease: "none",
       });
 
-      ScrollTrigger.create({
+      const st = ScrollTrigger.create({
         trigger: scrollSection,
         start: "top top+=80",
         end: () => `+=${wrapper.scrollWidth - window.innerWidth}`,
@@ -184,10 +185,9 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
         scrub: true,
         invalidateOnRefresh: true,
         markers: false,
-        anticipatePin: 1, // Add this line
+        anticipatePin: 1,
       });
 
-      // refresh when images load
       const images = scrollSection.querySelectorAll("img");
       let loaded = 0;
       images.forEach((img) => {
@@ -196,18 +196,20 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
         } else {
           img.addEventListener("load", () => {
             loaded++;
-            if (loaded === images.length) {
-              ScrollTrigger.refresh();
-            }
+            if (loaded === images.length) ScrollTrigger.refresh();
           });
         }
       });
-      if (loaded === images.length) {
-        ScrollTrigger.refresh();
-      }
-    },
-    { scope: horizontalScrollRef } // ✅ Scoped only to this component
-  );
+      if (loaded === images.length) ScrollTrigger.refresh();
+
+      cleanup = () => {
+        st.kill();
+        tween.kill();
+      };
+    })();
+
+    return () => cleanup?.();
+  }, []);
 
   return (
     <div ref={parentRef} className="relative">
