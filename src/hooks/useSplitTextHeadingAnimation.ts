@@ -6,13 +6,11 @@ type UseSplitTextHeadingAnimationProps = {
   first: string | RefObject<HTMLElement | null>;
   second?: string | RefObject<HTMLElement | null>;
   enabled?: boolean;
-  delay?: number; // added for customization (default = 0.5s)
+  delay?: number;
 };
 
 async function waitForFonts() {
-  if (document.fonts?.ready) {
-    await document.fonts.ready;
-  }
+  if (document.fonts?.ready) await document.fonts.ready;
 }
 
 export function useSplitTextHeadingAnimation({
@@ -27,24 +25,29 @@ export function useSplitTextHeadingAnimation({
   useEffect(() => {
     if (!enabled) return;
 
-    // Wait for refs to be attached
     const firstNode = typeof first === "string" ? document.querySelector(first) : first?.current;
-    const secondNode = second ? (typeof second === "string" ? document.querySelector(second) : second?.current) : null;
-    const triggerNode = typeof trigger === "string" ? document.querySelector(trigger) : trigger?.current;
+    const secondNode = second
+      ? typeof second === "string"
+        ? document.querySelector(second)
+        : second?.current
+      : null;
+    const triggerNode =
+      typeof trigger === "string" ? document.querySelector(trigger) : trigger?.current;
+
     if (!firstNode || !triggerNode) return;
 
     mounted.current = true;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let stInstance: any = null;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let splitFirst: any = null;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let splitSecond: any = null;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let tl: any = null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let st: any = null;
 
-    const run = async () => {
+    const setup = async () => {
       await waitForFonts();
       if (!mounted.current) return;
 
@@ -53,62 +56,61 @@ export function useSplitTextHeadingAnimation({
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(SplitText, ScrollTrigger);
 
-      tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: triggerNode,
-          start: "top 85%",
-          end: "bottom 0%",
-          toggleActions: "play none none none",
+      // Defer SplitText layout work until the element actually enters the viewport.
+      // Previously, new SplitText() ran immediately on mount for every component,
+      // forcing 25+ simultaneous layout reflows.
+      stInstance = ScrollTrigger.create({
+        trigger: triggerNode,
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
+          if (!mounted.current) return;
+
+          tl = gsap.timeline();
+
+          if (firstNode) {
+            splitFirst = new SplitText(firstNode, { type: "lines", linesClass: "line" });
+            tl.from(splitFirst.lines, {
+              yPercent: 100,
+              opacity: 0,
+              duration: 2.5,
+              ease: "expo.out",
+              stagger: 0.15,
+            }, 0);
+          }
+
+          if (secondNode) {
+            splitSecond = new SplitText(secondNode, { type: "lines", linesClass: "line" });
+            tl.from(splitSecond.lines, {
+              yPercent: 100,
+              opacity: 0,
+              duration: 2.5,
+              ease: "expo.out",
+              stagger: 0.15,
+            }, delay);
+          }
         },
       });
-
-      st = tl.scrollTrigger as typeof ScrollTrigger;
-
-      // FIRST TEXT
-      if (firstNode) {
-        const split = new SplitText(firstNode, { type: "lines", linesClass: "line" });
-        splitFirst = split;
-        tl.from(
-          split.lines,
-          {
-            yPercent: 100,
-            opacity: 0,
-            duration: 2.5,
-            ease: "expo.out",
-            stagger: 0.15,
-          },
-          0
-        );
-      }
-
-      // SECOND TEXT
-      if (secondNode) {
-        const split = new SplitText(secondNode, { type: "lines", linesClass: "line" });
-        splitSecond = split;
-        tl.from(
-          split.lines,
-          {
-            yPercent: 100,
-            opacity: 0,
-            duration: 2.5,
-            ease: "expo.out",
-            stagger: 0.15,
-          },
-          delay
-        );
-      }
     };
 
-    run();
+    setup();
 
     return () => {
       mounted.current = false;
-
       splitFirst?.revert();
       splitSecond?.revert();
       tl?.kill();
-      st?.kill();
+      stInstance?.kill();
     };
-    // rerun when enabled, delay, or DOM nodes change
-  }, [enabled, delay, first, second, trigger, (typeof first === "string" ? undefined : first?.current), (typeof second === "string" ? undefined : second?.current), (typeof trigger === "string" ? undefined : trigger?.current)]);
+  }, [
+    enabled,
+    delay,
+    first,
+    second,
+    trigger,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    typeof first === "string" ? undefined : first?.current,
+    typeof second === "string" ? undefined : second?.current,
+    typeof trigger === "string" ? undefined : trigger?.current,
+  ]);
 }

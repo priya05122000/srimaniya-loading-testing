@@ -8,6 +8,7 @@ interface CommonImageProps {
   type: ImageType;
   className?: string;
   priority?: boolean;
+  unoptimized?: boolean;
 }
 
 export default function CommonImage({
@@ -16,6 +17,7 @@ export default function CommonImage({
   type,
   className = "",
   priority = false,
+  unoptimized = false,
 }: CommonImageProps) {
   // defaults
   let width = 400;
@@ -69,6 +71,7 @@ export default function CommonImage({
       loading={priority ? "eager" : loading}
       priority={priority}
       fetchPriority={priority ? "high" : "auto"}
+      unoptimized={unoptimized}
       className={className}
     />
   );
