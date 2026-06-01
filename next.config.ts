@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
 
   experimental: {
     forceSwcTransforms: false,
+    cssChunking: "strict",
   },
 
   async redirects() {

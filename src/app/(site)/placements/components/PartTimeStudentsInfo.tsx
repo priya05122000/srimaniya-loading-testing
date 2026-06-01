@@ -6,8 +6,6 @@ import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimati
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import { useEffect } from "react";
-import "swiper/css";
-import "swiper/css/navigation";
 import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
 import Image from "next/image";

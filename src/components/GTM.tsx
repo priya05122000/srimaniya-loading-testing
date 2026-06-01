@@ -3,7 +3,7 @@ import Script from "next/script";
 export default function GTM() {
   return (
     <>
-      <Script id="gtm" strategy="afterInteractive">
+      <Script id="gtm" strategy="lazyOnload">
         {`
           (function(w,d,s,l,i){
             w[l]=w[l]||[];

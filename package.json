@@ -10,16 +10,13 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "axios": "^1.12.2",
-    "gsap": "^3.14.2",
-    "next": "^15.3.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "gsap": "^3.15.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-google-recaptcha-v3": "^1.11.0",
-    "react-toastify": "^11.0.5",
-    "split-type": "^0.3.4",
-    "swiper": "^12.1.2",
-    "truncate-html": "^1.2.2"
+    "react-toastify": "^11.1.0",
+    "swiper": "^12.2.0"
   },
   "overrides": {
     "postcss": "^8.5.10"

@@ -6,8 +6,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import "swiper/css";
-import "swiper/css/navigation";
 import { getAllAlumniStories } from "@/services/alumniStoryService";
 
 // Placement type for reuse

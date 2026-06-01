@@ -1,12 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 
-// Swiper styles
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/autoplay";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import Image from "next/image";
 

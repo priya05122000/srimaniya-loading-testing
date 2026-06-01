@@ -7,7 +7,9 @@ import Span from "@/components/common/Span";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
 import { SwiperSlide } from "swiper/react";
-
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/pagination";
 
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import dynamic from "next/dynamic";

@@ -3,15 +3,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Instagram, Facebook, YouTube, LinkedIn } from "@/components/icons/Icons";
-import gsap from "gsap";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
-
 import { getAllCourses } from "@/services/courseService";
 import Section from "../common/Section";
 import Paragraph from "../common/Paragraph";
 import Span from "../common/Span";
 import SafeEmail from "../common/SafeEmail";
-gsap.registerPlugin(ScrollToPlugin);
 
 const COMPANY = {
   name: "Sri Maniya",
@@ -300,9 +296,9 @@ const Footer = () => {
                 <button
                   type="button"
                   className="relative flex justify-center items-center rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-27.5"
-                  onClick={() => {
+                  onClick={async () => {
                     if (typeof window !== "undefined") {
-                      const goToEnquire = () => {
+                      const goToEnquire = async () => {
                         const enquireSection =
                           document.getElementById("enquire-form");
                         const smootherRaw: unknown = (
@@ -326,6 +322,11 @@ const Footer = () => {
                           if (isSmoother(smootherRaw)) {
                             smootherRaw.scrollTo(enquireSection, true);
                           } else {
+                            const [{ default: gsap }, { default: ScrollToPlugin }] = await Promise.all([
+                              import("gsap"),
+                              import("gsap/ScrollToPlugin"),
+                            ]);
+                            gsap.registerPlugin(ScrollToPlugin);
                             gsap.to(window, {
                               duration: 1,
                               scrollTo: { y: enquireSection, offsetY: 80 },
@@ -336,7 +337,6 @@ const Footer = () => {
                       };
                       if (window.location.pathname !== "/") {
                         window.location.href = "/#enquire-form";
-                        // After navigation, scroll to section (for GSAP smoother)
                         window.sessionStorage.setItem("scrollToEnquire", "1");
                       } else {
                         goToEnquire();

@@ -8,7 +8,7 @@ const CommitmentBanner = dynamic(() => import("./components/CommitmentBanner"));
 const ShowReel = dynamic(() => import("./components/ShowReel"));
 const ScrollToEnquire = dynamic(() => import("./components/ScrollToEnquire"));
 const EnquireForm = dynamic(() => import("./components/EnquireForm"));
-const EventsBlogs = dynamic(() => import("./components/EventsBlogs"));
+const EventsBlogs = dynamic(() => import("./components/EventsBlogsWrapper"));
 // const HeroServer = dynamic(() => import("./components/hero/HeroServer"));
 const PlacementMapServer = dynamic(() => import("./components/placementMap/PlacementMapServer"));
 const AlumniStoriesServer = dynamic(() => import("./components/alumniStory/AlumniStoriesServer"));
