@@ -2,9 +2,6 @@
    TAILWIND IMPORT
    ------------------------------------------------------------------- */
 @import "tailwindcss";
-@import "swiper/css";
-@import "swiper/css/effect-fade";
-@import "swiper/css/pagination";
 
 /* ===================================================================
    ROOT VARIABLES
@@ -146,14 +143,6 @@ body::after {
 .bg-blur-fix {
   background: rgba(11, 35, 81, 0.3);
   backdrop-filter: blur(6px);
-}
-
-.horizontal-wrapper {
-  /* will-change added/removed dynamically by GSAP during animation */
-}
-
-.sri-maniya-institute-heading span {
-  /* will-change added/removed dynamically by GSAP during animation */
 }
 
 @media (min-width: 640px) {

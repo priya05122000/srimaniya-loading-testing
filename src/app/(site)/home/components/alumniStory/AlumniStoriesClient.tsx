@@ -91,9 +91,9 @@ const AlumniImage = React.memo(
             className={`w-full h-full object-cover object-top pointer-events-none image-tag ${
               idx === 2 ? "" : "border-2 border-(--yellow)"
             }`}
+            sizes={idx === 2 ? "144px" : "80px"}
             draggable={false}
             style={{ borderRadius: "9999px" }}
-            unoptimized
           />
         ) : (
           <div className="w-full h-full" />

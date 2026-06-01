@@ -26,31 +26,6 @@ export type Blog = {
   created_at: string;
 };
 
-// Helper: Preload images and videos (reusable)
-const preloadMedia = (blogs: Blog[]) => {
-  const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/`;
-  const imagePromises = blogs.map((p) => {
-    const img = new window.Image();
-    img.src = `${base}${p.image_url}`;
-    return new Promise<void>((resolve) => {
-      img.onload = () => resolve();
-      img.onerror = () => resolve();
-    });
-  });
-  const videoPromises = blogs
-    .filter((p) => p.video_url)
-    .map((p) => {
-      const video = document.createElement('video');
-      video.preload = 'auto';
-      video.src = p.video_url.includes('videos/') ? `${base}${p.video_url}` : `${base}videos/${p.video_url}`;
-      return new Promise<void>((resolve) => {
-        video.oncanplaythrough = () => resolve();
-        video.onerror = () => resolve();
-      });
-    });
-  return Promise.all([...imagePromises, ...videoPromises]);
-};
-
 // Helper: Get video sources (reusable)
 const getVideoSources = (videoUrl: string) => {
   const base = `${process.env.NEXT_PUBLIC_API_BASE_URL}/`;
@@ -85,7 +60,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
             className="w-full h-full object-cover image-tag"
             width={500}
             height={500}
-            unoptimized
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
           />
         )}
       </div>
@@ -147,7 +122,6 @@ const EventsBlogs: React.FC = () => {
           )
           : [];
         setBlogs(blogsData);
-        await preloadMedia(blogsData); // Preload images and videos
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
       }

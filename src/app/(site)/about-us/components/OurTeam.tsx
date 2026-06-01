@@ -61,10 +61,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           alt={alt || "Team at Sri Maniya Institute of Hotel Management"}
           width={300}
           height={400}
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-100 image-tag object-cover object-top"
           priority={priority}
           onLoadingComplete={onLoadingComplete}
-          unoptimized
         />
         {mobile && !isOpen && (
           <button
@@ -125,8 +125,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           alt="Team at Sri Maniya Institute of Hotel Management"
           width={300}
           height={400}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
           className="object-cover w-full h-full object-top image-tag"
-          unoptimized
           priority={priority}
           onLoadingComplete={onLoadingComplete}
         />
@@ -178,20 +178,6 @@ const OurTeam: React.FC = () => {
     enabled: staffProfiles.length > 0,
   });
 
-  // Helper: Preload images (reusable)
-  const preloadImages = (profiles: StaffProfile[]) => {
-    return Promise.all(
-      profiles.map((p) => {
-        const img = new window.Image();
-        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.profile_photo_url}`;
-        return new Promise((resolve) => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      })
-    );
-  };
-
   useEffect(() => {
     const fetchStaffProfiles = async () => {
       try {
@@ -200,7 +186,6 @@ const OurTeam: React.FC = () => {
 
         const activeProfiles = profiles.filter((p: StaffProfile) => p.status);
         setStaffProfiles(activeProfiles);
-        await preloadImages(activeProfiles);
       } catch (error: unknown) {
         if (typeof error === "object" && error !== null && "message" in error) {
           console.error(
@@ -239,7 +224,7 @@ const OurTeam: React.FC = () => {
           {/* Mobile view */}
           <div className="grid grid-cols-1 md:hidden">
             {staffProfiles.slice(0, 2).map((member, idx) => (
-              <TeamMemberCard key={idx} {...member} priority={true} onLoadingComplete={handleImageLoad} />
+              <TeamMemberCard key={idx} {...member} priority={idx === 0} onLoadingComplete={handleImageLoad} />
             ))}
             {staffProfiles.slice(2).map((member, idx) => (
               <TeamMemberCard
@@ -262,7 +247,7 @@ const OurTeam: React.FC = () => {
                 <TeamMemberCard
                   key={idx}
                   {...member}
-                  priority={true}
+                  priority={idx < 2}
                   reverseSm={reverseSm}
                   reverseXl={reverseXl}
                   onLoadingComplete={handleImageLoad}
