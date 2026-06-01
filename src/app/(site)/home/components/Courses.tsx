@@ -187,18 +187,22 @@ const Courses: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (courses.length) {
-      ScrollTrigger.refresh();
-    }
+    if (!courses.length) return;
+    // Defer refresh until after the browser has painted the new course cards
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
   }, [courses]);
 
   useEffect(() => {
+    let rafId: number | null = null;
     const handleResize = () => {
-      ScrollTrigger.refresh();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => { ScrollTrigger.refresh(); rafId = null; });
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 

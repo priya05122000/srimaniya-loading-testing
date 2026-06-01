@@ -2,13 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Span from "@/components/common/Span";
-import { useGSAP } from "@gsap/react";
 import { getAllSiteInfo } from "@/services/siteInfoService";
 
 // Types
@@ -42,7 +38,8 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
       { threshold: 0.6 }
     );
     observer.observe(el);
-    function animateDigits() {
+    async function animateDigits() {
+      const { default: gsap } = await import("gsap");
       const digitHeight = el.querySelector(".digit-span")?.clientHeight || 24;
       const digits = value.toString().split("");
       digits.forEach((digit, i) => {
@@ -120,40 +117,46 @@ const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
 const AboutStats = () => {
   const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
 
-  useGSAP(() => {
-    // Heading animation for all variants (mobile & desktop)
-    const headings = document.querySelectorAll('.sri-maniya-institute-heading');
-    headings.forEach((el) => {
-      const split = SplitText.create(el, { type: 'chars' });
-      gsap.to(split.chars, {
-        opacity: 1,
-        color: '#0b2351',
-        ease: 'power2.in',
-        stagger: 0.08,
-        duration: 2,
-        scrollTrigger: {
-          trigger: '.message-content',
-          start: 'top center',
-          end: 'bottom center',
-          scrub: true,
-        },
+  // Dynamic GSAP import — SplitText only runs when the section enters the viewport
+  useEffect(() => {
+    let ctx: { revert: () => void } | undefined;
+    (async () => {
+      const [{ default: gsap }, { SplitText }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/SplitText"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      gsap.registerPlugin(SplitText, ScrollTrigger);
+
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: ".message-content",
+          start: "top center",
+          once: true,
+          onEnter: () => {
+            const headings = document.querySelectorAll(".sri-maniya-institute-heading");
+            headings.forEach((el) => {
+              const split = SplitText.create(el, { type: "chars" });
+              gsap.to(split.chars, {
+                opacity: 1,
+                color: "#0b2351",
+                ease: "power2.in",
+                stagger: 0.08,
+                duration: 2,
+                scrollTrigger: {
+                  trigger: ".message-content",
+                  start: "top center",
+                  end: "bottom center",
+                  scrub: true,
+                },
+              });
+            });
+          },
+        });
       });
-    });
-    // AboutStats title animation
-    // const aboutSplit = SplitText.create('.aboutstats-title', { type: 'chars' });
-    // gsap.from(aboutSplit.chars, {
-    //   x: 150,
-    //   opacity: 0,
-    //   duration: 0.7,
-    //   ease: "power4",
-    //   stagger: 0.04,
-    //   scrollTrigger: {
-    //     trigger: ".aboutstats-title",
-    //     start: "top 90%",
-    //     once: true,
-    //   },
-    // });
-  });
+    })();
+    return () => ctx?.revert();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
