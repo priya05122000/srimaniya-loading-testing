@@ -98,10 +98,23 @@ export function useSplitTextHeadingAnimation({
       });
     };
 
-    setup();
+    let idleHandle: number | ReturnType<typeof setTimeout> | null = null;
+
+    if ("requestIdleCallback" in window) {
+      idleHandle = requestIdleCallback(setup, { timeout: 2000 });
+    } else {
+      idleHandle = setTimeout(setup, 200);
+    }
 
     return () => {
       mounted.current = false;
+      if (idleHandle !== null) {
+        if ("requestIdleCallback" in window) {
+          cancelIdleCallback(idleHandle as number);
+        } else {
+          clearTimeout(idleHandle as ReturnType<typeof setTimeout>);
+        }
+      }
       splitFirst?.revert();
       splitSecond?.revert();
       tl?.kill();

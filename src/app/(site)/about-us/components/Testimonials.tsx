@@ -6,7 +6,8 @@ import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimati
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Virtual } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import type { Swiper as SwiperType } from 'swiper';
 import { getAllTestimonials } from '@/services/testimonialService';
 import { Star, ArrowLongLeft, ArrowLongRight } from '@/components/icons/Icons';
@@ -112,8 +113,7 @@ const Testimonials: React.FC = () => {
           </div>
           <div className="overflow-hidden flex flex-col justify-end">
             <Swiper
-              modules={[Autoplay, Virtual]}
-              virtual
+              modules={[Autoplay]}
               slidesPerView={1}
               spaceBetween={0}
               loop={testimonials.length > 1}
@@ -127,7 +127,7 @@ const Testimonials: React.FC = () => {
               className="-ml-4 -mr-4 lg:-mr-20 cursor-grab"
             >
               {testimonials.map((testimonial, idx) => (
-                <SwiperSlide key={idx} virtualIndex={idx}>
+                <SwiperSlide key={idx}>
                   <TestimonialCard testimonial={testimonial} />
                 </SwiperSlide>
               ))}

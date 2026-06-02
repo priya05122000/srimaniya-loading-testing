@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ["swiper", "react-toastify"],
+    optimizePackageImports: ["gsap", "swiper", "react-toastify"],
     forceSwcTransforms: false,
     cssChunking: true,
   },
@@ -83,42 +83,6 @@ const nextConfig: NextConfig = {
             frame-ancestors *;
           `.replace(/\n/g, ""),
           },
-        ],
-      },
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
-      {
-        source: "/_next/image(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
-        ],
-      },
-      {
-        source: "/(.*\\.(?:webp|png|gif|svg|ico))",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
-        ],
-      },
-      {
-        source: "/(.*\\.(?:mp4|webm|ogg|vtt))",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
-        ],
-      },
-      {
-        source: "/(.*\\.pdf)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
-        ],
-      },
-      {
-        source: "/((?!_next|api|favicon\\.ico).*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=0, s-maxage=60, stale-while-revalidate=300" },
         ],
       },
     ];
