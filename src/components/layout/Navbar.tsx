@@ -122,14 +122,14 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
             {/* Overlay for mobile menu */}
             {menuOpen && <div className="fixed inset-0 bg-(--black)/30 z-30 md:hidden" onClick={() => setMenuOpen(false)}></div>}
             {/* Brochure Modal */}
-            {/* <LazyCaptcha>
+            <LazyCaptcha>
                 <BrochureModal
                     open={showBrochureModal}
                     onClose={() => setShowBrochureModal(false)}
                     form={form}
                     onChange={() => { }} // No-op, BrochureModal manages state
                 />
-            </LazyCaptcha> */}
+            </LazyCaptcha>
         </nav>
     );
 };

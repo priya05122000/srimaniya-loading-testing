@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
 import Section from "@/components/common/Section";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
@@ -39,25 +38,31 @@ const OdometerNumber: React.FC<OdometerNumberProps> = ({ value }) => {
     const digitHeight =
       wrapperRef.current.querySelector(".digit-span")?.clientHeight || 24;
     const digits = value.toString().split("");
-    digits.forEach((digit, i) => {
-      const digitContainer = wrapperRef.current?.children[i] as HTMLElement;
-      const digitColumn = digitContainer?.querySelector(
-        ".digit-column"
-      ) as HTMLElement;
-      if (!digitColumn) return;
-      gsap.set(digitColumn, { y: 0 });
-      gsap.to(digitColumn, {
-        y: -Number(digit) * digitHeight,
-        duration: ODOMETER_ANIMATION.duration,
-        delay: i * ODOMETER_ANIMATION.delayStep,
-        ease: ODOMETER_ANIMATION.ease,
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: ODOMETER_ANIMATION.scrollStart,
-          once: false,
-        },
+    const el = wrapperRef.current;
+    (async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      digits.forEach((digit, i) => {
+        const digitContainer = el?.children[i] as HTMLElement;
+        const digitColumn = digitContainer?.querySelector(
+          ".digit-column"
+        ) as HTMLElement;
+        if (!digitColumn) return;
+        gsap.set(digitColumn, { y: 0 });
+        gsap.to(digitColumn, {
+          y: -Number(digit) * digitHeight,
+          duration: ODOMETER_ANIMATION.duration,
+          delay: i * ODOMETER_ANIMATION.delayStep,
+          ease: ODOMETER_ANIMATION.ease,
+          scrollTrigger: {
+            trigger: el,
+            start: ODOMETER_ANIMATION.scrollStart,
+            once: false,
+          },
+        });
       });
-    });
+    })();
   }, [value]);
 
   return (

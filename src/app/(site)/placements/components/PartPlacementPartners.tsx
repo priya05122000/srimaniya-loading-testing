@@ -2,13 +2,9 @@
 import Section from "@/components/common/Section";
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllPartners } from "@/services/partnerService";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface Partner {
   logo_url: string;

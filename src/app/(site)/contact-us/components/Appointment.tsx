@@ -3,8 +3,6 @@
 import React, { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
@@ -279,9 +277,12 @@ const Appointment: React.FC = () => {
   // GSAP/ScrollTrigger for desktop layout
   useLayoutEffect(() => {
     if (!mounted || typeof window === "undefined") return;
-    gsap.registerPlugin(ScrollTrigger);
-    const timeout = setTimeout(() => {
-      const ctx = gsap.context(() => {
+    let ctx: { revert: () => void } | null = null;
+    const timeoutId = setTimeout(async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
         const layers = gsap.utils.toArray<HTMLElement>(".layer-section");
         if (!layers.length) return;
         layers.forEach((layer, i) => {
@@ -324,10 +325,12 @@ const Appointment: React.FC = () => {
           }
         });
         ScrollTrigger.refresh();
-      }, containerRef);
-      return () => ctx.revert();
+      }, containerRef.current);
     }, 400);
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeoutId);
+      ctx?.revert();
+    };
   }, [mounted]);
 
   if (!mounted) return null;
