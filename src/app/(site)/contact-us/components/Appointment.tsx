@@ -325,7 +325,7 @@ const Appointment: React.FC = () => {
           }
         });
         ScrollTrigger.refresh();
-      }, containerRef.current);
+      }, containerRef.current ?? undefined);
     }, 400);
     return () => {
       clearTimeout(timeoutId);
