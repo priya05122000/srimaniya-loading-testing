@@ -66,7 +66,12 @@ export function useSplitTextHeadingAnimation({
         onEnter: () => {
           if (!mounted.current) return;
 
-          tl = gsap.timeline();
+          tl = gsap.timeline({
+            onComplete: () => {
+              splitFirst?.revert();
+              splitSecond?.revert();
+            },
+          });
 
           if (firstNode) {
             splitFirst = new SplitText(firstNode, { type: "lines", linesClass: "line" });

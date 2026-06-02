@@ -75,19 +75,15 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
         {/* Right section */}
         <div className="flex flex-col gap-2 sm:pl-6 py-8">
           <div className="w-full">
-            <div className="flex items-center gap-2">
-              <div className="text-(--white-custom)">
+            <div className="flex items-center gap-2 text-(--white-custom)">
                 {/* <Paragraph size='xl' className="font-semibold ">Description: </Paragraph>{" "} */}
                 <Paragraph size='base' className=" text-justify line-clamp-5 leading-relaxed ">{stripHtmlAndTrim(course.description)}</Paragraph>
-              </div>
             </div>
-            <div className="flex items-center gap-2 mt-5">
-              <div className="text-(--white-custom) text-lg sm:text-xl lg:text-2xl">
+            <div className="flex items-center gap-2 mt-5 text-(--white-custom) text-lg sm:text-xl lg:text-2xl">
                 <Paragraph size='lg' className="font-semibold ">Eligibility: </Paragraph>{" "}
                 <p className="text-base mt-4 text-justify leading-relaxed">
                   {stripHtmlAndTrim(course.eligibility)}
                 </p>
-              </div>
             </div>
           </div>
           <div className="flex justify-end mt-4">
