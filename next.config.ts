@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["swiper"],
     forceSwcTransforms: false,
-    cssChunking: "strict",
+    cssChunking: true,
   },
 
   async redirects() {

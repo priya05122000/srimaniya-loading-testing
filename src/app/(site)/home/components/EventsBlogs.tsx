@@ -4,8 +4,6 @@ import LeftSpaceGridSection from '@/components/common/LeftSpaceGridSection';
 import Paragraph from '@/components/common/Paragraph';
 import React, { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
 import Image from 'next/image';
 import Span from '@/components/common/Span';

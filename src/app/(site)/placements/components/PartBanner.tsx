@@ -3,11 +3,6 @@ import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/pagination";
-
 // import required modules
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import Heading from "@/components/common/Heading";
