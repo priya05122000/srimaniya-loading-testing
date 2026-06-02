@@ -4,8 +4,6 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   images: {
-    // Skip Next.js image optimization in dev — api.srimaniyainstitute.in resolves via NAT64
-    // which Next.js blocks as a "private IP". Production has direct IPv4 and optimizes correctly.
     unoptimized: process.env.NODE_ENV === "development",
     formats: ["image/avif", "image/webp"],
     deviceSizes: [360, 640, 768, 1024, 1280, 1440, 1600],
@@ -65,21 +63,9 @@ const nextConfig: NextConfig = {
         destination: "/events-blog",
         permanent: true,
       },
-
-      // {
-      //   source: "/$",
-      //   destination: "/",
-      //   permanent: true,
-      // },
-      // {
-      //   source: "/&",
-      //   destination: "/",
-      //   permanent: true,
-      // },
     ];
   },
 
-  // ✅ ADD THIS BLOCK
   async headers() {
     return [
       {
@@ -97,6 +83,42 @@ const nextConfig: NextConfig = {
             frame-ancestors *;
           `.replace(/\n/g, ""),
           },
+        ],
+      },
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/_next/image(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        source: "/(.*\\.(?:webp|png|gif|svg|ico))",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        source: "/(.*\\.(?:mp4|webm|ogg|vtt))",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        source: "/(.*\\.pdf)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        source: "/((?!_next|api|favicon\\.ico).*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=0, s-maxage=60, stale-while-revalidate=300" },
         ],
       },
     ];

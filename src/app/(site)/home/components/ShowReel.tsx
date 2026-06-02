@@ -4,18 +4,6 @@ import Span from "@/components/common/Span";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
 
-// --- Utility: Responsive Video Component (reusable) ---
-// const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => (
-//   <video
-//     src="/videos/reelvideo.mp4"
-//     autoPlay
-//     muted
-//     loop
-//     playsInline
-//     className={className || "w-full h-full object-cover border-0"}
-//   />
-// );
-
 const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
   const [loadVideo, setLoadVideo] = React.useState(false);
   const [videoReady, setVideoReady] = React.useState(false);

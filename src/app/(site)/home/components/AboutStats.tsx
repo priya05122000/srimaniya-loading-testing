@@ -19,33 +19,23 @@ type Stat = {
   label: string;
 };
 
-// OdometerNumber: Animated number display (reusable)
-const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+// CountUp: lightweight animated number — single <span>, GSAP interpolates the value
+const CountUp: React.FC<{ value: number }> = ({ value }) => {
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    if (!wrapperRef.current) return;
-    const el = wrapperRef.current;
-    let hasAnimated = false;
+    const el = ref.current;
+    if (!el) return;
+    const obj = { val: 0 };
     const observer = new IntersectionObserver(
       async (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated) {
-          hasAnimated = true;
+        if (entries[0].isIntersecting) {
           observer.disconnect();
           const { default: gsap } = await import("gsap");
-          const digitHeight = el.querySelector(".digit-span")?.clientHeight || 24;
-          const digits = value.toString().split("");
-          digits.forEach((digit, i) => {
-            const digitContainer = el.children[i] as HTMLElement;
-            if (!digitContainer) return;
-            const digitColumn = digitContainer.querySelector(".digit-column") as HTMLElement;
-            if (!digitColumn) return;
-            gsap.set(digitColumn, { y: 0 });
-            gsap.to(digitColumn, {
-              y: -Number(digit) * digitHeight,
-              duration: 2,
-              delay: i * 0.15,
-              ease: "power2.inOut",
-            });
+          gsap.to(obj, {
+            val: value,
+            duration: 2,
+            ease: "power2.inOut",
+            onUpdate: () => { el.textContent = Math.round(obj.val).toString(); },
           });
         }
       },
@@ -54,57 +44,19 @@ const OdometerNumber: React.FC<{ value: number }> = ({ value }) => {
     observer.observe(el);
     return () => observer.disconnect();
   }, [value]);
-  return (
-    <div
-      ref={wrapperRef}
-      className="flex overflow-hidden tabular-nums"
-      style={{ gap: 0, letterSpacing: 0, fontVariantNumeric: "tabular-nums", lineHeight: "1" }}
-    >
-      {value
-        .toString()
-        .split("")
-        .map((digit, idx) => (
-          <div
-            key={idx}
-            className="h-[1em] overflow-hidden relative"
-            style={{ display: "inline-block", margin: 0, padding: 0 }}
-          >
-            <div className="digit-column flex flex-col">
-              {Array.from({ length: 10 }, (_, n) => (
-                <span
-                  key={n}
-                  className="digit-span block h-[1em]"
-                  style={{ margin: 0, padding: 0, lineHeight: "1em" }}
-                >
-                  {n}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-    </div>
-  );
+  return <span ref={ref}>0</span>;
 };
 
 // StatBlock: Reusable stat display
 const StatBlock: React.FC<{ stat: Stat }> = ({ stat }) => (
   <div className="text-center lg:text-left w-full lg:py-6 lg:border-b border-(--grey-custom)">
-    <span className="hidden lg:block text-4xl sm:text-5xl lg:text-6xl font-bold font-jakarta">
-      <span className="flex items-baseline">
-        <OdometerNumber value={parseInt(stat.value)} />
-        <span className="ml-1">+</span>
-      </span>
-    </span>
-    <span className="block lg:hidden text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta">
+    <span className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold font-jakarta">
       <span className="flex items-baseline justify-center lg:justify-start">
-        <OdometerNumber value={parseInt(stat.value)} />
+        <CountUp value={parseInt(stat.value)} />
         <span className="ml-1">+</span>
       </span>
     </span>
-    <Paragraph size="lg" className="font-normal hidden sm:block">
-      {stat.label}
-    </Paragraph>
-    <Paragraph size="base" className="font-normal block sm:hidden">
+    <Paragraph size="base" className="font-normal sm:text-lg">
       {stat.label}
     </Paragraph>
   </div>
