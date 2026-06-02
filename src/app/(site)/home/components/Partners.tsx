@@ -42,9 +42,6 @@ export default function Partners() {
     fetchData();
   }, []);
 
-  // Duplicate list so the seamless loop works (CSS translateX -50%)
-  const displayed = [...partners, ...partners];
-
   return (
     <div className="partners-bg" ref={splitTextTriggerRef}>
       <Section className="py-10 sm:py-20">
@@ -65,23 +62,43 @@ export default function Partners() {
 
           <div className="brands_list-wrapper relative overflow-hidden mt-10">
             <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-10 bg-[linear-gradient(to_right,#EEECEA_0%,rgba(255,255,255,0)_10%,rgba(255,255,255,0)_90%,#EEECEA_100%)]" />
-            <div className="flex animate-marquee" style={{ width: "max-content" }}>
-              {displayed.map((partner, index) => (
-                <div
-                  key={index}
-                  className="bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center shrink-0 mx-4"
-                >
-                  <Image
-                    src={`${baseUrl}/${partner.logo_url}`}
-                    alt="Recruitment partner of Sri Maniya Institute of Hotel Management"
-                    width={200}
-                    height={100}
-                    className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
-                    sizes="200px"
-                    placeholder="empty"
-                  />
-                </div>
-              ))}
+            <div className="flex">
+              <div className="flex animate-marquee shrink-0">
+                {partners.map((partner, index) => (
+                  <div
+                    key={index}
+                    className="bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center shrink-0 mx-4"
+                  >
+                    <Image
+                      src={`${baseUrl}/${partner.logo_url}`}
+                      alt="Recruitment partner of Sri Maniya Institute of Hotel Management"
+                      width={200}
+                      height={100}
+                      className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
+                      sizes="200px"
+                      placeholder="empty"
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex animate-marquee shrink-0" aria-hidden="true">
+                {partners.map((partner, index) => (
+                  <div
+                    key={`dup-${index}`}
+                    className="bg-(--white-custom) h-32 w-50 shadow-sm flex items-center justify-center shrink-0 mx-4"
+                  >
+                    <Image
+                      src={`${baseUrl}/${partner.logo_url}`}
+                      alt=""
+                      width={200}
+                      height={100}
+                      className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"
+                      sizes="200px"
+                      placeholder="empty"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

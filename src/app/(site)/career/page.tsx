@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import CareerPage from "./CareerPage";
 import { getAllJobs } from "@/services/jobService";
+import { flattenHtml } from "@/utils/flattenHtml";
 
 const BASE_URL = "https://srimaniyainstitute.in";
 
@@ -63,7 +64,9 @@ const page = async () => {
   try {
     const result = await getAllJobs();
     const data = result.data || [];
-    jobs = data.filter((job: any) => job.is_active);
+    jobs = data
+      .filter((job: any) => job.is_active)
+      .map((job: any) => ({ ...job, description: flattenHtml(job.description) }));
   } catch (error) {
     console.error("Error fetching jobs:", error);
   }
