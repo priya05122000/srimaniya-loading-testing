@@ -76,7 +76,7 @@ const FlagPin: React.FC<Flag> = ({ img, placement, ctc, position, size }) => (
       </div>
       <Paragraph
         className={`absolute ${size == "w-8 h-8 xl:w-10 xl:h-10" ? "top-10" : "top-13"
-          } left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-[200px] text-start font-bold border-(--yellow) border pointer-events-none z-10`}
+          } left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-(--blue) text-(--white-custom) px-5 py-3 shadow min-w-50 text-start font-bold border-(--yellow) border pointer-events-none z-10`}
       >
         <span className="block">{placement}</span>
         <span>{ctc}</span>
@@ -227,7 +227,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               </Paragraph>
               <h3
                 ref={headingRef}
-                className="text-(--blue) font-jakarta leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta"
+                className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta"
               >
                 Connecting <br /> Talent to <br /> Global Brands
               </h3>

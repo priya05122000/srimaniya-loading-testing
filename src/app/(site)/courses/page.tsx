@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CoursesPage from "./CoursesPage";
 import { getAllCourses } from "@/services/courseService";
 import Script from "next/script";
+import { flattenHtml } from "@/utils/flattenHtml";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -99,7 +100,12 @@ export async function generateMetadata({
 /* ---------------- PAGE ---------------- */
 export default async function Page() {
   const result = await getAllCourses();
-  const courses = result?.data || [];
+  const courses = (result?.data || []).map((course: any) => ({
+    ...course,
+    description: flattenHtml(course.description),
+    opportunities: flattenHtml(course.opportunities),
+    eligibility: flattenHtml(course.eligibility),
+  }));
 
   /* ---------------- DYNAMIC SCHEMA ---------------- */
   const schema = {
