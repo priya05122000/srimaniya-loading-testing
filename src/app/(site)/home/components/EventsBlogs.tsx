@@ -121,7 +121,7 @@ const EventsBlogs: React.FC = () => {
             (b as { active: boolean }).active === true
           )
           : [];
-        setBlogs(blogsData);
+        setBlogs(blogsData.slice(0, 10));
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
       }
