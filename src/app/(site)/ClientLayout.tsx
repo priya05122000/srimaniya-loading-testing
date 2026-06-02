@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef, ReactNode, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
@@ -13,6 +12,10 @@ import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 
 const BackToTopButton = dynamic(() => import("@/components/common/BackToTopButton"), { ssr: false });
 const FloatingContactButtons = dynamic(() => import("@/components/common/FloatingContactButtons"), { ssr: false });
+const ToastContainer = dynamic(
+  () => import("react-toastify").then((m) => ({ default: m.ToastContainer })),
+  { ssr: false }
+);
 
 interface ClientLayoutProps {
   children: ReactNode;

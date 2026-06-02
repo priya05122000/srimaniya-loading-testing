@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ["swiper"],
+    optimizePackageImports: ["swiper", "react-toastify"],
     forceSwcTransforms: false,
     cssChunking: true,
   },

@@ -1,40 +1,55 @@
-import Script from "next/script";
+"use client";
+
+import { useEffect } from "react";
 
 export default function GTM() {
+  useEffect(() => {
+    let loaded = false;
+
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+
+      const events = ["mousedown", "touchstart", "scroll", "keydown"];
+      events.forEach((e) => window.removeEventListener(e, load));
+      clearTimeout(fallbackTimer);
+
+      (window as { dataLayer?: object[] }).dataLayer =
+        (window as { dataLayer?: object[] }).dataLayer || [];
+      (window as { dataLayer: object[] }).dataLayer.push({
+        "gtm.start": new Date().getTime(),
+        event: "gtm.js",
+      });
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src =
+        "https://www.googletagmanager.com/gtm.js?id=GTM-TLLR36TQ";
+      document.head.appendChild(script);
+    };
+
+    const events = ["mousedown", "touchstart", "scroll", "keydown"];
+    events.forEach((e) =>
+      window.addEventListener(e, load, { passive: true, once: true })
+    );
+
+    // Fallback: load after 5 s even without interaction
+    const fallbackTimer = setTimeout(load, 5000);
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      events.forEach((e) => window.removeEventListener(e, load));
+    };
+  }, []);
+
   return (
-    <>
-      <Script id="gtm" strategy="lazyOnload">
-        {`
-          (function(w,d,s,l,i){
-            w[l]=w[l]||[];
-            w[l].push({
-              'gtm.start': new Date().getTime(),
-              event:'gtm.js'
-            });
-
-            var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),
-                dl=l!='dataLayer'?'&l='+l:'';
-
-            j.async=true;
-            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-
-            f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-TLLR36TQ');
-        `}
-      </Script>
-
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-TLLR36TQ"
-          height="0"
-          width="0"
-          style={{
-            display: "none",
-            visibility: "hidden",
-          }}
-        />
-      </noscript>
-    </>
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TLLR36TQ"
+        height="0"
+        width="0"
+        style={{ display: "none", visibility: "hidden" }}
+      />
+    </noscript>
   );
 }

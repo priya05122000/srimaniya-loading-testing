@@ -8,7 +8,10 @@ export function useScrollSmoother(
   useEffect(() => {
     if (!smootherRef.current || window.innerWidth < 1024) return;
     let smoother: { kill: () => void } | null = null;
-    (async () => {
+    let idleHandle: number | ReturnType<typeof setTimeout> | null = null;
+
+    const init = async () => {
+      if (!smootherRef.current) return;
       const gsap = (await import("gsap")).default;
       const { default: ScrollTrigger } = await import("gsap/ScrollTrigger");
       const { default: ScrollSmoother } = await import("gsap/ScrollSmoother");
@@ -22,7 +25,23 @@ export function useScrollSmoother(
         content: smootherRef.current!.querySelector(".smoother-content"),
       });
       ScrollTrigger.refresh();
-    })();
-    return () => smoother?.kill();
+    };
+
+    if ("requestIdleCallback" in window) {
+      idleHandle = requestIdleCallback(init, { timeout: 2000 });
+    } else {
+      idleHandle = setTimeout(init, 200);
+    }
+
+    return () => {
+      if (idleHandle !== null) {
+        if ("requestIdleCallback" in window) {
+          cancelIdleCallback(idleHandle as number);
+        } else {
+          clearTimeout(idleHandle as ReturnType<typeof setTimeout>);
+        }
+      }
+      smoother?.kill();
+    };
   }, [smootherRef]);
 }
