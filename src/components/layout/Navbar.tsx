@@ -93,7 +93,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
                         <Hamburger open={menuOpen} />
                     </div>
                     {/* Nav Links */}
-                    <div className={`nav-elements fixed top-20 left-0 h-[calc(100vh-80px)] w-[280px] bg-(--blue) transition-transform duration-300 z-40 ${menuOpen ? "translate-x-0 px-6 py-8 shadow-lg" : "-translate-x-full px-6 py-8"} xl:static xl:h-auto xl:w-auto xl:bg-transparent xl:translate-x-0 xl:px-0 xl:py-0 xl:shadow-none xl:flex xl:items-center`}>
+                    <div className={`nav-elements fixed top-20 left-0 h-[calc(100vh-80px)] w-70 bg-(--blue) transition-transform duration-300 z-40 ${menuOpen ? "translate-x-0 px-6 py-8 shadow-lg" : "-translate-x-full px-6 py-8"} xl:static xl:h-auto xl:w-auto xl:bg-transparent xl:translate-x-0 xl:px-0 xl:py-0 xl:shadow-none xl:flex xl:items-center`}>
                         <ul className="flex flex-col xl:flex-row xl:space-x-6 space-y-6 xl:space-y-0 mt-8 xl:mt-0">
                             {NAV_LINKS.map((link) => (
                                 <li key={link.name} className="relative group">

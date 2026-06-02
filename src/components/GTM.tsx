@@ -16,7 +16,7 @@ export default function GTM() {
 
       (window as { dataLayer?: object[] }).dataLayer =
         (window as { dataLayer?: object[] }).dataLayer || [];
-      (window as { dataLayer: object[] }).dataLayer.push({
+      (window as unknown as { dataLayer: object[] }).dataLayer.push({
         "gtm.start": new Date().getTime(),
         event: "gtm.js",
       });
