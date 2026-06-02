@@ -210,20 +210,11 @@ const Footer = () => {
                       Course
                     </Span>
                     <ul>
-                      {courses.map((item) => (
+                      {courses.slice(0, 8).map((item) => (
                         <li
                           key={item.id}
                           className="my-2 text-(--white-custom)"
                         >
-                          {/* <Link
-                                                        href={`/courses?course=${createSlug(item.title)}`}
-                                                        scroll={false}
-                                                        // href={`/courses?course=${item.id}`}
-                                                        aria-label={`View details for ${item.title}`}
-                                                    >
-                                                        <span className="text-xs">{item.title}</span>
-                                                    </Link> */}
-
                           <Link
                             href="/courses"
                             scroll={false}
@@ -238,6 +229,13 @@ const Footer = () => {
                           </Link>
                         </li>
                       ))}
+                      {courses.length > 8 && (
+                        <li className="my-2">
+                          <Link href="/courses" className="text-xs text-(--yellow)">
+                            View All Courses →
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>

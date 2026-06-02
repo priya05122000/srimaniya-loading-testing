@@ -84,7 +84,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, idx, total }) => (
             <div className="flex items-center gap-2 mt-5">
               <div className="text-(--white-custom) text-lg sm:text-xl lg:text-2xl">
                 <Paragraph size='lg' className="font-semibold ">Eligibility: </Paragraph>{" "}
-                <p className="text-base mt-4 text-justify leading-relaxed" dangerouslySetInnerHTML={{ __html: course.eligibility }} />
+                <p className="text-base mt-4 text-justify leading-relaxed">
+                  {stripHtmlAndTrim(course.eligibility)}
+                </p>
               </div>
             </div>
           </div>
@@ -179,7 +181,7 @@ const Courses: React.FC = () => {
     async function fetchCourses() {
       try {
         const result = await getAllCourses();
-        setCourses(result?.data || []);
+        setCourses((result?.data || []).slice(0, 6));
       } catch (err) {
         console.error("Failed to fetch courses:", err);
       }
