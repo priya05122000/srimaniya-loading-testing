@@ -8,7 +8,6 @@ import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
 
-import LazyCaptcha from "@/components/LazyCaptcha";
 import BannerForm from "../subComponents/BannerForm";
 
 
@@ -139,9 +138,7 @@ export default function PartBanner() {
               Join With US
             </p>
           </div>
-          <LazyCaptcha>
-            <BannerForm />
-          </LazyCaptcha>
+          <BannerForm />
         </div>
       </div>
     </div>

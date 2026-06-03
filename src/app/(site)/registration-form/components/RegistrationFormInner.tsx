@@ -88,7 +88,6 @@ const RegistrationFormInner = () => {
           toast.error("Failed to submit the form. Please try again.");
         }
       },
-      captchaAction: "popup_form",
       requiredName: true,
     });
 

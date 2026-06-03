@@ -32,7 +32,6 @@ const ScholarFormInner: React.FC = () => {
   } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
-    captchaAction: "scholar_form",
   });
 
   useEffect(() => {

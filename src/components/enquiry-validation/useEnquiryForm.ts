@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { uploadResumeFile } from "@/services/fileService";
 
 // -------------------- Types & Initial State --------------------
@@ -31,19 +30,16 @@ const sanitizeMessage = (value: string) => value.replace(/[^A-Za-z0-9\s.,!?\'"()
 export function useEnquiryForm({
     validateForm,
     onSubmit,
-    captchaAction = "enquiry_form",
     requiredName = true,
 }: {
     validateForm?: (formData: EnquiryFormData) => boolean;
     onSubmit: (payload: any) => Promise<void>;
-    captchaAction?: string;
     requiredName?: boolean;
 }) {
     const [formData, setFormData] = useState<EnquiryFormData>(getInitialFormData());
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
-    const { executeRecaptcha } = useGoogleReCaptcha();
 
     // Unified handleChange
     const handleChange = (
@@ -87,16 +83,8 @@ export function useEnquiryForm({
         let tempFormData = { ...formData };
         if (!requiredName) tempFormData.name = "(popup)";
         if (validateForm && !validateForm(tempFormData)) return;
-        if (!executeRecaptcha) {
-            setError("Captcha failed. Please refresh and try again.");
-            console.log("executeRecaptcha not available");
-            return;
-        }
         setLoading(true);
         try {
-            const captchaToken = await executeRecaptcha(captchaAction);
-            // console.log("Captcha token:", captchaToken);
-
             let resumeUrl = null;
             if ((formData as any).resume) {
                 const resumeFormData = new FormData();
@@ -110,7 +98,6 @@ export function useEnquiryForm({
                 phone_number: tempFormData.mobile ? `+91${tempFormData.mobile}` : null,
                 message: tempFormData.message || null,
                 course_id: tempFormData.course || null,
-                token: captchaToken,
                 resume_url: resumeUrl,
             };
             await onSubmit(payload);

@@ -19,7 +19,6 @@ const MobileForm = () => {
   } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
-    captchaAction: "appointment_form",
   });
 
   useEffect(() => {

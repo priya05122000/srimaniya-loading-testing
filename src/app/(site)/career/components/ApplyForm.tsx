@@ -38,7 +38,6 @@ const ApplyForm = () => {
       return validateEnquiryFormWithToast(formData);
     },
     onSubmit: createJobApplication,
-    captchaAction: "career_form",
   });
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import LazyCaptcha from "@/components/LazyCaptcha";
 import ScholarFormInner from "./ScholarFormInner";
 
 const IMAGE_PROPS = {
@@ -22,9 +21,7 @@ const ScholarForm: React.FC = () => {
           <h3 className="uppercase text-end mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold">
             Join With US
           </h3>
-          <LazyCaptcha>
-            <ScholarFormInner />
-          </LazyCaptcha>
+          <ScholarFormInner />
         </div>
       </div>
       <div className="relative w-full h-100 sm:h-auto">

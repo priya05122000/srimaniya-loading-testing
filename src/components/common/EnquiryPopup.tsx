@@ -32,7 +32,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                 const response = await import("@/services/appoinmentRequestService").then(m => m.createAppoinmentRequest({
                     name: popupName,
                     phone_number: payload.phone_number,
-                    token: payload.token,
                 }));
                 if (!response || !response.status || response.responseCode !== "INSERT_SUCCESS") {
                     toast.error("Failed to submit the form. Please try again.");
@@ -46,7 +45,6 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
                 toast.error("Failed to submit the form. Please try again.");
             }
         },
-        captchaAction: "popup_form",
         requiredName: false,
     });
 

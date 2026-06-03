@@ -20,7 +20,6 @@ const FormInner = () => {
   } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
-    captchaAction: "enquiry_form",
   });
 
   useEffect(() => {

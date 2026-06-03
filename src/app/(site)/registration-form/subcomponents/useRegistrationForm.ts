@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 // -------------------- Types & Initial State --------------------
 export type RegistrationFormData = {
@@ -40,19 +39,16 @@ const sanitizeAddress = (value: string) => value.replace(/[^A-Za-z0-9\s,.\-\/#!(
 export function useRegistrationForm({
     validateForm,
     onSubmit,
-    captchaAction = "registration_form",
     requiredName = true,
 }: {
     validateForm?: (formData: RegistrationFormData) => boolean;
     onSubmit: (payload: any) => Promise<void>;
-    captchaAction?: string;
     requiredName?: boolean;
 }) {
     const [formData, setFormData] = useState<RegistrationFormData>(getInitialRegistrationFormData());
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
-    const { executeRecaptcha } = useGoogleReCaptcha();
 
     // Unified handleChange
     const handleChange = (
@@ -104,17 +100,11 @@ export function useRegistrationForm({
         let tempFormData = { ...formData };
         if (!requiredName) tempFormData.StudentName = "(popup)";
         if (validateForm && !validateForm(tempFormData)) return;
-        if (!executeRecaptcha) {
-            setError("Captcha failed. Please refresh and try again.");
-            return;
-        }
         setLoading(true);
         try {
-            const captchaToken = await executeRecaptcha(captchaAction);
             const payload = {
                 ...tempFormData,
                 phone_number: tempFormData.StudentPhone ? `+91${tempFormData.StudentPhone}` : null,
-                token: captchaToken,
             };
             await onSubmit(payload);
             setFormData(getInitialRegistrationFormData());

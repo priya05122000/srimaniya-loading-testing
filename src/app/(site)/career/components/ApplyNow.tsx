@@ -2,7 +2,6 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 
-import LazyCaptcha from "@/components/LazyCaptcha";
 import ApplyForm from "./ApplyForm";
 
 const ApplyNow: React.FC = () => {
@@ -33,9 +32,7 @@ const ApplyNow: React.FC = () => {
                 Apply Now
               </h3>
             </div>
-            <LazyCaptcha>
-              <ApplyForm />
-            </LazyCaptcha>
+            <ApplyForm />
           </div>
         </div>
       </div>

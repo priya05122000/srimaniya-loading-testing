@@ -28,7 +28,6 @@ const BannerForm = () => {
   } = useEnquiryForm({
     validateForm: validateEnquiryFormWithToast,
     onSubmit: createAppoinmentRequest,
-    captchaAction: "placement_form",
   });
 
   useEffect(() => {

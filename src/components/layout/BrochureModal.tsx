@@ -24,7 +24,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
         onSubmit: async (payload) => {
             const brochureName = `(Brochure) ${payload.name}`;
             try {
-                const responsePayload = { name: brochureName, phone_number: payload.phone_number, token: payload.token };
+                const responsePayload = { name: brochureName, phone_number: payload.phone_number };
                 const response = await import("@/services/appoinmentRequestService").then(m => m.createAppoinmentRequest(responsePayload));
                 if (!response || !response.status || response.responseCode !== "INSERT_SUCCESS") {
                     toast.error("Failed to submit the form. Please try again.");
@@ -56,7 +56,6 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
                 toast.error("Failed to submit the form. Please try again.");
             }
         },
-        captchaAction: "brochure_form",
     });
 
     useEffect(() => {

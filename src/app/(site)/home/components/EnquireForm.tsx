@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
 import Image from "next/image";
-import LazyCaptcha from "@/components/LazyCaptcha";
 import FormInner from "../subcomponents/FormInner";
 
 const EnquireForm: React.FC = () => {
@@ -32,9 +31,7 @@ const EnquireForm: React.FC = () => {
                 Enquire
               </p>
             </div>
-            <LazyCaptcha>
-              <FormInner />
-            </LazyCaptcha>
+            <FormInner />
           </div>
         </div>
       </div>

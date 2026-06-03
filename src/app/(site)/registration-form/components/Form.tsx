@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 
 import Paragraph from "@/components/common/Paragraph"
 import Link from "next/link";
-import LazyCaptcha from "@/components/LazyCaptcha";
 import RegistrationFormInner from "./RegistrationFormInner";
 
 // -------------------- Contact Info Component --------------------
@@ -99,9 +98,7 @@ const Form: React.FC = () => {
           <h1 className="text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold mb-8 ">
             Student Enquire Form
           </h1>
-          <LazyCaptcha>
-            <RegistrationFormInner />
-          </LazyCaptcha>
+          <RegistrationFormInner />
           <ContactInfo />
         </div>
       </div>

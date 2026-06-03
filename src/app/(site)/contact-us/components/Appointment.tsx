@@ -12,7 +12,6 @@ import CommonEnquiryFields from "@/components/enquiry-validation/CommonEnquiryFi
 import { useEnquiryForm } from "@/components/enquiry-validation/useEnquiryForm";
 
 import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
-import LazyCaptcha from "@/components/LazyCaptcha";
 import MobileForm from "./MobileForm";
 import DesktopForm from "./DesktopForm";
 
@@ -137,9 +136,7 @@ const MobileLayout: React.FC = () => {
         className="section bg-(--blue) flex justify-center items-center w-full py-8 "
         data-section
       >
-        <LazyCaptcha>
-          <MobileForm />
-        </LazyCaptcha>
+        <MobileForm />
       </section>
       {/* Image */}
       <section className="section flex flex-col items-start w-full sm:py-8">
@@ -204,9 +201,7 @@ const DesktopLayout: React.FC = () => (
       data-section
     >
       <div className="w-full flex items-center justify-center">
-        <LazyCaptcha>
-          <DesktopForm />
-        </LazyCaptcha>
+        <DesktopForm />
       </div>
     </section>
     {/* Companies & Hotels */}
