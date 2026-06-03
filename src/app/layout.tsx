@@ -2,7 +2,7 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import GTM from "@/components/GTM";
+// import GTM from "@/components/GTM";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://srimaniyainstitute.in"),
@@ -76,7 +76,7 @@ export default function RootLayout({
       <body
         className={`${plusJakarta.variable} ${inter.variable} font-inter antialiased`}
       >
-        <GTM />
+        {/* <GTM /> */}
 
         {children}
       </body>

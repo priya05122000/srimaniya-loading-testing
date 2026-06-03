@@ -36,7 +36,7 @@ const SWIPER_CONFIG = {
   pagination: { clickable: true },
   autoplay: { delay: 3000, disableOnInteraction: false },
   modules: [EffectFade, Pagination, Autoplay],
-  className: "partBannerSwiper h-[250px] ",
+  className: "partBannerSwiper h-[250px] sm:h-full",
 };
 
 // Helper: Preload images (reusable)
@@ -78,56 +78,60 @@ export default function PartBanner() {
   }, []);
 
   return (
-    <div className="relative lg:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
-      <Swiper key={banners.length} {...SWIPER_CONFIG}>
-        {banners.map((banner, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative w-full h-62.5 sm:h-[calc(100vh-80px)]">
-              <picture>
-                <source
-                  media="(min-width:1024px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
-                />
-                <source
-                  media="(min-width:640px)"
-                  srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
-                />
-                <img
-                  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
-                  alt={banner.title || `Banner ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </picture>
-              <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-2/3 md:w-1/2 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
-                <div
-                  data-section
-                  className="absolute inset-0 bg-(--blue-overlay-medium) -z-10"
-                />
-                <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
-                <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
-                <div className="px-4 py-2 sm:py-4 ">
-                  {banner.title && (
-                    <Heading
-                      level={6}
-                      className="text-end font-bold leading-snug transition-colors duration-300 ease-in-out uppercase "
-                    >
-                      {banner.title}
-                    </Heading>
-                  )}
-                  {banner.button_text && (
-                    <p
-                      className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out "
-                      style={{ fontSize: "1.125rem" }}
-                    >
-                      {banner.button_text}
-                    </p>
-                  )}
+    <div className="relative sm:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
+      {banners.length === 0 ? (
+        <div className="h-62.5 sm:h-full bg-gray-900" />
+      ) : (
+        <Swiper key={banners.length} {...SWIPER_CONFIG}>
+          {banners.map((banner, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-full">
+                <picture>
+                  <source
+                    media="(min-width:1024px)"
+                    srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_desktop}`}
+                  />
+                  <source
+                    media="(min-width:640px)"
+                    srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
+                  />
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
+                    alt={banner.title || `Banner ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
+                <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-2/3 md:w-1/2 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">
+                  <div
+                    data-section
+                    className="absolute inset-0 bg-(--blue-overlay-medium) -z-10"
+                  />
+                  <div className="absolute inset-0 transition-all duration-300 backdrop-blur-xs -z-10" />
+                  <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
+                  <div className="px-4 py-2 sm:py-4 ">
+                    {banner.title && (
+                      <Heading
+                        level={6}
+                        className="text-end font-bold leading-snug transition-colors duration-300 ease-in-out uppercase "
+                      >
+                        {banner.title}
+                      </Heading>
+                    )}
+                    {banner.button_text && (
+                      <p
+                        className="text-end font-semibold leading-snug transition-colors duration-300 ease-in-out "
+                        style={{ fontSize: "1.125rem" }}
+                      >
+                        {banner.button_text}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
       <div className="h-full sm:h-[calc(100vh-80px)] overflow-auto">
         <div
           className="h-full bg-(--blue) p-4 sm:p-6 lg:p-8 flex flex-col justify-evenly "

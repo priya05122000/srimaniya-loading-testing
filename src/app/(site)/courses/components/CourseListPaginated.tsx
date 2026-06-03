@@ -6,7 +6,7 @@ import Paragraph from "@/components/common/Paragraph";
 import CollapsibleHTML from "@/components/common/CollapsibleHTML";
 import { Download } from "@/components/icons/Icons";
 
-const COURSES_PER_PAGE = 5;
+const COURSES_PER_PAGE = 6;
 
 interface Course {
   id: number;
