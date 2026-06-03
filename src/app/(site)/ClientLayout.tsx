@@ -43,6 +43,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [footerVisible, setFooterVisible] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const navbarSuppressRef = useRef(false);
 
   useScrollSmoother(smootherRef as React.RefObject<HTMLDivElement>);
 
@@ -60,6 +61,20 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // Restore navbar immediately on each navigation before the scroll trick runs
+  useEffect(() => {
+    setNavbarVisible(true);
+  }, [pathname]);
+
+  // Refresh GSAP scroll measurements after new page content renders
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      const { default: ScrollTrigger } = await import("gsap/ScrollTrigger");
+      ScrollTrigger.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
   const handleClosePopup = () => {
     setShowPopup(false);
     sessionStorage.setItem("enquiry_popup_shown", "1");
@@ -71,9 +86,10 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     pathname,
     setShowOnlyFooter,
     setFooterVisible,
+    suppressRef: navbarSuppressRef,
   });
 
-  useNavbarVisibility({ footerVisible, pathname, setNavbarVisible });
+  useNavbarVisibility({ footerVisible, pathname, setNavbarVisible, suppressRef: navbarSuppressRef });
 
   return (
     <>

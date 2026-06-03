@@ -4,12 +4,14 @@ interface NavbarVisibilityProps {
   footerVisible: boolean;
   pathname: string;
   setNavbarVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  suppressRef: React.RefObject<boolean>;
 }
 
 export function useNavbarVisibility({
   footerVisible,
   pathname,
   setNavbarVisible,
+  suppressRef,
 }: NavbarVisibilityProps) {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -18,7 +20,9 @@ export function useNavbarVisibility({
     let observer: IntersectionObserver | null = null;
     observer = new window.IntersectionObserver(
       ([entry]) => {
-        setNavbarVisible(entry.intersectionRatio < 0.5);
+        if (!suppressRef.current) {
+          setNavbarVisible(entry.intersectionRatio < 0.5);
+        }
       },
       { root: null, threshold: 0.5 }
     );
@@ -26,5 +30,5 @@ export function useNavbarVisibility({
     return () => {
       if (observer && footer) observer.unobserve(footer);
     };
-  }, [footerVisible, pathname, setNavbarVisible]);
+  }, [setNavbarVisible, suppressRef]);
 }
