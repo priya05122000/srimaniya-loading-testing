@@ -45,14 +45,16 @@ const EventAndBlog = ({
     enabled: true,
   });
 
-  const [active, setActive] = useState<string>("");
+  // Initialize with first category so SSR renders images — makes LCP discoverable in initial HTML
+  const [active, setActive] = useState<string>(categories[0]?.id ?? "");
 
-
-  // ✅ Set after mount (SAFE)
+  // Override with sessionStorage selection after mount (client-only)
   useEffect(() => {
     if (categories.length > 0) {
       const saved = sessionStorage.getItem("eventsBlogActiveCategory");
-      setActive(saved || categories[0].id);
+      if (saved && categories.some((c) => c.id === saved)) {
+        setActive(saved);
+      }
     }
   }, [categories]);
 
@@ -146,7 +148,9 @@ const EventAndBlog = ({
                         className="w-full h-70 object-cover object-center cursor-pointer image-tag"
                         width={500}
                         height={500}
-                        priority
+                        sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        priority={idx === 0}
+                        loading={idx === 0 ? undefined : "lazy"}
                       />
                     </div>
                   </Link>

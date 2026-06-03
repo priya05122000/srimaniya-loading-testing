@@ -1,4 +1,5 @@
 import React from "react";
+import { preload } from "react-dom";
 import type { Metadata } from "next";
 import EventsBlogPage from "./EventsBlogPage";
 import { getAllBlogPosts } from "@/services/blogPostService";
@@ -69,6 +70,23 @@ const page = async () => {
     : [];
 
   const categories = categoryResult?.data || [];
+
+  // Preload LCP image from head before any JS runs
+  const lcpBlog = blogsData.find((b: any) => b.category_id === categories[0]?.id);
+  if (lcpBlog?.image_url) {
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+    const encodedUrl = encodeURIComponent(`${apiBase}/${lcpBlog.image_url}`);
+    const widths = [360, 640, 768, 1024, 1280, 1440, 1600];
+    const imageSrcSet = widths
+      .map((w) => `/_next/image?url=${encodedUrl}&w=${w}&q=100 ${w}w`)
+      .join(", ");
+    preload(`/_next/image?url=${encodedUrl}&w=640&q=100`, {
+      as: "image",
+      fetchPriority: "high",
+      imageSrcSet,
+      imageSizes: "(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    });
+  }
 
   /* ---------------- DYNAMIC SCHEMA ---------------- */
   const schema = {

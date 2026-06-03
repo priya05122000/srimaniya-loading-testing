@@ -209,7 +209,7 @@ const Footer = () => {
                     <Span className="font-bold text-(--grey-custom)">
                       Course
                     </Span>
-                    <ul>
+                    <ul className="min-h-40">
                       {courses.slice(0, 8).map((item) => (
                         <li
                           key={item.id}
