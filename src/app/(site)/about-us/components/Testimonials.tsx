@@ -30,13 +30,12 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
   <div className="px-3">
     <div className="bg-(--blue) p-6 h-84 flex flex-col justify-between shadow-lg" data-section>
       <div className="flex items-center mb-4">
-        <div className="w-12 h-12 overflow-hidden mr-4">
+        <div className="relative w-12 h-12 overflow-hidden mr-4 shrink-0">
           <Image
             src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${testimonial.photo_url}` : "/about-us/profile.webp"}
             alt="Student testimonial at Sri Maniya Institute"
-            width={48}
-            height={48}
-            className="object-cover w-full h-full image-tag"
+            fill
+            className="object-cover image-tag"
             unoptimized
           />
         </div>

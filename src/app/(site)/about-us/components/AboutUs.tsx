@@ -3,12 +3,13 @@ import Paragraph from '@/components/common/Paragraph'
 import Image from 'next/image'
 import React from 'react'
 
-const AboutUsImage: React.FC<{ className?: string }> = ({ className }) => (
+const AboutUsImage: React.FC<{ className?: string; priority?: boolean }> = ({ className, priority }) => (
   <Image
     src="/about-us/about-us.webp"
     alt="About Sri Maniya Institute of Hotel Management"
     width={1200}
     height={1200}
+    priority={priority}
     className={className || "w-full h-full object-cover image-tag"}
   />
 );
@@ -20,15 +21,15 @@ const AboutUs = () => {
         {/* Right-side big image placeholder */}
         <div></div>
         <div className="hidden lg:block ">
-          <AboutUsImage className="w-full h-full lg:h-[calc(100vh-80px)] object-cover" />
+          <AboutUsImage priority className="w-full h-full lg:h-[calc(100vh-80px)] object-cover" />
         </div>
 
         {/* Absolute content/overlay section */}
         <div className="lg:absolute inset-0">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:grid-cols-[3fr_1fr] h-full">
             {/* Left side image for mobile */}
-            <div className="block lg:hidden relative border-b lg:border-b-0 lg:border-r border-grey-custom">
-              <AboutUsImage className="w-full h-full object-cover" />
+            <div className="block lg:hidden relative border-b lg:border-b-0 lg:border-r border-grey-custom aspect-4/3 ">
+              <AboutUsImage priority className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 z-20 lg:bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat" />
             </div>
 

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/navigation';
 import Span from "@/components/common/Span";
 import { ArrowLongLeft, ArrowLongRight } from "@/components/icons/Icons";
 import type { Blog } from "./EventsBlogs";

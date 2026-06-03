@@ -9,12 +9,19 @@ import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useFooterReveal } from "@/hooks/useFooterReveal";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
+import EnquiryPopup from "@/components/common/EnquiryPopup";
 
-const BackToTopButton = dynamic(() => import("@/components/common/BackToTopButton"), { ssr: false });
-const FloatingContactButtons = dynamic(() => import("@/components/common/FloatingContactButtons"), { ssr: false });
+const BackToTopButton = dynamic(
+  () => import("@/components/common/BackToTopButton"),
+  { ssr: false },
+);
+const FloatingContactButtons = dynamic(
+  () => import("@/components/common/FloatingContactButtons"),
+  { ssr: false },
+);
 const ToastContainer = dynamic(
   () => import("react-toastify").then((m) => ({ default: m.ToastContainer })),
-  { ssr: false }
+  { ssr: false },
 );
 
 interface ClientLayoutProps {
@@ -35,6 +42,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [, setShowOnlyFooter] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   useScrollSmoother(smootherRef as React.RefObject<HTMLDivElement>);
 
@@ -42,7 +50,20 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     if (window.location.hash !== "#enquire-form") {
       window.scrollTo(0, 0);
     }
+
+    const timer = setTimeout(() => {
+      if (!sessionStorage.getItem("enquiry_popup_shown")) {
+        setShowPopup(true);
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    sessionStorage.setItem("enquiry_popup_shown", "1");
+  };
 
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
 
@@ -111,6 +132,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
           </Suspense>
         </div>
       </div>
+      <EnquiryPopup show={showPopup} onClose={handleClosePopup} />
     </>
   );
 };

@@ -90,7 +90,7 @@ const OurStory: React.FC = () => {
             alt="Our story of Sri Maniya Institute of Hotel Management"
             width={1000}
             height={1000}
-            className="w-full h-full sm:h-[400px] lg:h-[450px] xl:h-[590px]  object-cover object-top image-tag"
+            className="w-full h-75 sm:h-100 lg:h-112.5 xl:h-147.5 object-cover object-top image-tag"
           />
         </div>
         {/* Right: Content */}
@@ -104,7 +104,7 @@ const OurStory: React.FC = () => {
             Our Story
           </h3>
           <div
-            className="text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-[300px] xl:h-[450px] overflow-y-auto scroll-smooth"
+            className="text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-75 xl:h-112.5 overflow-y-auto scroll-smooth"
             ref={paragraphRef}
           >
             {STORY_TEXT}

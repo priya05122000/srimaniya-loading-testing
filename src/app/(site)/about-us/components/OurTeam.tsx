@@ -29,7 +29,7 @@ type TeamMemberCardProps = StaffProfile & {
   isOpen?: boolean;
   onOpen?: () => void;
   mobile?: boolean;
-  onLoadingComplete?: () => void;
+  onLoad?: () => void;
 };
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
@@ -47,24 +47,23 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   onOpen,
   mobile = false,
   alt,
-  onLoadingComplete,
+  onLoad,
 }) => {
   // Overlay card (for mobile/desktop popover)
   if (overlay && profile_photo_url) {
     return (
       <div
-        className={`relative group cursor-pointer`}
+        className={`relative group cursor-pointer h-100`}
         onClick={!mobile ? onOpen : undefined}
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
           alt={alt || "Team at Sri Maniya Institute of Hotel Management"}
-          width={300}
-          height={400}
+          fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="w-full h-100 image-tag object-cover object-top"
+          className="image-tag object-cover object-top"
           priority={priority}
-          onLoadingComplete={onLoadingComplete}
+          onLoad={onLoad}
         />
         {mobile && !isOpen && (
           <button
@@ -123,12 +122,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
           alt="Team at Sri Maniya Institute of Hotel Management"
-          width={300}
-          height={400}
+          fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-          className="object-cover w-full h-full object-top image-tag"
+          className="object-cover object-top image-tag"
           priority={priority}
-          onLoadingComplete={onLoadingComplete}
+          onLoad={onLoad}
         />
       </div>
       {/* Text Content */}
@@ -224,7 +222,7 @@ const OurTeam: React.FC = () => {
           {/* Mobile view */}
           <div className="grid grid-cols-1 md:hidden">
             {staffProfiles.slice(0, 2).map((member, idx) => (
-              <TeamMemberCard key={idx} {...member} priority={idx === 0} onLoadingComplete={handleImageLoad} />
+              <TeamMemberCard key={idx} {...member} priority={idx === 0} onLoad={handleImageLoad} />
             ))}
             {staffProfiles.slice(2).map((member, idx) => (
               <TeamMemberCard
@@ -234,7 +232,7 @@ const OurTeam: React.FC = () => {
                 mobile={true}
                 isOpen={openMobileIdx === idx}
                 onOpen={() => setOpenMobileIdx(openMobileIdx === idx ? null : idx)}
-                onLoadingComplete={handleImageLoad}
+                onLoad={handleImageLoad}
               />
             ))}
           </div>
@@ -250,7 +248,7 @@ const OurTeam: React.FC = () => {
                   priority={idx < 2}
                   reverseSm={reverseSm}
                   reverseXl={reverseXl}
-                  onLoadingComplete={handleImageLoad}
+                  onLoad={handleImageLoad}
                 />
               );
             })}

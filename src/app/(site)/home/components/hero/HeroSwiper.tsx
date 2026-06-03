@@ -7,6 +7,9 @@ import Link from "next/link";
 import { ArrowRight } from "@/components/icons/Icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 import { useLayoutEffect } from "react";
 import type { Banner } from "./HeroClient";
 

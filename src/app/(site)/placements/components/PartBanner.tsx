@@ -5,6 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
 
