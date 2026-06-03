@@ -157,7 +157,7 @@ const CommonEnquiryFields: React.FC<CommonEnquiryFieldsProps> = ({
 const SubmitButton: React.FC<{ loading?: boolean; submitText?: string }> = ({ loading, submitText }) => (
     <button
         type="submit"
-        className="relative flex justify-center items-center rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-[110px]"
+        className="relative flex justify-center items-center rounded-full bg-transparent overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 min-w-27.5"
         disabled={loading}
         style={loading ? { pointerEvents: 'none', opacity: 0.7 } : {}}
     >

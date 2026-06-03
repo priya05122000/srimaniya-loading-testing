@@ -99,7 +99,7 @@ const Form: React.FC = () => {
           <h1 className="text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold mb-8 ">
             Student Enquire Form
           </h1>
-          <LazyCaptcha form="contact-us">
+          <LazyCaptcha>
             <RegistrationFormInner />
           </LazyCaptcha>
           <ContactInfo />

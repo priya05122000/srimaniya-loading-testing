@@ -5,36 +5,29 @@ import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 interface LazyCaptchaProps {
   children: React.ReactNode;
-  form?: string;
 }
 
-export default function LazyCaptcha({ children, form }: LazyCaptchaProps) {
+export default function LazyCaptcha({ children }: LazyCaptchaProps) {
   const [load, setLoad] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLoad(true);
-          observer.disconnect();
-        }
-      },
-      {
-        root: null,
-        rootMargin: form === "contact-us" ? "100px" : "300px",
-        threshold: 0.1,
-      }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-
-    return () => observer.disconnect();
-  }, [form]);
+    setMounted(true);
+    const el = ref.current;
+    if (!el) return;
+    const trigger = () => setLoad(true);
+    el.addEventListener("pointerenter", trigger, { once: true });
+    el.addEventListener("focusin", trigger, { once: true });
+    return () => {
+      el.removeEventListener("pointerenter", trigger);
+      el.removeEventListener("focusin", trigger);
+    };
+  }, []);
 
   return (
     <div ref={ref} className="h-full w-full">
-      {load && (
+      {mounted && (load ? (
         <GoogleReCaptchaProvider
           reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
           scriptProps={{
@@ -44,7 +37,9 @@ export default function LazyCaptcha({ children, form }: LazyCaptchaProps) {
         >
           {children}
         </GoogleReCaptchaProvider>
-      )}
+      ) : (
+        children
+      ))}
     </div>
   );
 }
