@@ -12,6 +12,7 @@ import Heading from "@/components/common/Heading";
 import { getAllBanners } from "@/services/bannerService";
 
 import BannerForm from "../subComponents/BannerForm";
+import Image from "next/image";
 
 
 
@@ -80,7 +81,7 @@ export default function PartBanner() {
   return (
     <div className="relative sm:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
       {banners.length === 0 ? (
-        <div className="h-62.5 sm:h-full bg-gray-900" />
+        <Swiper className="h-62.5 sm:h-full" />
       ) : (
         <Swiper key={banners.length} {...SWIPER_CONFIG}>
           {banners.map((banner, index) => (
@@ -95,10 +96,13 @@ export default function PartBanner() {
                     media="(min-width:640px)"
                     srcSet={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_tab}`}
                   />
-                  <img
+                  <Image
                     src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${banner.image_phone}`}
                     alt={banner.title || `Banner ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    className="object-cover object-center"
+                    sizes="100vw"
                   />
                 </picture>
                 <div className="absolute right-6 bottom-10 md:right-8 md:bottom-16 w-2/3 md:w-1/2 xl:w-1/3 z-30 flex flex-col items-end gap-4 text-(--white-custom) group">

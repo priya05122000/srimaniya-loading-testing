@@ -146,8 +146,7 @@ const EventAndBlog = ({
                         className="w-full h-70 object-cover object-center cursor-pointer image-tag"
                         width={500}
                         height={500}
-                        priority={idx === 0}
-                        unoptimized
+                        priority
                       />
                     </div>
                   </Link>
