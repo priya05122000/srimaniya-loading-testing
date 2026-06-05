@@ -1,16 +1,14 @@
-import React from "react";
 import PlacementInfo from "./components/PlacementInfo";
 import PlacementStats from "./components/PlacementStats";
 import PartTimeStudentsInfo from "./components/PartTimeStudentsInfo";
 import PartPlacementPartners from "./components/PartPlacementPartners";
-import PartBanner from "./components/PartBanner";
+import PartBannerServer from "./components/PartBannerServer";
 import PlacedStudentsInfo from "./components/PlacedStudentsInfo";
-
 
 const PlacementsPage = () => {
     return (
         <div>
-            <PartBanner />
+            <PartBannerServer />
             <PlacementInfo />
             <PlacementStats />
             <PlacedStudentsInfo />

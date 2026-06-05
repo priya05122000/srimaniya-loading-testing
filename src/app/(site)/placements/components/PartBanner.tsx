@@ -1,33 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import required modules
 import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import Heading from "@/components/common/Heading";
-import { getAllBanners } from "@/services/bannerService";
-
+import { Banner } from "@/types";
 import BannerForm from "../subComponents/BannerForm";
 import Image from "next/image";
 
-
-
-interface Banner {
-  image_desktop: string;
-  image_tab: string;
-  image_phone: string;
-  title: string;
-  sub_title: string;
-  button_text?: string;
-  is_active: boolean;
-  category: string;
-}
-
-// Reusable constants for Swiper config and form initial state
 const SWIPER_CONFIG = {
   spaceBetween: 0,
   effect: "fade" as const,
@@ -40,44 +21,7 @@ const SWIPER_CONFIG = {
   className: "partBannerSwiper h-[250px] sm:h-full",
 };
 
-// Helper: Preload images (reusable)
-const preloadImages = (banners: Banner[]) => {
-  return Promise.all(
-    banners.flatMap((banner) => {
-      const urls = [banner.image_desktop, banner.image_tab, banner.image_phone];
-      return urls.map((imgUrl) => {
-        const img = new window.Image();
-        img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${imgUrl}`;
-        return new Promise((resolve) => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      });
-    }),
-  );
-};
-
-export default function PartBanner() {
-  const [banners, setBanners] = useState<Banner[]>([]);
-
-  useEffect(() => {
-    getAllBanners()
-      .then((result) => {
-        const data = result?.data;
-        if (Array.isArray(data) && data.length > 0) {
-          const placementBanners = data.filter(
-            (banner: Banner) =>
-              banner.is_active && banner.category.includes("Placement"),
-          );
-          setBanners(placementBanners);
-          preloadImages(placementBanners);
-        } else {
-          setBanners([]);
-        }
-      })
-      .catch(() => setBanners([]));
-  }, []);
-
+export default function PartBanner({ banners }: { banners: Banner[] }) {
   return (
     <div className="relative sm:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
       {banners.length === 0 ? (

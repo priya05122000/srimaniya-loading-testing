@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useEffect, useState, useRef, ReactNode, Suspense } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  ReactNode,
+  Suspense,
+} from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
-import { useFooterReveal } from "@/hooks/useFooterReveal";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 import EnquiryPopup from "@/components/common/EnquiryPopup";
 
@@ -39,18 +44,37 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [isBlueSection, setIsBlueSection] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [, setShowOnlyFooter] = useState(true);
   const [footerVisible, setFooterVisible] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
   const navbarSuppressRef = useRef(false);
+  const isFirstMount = useRef(true);
 
   useScrollSmoother(smootherRef as React.RefObject<HTMLDivElement>);
 
+  // Initial load: show footer, reset scroll
   useEffect(() => {
-    if (window.location.hash !== "#enquire-form") {
+    if (window.location.hash === "#enquire-form") {
+      setTimeout(async () => {
+        const enquireSection = document.getElementById("enquire-form");
+        if (!enquireSection) return;
+        try {
+          const { default: ScrollSmoother } = await import("gsap/ScrollSmoother");
+          const smoother = ScrollSmoother.get();
+          if (smoother) {
+            smoother.scrollTo(enquireSection, true);
+          } else {
+            enquireSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } catch {
+          enquireSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 500);
+    } else {
       window.scrollTo(0, 0);
     }
+    setFooterVisible(true);
 
     const timer = setTimeout(() => {
       if (!sessionStorage.getItem("enquiry_popup_shown")) {
@@ -61,18 +85,27 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Restore navbar immediately on each navigation before the scroll trick runs
+  // Restore navbar + refresh ScrollTrigger on navigation
   useEffect(() => {
     setNavbarVisible(true);
-  }, [pathname]);
 
-  // Refresh GSAP scroll measurements after new page content renders
-  useEffect(() => {
-    const timer = setTimeout(async () => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+
+    const run = async () => {
       const { default: ScrollTrigger } = await import("gsap/ScrollTrigger");
       ScrollTrigger.refresh();
-    }, 150);
-    return () => clearTimeout(timer);
+      setPageVisible(true);
+    };
+
+    const timer = setTimeout(run, 150);
+
+    return () => {
+      clearTimeout(timer);
+      setPageVisible(true);
+    };
   }, [pathname]);
 
   const handleClosePopup = () => {
@@ -82,14 +115,12 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
 
   useScrollLogic(setScrollProgress, setShowBackToTop, setIsBlueSection);
 
-  useFooterReveal({
+  useNavbarVisibility({
+    footerVisible,
     pathname,
-    setShowOnlyFooter,
-    setFooterVisible,
+    setNavbarVisible,
     suppressRef: navbarSuppressRef,
   });
-
-  useNavbarVisibility({ footerVisible, pathname, setNavbarVisible, suppressRef: navbarSuppressRef });
 
   return (
     <>
@@ -130,8 +161,12 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
         <div className="smoother-content">
           <main
             className={`relative z-10 ${
-              pathname !== "/registration-form" ? " pt-20" : ""
+              pathname !== "/registration-form" ? "pt-20" : ""
             }`}
+            style={{
+              opacity: pageVisible ? 1 : 0,
+              transition: pageVisible ? "opacity 0.4s ease" : "none",
+            }}
           >
             {children}
           </main>
