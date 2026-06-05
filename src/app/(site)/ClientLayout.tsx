@@ -14,6 +14,7 @@ import Footer from "@/components/layout/Footer";
 import { useScrollLogic } from "@/hooks/useScrollLogic";
 import { useScrollSmoother } from "@/hooks/useScrollSmoother";
 import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
+import { useFooterScroll } from "@/hooks/useFooterScroll";
 import EnquiryPopup from "@/components/common/EnquiryPopup";
 
 const BackToTopButton = dynamic(
@@ -49,7 +50,6 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
   const [showPopup, setShowPopup] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const navbarSuppressRef = useRef(false);
-  const isFirstMount = useRef(true);
 
   useScrollSmoother(smootherRef as React.RefObject<HTMLDivElement>);
 
@@ -85,28 +85,7 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Restore navbar + refresh ScrollTrigger on navigation
-  useEffect(() => {
-    setNavbarVisible(true);
-
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-      return;
-    }
-
-    const run = async () => {
-      const { default: ScrollTrigger } = await import("gsap/ScrollTrigger");
-      ScrollTrigger.refresh();
-      setPageVisible(true);
-    };
-
-    const timer = setTimeout(run, 150);
-
-    return () => {
-      clearTimeout(timer);
-      setPageVisible(true);
-    };
-  }, [pathname]);
+  useFooterScroll(pathname, setNavbarVisible, setPageVisible);
 
   const handleClosePopup = () => {
     setShowPopup(false);
