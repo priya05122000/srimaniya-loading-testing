@@ -27,19 +27,16 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
 
   return (
     <div className="relative w-full h-full overflow-hidden">
-      {/* Poster Image */}
-      {!videoReady && (
-        <img
-          src="home/enquireform.webp"
-          alt="Sri Maniya Institute"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      )}
-
-      {/* Load Video Only After Scroll Trigger */}
+      <img
+        src="/videos/reelvideo-poster.webp"
+        alt=""
+        aria-hidden="true"
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoReady ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+      />
       {loadVideo && (
         <video
           src="/videos/reelvideo.mp4"
+          poster="/videos/reelvideo-poster.webp"
           autoPlay
           muted
           loop
@@ -158,7 +155,7 @@ export default function ShowReel() {
                 1984
               </Heading>
             </div>
-            <div className="relative w-full h-[150px] overflow-hidden"></div>
+            <div className="relative w-full h-37.5 overflow-hidden"></div>
             <div id="right-text">
               <Span className="text-(--blue)">
                 Institute of Hotel Management
