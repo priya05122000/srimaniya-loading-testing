@@ -181,7 +181,7 @@ const MobileLayout: React.FC = () => {
 
 // --- Desktop Layout ---
 const DesktopLayout: React.FC = () => (
-  <div className="hidden md:block">
+  <div className="hidden md:block " >
     {/* Map */}
     <section className="layer-section flex justify-center items-center h-[calc(100vh-80px)]">
       <iframe
