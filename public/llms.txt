@@ -1,12 +1,26 @@
-User-agent: *
-Allow: /
+# Sri Maniya Institute of Hotel Management
 
-# Site Info
-Site: Sri Maniya Institute of Hotel Management
-URL: https://srimaniyainstitute.in
+> Sri Maniya Institute provides hotel management courses in Tamil Nadu, India, with practical training, placement support, and career-focused hospitality education.
 
-# Description
-Sri Maniya Institute provides hotel management courses in Tamil Nadu with practical training and career-focused education.
+Sri Maniya Institute offers diploma and certificate programs in hotel management and hospitality, backed by industry placements, scholarships for eligible students, and campus facilities designed for hands-on training.
 
-# Contact
-Phone: +91-8903864444
+## Site
+
+- [Home](https://srimaniyainstitute.in/): Overview of the institute, programs, and highlights.
+- [About Us](https://srimaniyainstitute.in/about-us): History, mission, and facilities of Sri Maniya Institute.
+- [Courses](https://srimaniyainstitute.in/courses): Hotel management and hospitality courses offered, with online application.
+- [Placements](https://srimaniyainstitute.in/placements): Placement support and hiring partners for graduates.
+- [Careers](https://srimaniyainstitute.in/career): Hospitality career opportunities in India and abroad, and current job openings.
+- [Scholarship](https://srimaniyainstitute.in/scholarship): Hotel management scholarship program in Tamil Nadu.
+- [Events & Blog](https://srimaniyainstitute.in/events-blog): News, events, and updates from the institute.
+- [Registration Form](https://srimaniyainstitute.in/registration-form): Online admission/registration form for courses.
+- [Contact Us](https://srimaniyainstitute.in/contact-us): Campus location, phone, and enquiry details.
+
+## Policies
+
+- [Privacy Policy](https://srimaniyainstitute.in/privacy-policy)
+- [Terms and Conditions](https://srimaniyainstitute.in/terms-and-conditions)
+
+## Contact
+
+- Phone: +91-8903864444
