@@ -20,6 +20,7 @@ type Blog = {
   sub_title: string;
   image_url: string;
   description: string;
+  faq?: string;
   created_by?: string;
   created_at: string;
   active: boolean;
@@ -239,6 +240,18 @@ const BlogDetails: React.FC<{
               dangerouslySetInnerHTML={{ __html: blog?.description }}
             />
           </div>
+
+          {blog?.faq && (
+            <div className={styles["blog-content"]}>
+              <Paragraph size="xl" className="mb-4 font-bold text-(--dark)">
+                FAQ
+              </Paragraph>
+              <div
+                className="blog-content text-(--dark)"
+                dangerouslySetInnerHTML={{ __html: blog.faq }}
+              />
+            </div>
+          )}
         </main>
       </div>
     </Section>
