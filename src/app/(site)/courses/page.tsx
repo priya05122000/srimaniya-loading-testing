@@ -47,10 +47,10 @@ export async function generateMetadata({
 
     title: readableTitle
       ? `${readableTitle} | Sri Maniya Institute`
-      : "Hotel Management Courses",
+      : "Hotel Management Courses – Diploma, B.Sc & MBA",
 
     description:
-      "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
+      "Diploma, B.Sc or MBA — which hotel management course is right for you? Compare fees, duration & internship details. Download the brochure!",
 
     keywords: [
       "hotel management degree course fees",
@@ -71,10 +71,10 @@ export async function generateMetadata({
     openGraph: {
       title: readableTitle
         ? `${readableTitle} Course | Sri Maniya Institute`
-        : "Apply Online Hotel Management Courses | Sri Maniya Institute",
+        : "Hotel Management Courses – Diploma, B.Sc & MBA",
       url: `${BASE_URL}/courses`,
       description:
-        "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
+        "Diploma, B.Sc or MBA — which hotel management course is right for you? Compare fees, duration & internship details. Download the brochure!",
       siteName: "Sri Maniya Institute",
       images: [
         {
@@ -89,9 +89,9 @@ export async function generateMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title: "Apply Online Hotel Management Courses | Sri Maniya Institute",
+      title: "Hotel Management Courses – Diploma, B.Sc & MBA",
       description:
-        "Explore Sri Maniya hospitality courses with hands-on training, expert faculty, and industry-ready skills.",
+        "Diploma, B.Sc or MBA — which hotel management course is right for you? Compare fees, duration & internship details. Download the brochure!",
       images: [`${BASE_URL}/courses/courses.webp`],
     },
   };

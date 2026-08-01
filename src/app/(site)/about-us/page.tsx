@@ -7,9 +7,9 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about-us`,
   },
 
-  title: "About Us",
+  title: "About Sri Maniya Institute of Hotel Management",
   description:
-    "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
+    "Sri Maniya Institute, Kanyakumari — trusted by 2,000+ students for hands-on hotel management training, internships & 100% placement support. See why.",
   keywords: [
     // Main keywords
     "institute of hotel management",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "About Us",
+    title: "About Sri Maniya Institute of Hotel Management",
     description:
-      "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
+      "Sri Maniya Institute, Kanyakumari — trusted by 2,000+ students for hands-on hotel management training, internships & 100% placement support. See why.",
     url: "https://srimaniyainstitute.in/about-us",
     siteName: "Sri Maniya Institute",
     images: [
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "About Us",
+    title: "About Sri Maniya Institute of Hotel Management",
     description:
-      "Sri Maniya Institute offers hotel management courses with hands-on training, paid internships, and career-focused programs.",
+      "Sri Maniya Institute, Kanyakumari — trusted by 2,000+ students for hands-on hotel management training, internships & 100% placement support. See why.",
     images: ["https://srimaniyainstitute.in/about-us/about-us.webp"],
   },
 };

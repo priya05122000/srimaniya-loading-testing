@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/scholarship`,
   },
 
-  title: "Hotel Management Scholarship TN",
+  title: "Hotel Management Scholarship Tamil Nadu",
   description:
-    "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
+    "Worried about fees? Sri Maniya has awarded ₹51 lakh in hotel management scholarships so far. Check if you qualify — apply today!",
   keywords: [
     // Main keywords
     "scholarship in hospitality management",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Hotel Management Scholarship TN",
+    title: "Hotel Management Scholarship Tamil Nadu",
     description:
-      "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
+      "Worried about fees? Sri Maniya has awarded ₹51 lakh in hotel management scholarships so far. Check if you qualify — apply today!",
     url: `${BASE_URL}/scholarship`,
     siteName: "Sri Maniya Institute",
     images: [
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Hotel Management Scholarship TN",
+    title: "Hotel Management Scholarship Tamil Nadu",
     description:
-      "Sri Maniya Institute offers hotel management scholarships in Tamil Nadu, helping students pursue quality hospitality education.",
+      "Worried about fees? Sri Maniya has awarded ₹51 lakh in hotel management scholarships so far. Check if you qualify — apply today!",
     images: ["https://srimaniyainstitute.in/scholarship/scholarship.webp"],
   },
 };

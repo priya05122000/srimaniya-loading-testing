@@ -7,9 +7,9 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/contact-us`,
   },
 
-  title: "Contact Us Tamil Nadu",
+  title: "Hotel Management Institute Near Me | Tamil Nadu",
   description:
-    "Contact Sri Maniya Institute for admissions, hotel management courses, and career support in Tamil Nadu.",
+    "Have questions about admissions or courses? Reach Sri Maniya Institute in Kanyakumari — we're just a call away. Contact us today!",
   keywords: [
     "sri maniya institute contact",
     "hotel management institute contact Tamil Nadu",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Contact Us Tamil Nadu",
+    title: "Hotel Management Institute Near Me | Tamil Nadu",
     description:
-      "Contact Sri Maniya Institute for admissions, hotel management courses, and career support in Tamil Nadu.",
+      "Have questions about admissions or courses? Reach Sri Maniya Institute in Kanyakumari — we're just a call away. Contact us today!",
     url: "https://srimaniyainstitute.in/contact-us",
     siteName: "Sri Maniya Institute",
     images: [
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us Tamil Nadu",
+    title: "Hotel Management Institute Near Me | Tamil Nadu",
     description:
-      "Contact Sri Maniya Institute for admissions, hotel management courses, and career support in Tamil Nadu.",
+      "Have questions about admissions or courses? Reach Sri Maniya Institute in Kanyakumari — we're just a call away. Contact us today!",
     images: ["https://srimaniyainstitute.in/contact-us/contact.webp"],
   },
 };

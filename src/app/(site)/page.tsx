@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   // },
 
   title:
-    "Best Hotel Management Institute | Sri Maniya Institute TN",
+    "Best Hotel Management Institute in Tamil Nadu",
   description:
-    "Looking for a hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses with industry training.",
+    "Dreaming of a hotel management career? Sri Maniya Institute in Tamil Nadu offers internships from day 1 & 100% placement support. Enquire now!",
   // keywords: [
   //   "Sri Maniya Institute of Hotel Management",
   //   "hotel management in tamil nadu",
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Best Hotel Management Institute | Sri Maniya Institute TN",
+      "Best Hotel Management Institute in Tamil Nadu",
     description:
-      "Looking for the best hotel management institute in Tamil Nadu? Join Sri Maniya Institute for top courses after 10th and 12th.",
+      "Dreaming of a hotel management career? Sri Maniya Institute in Tamil Nadu offers internships from day 1 & 100% placement support. Enquire now!",
     url: "https://srimaniyainstitute.in",
     siteName: "Sri Maniya Institute",
     images: [
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Best Hotel Management Institute | Sri Maniya Institute TN",
+    title: "Best Hotel Management Institute in Tamil Nadu",
     description:
-      "Join Sri Maniya Institute for top hotel management courses after 10th and 12th.",
+      "Dreaming of a hotel management career? Sri Maniya Institute in Tamil Nadu offers internships from day 1 & 100% placement support. Enquire now!",
     images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
   },
   icons: {

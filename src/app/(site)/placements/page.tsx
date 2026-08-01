@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/placements`,
   },
 
-  title: "Hotel Management Placement Support",
+  title: "Hotel Management Placement Support Collage in TN",
   description:
-    "Sri Maniya Institute offers hotel management courses with placement support for hospitality careers in Tamil Nadu.",
+    "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
 
   keywords: [
     "Sri Maniya Institute placement",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Hotel Management Placement Support",
+    title: "Hotel Management Placement Support Collage in TN",
     description:
-      "Sri Maniya Institute offers hotel management courses with strong placement support.",
+      "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
     url: `${BASE_URL}/placements`,
     siteName: "Sri Maniya Institute",
     images: [
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Hotel Management Placement Support",
+    title: "Hotel Management Placement Support Collage in TN",
     description:
-      "Sri Maniya Institute offers hotel management courses with strong placement support.",
+      "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
     images: [`${BASE_URL}/home/commitment-bg-1.webp`],
   },
 };

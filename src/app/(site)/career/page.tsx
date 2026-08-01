@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/career`,
   },
-  title: "Hospitality Careers in India & Abroad",
+  title: "Hospitality Jobs at Sri Maniya, Tamil Nadu",
   description:
-    "Start your career at Sri Maniya Institute with hospitality jobs and teaching opportunities in Tamil Nadu.",
+    "Want to shape future hoteliers? Sri Maniya Institute is hiring passionate faculty & hospitality professionals. Apply now!",
   keywords: [
     "qualification required for hotel management",
     "hotel management study details",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     "Sri Maniya Institute career opportunities",
   ],
   openGraph: {
-    title: "Hospitality Careers in India & Abroad",
+    title: "Hospitality Jobs at Sri Maniya, Tamil Nadu",
     description:
-      "Start your career at Sri Maniya Institute with hospitality jobs and teaching opportunities in Tamil Nadu.",
+      "Want to shape future hoteliers? Sri Maniya Institute is hiring passionate faculty & hospitality professionals. Apply now!",
     url: "https://srimaniyainstitute.in/career",
     siteName: "Sri Maniya Institute",
     images: [
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hospitality Careers in India & Abroad",
+    title: "Hospitality Jobs at Sri Maniya, Tamil Nadu",
     description:
-      "Start your career at Sri Maniya Institute with hospitality jobs and teaching opportunities in Tamil Nadu.",
+      "Want to shape future hoteliers? Sri Maniya Institute is hiring passionate faculty & hospitality professionals. Apply now!",
     images: [`${BASE_URL}/career/career.webp`],
   },
 };

@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/events-blog`,
   },
-  title: "Hospitality Career Blog & Insights",
+  title: "Hotel Management Blogs & Events | Sri Maniya Institute",
   description:
-    "Discover events and blogs from Sri Maniya Institute with campus updates, industry insights, and student achievements.",
+    "Get hotel management career tips, placement stories & campus event updates from Sri Maniya Institute of Hotel Management, Kanyakumari. Read now.",
   keywords: [
     "Hospitality Career Insights",
     "diploma in hotel management",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     "best hospitality management colleges",
   ],
   openGraph: {
-    title: "Hospitality Career Blog & Insights",
+    title: "Hotel Management Blogs & Events | Sri Maniya Institute",
     description:
-      "Discover events and blogs from Sri Maniya Institute with campus updates, industry insights, and student achievements.",
+      "Get hotel management career tips, placement stories & campus event updates from Sri Maniya Institute of Hotel Management, Kanyakumari. Read now.",
     url: `${BASE_URL}/events-blog`,
     siteName: "Sri Maniya Institute",
     images: [
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hospitality Career Blog & Insights",
+    title: "Hotel Management Blogs & Events | Sri Maniya Institute",
     description:
-      "Discover events and blogs from Sri Maniya Institute with campus updates, industry insights, and student achievements.",
+      "Get hotel management career tips, placement stories & campus event updates from Sri Maniya Institute of Hotel Management, Kanyakumari. Read now.",
     images: [`${BASE_URL}/scholarship/scholarship-banner.webp`],
 
   },
