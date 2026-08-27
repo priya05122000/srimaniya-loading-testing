@@ -83,6 +83,7 @@ export function useRazorpayCheckout() {
         description,
         onSuccess,
         onFailure,
+        onCancel,
     }: {
         amount: number;
         prefill?: RazorpayPrefill;
@@ -90,6 +91,7 @@ export function useRazorpayCheckout() {
         description?: string;
         onSuccess?: (verifyResponse: any) => void;
         onFailure?: (error: any) => void;
+        onCancel?: () => void;
     }) => {
         setProcessing(true);
         try {
@@ -107,6 +109,8 @@ export function useRazorpayCheckout() {
             const order = await createPaymentOrder(orderPayload);
             const orderData = order.data;
 
+            let settled = false;
+
             const razorpay = new window.Razorpay({
                 key: orderData.key_id,
                 amount: orderData.amount,
@@ -117,6 +121,7 @@ export function useRazorpayCheckout() {
                 prefill,
                 theme: { color: "#0b2f6b" },
                 handler: async (response) => {
+                    settled = true;
                     try {
                         const verifyResponse = await verifyPayment({
                             razorpay_order_id: response.razorpay_order_id,
@@ -131,11 +136,15 @@ export function useRazorpayCheckout() {
                     }
                 },
                 modal: {
-                    ondismiss: () => setProcessing(false),
+                    ondismiss: () => {
+                        setProcessing(false);
+                        if (!settled) onCancel?.();
+                    },
                 },
             });
 
             razorpay.on("payment.failed", (response: any) => {
+                settled = true;
                 setProcessing(false);
                 onFailure?.(response?.error || response);
             });

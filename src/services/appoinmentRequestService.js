@@ -7,3 +7,11 @@ export const createAppoinmentRequest = async (body) => {
 		body,
 	});
 };
+
+export const updateAppoinmentStatus = async (id, status) => {
+	return apiRequest({
+		endpoint: `/api/appointment-request/${id}/status`,
+		method: "PATCH",
+		body: { status },
+	});
+};

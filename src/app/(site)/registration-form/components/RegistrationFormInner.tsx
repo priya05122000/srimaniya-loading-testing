@@ -6,17 +6,15 @@ import districts from "@/lib/districts.json";
 import Paragraph from "@/components/common/Paragraph";
 
 import { useRegistrationForm } from "../subcomponents/useRegistrationForm";
-import { useRazorpayCheckout } from "@/hooks/useRazorpayCheckout";
 
 import CommonRegistrationFields, {
   AutofillSuppressionFields,
 } from "../subcomponents/CommonRegistrationFields";
+import RegistrationSummarySidebar from "./RegistrationSummarySidebar";
 
 import type { RegistrationFormData } from "../subcomponents/useRegistrationForm";
 
 import { ValidateRegistrationFormWithToast } from "../subcomponents/registrationFormValidation";
-
-const REGISTRATION_FEE_AMOUNT = 100;
 
 export const initialForm: RegistrationFormData = {
   StudentName: "",
@@ -33,6 +31,9 @@ export const initialForm: RegistrationFormData = {
 
 const RegistrationFormInner = () => {
   const [districtOptions, setDistrictOptions] = useState<string[]>([]);
+  const [showSummary, setShowSummary] = useState(false);
+  const [submittedData, setSubmittedData] = useState<RegistrationFormData>(initialForm);
+  const [appointmentId, setAppointmentId] = useState<string | number | null>(null);
 
   const { formData, handleChange, handleSubmit, loading, setFormData } =
     useRegistrationForm({
@@ -84,7 +85,9 @@ const RegistrationFormInner = () => {
             return;
           }
 
-          toast.success("Form submitted successfully!");
+          setAppointmentId(response.data?.id ?? null);
+          setSubmittedData(formData);
+          setShowSummary(true);
           setFormData(initialForm);
         } catch (err) {
           console.error(err);
@@ -93,30 +96,6 @@ const RegistrationFormInner = () => {
       },
       requiredName: true,
     });
-
-  const { startPayment, processing } = useRazorpayCheckout();
-
-  const handlePay = () => {
-    if (!ValidateRegistrationFormWithToast(formData, true, true)) return;
-
-    startPayment({
-      amount: REGISTRATION_FEE_AMOUNT,
-      prefill: {
-        name: formData.StudentName,
-        email: formData.StudentEmail,
-        contact: formData.ParentPhone ? `+91${formData.ParentPhone}` : undefined,
-      },
-      customerPhone: formData.ParentPhone || undefined,
-      description: "Registration Fee",
-      onSuccess: () => {
-        toast.success("Payment successful!");
-      },
-      onFailure: (err) => {
-        console.error(err);
-        toast.error("Payment failed. Please try again.");
-      },
-    });
-  };
 
   useEffect(() => {
     if (
@@ -141,6 +120,18 @@ const RegistrationFormInner = () => {
   };
 
   const handleClear = () => setFormData(initialForm);
+
+  const updateStatus = async (status: "completed" | "failed" | "cancelled") => {
+    if (!appointmentId) return;
+    try {
+      const { updateAppoinmentStatus } = await import(
+        "@/services/appoinmentRequestService"
+      );
+      await updateAppoinmentStatus(appointmentId, status);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-2 mt-5">
@@ -180,19 +171,6 @@ const RegistrationFormInner = () => {
           </span>
           <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
         </button>
-        
-        <button
-          className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1"
-          onClick={handlePay}
-          type="button"
-          disabled={processing}
-          style={processing ? { pointerEvents: "none", opacity: 0.7 } : {}}
-        >
-          <span className="relative gap-x-1 z-20 flex items-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">
-            {processing ? "Processing..." : "Pay"}
-          </span>
-          <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
-        </button>
 
         <button
           type="submit"
@@ -210,6 +188,15 @@ const RegistrationFormInner = () => {
         Note: Admission and fee details will be shared after you submit the
         enquiry form.
       </Paragraph>
+
+      <RegistrationSummarySidebar
+        show={showSummary}
+        onClose={() => setShowSummary(false)}
+        formData={submittedData}
+        onPaymentSuccess={() => updateStatus("completed")}
+        onPaymentFailure={() => updateStatus("failed")}
+        onPaymentCancel={() => updateStatus("cancelled")}
+      />
     </form>
   );
 };

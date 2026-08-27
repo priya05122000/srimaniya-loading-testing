@@ -52,7 +52,7 @@ const HeroPlaceholder = ({ banner }: { banner: Banner }) => (
             <Link href="/registration-form" hrefLang="en">
               <button className="relative flex justify-center items-center gap-1 rounded-full bg-(--blue) overflow-hidden cursor-pointer border border-(--yellow) group transition-all duration-300 px-3 py-1">
                 <span className="relative z-20 text-center no-underline w-full text-(--yellow) text-base transition-all duration-300 group-hover:text-(--blue)">
-                  Enquire Now
+                  Admission Form
                 </span>
                 <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
                 <ArrowRight aria-label="Arrow Right" className="text-(--yellow) z-20 transition-all duration-300 group-hover:text-(--blue)" />
