@@ -5,7 +5,7 @@ import { RegistrationFormData } from "./useRegistrationForm";
 const NAME_REGEX = /^[A-Za-z.\s]+$/;
 const MOBILE_REGEX = /^[6-9]\d{9}$/;
 const EMAIL_REGEX = /^[A-Za-z0-9](?:[A-Za-z0-9._%+-]{0,63})@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
-const ADDRESS_REGEX = /^[A-Za-z0-9\s,.-\/#!()]{5,200}$/;
+const ADDRESS_REGEX = /^[A-Za-z0-9\s,.\/#!()-]{5,200}$/;
 const PINCODE_REGEX = /^[1-9][0-9]{5}$/;
 const CITY_REGEX = /^[A-Za-z.\-\s]{2,50}$/;
 
