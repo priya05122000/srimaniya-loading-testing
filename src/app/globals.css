@@ -190,14 +190,20 @@ body::after {
    ------------------------------------------------------------------- */
 @keyframes marquee {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+  100% { transform: translateX(-50%); }
 }
-.animate-marquee {
+
+.marquee-track {
+  display: flex;
+  width: max-content;
   animation: marquee 25s linear infinite;
   will-change: transform;
 }
-.animate-marquee:hover {
+.marquee-track:hover {
   animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
 }
 
 /* ===================================================================
