@@ -79,12 +79,86 @@ const page = async () => {
         "@id": `${BASE_URL}/#organization`,
         name: "Sri Maniya Institute of Hotel Management",
         url: BASE_URL,
+        email: "admission@srimaniyainstitute.in",
+        telephone: "+91 89038 64444",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "No: 6/66-D1, Government Hospital Road",
+          addressLocality: "Kanyakumari",
+          addressRegion: "Tamil Nadu",
+          postalCode: "629702",
+          addressCountry: "IN",
+        },
         contactPoint: {
           "@type": "ContactPoint",
-          contactType: "customer support",
+          contactType: "admissions",
+          telephone: "+91 89038 64444",
+          email: "admission@srimaniyainstitute.in",
           availableLanguage: ["English", "Tamil"],
+          hoursAvailable: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+            ],
+            opens: "09:30",
+            closes: "17:30",
+          },
         },
       },
+    },
+
+    // ✅ FAQ (matches the visible Q&A on the page)
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${BASE_URL}/contact-us#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Where is Sri Maniya Institute of Hotel Management located?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The institute is at No: 6/66-D1, Government Hospital Road, Kanyakumari, Tamil Nadu - 629702. It is close to Kanyakumari town and the railway and bus stands, with easy road access from Nagercoil, Trivandrum and other parts of South Tamil Nadu.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I reach the campus?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "From Kanyakumari bus stand or railway station the campus is a short drive via Government Hospital Road. From Nagercoil it is about 20 km along the Kanyakumari road, and Trivandrum International Airport is roughly 85 km away.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What are the office hours for admission enquiries?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The admissions office is open Monday to Saturday, 9:30 AM to 5:30 PM. You can call or email any time and the team will respond on the next working day.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I visit the campus before applying?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Prospective students and parents are welcome to visit, see the training kitchens, restaurant and classrooms, and meet the faculty. Call ahead on +91 89038 64444 so the team can plan your visit.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How soon will I get a response after I submit an enquiry?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "An admissions counsellor usually calls or emails within one working day with course details, eligibility, fees and the next steps for enrolment.",
+          },
+        },
+      ],
     },
 
     // ✅ Breadcrumb (IMPORTANT)

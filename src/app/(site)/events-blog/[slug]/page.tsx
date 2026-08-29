@@ -36,9 +36,35 @@ export async function generateMetadata({
     return text.length > limit ? text.slice(0, limit) + "…" : text;
   };
 
+  // The root layout appends " | Sri Maniya Institute" via title.template, so the
+  // page title needs to stay short and must not repeat the brand name.
+  // Strip any embedded institute-name phrase, then trim to keep the final
+  // rendered title (page title + brand suffix) within the ~60 char SEO limit.
+  const seoTitle = (() => {
+    const BRAND_SUFFIX_LEN = " | Sri Maniya Institute".length;
+    const MAX_TITLE_LEN = 60 - BRAND_SUFFIX_LEN;
+
+    let t = String(blog.title ?? "")
+      .replace(
+        /\s*(?:[-–—|]\s*)?(?:at|from|by|@)?\s*Sri\s*Maniya\s*Institute(?:\s*of\s*Hotel\s*Management)?/gi,
+        " "
+      )
+      .replace(/\s{2,}/g, " ")
+      .replace(/\s*[-–—|:]\s*$/, "")
+      .trim();
+
+    if (t.length > MAX_TITLE_LEN) {
+      const cut = t.slice(0, MAX_TITLE_LEN);
+      const lastSpace = cut.lastIndexOf(" ");
+      t = (lastSpace > 20 ? cut.slice(0, lastSpace) : cut).trim();
+    }
+
+    return t || "Events & Blog";
+  })();
+
   const description =
     cleanText(blog.description, 120) ||
-    `${blog.title} - Read blog from Sri Maniya Institute about hotel management and events.`;
+    `${seoTitle} - Read blog from Sri Maniya Institute about hotel management and events.`;
 
   const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
 
@@ -47,11 +73,11 @@ export async function generateMetadata({
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog/${blog.slug}`,
     },
 
-    title: blog.title,
+    title: seoTitle,
     description: description,
 
     openGraph: {
-      title: blog.title,
+      title: `${seoTitle} | Sri Maniya Institute`,
       description: description,
       url: `https://srimaniyainstitute.in/events-blog/${blog.slug}`,
       type: "article",
@@ -67,7 +93,7 @@ export async function generateMetadata({
 
     twitter: {
       card: "summary_large_image",
-      title: blog.title,
+      title: `${seoTitle} | Sri Maniya Institute`,
       description: description,
       images: [imageUrl],
     },
