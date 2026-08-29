@@ -4,6 +4,7 @@ import PlacementsPage from "./PlacementsPage";
 import { getAllAlumniStories } from "@/services/alumniStoryService";
 import { getAllPlacements } from "@/services/placementService";
 import { getAllPartners } from "@/services/partnerService";
+import BlogLinksSection from "@/components/common/BlogLinksSection";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -166,6 +167,12 @@ const page = async () => {
         alumniStories={alumniStories}
         placements={placements}
         partners={partners}
+      />
+
+      <BlogLinksSection
+        title="Hotel Management Salary & Career Guides"
+        intro="See salary ranges in India and abroad, internship stipends and the career roles hotel management opens up."
+        limit={6}
       />
     </>
   );

@@ -118,35 +118,48 @@ ShareSection.displayName = "ShareSection";
 const BlogDetails: React.FC<{
   blog: Blog;
   categories: Array<{ id: string; name: string }>;
-}> = ({ blog, categories }) => {
+  allBlogs?: Blog[];
+}> = ({ blog, categories, allBlogs: allBlogsProp }) => {
   const [adminName, setAdminName] = useState<string>("Unknown Admin");
-  const [allBlogs, setAllBlogs] = useState<Blog[]>([]);
+  const [fetchedBlogs, setFetchedBlogs] = useState<Blog[]>([]);
   const router = useRouter();
 
+  // "Our Events" sidebar list. Prefer the server-fetched posts passed in
+  // as a prop (so the links are in the SSR HTML); only fall back to a
+  // client fetch when the page did not provide them.
+  const eventsCategory = categories.find(
+    (cat) => cat.name.toLowerCase() === "events"
+  );
+  const allBlogs = React.useMemo(() => {
+    const source =
+      allBlogsProp && allBlogsProp.length > 0 ? allBlogsProp : fetchedBlogs;
+    let eventsBlogs = eventsCategory
+      ? source.filter(
+          (b: Blog) => b.active !== false && b.category_id === eventsCategory.id
+        )
+      : [];
+    if (blog && blog.category_id === eventsCategory?.id) {
+      eventsBlogs = eventsBlogs.filter((b: Blog) => b.id !== blog.id);
+    }
+    return eventsBlogs;
+  }, [allBlogsProp, fetchedBlogs, eventsCategory, blog]);
+
   useEffect(() => {
+    if (allBlogsProp && allBlogsProp.length > 0) return;
     if (!categories || categories.length === 0 || !blog) return;
     async function fetchData() {
       try {
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
-          ? res.data.filter((blog: Blog) => blog.active === true)
+          ? res.data.filter((b: Blog) => b.active === true)
           : [];
-        const eventsCategory = categories.find(
-          (cat) => cat.name.toLowerCase() === "events"
-        );
-        let eventsBlogs = eventsCategory
-          ? blogsData.filter((b: Blog) => b.category_id === eventsCategory.id)
-          : [];
-        if (blog && blog.category_id === eventsCategory?.id) {
-          eventsBlogs = eventsBlogs.filter((b: Blog) => b.id !== blog.id);
-        }
-        setAllBlogs(eventsBlogs);
+        setFetchedBlogs(blogsData);
       } catch (err) {
         console.error("Failed to fetch blogs/categories:", err);
       }
     }
     fetchData();
-  }, [categories, blog]);
+  }, [categories, blog, allBlogsProp]);
 
   useEffect(() => {
     if (!blog?.created_by) return;

@@ -14,6 +14,7 @@ const PlacementMapServer = dynamic(() => import("./components/placementMap/Place
 const AlumniStoriesServer = dynamic(() => import("./components/alumniStory/AlumniStoriesServer"));
 
 import HeroServer from "./components/hero/HeroServer";
+import EventsBlogsSeoLinks from "./components/EventsBlogsSeoLinks";
 
 
 const HomePage = () => {
@@ -34,6 +35,7 @@ const HomePage = () => {
       {/* <AlumniStories /> */}
       <AlumniStoriesServer />
       <EventsBlogs />
+      <EventsBlogsSeoLinks />
       <Awards />
       <div className="relative">
         <ShowReel />

@@ -3,7 +3,6 @@ import React from "react";
 
 import BlogImage from "./components/BlogImage";
 import BlogDetails from "./components/BlogDetails";
-import RecentBlogs from "./components/RecentBlogs";
 
 interface Blog {
   id: string;
@@ -24,6 +23,7 @@ interface Blog {
 interface ViewPageProps {
   blog: Blog;
   categories: Array<{ id: string; name: string }>;
+  allBlogs?: Blog[];
 }
 
 const getAdditionalImages = (blog: Blog | null) =>
@@ -37,17 +37,17 @@ const getAdditionalImages = (blog: Blog | null) =>
 /**
  * Client islands for the blog detail page. The article text is rendered
  * server-side by <ArticleBody>; this component only hydrates the
- * interactive / secondary sections (share sidebar, image gallery,
- * recent-blogs slider).
+ * interactive / secondary sections (share sidebar, image gallery).
+ * "Recent Blogs" internal links are rendered server-side by <RecentBlogs>
+ * from page.tsx so they stay crawlable.
  */
-export default function ViewPage({ blog, categories }: ViewPageProps) {
+export default function ViewPage({ blog, categories, allBlogs }: ViewPageProps) {
   const additionalImages = getAdditionalImages(blog);
 
   return (
     <div className="relative">
-      <BlogDetails blog={blog} categories={categories} />
+      <BlogDetails blog={blog} categories={categories} allBlogs={allBlogs} />
       <BlogImage additional_images={additionalImages} />
-      <RecentBlogs blog_id={blog?.id} />
     </div>
   );
 }

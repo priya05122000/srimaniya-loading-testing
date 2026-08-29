@@ -1,76 +1,53 @@
-"use client";
-import React, { useState, useEffect, useContext } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import 'swiper/css';
-import 'swiper/css/navigation';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
-import Image from "next/image";
-import Span from "@/components/common/Span";
-import { ArrowLongLeft, ArrowLongRight } from "@/components/icons/Icons";
-import { useRouter } from "next/navigation";
-
-import { getAllBlogPosts } from "@/services/blogPostService";
-import Link from "next/link";
 
 type Blog = {
   id: string;
   slug: string;
   sub_title: string;
   image_url: string;
-  video_url: string;
+  video_url?: string | null;
   title: string;
   created_at: string;
+  category_id?: string;
 };
 
-const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
-  const [navigation, setNavigation] = useState<{
-    prevEl: null | HTMLElement;
-    nextEl: null | HTMLElement;
-  }>({ prevEl: null, nextEl: null });
+/**
+ * Server component. Renders a crawlable strip of links to other blog
+ * posts so every article on the site has real internal links pointing
+ * at it. Posts are passed in from the page (server fetch) — no client
+ * `useEffect` fetch, so the <Link>s are present in the initial HTML.
+ *
+ * Same-category posts are shown first, then the most recent others.
+ */
+const RecentBlogs: React.FC<{
+  blogs: Blog[];
+  currentId?: string;
+  currentCategoryId?: string;
+}> = ({ blogs, currentId, currentCategoryId }) => {
+  const pool = (blogs || []).filter((b) => b && b.slug && b.id !== currentId);
 
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const router = useRouter();
+  if (pool.length === 0) return null;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getAllBlogPosts();
-        const blogsData = Array.isArray(res?.data)
-          ? res.data.filter((b: unknown) => {
-            return (
-              typeof b === "object" &&
-              b !== null &&
-              "active" in b &&
-              (b as { active: boolean }).active === true
-            );
-          })
-          : [];
-        const filteredBlogs = blogsData.filter((b: any) => b.id !== blog_id);
-        setBlogs(filteredBlogs);
-      } catch (error: unknown) {
-        if (error && typeof error === "object" && "message" in error) {
-          console.error(
-            "Failed to load blogs/categories:",
-            (error as { message: string }).message
-          );
-        } else {
-          console.error("Failed to load blogs/categories:", error);
-        }
-      }
-    };
-    fetchData();
-  }, [blog_id]);
+  const byNewest = (a: Blog, b: Blog) =>
+    new Date(b.created_at || 0).getTime() -
+    new Date(a.created_at || 0).getTime();
 
-  const getVideoSrc = (videoUrl: string) => {
-    // If videoUrl already contains 'videos/', don't add it again
-    if (videoUrl.includes("videos/")) {
-      return `${process.env.NEXT_PUBLIC_API_BASE_URL}/${videoUrl}`;
-    }
-    return `${process.env.NEXT_PUBLIC_API_BASE_URL}/${videoUrl}`;
-  };
+  const sameCat = currentCategoryId
+    ? pool.filter((b) => b.category_id === currentCategoryId).sort(byNewest)
+    : [];
+  const otherCat = pool
+    .filter((b) => !currentCategoryId || b.category_id !== currentCategoryId)
+    .sort(byNewest);
+
+  const ordered = [...sameCat, ...otherCat].slice(0, 8);
+
+  const getVideoSrc = (videoUrl: string) =>
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/${videoUrl}`;
 
   return (
     <LeftSpaceGridSection>
@@ -81,29 +58,14 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
           </Heading>
         </div>
 
-        <Swiper
-          modules={[Navigation, Autoplay]}
-          spaceBetween={16}
-          slidesPerView={4}
-          loop={true}
-          grabCursor={true}
-          navigation={navigation}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          breakpoints={{
-            0: { slidesPerView: 1 }, // mobile
-            640: { slidesPerView: 2 }, // tablet
-            1024: { slidesPerView: 3 }, // desktop
-            1280: { slidesPerView: 4 }, // large desktop
-          }}
-        >
-          {blogs.map((blog, idx) => (
-            <SwiperSlide key={idx}>
+        <ul className="flex gap-4 overflow-x-auto snap-x pb-2 -mx-1 px-1 md:grid md:grid-cols-3 lg:grid-cols-4 md:overflow-visible">
+          {ordered.map((blog) => (
+            <li
+              key={blog.id}
+              className="shrink-0 w-64 snap-start md:w-auto"
+            >
               <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
-
-                <div
-                  className="overflow-hidden mx-auto relative cursor-pointer"
-                // onClick={() => router.push(`/events-blog/${blog.slug}`)}
-                >
+                <div className="overflow-hidden mx-auto relative cursor-pointer">
                   <div className="w-full h-75 lg:h-87.5 aspect-3/2 sm:aspect-auto">
                     {blog.video_url ? (
                       <video
@@ -112,68 +74,33 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                         muted
                         className="w-full h-full object-cover"
                       >
-                        {blog.video_url.endsWith(".mp4") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/mp4"
-                          />
-                        )}
-                        {blog.video_url.endsWith(".webm") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/webm"
-                          />
-                        )}
-                        {blog.video_url.endsWith(".ogg") && (
-                          <source
-                            src={getVideoSrc(blog.video_url)}
-                            type="video/ogg"
-                          />
-                        )}
-                        {/* fallback if extension is not recognized */}
-                        {blog.video_url &&
-                          ![".mp4", ".webm", ".ogg"].some(
-                            (ext) =>
-                              blog.video_url && blog.video_url.endsWith(ext)
-                          ) && <source src={getVideoSrc(blog.video_url)} />}
+                        <source src={getVideoSrc(blog.video_url)} />
                         Your browser does not support the video tag.
                       </video>
                     ) : (
                       <Image
                         src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`}
-                        alt={blog.title}
-                        priority={idx === 0}
+                        alt={`${blog.title} — Sri Maniya Institute of Hotel Management`}
                         className="w-full h-full object-cover"
                         width={500}
                         height={500}
+                        loading="lazy"
                       />
                     )}
                   </div>
                   <div className="absolute bottom-0 left-0 w-full bg-(--blue-overlay-strong) backdrop-blur-sm text-(--white) border-t border-grey-custom overflow-hidden">
                     <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
                     <div className="p-3 h-20 z-10 relative">
-                      <Paragraph
-                        size="lg"
-                        className="mb-1 font-medium"
-                      // {...ANIMATIONS.fadeZoomIn}
-                      >
-                        {blog.sub_title.slice(0, 30)}...
+                      <Paragraph size="lg" className="mb-1 font-medium line-clamp-1">
+                        {blog.sub_title}
                       </Paragraph>
                       <div className="flex gap-1 items-baseline">
-                        <Paragraph
-                          // {...ANIMATIONS.fadeZoomIn}
-                          size="lg"
-                          className="font-bold"
-                        >
+                        <Paragraph size="lg" className="font-bold">
                           {new Date(blog.created_at).toLocaleDateString("en-GB", {
                             day: "2-digit",
                           })}
                         </Paragraph>
-                        <Paragraph
-                          // {...ANIMATIONS.fadeZoomIn}
-                          size="lg"
-                          className="font-normal"
-                        >
+                        <Paragraph size="lg" className="font-normal">
                           {new Date(blog.created_at).toLocaleDateString("en-GB", {
                             month: "long",
                           })}
@@ -183,37 +110,18 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                   </div>
                 </div>
               </Link>
-            </SwiperSlide>
+            </li>
           ))}
-        </Swiper>
+        </ul>
 
-        {/* Navigation Buttons */}
-        <div className="flex flex-col items-end mt-4 px-0 sm:px-8">
-          <Span className="text-blue-custom">Prev/Nxt</Span>
-          <div className="flex items-center space-x-4 mt-2">
-            <button
-              ref={(node) => {
-                if (node && navigation.prevEl !== node)
-                  setNavigation((nav) => ({ ...nav, prevEl: node }));
-              }}
-              className="text-2xl text-(--blue) focus:outline-none cursor-pointer"
-              aria-label="Previous"
-              type="button"
-            >
-              <ArrowLongLeft aria-label="Previous blog" />
-            </button>
-            <button
-              ref={(node) => {
-                if (node && navigation.nextEl !== node)
-                  setNavigation((nav) => ({ ...nav, nextEl: node }));
-              }}
-              className="text-2xl text-(--blue) focus:outline-none cursor-pointer"
-              aria-label="Next"
-              type="button"
-            >
-              <ArrowLongRight aria-label="Next blog" />
-            </button>
-          </div>
+        <div className="mt-6">
+          <Link
+            hrefLang="en"
+            href="/events-blog"
+            className="text-(--blue) font-medium underline underline-offset-4 decoration-1"
+          >
+            Browse all hotel management blogs &amp; events →
+          </Link>
         </div>
       </div>
     </LeftSpaceGridSection>

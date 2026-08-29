@@ -3,6 +3,7 @@ import CoursesPage from "./CoursesPage";
 import { getAllCourses } from "@/services/courseService";
 import Script from "next/script";
 import { flattenHtml } from "@/utils/flattenHtml";
+import BlogLinksSection from "@/components/common/BlogLinksSection";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -180,6 +181,12 @@ export default async function Page() {
       </section> */}
 
       <CoursesPage courses={courses} />
+
+      <BlogLinksSection
+        title="Choosing the Right Hotel Management Course"
+        intro="Compare diploma vs degree, admission steps, fees and career outcomes with these guides from Sri Maniya Institute."
+        limit={6}
+      />
     </>
   );
 }

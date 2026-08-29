@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { getBlogPostBySlug } from "@/services/blogPostService";
+import { getBlogPostBySlug, getAllBlogPosts } from "@/services/blogPostService";
 import { getAllCategories } from "@/services/categoryService";
 import ViewPage from "./ViewPage";
 import ArticleBody from "./components/ArticleBody";
+import RecentBlogs from "./components/RecentBlogs";
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -104,14 +105,18 @@ const page = async ({ params }: PageProps) => {
   const resolvedParams = params ? await params : undefined;
   const slug = resolvedParams?.slug;
 
-  const [result, categoryResult] = await Promise.all([
+  const [result, categoryResult, allBlogsResult] = await Promise.all([
     getBlogPostBySlug(slug),
     getAllCategories(),
+    getAllBlogPosts(),
   ]);
 
   const blog = result?.data;
   const categories = Array.isArray(categoryResult?.data)
     ? categoryResult.data
+    : [];
+  const allBlogs = Array.isArray(allBlogsResult?.data)
+    ? allBlogsResult.data.filter((b: any) => b?.active === true)
     : [];
 
   if (!blog) {
@@ -167,7 +172,15 @@ const page = async ({ params }: PageProps) => {
       <ArticleBody blog={blog} categories={categories} />
 
       {/* Interactive / secondary sections hydrate on the client. */}
-      <ViewPage blog={blog} categories={categories} />
+      <ViewPage blog={blog} categories={categories} allBlogs={allBlogs} />
+
+      {/* Server-rendered internal links to other articles — keeps every
+          blog post connected in the crawlable HTML (no orphaned pages). */}
+      <RecentBlogs
+        blogs={allBlogs}
+        currentId={blog?.id}
+        currentCategoryId={blog?.category_id}
+      />
     </div>
   );
 };

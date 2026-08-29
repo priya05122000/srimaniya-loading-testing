@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import CareerPage from "./CareerPage";
 import { getAllJobs } from "@/services/jobService";
 import { flattenHtml } from "@/utils/flattenHtml";
+import BlogLinksSection from "@/components/common/BlogLinksSection";
 
 const BASE_URL = "https://srimaniyainstitute.in";
 
@@ -129,6 +130,12 @@ const page = async () => {
       />
       {/* ✅ PASS DATA */}
       <CareerPage jobs={jobs} />
+
+      <BlogLinksSection
+        title="Careers in Hotel Management & Hospitality"
+        intro="Learn about career options after 12th, roles in the hospitality industry and how to become a successful hotel manager."
+        limit={6}
+      />
     </div>
   );
 };

@@ -134,6 +134,23 @@ const EventAndBlog = ({
             </div>
           </div>
 
+          {/* Crawlable index of every article. The category grid below
+              hides non-active categories with CSS (display:none), which
+              some crawlers discount — this sr-only nav guarantees each
+              post has a real, always-visible-to-bots internal link. */}
+          <nav aria-label="All hotel management articles" className="sr-only">
+            <h2>All Articles</h2>
+            <ul>
+              {blogs.map((blog) => (
+                <li key={`idx-${blog.id}`}>
+                  <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
+                    {blog.sub_title || blog.title || blog.slug}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <div className="pt-6 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {orderedBlogs.map((blog, idx) => (

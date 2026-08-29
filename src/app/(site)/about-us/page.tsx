@@ -5,6 +5,7 @@ import { getAllSiteInfo } from "@/services/siteInfoService";
 import { getAllStaffProfiles } from "@/services/staffProfileService";
 import { getAllTestimonials } from "@/services/testimonialService";
 import { SiteInfo } from "@/types";
+import BlogLinksSection from "@/components/common/BlogLinksSection";
 
 export const metadata: Metadata = {
   alternates: {
@@ -126,6 +127,12 @@ const page = async () => {
         siteInfo={siteInfo}
         staffProfiles={staffProfiles}
         testimonials={testimonials}
+      />
+
+      <BlogLinksSection
+        title="More About Studying Hotel Management"
+        intro="Explore why hotel management is a smart career choice, what the course covers and how Sri Maniya Institute supports students."
+        limit={6}
       />
     </>
   );
