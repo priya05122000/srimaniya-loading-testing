@@ -4,6 +4,7 @@ import { getAllCategories } from "@/services/categoryService";
 import ViewPage from "./ViewPage";
 import ArticleBody from "./components/ArticleBody";
 import RecentBlogs from "./components/RecentBlogs";
+import ExploreInstituteLinks from "./components/ExploreInstituteLinks";
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -166,16 +167,14 @@ const page = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-
-      {/* Server-rendered article body — puts the full post text into the
-          initial HTML so it is visible to crawlers and search engines. */}
+      {/* sr-only */}
       <ArticleBody blog={blog} categories={categories} />
 
-      {/* Interactive / secondary sections hydrate on the client. */}
       <ViewPage blog={blog} categories={categories} allBlogs={allBlogs} />
 
-      {/* Server-rendered internal links to other articles — keeps every
-          blog post connected in the crawlable HTML (no orphaned pages). */}
+      {/*For Seo crawlers. */}
+      <ExploreInstituteLinks />
+ 
       <RecentBlogs
         blogs={allBlogs}
         currentId={blog?.id}
