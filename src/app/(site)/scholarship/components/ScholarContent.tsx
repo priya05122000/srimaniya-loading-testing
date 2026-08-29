@@ -1,11 +1,8 @@
-"use client";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import ParagraphList from "@/components/common/ParagraphList";
 import Section from "@/components/common/Section";
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
 
 // Reusable constants
 const SCHOLAR_IMAGE = "/scholarship/scholarship.webp";
@@ -39,20 +36,8 @@ const SCHOLARSHIP_BENEFITS = [
 ];
 
 const ScholarContent = () => {
-  const contentRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-
-  useSplitTextHeadingAnimation({
-    trigger: contentRef,
-    first: paragraphRef,
-    second: headingRef,
-    delay: 0.3,
-    enabled: true,
-  });
-
   return (
-    <div ref={contentRef}>
+    <div>
       <div className="py-10 sm:py-20">
         <Section>
           {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">

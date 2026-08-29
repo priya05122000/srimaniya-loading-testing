@@ -1,10 +1,8 @@
 "use client";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
-import { getAllStaffProfiles } from "@/services/staffProfileService";
+import { useRef, useState } from "react";
 import Span from "@/components/common/Span";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -154,15 +152,13 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   );
 };
 
-const OurTeam: React.FC = () => {
+const OurTeam: React.FC<{ staffProfiles?: StaffProfile[] }> = ({
+  staffProfiles = [],
+}) => {
   const teamRef = useRef<HTMLDivElement | null>(null);
-  const [staffProfiles, setStaffProfiles] = useState<StaffProfile[]>([]);
   const [openMobileIdx, setOpenMobileIdx] = useState<number | null>(null);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
 
-  const handleImageLoad = () => {
-    setImagesLoaded((prev) => prev + 1);
-  };
+  const handleImageLoad = () => {};
 
   // SplitText animation refs
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -175,28 +171,6 @@ const OurTeam: React.FC = () => {
     delay: 0.3,
     enabled: staffProfiles.length > 0,
   });
-
-  useEffect(() => {
-    const fetchStaffProfiles = async () => {
-      try {
-        const result = await getAllStaffProfiles();
-        const profiles = result?.data || [];
-
-        const activeProfiles = profiles.filter((p: StaffProfile) => p.status);
-        setStaffProfiles(activeProfiles);
-      } catch (error: unknown) {
-        if (typeof error === "object" && error !== null && "message" in error) {
-          console.error(
-            "Error fetching staff profiles:",
-            (error as { message?: string }).message
-          );
-        } else {
-          console.error("Error fetching staff profiles:", error);
-        }
-      }
-    };
-    fetchStaffProfiles();
-  }, []);
 
   return (
     <div ref={teamRef}>

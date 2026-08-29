@@ -1,10 +1,9 @@
 "use client";
 import Section from "@/components/common/Section";
 import Image from "next/image";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { getAllPartners } from "@/services/partnerService";
 
 interface Partner {
   logo_url: string;
@@ -13,22 +12,9 @@ interface Partner {
   status: boolean;
 }
 
-// Helper: Preload images (reusable)
-const preloadImages = (partners: Partner[]) => {
-  return Promise.all(
-    partners.map((p) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.logo_url}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
-};
-
-const PartPlacementPartners = () => {
-  const [partners, setPartners] = useState<Partner[]>([]);
+const PartPlacementPartners: React.FC<{ partners?: Partner[] }> = ({
+  partners = [],
+}) => {
   const partnersRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -38,23 +24,6 @@ const PartPlacementPartners = () => {
     delay: 0.3,
     enabled: partners.length > 0,
   });
-
-  useEffect(() => {
-    const fetchPartners = async () => {
-      try {
-        const result = await getAllPartners();
-        const data = result?.data || [];
-        const activeData = data.filter((d: Partner) => d.status);
-        setPartners(activeData);
-        await preloadImages(activeData);
-      } catch {
-        setPartners([]);
-      }
-    };
-    fetchPartners();
-  }, []);
-
-  const scrollingPartners = [...partners];
 
   return (
     <div className="partners-bg" ref={partnersRef}>
@@ -69,18 +38,18 @@ const PartPlacementPartners = () => {
           </Heading>
           <div className="grid grid-cols-1 sm:gap-10 pt-10">
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 xl:gap-10 w-full h-auto">
-              {scrollingPartners.map((partner, i) => (
+              {partners.map((partner, i) => (
                 <div
                   className="relative overflow-hidden flex p-2 items-center justify-center bg-(--white-custom) shadow-2xl border border-blue-custom"
                   key={i}
                 >
                   <Image
                     src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${partner.logo_url}`}
-                    alt="Placement partners of Sri Maniya Institute of Hotel Management" className="object-contain image-tag h-32 w-32 cursor-pointer"
+                    alt="Placement partners of Sri Maniya Institute of Hotel Management"
+                    className="object-contain image-tag h-32 w-32 cursor-pointer"
                     loading="lazy"
                     width={120}
                     height={120}
-                    // onClick={handleClick(partner.website_url)}
                     unoptimized
                   />
                 </div>
@@ -88,7 +57,6 @@ const PartPlacementPartners = () => {
             </div>
           </div>
         </div>
-
       </Section>
     </div>
   );

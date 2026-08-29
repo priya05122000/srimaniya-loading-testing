@@ -4,12 +4,11 @@ import Paragraph from '@/components/common/Paragraph';
 import Span from '@/components/common/Span';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import type { Swiper as SwiperType } from 'swiper';
-import { getAllTestimonials } from '@/services/testimonialService';
 import { Star, ArrowLongLeft, ArrowLongRight } from '@/components/icons/Icons';
 
 type Testimonial = {
@@ -61,11 +60,11 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
   </div>
 );
 
-const Testimonials: React.FC = () => {
+const Testimonials: React.FC<{ testimonials?: Testimonial[] }> = ({
+  testimonials = [],
+}) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const testimonialRef = useRef<HTMLDivElement | null>(null);
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [mounted, setMounted] = useState(false);
 
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
@@ -75,26 +74,8 @@ const Testimonials: React.FC = () => {
     first: paragraphRef,
     second: headingRef,
     delay: 0.3,
-    enabled: mounted && testimonials.length > 0,
+    enabled: testimonials.length > 0,
   });
-
-  useEffect(() => {
-    setMounted(true);
-    const fetchTestimonials = async () => {
-      try {
-        const result = await getAllTestimonials();
-        const testimonialsData = result?.data || [];
-        setTestimonials(testimonialsData.filter((t: Testimonial) => t.status));
-      } catch (error: unknown) {
-        if (typeof error === "object" && error !== null && "message" in error) {
-          console.error("Error fetching testimonials:", (error as { message?: string }).message);
-        } else {
-          console.error("Error fetching testimonials:", error);
-        }
-      }
-    };
-    fetchTestimonials();
-  }, []);
 
   return (
     <div ref={testimonialRef}>

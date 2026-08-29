@@ -1,24 +1,12 @@
-"use client";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
-import React, { useRef } from "react";
+import React from "react";
 import ParagraphList from "@/components/common/ParagraphList";
-import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
+import HeadingAnimator from "@/components/common/HeadingAnimator";
 
 const PlacementInfo: React.FC = () => {
-  const placementRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-
-  useSplitTextHeadingAnimation({
-    trigger: placementRef,
-    first: headingRef,
-    delay: 0.3,
-    enabled: true,
-  });
-
   return (
-    <div ref={placementRef}>
+    <HeadingAnimator first=".hotel-management-title" delay={0.3}>
       <Section
 
         className="placement-info py-10  sm:py-20"
@@ -26,7 +14,6 @@ const PlacementInfo: React.FC = () => {
         <div className="lg:px-20">
           <section>
             <h1
-              ref={headingRef}
               className="mb-10 font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-(--blue) text-start sm:text-center hotel-management-title uppercase leading-tight"
             >
               Placements at srimaniya institute
@@ -75,8 +62,7 @@ const PlacementInfo: React.FC = () => {
           </section>
         </div>
       </Section>
-    </div>
-
+    </HeadingAnimator>
   );
 };
 

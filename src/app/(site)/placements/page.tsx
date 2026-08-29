@@ -1,6 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import PlacementsPage from "./PlacementsPage";
+import { getAllAlumniStories } from "@/services/alumniStoryService";
+import { getAllPlacements } from "@/services/placementService";
+import { getAllPartners } from "@/services/partnerService";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -58,7 +61,31 @@ export const metadata: Metadata = {
 };
 
 /* ---------------- PAGE ---------------- */
-const page = () => {
+const page = async () => {
+  let alumniStories: any[] = [];
+  let placements: any[] = [];
+  let partners: any[] = [];
+
+  try {
+    const [alumniRes, placementRes, partnerRes] = await Promise.all([
+      getAllAlumniStories(),
+      getAllPlacements(),
+      getAllPartners(),
+    ]);
+
+    alumniStories = Array.isArray(alumniRes?.data)
+      ? alumniRes.data.filter((s: any) => s?.status)
+      : [];
+    placements = Array.isArray(placementRes?.data)
+      ? placementRes.data.filter((s: any) => s?.status)
+      : [];
+    partners = Array.isArray(partnerRes?.data)
+      ? partnerRes.data.filter((p: any) => p?.status)
+      : [];
+  } catch (error) {
+    console.error("Error fetching placements data:", error);
+  }
+
   /* ---------------- SCHEMA ---------------- */
   const schema = {
     "@context": "https://schema.org",
@@ -135,7 +162,11 @@ const page = () => {
         }}
       />
 
-      <PlacementsPage />
+      <PlacementsPage
+        alumniStories={alumniStories}
+        placements={placements}
+        partners={partners}
+      />
     </>
   );
 };

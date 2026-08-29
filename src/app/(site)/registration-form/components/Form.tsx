@@ -95,9 +95,9 @@ const Form: React.FC = () => {
           </div>
           {/* Heading */}
           {/* <Heading level={4} className="mb-8 ">Student Enquire Form</Heading> */}
-          <h1 className="text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold mb-8 ">
+          <h2 className="text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold mb-8 ">
             Student Admission Form
-          </h1>
+          </h2>
           <RegistrationFormInner />
           <ContactInfo />
         </div>

@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Section from "@/components/common/Section";
-import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import Link from "next/link";
 
@@ -33,7 +32,6 @@ const EventAndBlog = ({
   blogs: Blog[];
   categories: Category[];
 }) => {
-  const router = useRouter();
   const eventsBlogRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -66,12 +64,12 @@ const EventAndBlog = ({
   }, [active]);
 
 
-  const filteredBlogs = blogs.filter(
-    (blog) => blog.category_id === active
+  // Render every blog into the HTML (so all titles + excerpts are crawlable)
+  // and just hide the non-active categories with CSS. Previously only the
+  // default category's cards were in the SSR output.
+  const orderedBlogs = [...blogs].sort((a, b) =>
+    a.category_id === active ? -1 : b.category_id === active ? 1 : 0
   );
-
-  // const handleBlogClick = (slug: string) =>
-  //   router.push(`/events-blog/${slug}`);
 
 
   const CategoryButton: React.FC<{
@@ -138,8 +136,11 @@ const EventAndBlog = ({
 
           <div className="pt-6 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredBlogs.map((blog, idx) => (
-                <div key={blog.id} className="overflow-hidden relative">
+              {orderedBlogs.map((blog, idx) => (
+                <div
+                  key={blog.id}
+                  className={`overflow-hidden relative ${blog.category_id === active ? "" : "hidden"}`}
+                >
                   <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
                     <div className="w-full">
                       <Image
@@ -162,13 +163,9 @@ const EventAndBlog = ({
                       </p>
                     </Link>
 
-                    <span
-                      className="text-sm line-clamp-3"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          blog.description
-                      }}
-                    />
+                    <span className="text-sm line-clamp-3">
+                      {blog.description}
+                    </span>
 
 
                     <div className="flex items-baseline mt-2">

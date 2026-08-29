@@ -1,38 +1,22 @@
-"use client";
-import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
-import React, { useRef } from "react";
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+import React from "react";
+import HeadingAnimator from "@/components/common/HeadingAnimator";
 import Link from "next/link";
 import ParagraphList from "@/components/common/ParagraphList";
 
 const TermsAndConditions = () => {
-  const termsRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-
-  useSplitTextHeadingAnimation({
-    trigger: termsRef,
-    first: headingRef,
-    second: paragraphRef,
-    enabled: true,
-    delay: 0.3,
-  });
-
   return (
-    <div ref={termsRef}>
+    <HeadingAnimator first=".institute-name" second=".privacy-policy" delay={0.3}>
       <Section className="placement-info space-y-6 py-12">
         <section>
           <Paragraph
-            ref={paragraphRef}
             size="base"
             className="institute-name text-(--dark) uppercase text-center"
           >
             Sri Maniya Institute of Hotel Management
           </Paragraph>
           <h1
-            ref={headingRef}
             className="my-2 text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold text-(--blue) text-center privacy-policy uppercase"
           >
             Terms and Conditions
@@ -203,8 +187,7 @@ const TermsAndConditions = () => {
           </div>
         </section>
       </Section>
-    </div>
-
+    </HeadingAnimator>
   );
 };
 

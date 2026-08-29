@@ -5,8 +5,6 @@ import { useRef } from "react";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
-import { useEffect } from "react";
-import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 
@@ -31,20 +29,6 @@ const PLACEHOLDER_IMAGE = "/about-us/profile.webp";
 const formatSalary = (salary?: string) => {
   if (!salary || salary === "0" || salary === "0.00") return null;
   return salary.endsWith(".00") ? salary.slice(0, -3) : salary;
-};
-
-// Helper: Preload images (reusable)
-const preloadImages = (placements: Placement[]) => {
-  return Promise.all(
-    placements.map((p) => {
-      const img = new window.Image();
-      img.src = p.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.profile_photo}` : PLACEHOLDER_IMAGE;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
 };
 
 // Student Card component for reuse
@@ -94,9 +78,11 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
   </div>
 );
 
-const PartTimeStudentsInfo = () => {
+const PartTimeStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
+  initialData = [],
+}) => {
   const partPlacementRef = useRef<HTMLDivElement | null>(null);
-  const [placementData, setPlacementData] = useState<Placement[]>([]);
+  const [placementData] = useState<Placement[]>(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
@@ -106,21 +92,6 @@ const PartTimeStudentsInfo = () => {
     enabled: placementData.length > 0,
     delay: 0.3,
   });
-
-  useEffect(() => {
-    const fetchPlacement = async () => {
-      try {
-        const res = await getAllPlacements();
-        const data: Placement[] = res?.data ?? [];
-        const filtered = data.filter((story) => story?.status);
-        setPlacementData(filtered);
-        await preloadImages(filtered);
-      } catch (err) {
-        console.error("Failed to fetch placement stories:", err);
-      }
-    };
-    fetchPlacement();
-  }, []);
 
   // Pagination logic
   const totalPages = Math.ceil(placementData.length / ITEMS_PER_PAGE);

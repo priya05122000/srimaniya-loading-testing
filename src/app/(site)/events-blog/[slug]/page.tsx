@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
+import { getAllCategories } from "@/services/categoryService";
 import ViewPage from "./ViewPage";
+import ArticleBody from "./components/ArticleBody";
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -75,8 +77,16 @@ export async function generateMetadata({
 const page = async ({ params }: PageProps) => {
   const resolvedParams = params ? await params : undefined;
   const slug = resolvedParams?.slug;
-  const result = await getBlogPostBySlug(slug);
+
+  const [result, categoryResult] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getAllCategories(),
+  ]);
+
   const blog = result?.data;
+  const categories = Array.isArray(categoryResult?.data)
+    ? categoryResult.data
+    : [];
 
   if (!blog) {
     return (
@@ -125,7 +135,13 @@ const page = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <ViewPage />
+
+      {/* Server-rendered article body — puts the full post text into the
+          initial HTML so it is visible to crawlers and search engines. */}
+      <ArticleBody blog={blog} categories={categories} />
+
+      {/* Interactive / secondary sections hydrate on the client. */}
+      <ViewPage blog={blog} categories={categories} />
     </div>
   );
 };

@@ -264,7 +264,8 @@ const Appointment: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Mount state for SSR/CSR safety
+  // Mount state for GSAP setup (does NOT gate rendering — the layouts must be
+  // server-rendered so their text ships in the initial HTML).
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -327,8 +328,6 @@ const Appointment: React.FC = () => {
       ctx?.revert();
     };
   }, [mounted]);
-
-  if (!mounted) return null;
 
   // --- Render ---
   return (

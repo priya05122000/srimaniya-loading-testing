@@ -1,12 +1,22 @@
 import { useEffect, useRef } from "react";
 import { RefObject } from "react";
 
+type NodeGetter = () => Element | null;
+type NodeSource = string | RefObject<HTMLElement | null> | NodeGetter;
+
 type UseSplitTextHeadingAnimationProps = {
-  trigger: RefObject<HTMLElement | null> | string;
-  first: string | RefObject<HTMLElement | null>;
-  second?: string | RefObject<HTMLElement | null>;
+  trigger: NodeSource;
+  first: NodeSource;
+  second?: NodeSource;
   enabled?: boolean;
   delay?: number;
+};
+
+const resolveNode = (source?: NodeSource): Element | null => {
+  if (!source) return null;
+  if (typeof source === "string") return document.querySelector(source);
+  if (typeof source === "function") return source();
+  return source.current ?? null;
 };
 
 async function waitForFonts() {
@@ -25,14 +35,9 @@ export function useSplitTextHeadingAnimation({
   useEffect(() => {
     if (!enabled) return;
 
-    const firstNode = typeof first === "string" ? document.querySelector(first) : first?.current;
-    const secondNode = second
-      ? typeof second === "string"
-        ? document.querySelector(second)
-        : second?.current
-      : null;
-    const triggerNode =
-      typeof trigger === "string" ? document.querySelector(trigger) : trigger?.current;
+    const firstNode = resolveNode(first);
+    const secondNode = resolveNode(second);
+    const triggerNode = resolveNode(trigger);
 
     if (!firstNode || !triggerNode) return;
 
@@ -114,8 +119,10 @@ export function useSplitTextHeadingAnimation({
     second,
     trigger,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    typeof first === "string" ? undefined : first?.current,
-    typeof second === "string" ? undefined : second?.current,
-    typeof trigger === "string" ? undefined : trigger?.current,
+    typeof first === "string" || typeof first === "function" ? undefined : first?.current,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    typeof second === "string" || typeof second === "function" ? undefined : second?.current,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    typeof trigger === "string" || typeof trigger === "function" ? undefined : trigger?.current,
   ]);
 }

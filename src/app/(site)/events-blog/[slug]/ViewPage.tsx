@@ -1,13 +1,9 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
-import { useParams } from "next/navigation";
+import React from "react";
 
-import HotelManagement from "./components/HotelManagement";
 import BlogImage from "./components/BlogImage";
-import { getBlogPostBySlug } from "@/services/blogPostService";
 import BlogDetails from "./components/BlogDetails";
 import RecentBlogs from "./components/RecentBlogs";
-import { getAllCategories } from "@/services/categoryService";
 
 interface Blog {
   id: string;
@@ -20,8 +16,14 @@ interface Blog {
   created_by: string;
   slug: string;
   description: string;
+  faq?: string;
   additional_images?: string[];
   active: boolean;
+}
+
+interface ViewPageProps {
+  blog: Blog;
+  categories: Array<{ id: string; name: string }>;
 }
 
 const getAdditionalImages = (blog: Blog | null) =>
@@ -32,69 +34,20 @@ const getAdditionalImages = (blog: Blog | null) =>
       }))
     : [];
 
-const preloadImages = (blog: Blog | null) => {
-  if (!blog || !Array.isArray(blog.additional_images)) return Promise.resolve();
-  return Promise.all(
-    blog.additional_images.map((name) => {
-      const img = new window.Image();
-      img.src = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${name}`;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
-};
-
-function BlogViewPageContent() {
-  const { slug } = useParams();
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
-
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchBlog = async () => {
-      try {
-        const result = await getBlogPostBySlug(slug);
-        setBlog(result?.data);
-        await preloadImages(result?.data);
-      } catch (error: unknown) {
-        console.error("Failed to load blog:", error);
-      }
-    };
-
-    fetchBlog();
-
-    const fetchCategory = async () => {
-      try {
-        const category = await getAllCategories();
-        setCategories(category?.data ?? []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchCategory();
-  }, [slug]);
-
+/**
+ * Client islands for the blog detail page. The article text is rendered
+ * server-side by <ArticleBody>; this component only hydrates the
+ * interactive / secondary sections (share sidebar, image gallery,
+ * recent-blogs slider).
+ */
+export default function ViewPage({ blog, categories }: ViewPageProps) {
   const additionalImages = getAdditionalImages(blog);
 
   return (
     <div className="relative">
-      <HotelManagement blog={blog} categories={categories} />
-      {/* {blog && <BlogData blog={blog} />} */}
-      {blog && <BlogDetails blog={blog} categories={categories} />}
+      <BlogDetails blog={blog} categories={categories} />
       <BlogImage additional_images={additionalImages} />
-      <RecentBlogs blog_id={blog?.id}/>
+      <RecentBlogs blog_id={blog?.id} />
     </div>
-  );
-}
-
-export default function ViewPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <BlogViewPageContent />
-    </Suspense>
   );
 }

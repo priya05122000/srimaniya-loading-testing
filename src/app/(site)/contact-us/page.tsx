@@ -1,6 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import ContactPage from "./ContactPage";
+import { getAllSiteInfo } from "@/services/siteInfoService";
+import { SiteInfo } from "@/types";
 
 export const metadata: Metadata = {
   alternates: {
@@ -51,8 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
   const BASE_URL = "https://srimaniyainstitute.in";
+
+  let siteInfo: SiteInfo | null = null;
+  try {
+    const result = await getAllSiteInfo();
+    const data = result?.data;
+    if (Array.isArray(data) && data.length > 0) siteInfo = data[0];
+  } catch (error) {
+    console.error("Error fetching site info:", error);
+  }
+
   const schema = [
     {
       "@context": "https://schema.org",
@@ -104,7 +116,7 @@ const page = () => {
           __html: JSON.stringify(schema),
         }}
       />
-      <ContactPage />
+      <ContactPage siteInfo={siteInfo} />
     </>
   );
 };

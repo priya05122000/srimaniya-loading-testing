@@ -1,9 +1,5 @@
-"use client";
-
-import React, { useEffect, useState, FC } from "react";
-import Heading from "@/components/common/Heading";
+import React, { FC } from "react";
 import Section from "@/components/common/Section";
-import { getAllSiteInfo } from "@/services/siteInfoService";
 import { SiteInfo } from "@/types";
 
 // Reusable Section Block for Vision/Mission
@@ -24,7 +20,6 @@ const InfoBlock: FC<InfoBlockProps> = ({
 }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
     <h3
-
       className={`text-(--white-custom) text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold px-4 py-3 w-full h-fit bg-cover ${headingOrderClass}`.trim()}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
@@ -37,37 +32,7 @@ const InfoBlock: FC<InfoBlockProps> = ({
   </div>
 );
 
-const useSiteInfo = () => {
-  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-
-  useEffect(() => {
-    const fetchSiteInfo = async () => {
-      try {
-        const result = await getAllSiteInfo();
-        const data = result?.data;
-        if (Array.isArray(data) && data.length > 0) {
-          setSiteInfo(data[0]);
-        }
-      } catch (error: unknown) {
-        if (error && typeof error === "object" && "message" in error) {
-          console.error(
-            "Error fetching site info:",
-            (error as { message?: string }).message || error
-          );
-        } else {
-          console.error("Error fetching site info:", error);
-        }
-      }
-    };
-    fetchSiteInfo();
-  }, []);
-
-  return siteInfo;
-};
-
-const VisionMission: FC = () => {
-  const siteInfo = useSiteInfo();
-
+const VisionMission: FC<{ siteInfo: SiteInfo | null }> = ({ siteInfo }) => {
   return (
     <div className="bg-[linear-gradient(rgba(200,200,200,0.2)_0.1em,transparent_0.1em),linear-gradient(90deg,rgba(200,200,200,0.2)_0.1em,transparent_0.1em)] bg-size-[10em_5em]">
       <Section>
@@ -75,21 +40,20 @@ const VisionMission: FC = () => {
           <h2 className="sr-only">Our Vision and Mission</h2>
 
           <InfoBlock
-            title="01  Vision"
+            title="01  Vision"
             imageUrl="/about-us/vision.webp"
             htmlContent={siteInfo?.vision || ""}
             headingOrderClass="text-start sm:text-end sm:order-2 order-1"
             contentOrderClass="sm:order-1 order-2"
           />
           <InfoBlock
-            title="02  Mission"
+            title="02  Mission"
             imageUrl="/about-us/mission.webp"
             htmlContent={siteInfo?.mission || ""}
           />
         </div>
       </Section>
     </div>
-
   );
 };
 

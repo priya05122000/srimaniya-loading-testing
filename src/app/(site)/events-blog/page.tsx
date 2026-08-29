@@ -59,15 +59,30 @@ export const metadata: Metadata = {
   },
 };
 
+const toListItem = (b: any) => {
+  const plain = String(b.description ?? "").replace(/<[^>]*>/g, "").trim();
+  return {
+    id: b.id,
+    slug: b.slug,
+    sub_title: b.sub_title,
+    image_url: b.image_url,
+    category_id: b.category_id,
+    created_at: b.created_at,
+    description: plain.length > 200 ? plain.slice(0, 200) + "…" : plain,
+  };
+};
+
 const page = async () => {
   const [blogResult, categoryResult] = await Promise.all([
     getAllBlogPosts(),
     getAllCategories(),
   ]);
 
-  const blogsData = Array.isArray(blogResult?.data)
+  const rawBlogs = Array.isArray(blogResult?.data)
     ? blogResult.data.filter((b: any) => b.active === true)
     : [];
+
+  const blogsData = rawBlogs.map(toListItem);
 
   const categories = categoryResult?.data || [];
 
@@ -101,13 +116,16 @@ const page = async () => {
         url: `${BASE_URL}/events-blog`,
       },
 
-      ...blogsData.map((blog: any) => ({
+      ...rawBlogs.map((blog: any) => ({
         "@type": "BlogPosting",
         "@id": `${BASE_URL}/events-blog/${blog.slug}`,
         headline: blog.title,
-        description: blog.shortNote || blog.metaDescription,
-        image: blog.imagePath
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.imagePath}`
+        description: String(blog.description ?? "")
+          .replace(/<[^>]*>/g, "")
+          .trim()
+          .slice(0, 200),
+        image: blog.image_url
+          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`
           : `${BASE_URL}/default-blog.webp`,
         author: {
           "@type": "Organization",
@@ -121,8 +139,8 @@ const page = async () => {
             url: `${BASE_URL}/logo.png`,
           },
         },
-        datePublished: blog.createdAt,
-        dateModified: blog.updatedAt || blog.createdAt,
+        datePublished: blog.created_at,
+        dateModified: blog.updated_at || blog.created_at,
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `${BASE_URL}/events-blog/${blog.slug}`,

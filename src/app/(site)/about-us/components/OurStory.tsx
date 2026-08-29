@@ -1,8 +1,6 @@
-"use client";
-import React, { useRef } from "react";
-import Heading from "@/components/common/Heading";
-import Paragraph from "@/components/common/Paragraph";
+import React from "react";
 import Image from "next/image";
+import ReadMoreButton from "./ReadMoreButton";
 
 interface StorySectionProps {
   heading: string;
@@ -68,18 +66,8 @@ const STORY_TEXT = (
 );
 
 const OurStory: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-
-  const handleReadMore = () => {
-    if (paragraphRef.current) {
-      const lineHeight = parseInt(getComputedStyle(paragraphRef.current).lineHeight);
-      paragraphRef.current.scrollBy({ top: lineHeight, behavior: "smooth" });
-    }
-  };
-
   return (
-    <div ref={sectionRef}>
+    <div>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-0 h-full">
         {/* Left: Image */}
         <div
@@ -103,18 +91,10 @@ const OurStory: React.FC = () => {
           >
             Our Story
           </h3>
-          <div
-            className="text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-75 xl:h-112.5 overflow-y-auto scroll-smooth"
-            ref={paragraphRef}
-          >
+          <div className="our-story-scroll text-(--white-custom) leading-relaxed xl:leading-loose text-justify h-full sm:h-75 xl:h-112.5 overflow-y-auto scroll-smooth">
             {STORY_TEXT}
           </div>
-          <button
-            className="text-end italic underline cursor-pointer hidden sm:block"
-            onClick={handleReadMore}
-          >
-            Read More
-          </button>
+          <ReadMoreButton />
         </div>
       </div>
     </div>

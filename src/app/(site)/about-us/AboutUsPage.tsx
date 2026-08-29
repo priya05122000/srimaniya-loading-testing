@@ -4,15 +4,22 @@ import VisionMission from './components/VisionMission'
 import OurStory from './components/OurStory'
 import OurTeam from './components/OurTeam'
 import Testimonials from './components/Testimonials'
+import { SiteInfo } from '@/types'
 
-const AboutUsPage = () => {
+interface AboutUsPageProps {
+    siteInfo: SiteInfo | null;
+    staffProfiles: any[];
+    testimonials: any[];
+}
+
+const AboutUsPage = ({ siteInfo, staffProfiles, testimonials }: AboutUsPageProps) => {
     return (
         <div>
             <AboutUs />
-            <VisionMission />
+            <VisionMission siteInfo={siteInfo} />
             <OurStory />
-            <OurTeam />
-            <Testimonials />
+            <OurTeam staffProfiles={staffProfiles} />
+            <Testimonials testimonials={testimonials} />
         </div>
     )
 }

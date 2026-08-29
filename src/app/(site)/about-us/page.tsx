@@ -1,6 +1,10 @@
 import React from "react";
 import AboutUsPage from "./AboutUsPage";
 import type { Metadata } from "next";
+import { getAllSiteInfo } from "@/services/siteInfoService";
+import { getAllStaffProfiles } from "@/services/staffProfileService";
+import { getAllTestimonials } from "@/services/testimonialService";
+import { SiteInfo } from "@/types";
 
 export const metadata: Metadata = {
   alternates: {
@@ -54,7 +58,32 @@ export const metadata: Metadata = {
   },
 };
 
-const page = () => {
+const page = async () => {
+  let siteInfo: SiteInfo | null = null;
+  let staffProfiles: any[] = [];
+  let testimonials: any[] = [];
+
+  try {
+    const [siteRes, staffRes, testimonialRes] = await Promise.all([
+      getAllSiteInfo(),
+      getAllStaffProfiles(),
+      getAllTestimonials(),
+    ]);
+
+    const siteData = siteRes?.data;
+    if (Array.isArray(siteData) && siteData.length > 0) siteInfo = siteData[0];
+
+    staffProfiles = Array.isArray(staffRes?.data)
+      ? staffRes.data.filter((p: any) => p.status)
+      : [];
+
+    testimonials = Array.isArray(testimonialRes?.data)
+      ? testimonialRes.data.filter((t: any) => t.status)
+      : [];
+  } catch (error) {
+    console.error("Error fetching about-us data:", error);
+  }
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -93,7 +122,11 @@ const page = () => {
           __html: JSON.stringify(schema),
         }}
       />
-      <AboutUsPage />
+      <AboutUsPage
+        siteInfo={siteInfo}
+        staffProfiles={staffProfiles}
+        testimonials={testimonials}
+      />
     </>
   );
 };

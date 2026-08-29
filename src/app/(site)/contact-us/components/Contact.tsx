@@ -1,13 +1,8 @@
-"use client";
-import Heading from "@/components/common/Heading";
 import { Phone, Mail, MapPin } from "@/components/icons/Icons";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
-import Paragraph from "@/components/common/Paragraph";
-
-import React, { useRef, useState, useEffect } from "react";
-import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
+import HeadingAnimator from "@/components/common/HeadingAnimator";
+import React from "react";
 import { SiteInfo } from "@/types";
-import { getAllSiteInfo } from "@/services/siteInfoService";
 
 interface ContactCardProps {
   icon: React.ReactNode;
@@ -31,7 +26,7 @@ const renderContactLine = (title: string, line: string, idx: number) => {
       <a
         key={idx}
         href={`mailto:${line}`}
-        className="font-normal wrap-break-word hover:underline text-sm sm:text-base"
+        className="font-normal wrap-break-word hover:underline text-sm sm:text-base block"
         aria-label={`Email ${idx + 1}`}
       >
         {line}
@@ -44,7 +39,7 @@ const renderContactLine = (title: string, line: string, idx: number) => {
       <a
         key={idx}
         href={`tel:${tel}`}
-        className="font-normal wrap-break-word  text-sm sm:text-base"
+        className="font-normal wrap-break-word text-sm sm:text-base block"
         aria-label={`Phone ${idx + 1}`}
       >
         {formatIndianPhone(line)}
@@ -58,95 +53,113 @@ const renderContactLine = (title: string, line: string, idx: number) => {
         href="https://maps.app.goo.gl/8WnBXaFHggJdfoFN8"
         target="_blank"
         rel="noopener noreferrer"
-        className="font-normal wrap-break-word  text-sm sm:text-base"
+        className="font-normal wrap-break-word text-sm sm:text-base block"
         aria-label={`Address ${idx + 1}`}
         dangerouslySetInnerHTML={{ __html: line }}
       />
     );
   }
   return (
-    <div key={idx} className="font-normal wrap-break-word text-sm sm:text-base">{line}</div>
+    <div key={idx} className="font-normal wrap-break-word text-sm sm:text-base">
+      {line}
+    </div>
   );
 };
 
-const ContactCard = React.memo(({ icon, title, lines, className }: ContactCardProps) => {
-  const safeLines = Array.isArray(lines) ? lines : typeof lines === "string" && lines ? [lines] : [];
+const ContactCard = ({ icon, title, lines, className }: ContactCardProps) => {
+  const safeLines = Array.isArray(lines)
+    ? lines
+    : typeof lines === "string" && lines
+      ? [lines]
+      : [];
   let iconHref: string | undefined;
-  if (title === "Phone" && safeLines[0]) iconHref = `tel:${safeLines[0].replace(/\s+/g, "")}`;
+  if (title === "Phone" && safeLines[0])
+    iconHref = `tel:${safeLines[0].replace(/\s+/g, "")}`;
   else if (title === "Email" && safeLines[0]) iconHref = `mailto:${safeLines[0]}`;
-  else if (title === "Address" && safeLines[0]) iconHref = "https://maps.app.goo.gl/8WnBXaFHggJdfoFN8";
+  else if (title === "Address" && safeLines[0])
+    iconHref = "https://maps.app.goo.gl/8WnBXaFHggJdfoFN8";
 
   return (
-    <div className={`flex lg:flex-col bg-(--blue) text-(--white-custom) w-full lg:w-auto border-r border-(--grey-custom) ${className ?? ""} h-full`} data-section>
+    <div
+      className={`flex lg:flex-col bg-(--blue) text-(--white-custom) w-full lg:w-auto border-r border-(--grey-custom) ${className ?? ""} h-full`}
+      data-section
+    >
       <div className="p-6 lg:h-44 flex items-center">
         {iconHref ? (
-          <a href={iconHref} hrefLang="en" target={title === "Address" ? "_blank" : undefined} rel={title === "Address" ? "noopener noreferrer" : undefined} aria-label={title} className="inline-flex">{icon}</a>
-        ) : icon}
+          <a
+            href={iconHref}
+            hrefLang="en"
+            target={title === "Address" ? "_blank" : undefined}
+            rel={title === "Address" ? "noopener noreferrer" : undefined}
+            aria-label={title}
+            className="inline-flex"
+          >
+            {icon}
+          </a>
+        ) : (
+          icon
+        )}
       </div>
       <div className="p-3 sm:px-6 sm:py-5 lg:h-32 border-l lg:border-l-0 lg:border-t border-(--grey-custom) flex flex-col justify-start">
-        <h3 className="font-semibold font-jakarta text-lg sm:text-xl lg:text-2xl mb-2">{title}</h3>
-        {safeLines.length > 0 ? safeLines.map((line, idx) => renderContactLine(title, line, idx)) : <div className="text-wrap font-normal  text-base">—</div>}
-        {/* <div className="block sm:hidden">
-          {safeLines.length > 0 ? safeLines.slice(0, 1).map((line, idx) => renderContactLine(title, line, idx)) : <div className="font-normal  text-sm">—</div>}
-        </div> */}
+        <h3 className="font-semibold font-jakarta text-lg sm:text-xl lg:text-2xl mb-2">
+          {title}
+        </h3>
+        {safeLines.length > 0 ? (
+          safeLines.map((line, idx) => renderContactLine(title, line, idx))
+        ) : (
+          <div className="text-wrap font-normal text-base">—</div>
+        )}
       </div>
     </div>
   );
-});
-ContactCard.displayName = "ContactCard";
+};
 
-const Contact = () => {
-  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-  const contactRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-
-  useSplitTextHeadingAnimation({
-    trigger: contactRef,
-    first: paragraphRef,
-    second: headingRef,
-    delay: 0.3,
-    enabled: !!siteInfo,
-  });
-
-  useEffect(() => {
-    const fetchSiteInfo = async () => {
-      try {
-        const result = await getAllSiteInfo();
-        const data = result?.data;
-        if (Array.isArray(data) && data.length > 0) setSiteInfo(data[0]);
-      } catch (error: unknown) {
-        if (error && typeof error === "object" && "message" in error) {
-          console.error("Error fetching site info:", (error as { message?: string }).message || error);
-        } else {
-          console.error("Error fetching site info:", error);
-        }
-      }
-    };
-    fetchSiteInfo();
-  }, []);
-
-
+const Contact = ({ siteInfo }: { siteInfo: SiteInfo | null }) => {
   const contactCards: ContactCardProps[] = [
-    { icon: <Phone className="w-8 h-8" aria-label="Phone" />, title: "Phone", lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <Mail className="w-8 h-8" aria-label="Email" />, title: "Email", lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""], className: "w-full lg:w-[28%] xl:w-[30%]" },
-    { icon: <MapPin className="w-8 h-8" aria-label="Address" />, title: "Address", lines: siteInfo?.address ? Array.isArray(siteInfo.address) ? siteInfo.address : [siteInfo.address] : [], className: "w-full lg:w-[35%] xl:w-[30%]" },
+    {
+      icon: <Phone className="w-8 h-8" aria-label="Phone" />,
+      title: "Phone",
+      lines: [siteInfo?.phone_primary || "", siteInfo?.phone_secondary || ""],
+      className: "w-full lg:w-[28%] xl:w-[30%]",
+    },
+    {
+      icon: <Mail className="w-8 h-8" aria-label="Email" />,
+      title: "Email",
+      lines: [siteInfo?.email_primary || "", siteInfo?.email_secondary || ""],
+      className: "w-full lg:w-[28%] xl:w-[30%]",
+    },
+    {
+      icon: <MapPin className="w-8 h-8" aria-label="Address" />,
+      title: "Address",
+      lines: siteInfo?.address
+        ? Array.isArray(siteInfo.address)
+          ? siteInfo.address
+          : [siteInfo.address]
+        : [],
+      className: "w-full lg:w-[35%] xl:w-[30%]",
+    },
   ];
 
   return (
-    <div ref={contactRef}>
-      <LeftSpaceGridSection className="pt-10 sm:pt-20 pb-10" >
+    <HeadingAnimator first=".contact-us-text" second=".contact-us-heading" delay={0.3}>
+      <LeftSpaceGridSection className="pt-10 sm:pt-20 pb-10">
         <div className="mb-10">
-          <h1 ref={paragraphRef} className="text-(--blue) font-jakarta text-base lg:text-lg font-bold contact-us-text">Sri Maniya Institute Contact</h1>
-          <h2 ref={headingRef} className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">Your Gateway to Global<br /> Hospitality Careers.</h2>
+          <h1 className="text-(--blue) font-jakarta text-base lg:text-lg font-bold contact-us-text">
+            Sri Maniya Institute Contact
+          </h1>
+          <h2 className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase contact-us-heading leading-tight">
+            Your Gateway to Global
+            <br /> Hospitality Careers.
+          </h2>
         </div>
         <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-end gap-4 lg:gap-0 w-full pr-0 sm:pr-8">
-          {contactCards.map((card) => <ContactCard key={card.title} {...card} />)}
+          {contactCards.map((card) => (
+            <ContactCard key={card.title} {...card} />
+          ))}
         </div>
       </LeftSpaceGridSection>
-    </div >
+    </HeadingAnimator>
   );
 };
 
-Contact.displayName = "Contact";
 export default Contact;

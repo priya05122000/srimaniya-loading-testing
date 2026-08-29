@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import { getAllAlumniStories } from "@/services/alumniStoryService";
 
 // Placement type for reuse
 export type Placement = {
@@ -41,20 +40,6 @@ function usePagination<T>(data: T[], itemsPerPage: number) {
 const formatSalary = (salary?: string) => {
   if (!salary || salary === "0" || salary === "0.00") return null;
   return salary.endsWith(".00") ? salary.slice(0, -3) : salary;
-};
-
-// Helper: Preload images (reusable)
-const preloadImages = (placements: Placement[]) => {
-  return Promise.all(
-    placements.map((p) => {
-      const img = new window.Image();
-      img.src = p.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${p.photo_url}` : PLACEHOLDER_IMAGE;
-      return new Promise((resolve) => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
-    })
-  );
 };
 
 // Student Card component for reuse
@@ -104,9 +89,11 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
   </div>
 );
 
-const PlacedStudentsInfo: React.FC = () => {
+const PlacedStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
+  initialData = [],
+}) => {
   const fullPlacementRef = useRef<HTMLDivElement | null>(null);
-  const [placementData, setPlacementData] = useState<Placement[]>([]);
+  const [placementData] = useState<Placement[]>(initialData);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
 
   useSplitTextHeadingAnimation({
@@ -115,21 +102,6 @@ const PlacedStudentsInfo: React.FC = () => {
     enabled: placementData.length > 0,
     delay: 0.3,
   });
-
-  useEffect(() => {
-    const fetchPlacement = async () => {
-      try {
-        const res = await getAllAlumniStories();
-        const data: Placement[] = res?.data ?? [];
-        const filtered = data.filter((story) => story?.status);
-        setPlacementData(filtered);
-        await preloadImages(filtered);
-      } catch (err) {
-        console.error("Failed to fetch placement stories:", err);
-      }
-    };
-    fetchPlacement();
-  }, []);
 
   const { currentPage, setCurrentPage, totalPages, paginatedData } =
     usePagination(placementData, ITEMS_PER_PAGE);

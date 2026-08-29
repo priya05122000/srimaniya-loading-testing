@@ -1,12 +1,12 @@
 import React from "react";
 import Contact from "./components/Contact";
 import Appointment from "./components/Appointment";
+import { SiteInfo } from "@/types";
 
-const ContactPage = () => {
-
+const ContactPage = ({ siteInfo }: { siteInfo: SiteInfo | null }) => {
   return (
     <div>
-      <Contact />
+      <Contact siteInfo={siteInfo} />
       <Appointment />
     </div>
   );

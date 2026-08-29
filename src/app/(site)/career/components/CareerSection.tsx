@@ -1,10 +1,9 @@
-"use client";
-import React, { useRef } from "react";
+import React from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
 import Image from "next/image";
-import { ArrowNarrowRight } from "@/components/icons/Icons";
 import Span from "@/components/common/Span";
+import ScrollToApplyButton from "./ScrollToApplyButton";
 
 // Reusable constants
 const CAREER_IMAGE = "/career/career.webp";
@@ -26,31 +25,6 @@ interface Job {
   is_active: boolean;
 }
 
-const scrollToApplyNow = () => {
-  const el = document.getElementById("apply-now-section");
-  if (!el) return;
-  const targetY = el.getBoundingClientRect().top + window.pageYOffset - 80;
-  const startY = window.pageYOffset;
-  const distance = targetY - startY;
-  const duration = 800;
-  let startTime: number | null = null;
-
-  function easeInOutQuad(t: number) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  }
-
-  function animateScroll(currentTime: number) {
-    if (!startTime) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const progress = Math.min(timeElapsed / duration, 1);
-    const ease = easeInOutQuad(progress);
-    window.scrollTo(0, startY + distance * ease);
-    if (progress < 1) requestAnimationFrame(animateScroll);
-  }
-
-  requestAnimationFrame(animateScroll);
-};
-
 const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
   <div className="lg:px-10 pb-6 relative flex flex-col justify-between ">
     <div>
@@ -68,13 +42,7 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
           </Span>
         </div>
         <div className="flex justify-end items-end mt-4">
-          <button
-            className="border-2 border-dark-custom rounded-full p-2 flex items-center justify-center transition-all duration-200 w-12 h-6 cursor-pointer"
-            onClick={scrollToApplyNow}
-            aria-label="Scroll to Apply Now"
-          >
-            <ArrowNarrowRight aria-label="Scroll to Apply Now" className="font-normal text-(--dark) text-2xl" />
-          </button>
+          <ScrollToApplyButton />
         </div>
       </div>
       <div
@@ -86,15 +54,9 @@ const JobCard: React.FC<{ job: Job; index: number }> = ({ job, index }) => (
 );
 
 const CareerSection: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const openingRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <section className="relative">
-      <div
-        className="grid grid-cols-1 lg:grid-cols-[auto_1fr] xl:grid-cols-[1.2fr_2fr] relative"
-        ref={sectionRef}
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] xl:grid-cols-[1.2fr_2fr] relative">
         <div></div>
         <div className="hidden lg:block">
           <Image {...CAREER_IMAGE_PROPS} />
@@ -144,7 +106,7 @@ const CareerSection: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
         </div>
       </div>
 
-      <Section className="py-10 sm:py-20" ref={openingRef}>
+      <Section className="py-10 sm:py-20">
         <div>
           <h2 className="text-(--blue) font-jakarta text-xl sm:text-2xl lg:text-3xl font-bold mb-10 job-opening-heading leading-tight">
             Job Openings
