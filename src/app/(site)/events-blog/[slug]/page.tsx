@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/services/blogPostService";
 import { getAllCategories } from "@/services/categoryService";
 import ViewPage from "./ViewPage";
 import ArticleBody from "./components/ArticleBody";
 import RecentBlogs from "./components/RecentBlogs";
-import ExploreInstituteLinks from "./components/ExploreInstituteLinks";
+
+const fetchBlogBySlug = async (slug?: string) => {
+  if (!slug) return null;
+  try {
+    const result = await getBlogPostBySlug(slug);
+    return result?.data && Object.keys(result.data).length > 0
+      ? result.data
+      : null;
+  } catch {
+    return null;
+  }
+};
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -20,28 +32,27 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const resolvedParams = params ? await params : undefined;
   const slug = resolvedParams?.slug;
-  const result = await getBlogPostBySlug(slug);
-  const blog = result?.data;
+  const blog = await fetchBlogBySlug(slug);
 
   if (!blog) {
     return {
-      title: "Event Blog | Sri Maniya Institute",
-      description: "Events and updates from Sri Maniya Institute",
+      title: "Blog Post Not Found",
+      description:
+        "This blog post is no longer available. Browse the latest hotel management articles and campus events from Sri Maniya Institute.",
       alternates: {
         canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog`,
       },
+      robots: { index: false, follow: true },
     };
   }
 
-  const cleanText = (html: string, limit = 160) => {
-    const text = html.replace(/<[^>]*>/g, "").trim();
+  const cleanText = (html: unknown, limit = 160) => {
+    const text = String(html ?? "")
+      .replace(/<[^>]*>/g, "")
+      .trim();
     return text.length > limit ? text.slice(0, limit) + "…" : text;
   };
 
-  // The root layout appends " | Sri Maniya Institute" via title.template, so the
-  // page title needs to stay short and must not repeat the brand name.
-  // Strip any embedded institute-name phrase, then trim to keep the final
-  // rendered title (page title + brand suffix) within the ~60 char SEO limit.
   const seoTitle = (() => {
     const BRAND_SUFFIX_LEN = " | Sri Maniya Institute".length;
     const MAX_TITLE_LEN = 60 - BRAND_SUFFIX_LEN;
@@ -106,13 +117,12 @@ const page = async ({ params }: PageProps) => {
   const resolvedParams = params ? await params : undefined;
   const slug = resolvedParams?.slug;
 
-  const [result, categoryResult, allBlogsResult] = await Promise.all([
-    getBlogPostBySlug(slug),
-    getAllCategories(),
-    getAllBlogPosts(),
+  const [blog, categoryResult, allBlogsResult] = await Promise.all([
+    fetchBlogBySlug(slug),
+    getAllCategories().catch(() => null),
+    getAllBlogPosts().catch(() => null),
   ]);
 
-  const blog = result?.data;
   const categories = Array.isArray(categoryResult?.data)
     ? categoryResult.data
     : [];
@@ -120,16 +130,15 @@ const page = async ({ params }: PageProps) => {
     ? allBlogsResult.data.filter((b: any) => b?.active === true)
     : [];
 
+
   if (!blog) {
-    return (
-      <div>
-        <h1>Blog not found</h1>
-      </div>
-    );
+    notFound();
   }
 
-  const cleanText = (html: string, limit = 160) => {
-    const text = html.replace(/<[^>]*>/g, "").trim();
+  const cleanText = (html: unknown, limit = 160) => {
+    const text = String(html ?? "")
+      .replace(/<[^>]*>/g, "")
+      .trim();
     return text.length > limit ? text.slice(0, limit) + "…" : text;
   };
 
@@ -171,9 +180,6 @@ const page = async ({ params }: PageProps) => {
       <ArticleBody blog={blog} categories={categories} />
 
       <ViewPage blog={blog} categories={categories} allBlogs={allBlogs} />
-
-      {/*For Seo crawlers. */}
-      <ExploreInstituteLinks />
  
       <RecentBlogs
         blogs={allBlogs}

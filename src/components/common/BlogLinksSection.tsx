@@ -36,7 +36,7 @@ const BlogLinksSection = async ({
   if (posts.length === 0) return null;
 
   return (
-    <Section className={`py-10 sm:py-16 ${className}`}>
+    <Section className="sr-only">
       <RelatedArticles
         posts={posts}
         title={title}
