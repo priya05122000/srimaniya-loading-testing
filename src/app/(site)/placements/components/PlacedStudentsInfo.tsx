@@ -2,7 +2,6 @@
 import React, { useState, useRef } from "react";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
-import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
@@ -44,49 +43,52 @@ const formatSalary = (salary?: string) => {
 
 // Student Card component for reuse
 const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
-  <div className="placement relative h-55 sm:h-50 flex flex-row bg-(--blue) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden" data-section>
-    <div className="relative w-62.5 h-full">
-      <Image
-        src={placement.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.photo_url}` : PLACEHOLDER_IMAGE}
-        className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
-        alt="Hospitality placement at Sri Maniya Institute"
-        width={300}
-        height={150}
-        style={{ objectFit: "cover" }}
-        unoptimized
-      />
-    </div>
-    <div className="w-full flex flex-col justify-center items-start px-4">
-      <div className="top flex justify-center">
-        <div className="userDetails flex flex-col">
-          <Paragraph
-            size="lg"
-            className="text-(--white-custom) leading-[1em] uppercase font-bold"
-          >
-            {placement.name.length > 15
-              ? placement.name.slice(0, 15) + "..."
-              : placement.name}
-          </Paragraph>
-        </div>
-      </div>
-      <div>
-        <Span className="message text-(--white-custom) capitalize">
+  <li>
+    <article
+      className="placement relative h-55 sm:h-50 flex flex-row bg-(--blue) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden"
+      data-section
+    >
+      <figure className="relative w-62.5 h-full m-0">
+        <Image
+          src={placement.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.photo_url}` : PLACEHOLDER_IMAGE}
+          className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
+          alt={`${placement.name} — placed as ${placement.designation} at ${placement.company}`}
+          width={300}
+          height={150}
+          style={{ objectFit: "cover" }}
+          unoptimized
+        />
+      </figure>
+      <div className="w-full flex flex-col justify-center items-start px-4">
+        <h3 className="text-(--white-custom) text-base lg:text-lg leading-[1em] uppercase font-bold font-inter">
+          {placement.name.length > 15
+            ? placement.name.slice(0, 15) + "..."
+            : placement.name}
+        </h3>
+        <p className="text-sm font-inter text-(--white-custom) capitalize mt-1">
           {placement.company}
-        </Span>
+        </p>
+        <dl className="text-sm font-inter text-(--white-custom) mt-2 space-y-0.5">
+          <div>
+            <dt className="inline font-bold">Placement: </dt>
+            <dd className="inline ml-0">{placement.designation}</dd>
+          </div>
+          <div>
+            <dt className="inline font-bold">Course: </dt>
+            <dd className="inline ml-0">
+              {placement.course} {placement.batch_year && `(${placement.batch_year})`}
+            </dd>
+          </div>
+          {formatSalary(placement.salary) && (
+            <div>
+              <dt className="inline font-bold">Salary: </dt>
+              <dd className="inline ml-0">Rs. {formatSalary(placement.salary)}</dd>
+            </div>
+          )}
+        </dl>
       </div>
-      <div className="mt-2">
-        <Span className="message text-(--white-custom)"><b>Placement : </b> {placement.designation}</Span>
-      </div>
-      <div>
-        <Span className="message text-(--white-custom)"><b>Course : </b> {placement.course} {placement.batch_year && `(${placement.batch_year})`}</Span>
-      </div>
-      {formatSalary(placement.salary) && (
-        <div>
-          <Span className="message text-(--white-custom)"><b>Salary : </b> Rs. {formatSalary(placement.salary)}</Span>
-        </div>
-      )}
-    </div>
-  </div>
+    </article>
+  </li>
 );
 
 const PlacedStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
@@ -107,22 +109,23 @@ const PlacedStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
     usePagination(placementData, ITEMS_PER_PAGE);
 
   return (
-    <div ref={fullPlacementRef}>
+    <section ref={fullPlacementRef} aria-labelledby="full-time-placements-heading">
       <Section className="py-10 sm:py-20">
         <Heading
           ref={headingRef}
-          level={4}
-          className="text-(--blue) uppercase block placed-students-info leading-tight"
+          level={2}
+          id="full-time-placements-heading"
+          className="text-3xl sm:text-4xl lg:text-5xl text-(--blue) uppercase block placed-students-info leading-tight"
         >
           Full Time Placements
         </Heading>
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 py-10">
+        <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 py-10 list-none pl-0">
           {paginatedData.map((placement) => (
             <StudentCard key={placement.id} placement={placement} />
           ))}
-        </div>
+        </ul>
         {/* Pagination Controls */}
-        <div className="flex justify-end items-center gap-4 mt-4">
+        <nav className="flex justify-end items-center gap-4 mt-4" aria-label="Full time placements pagination">
           <button
             className="px-3 py-1 bg-(--blue) cursor-pointer text-(--white-custom)"
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
@@ -130,7 +133,7 @@ const PlacedStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
           >
             Prev
           </button>
-          <Span className="text-(--dark)">
+          <Span className="text-(--dark)" aria-current="page">
             Page {currentPage} of {totalPages}
           </Span>
           <button
@@ -140,9 +143,9 @@ const PlacedStudentsInfo: React.FC<{ initialData?: Placement[] }> = ({
           >
             Next
           </button>
-        </div>
+        </nav>
       </Section>
-    </div>
+    </section>
   );
 };
 

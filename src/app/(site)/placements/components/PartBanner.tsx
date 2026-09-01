@@ -4,7 +4,6 @@ import { EffectFade, Pagination, Autoplay } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
-import Heading from "@/components/common/Heading";
 import { Banner } from "@/types";
 import BannerForm from "../subComponents/BannerForm";
 import Image from "next/image";
@@ -23,7 +22,10 @@ const SWIPER_CONFIG = {
 
 export default function PartBanner({ banners }: { banners: Banner[] }) {
   return (
-    <div className="relative sm:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden">
+    <section
+      aria-label="Placement enquiry"
+      className="relative sm:h-[calc(100vh-80px)] grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] overflow-hidden"
+    >
       {banners.length === 0 ? (
         <Swiper className="h-62.5 sm:h-full" />
       ) : (
@@ -58,12 +60,9 @@ export default function PartBanner({ banners }: { banners: Banner[] }) {
                   <div className="absolute inset-0 bg-[url('/designs/noise.svg')] bg-cover bg-no-repeat pointer-events-none -z-10" />
                   <div className="px-4 py-2 sm:py-4 ">
                     {banner.title && (
-                      <Heading
-                        level={6}
-                        className="text-end font-bold leading-snug transition-colors duration-300 ease-in-out uppercase "
-                      >
+                      <p className="text-end font-bold leading-snug transition-colors duration-300 ease-in-out uppercase text-xl sm:text-2xl lg:text-3xl font-jakarta">
                         {banner.title}
-                      </Heading>
+                      </p>
                     )}
                     {banner.button_text && (
                       <p
@@ -86,16 +85,13 @@ export default function PartBanner({ banners }: { banners: Banner[] }) {
           data-section
         >
           <div className="max-w-full sm:max-w-2xl ml-auto">
-            <p className="uppercase font-jakarta text-end hidden xl:block text-3xl sm:text-4xl lg:text-5xl font-bold">
-              Join With US
-            </p>
-            <p className="uppercase font-jakarta text-end block xl:hidden text-2xl sm:text-3xl lg:text-4xl font-bold">
+            <p className="uppercase font-jakarta text-end text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold">
               Join With US
             </p>
           </div>
           <BannerForm />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

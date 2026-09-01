@@ -2,8 +2,6 @@
 
 import React, { useRef, useEffect } from "react";
 import Section from "@/components/common/Section";
-import Heading from "@/components/common/Heading";
-import Paragraph from "@/components/common/Paragraph";
 
 // Types
 interface Stat {
@@ -31,7 +29,7 @@ interface OdometerNumberProps {
 }
 
 const OdometerNumber: React.FC<OdometerNumberProps> = ({ value }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!wrapperRef.current) return;
@@ -66,17 +64,21 @@ const OdometerNumber: React.FC<OdometerNumberProps> = ({ value }) => {
   }, [value]);
 
   return (
-    <div ref={wrapperRef} className="flex overflow-hidden tabular-nums">
+    <span
+      ref={wrapperRef}
+      className="flex overflow-hidden tabular-nums"
+      aria-hidden="true"
+    >
       {value
         .toString()
         .split("")
         .map((_, idx) => (
-          <div
+          <span
             key={idx}
             className="h-[1em] overflow-hidden relative"
             style={{ lineHeight: "1em", minWidth: "0.6em" }}
           >
-            <div className="digit-column flex flex-col">
+            <span className="digit-column flex flex-col">
               {Array.from({ length: 10 }, (_, n) => (
                 <span
                   key={n}
@@ -85,51 +87,39 @@ const OdometerNumber: React.FC<OdometerNumberProps> = ({ value }) => {
                   {n}
                 </span>
               ))}
-            </div>
-          </div>
+            </span>
+          </span>
         ))}
-    </div>
+    </span>
   );
 };
 
 // 🔹 Main Component
 const PlacementStats: React.FC = () => (
-  <div className="py-10 bg-(--blue)" data-section>
+  <section
+    className="py-10 bg-(--blue)"
+    data-section
+    aria-label="Placement statistics"
+  >
     <Section>
-      <div className="grid grid-cols-1 lg:gap-8 message-content">
-        <div className="flex flex-col sm:flex-row justify-evenly text-(--white-custom) gap-6 sm:gap-2 py-4 sm:py-8">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center lg:py-6">
-              <Heading level={3} className="hidden sm:flex justify-center">
-                <span className="flex items-baseline">
-                  <OdometerNumber value={parseInt(stat.value)} />
-                  <span className="ml-1">+</span>
-                </span>
-              </Heading>
-              <div className="flex sm:hidden justify-center font-jakarta text-xl sm:text-2xl lg:text-3xl font-bold">
-                <span className="flex items-baseline">
-                  <OdometerNumber value={parseInt(stat.value)} />
-                  <span className="ml-1">+</span>
-                </span>
-              </div>
-              <Paragraph
-                size="xl"
-                className="font-normal hidden sm:block text-center mt-2"
-              >
-                {stat.label}
-              </Paragraph>
-              <Paragraph
-                size="lg"
-                className="font-normal block sm:hidden text-center mt-2"
-              >
-                {stat.label}
-              </Paragraph>
-            </div>
-          ))}
-        </div>
-      </div>
+      <dl className="flex flex-col sm:flex-row justify-evenly text-(--white-custom) gap-6 sm:gap-2 py-4 sm:py-8 message-content m-0">
+        {STATS.map((stat) => (
+          <div key={stat.label} className="text-center lg:py-6">
+            <dt className="flex justify-center font-jakarta text-xl sm:text-4xl lg:text-6xl font-bold">
+              <span className="flex items-baseline">
+                <OdometerNumber value={parseInt(stat.value)} />
+                <span className="ml-1">+</span>
+              </span>
+              <span className="sr-only">{stat.value}+</span>
+            </dt>
+            <dd className="font-normal text-center mt-2 text-base sm:text-xl lg:text-2xl font-inter ml-0">
+              {stat.label}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </Section>
-  </div>
+  </section>
 );
 
 export default PlacementStats;
