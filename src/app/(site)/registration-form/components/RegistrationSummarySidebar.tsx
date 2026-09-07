@@ -28,6 +28,7 @@ interface RegistrationSummarySidebarProps {
   show: boolean;
   onClose: () => void;
   formData: RegistrationFormData;
+  admissionId?: string | number | null;
   onPaymentSuccess?: (verifyResponse: any) => void;
   onPaymentFailure?: (error: any) => void;
   onPaymentCancel?: () => void;
@@ -37,6 +38,7 @@ const RegistrationSummarySidebar: React.FC<RegistrationSummarySidebarProps> = ({
   show,
   onClose,
   formData,
+  admissionId,
   onPaymentSuccess,
   onPaymentFailure,
   onPaymentCancel,
@@ -115,6 +117,7 @@ const RegistrationSummarySidebar: React.FC<RegistrationSummarySidebarProps> = ({
 
         <RazorpayPayButton
           amount={REGISTRATION_FEE_AMOUNT}
+          admissionId={admissionId}
           prefill={{
             name: formData.StudentName,
             email: formData.StudentEmail,

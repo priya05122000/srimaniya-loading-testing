@@ -9,6 +9,7 @@ interface RazorpayPayButtonProps {
   prefill?: RazorpayPrefill;
   customerPhone?: string;
   description?: string;
+  admissionId?: string | number | null;
   className?: string;
   labelClassName?: string;
   fillClassName?: string;
@@ -22,6 +23,7 @@ const RazorpayPayButton: React.FC<RazorpayPayButtonProps> = ({
   prefill,
   customerPhone,
   description,
+  admissionId,
   className,
   labelClassName,
   fillClassName,
@@ -37,6 +39,7 @@ const RazorpayPayButton: React.FC<RazorpayPayButtonProps> = ({
       prefill,
       customerPhone,
       description,
+      admissionId,
       onSuccess: (verifyResponse) => {
         onSuccess?.(verifyResponse);
       },

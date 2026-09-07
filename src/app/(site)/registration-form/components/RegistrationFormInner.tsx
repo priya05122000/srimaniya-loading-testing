@@ -33,7 +33,7 @@ const RegistrationFormInner = () => {
   const [districtOptions, setDistrictOptions] = useState<string[]>([]);
   const [showSummary, setShowSummary] = useState(false);
   const [submittedData, setSubmittedData] = useState<RegistrationFormData>(initialForm);
-  const [appointmentId, setAppointmentId] = useState<string | number | null>(null);
+  const [admissionId, setAdmissionId] = useState<string | number | null>(null);
 
   const { formData, handleChange, handleSubmit, loading, setFormData } =
     useRegistrationForm({
@@ -41,15 +41,6 @@ const RegistrationFormInner = () => {
         ValidateRegistrationFormWithToast(formData, true, true),
       onSubmit: async (payload) => {
         try {
-          const backendPayload = {
-            name: payload.StudentName,
-            phone_number: payload.ParentPhone
-              ? `+91${payload.ParentPhone}`
-              : null,
-            email: payload.StudentEmail || null,
-            token: payload.token,
-          };
-
           const googleScriptPayload = {
             StudentName: payload.StudentName || "",
             StudentPhone: payload.StudentPhone
@@ -65,6 +56,23 @@ const RegistrationFormInner = () => {
             District: payload.District || "",
           };
 
+          const backendPayload = {
+            student_name: payload.StudentName || "",
+            parent_name: payload.ParentName || "",
+            student_phone: payload.StudentPhone
+              ? `+91${payload.StudentPhone}`
+              : null,
+            parent_phone: payload.ParentPhone
+              ? `+91${payload.ParentPhone}`
+              : null,
+            student_email: payload.StudentEmail || null,
+            address: payload.Address || "",
+            city: payload.City || null,
+            state: payload.State || "",
+            district: payload.District || null,
+            pin_code: payload.PinCode || "",
+          };
+
           await fetch(
             "https://script.google.com/macros/s/AKfycbxQ0OGd2A5Tvs0_MQxcUWtWfwEmyAyHpdY6mcUXZKj87QXG0JP2ilZ9CTQxmhfkP6_r/exec",
             {
@@ -75,17 +83,16 @@ const RegistrationFormInner = () => {
             },
           );
 
-          const response =
-            await import("@/services/appoinmentRequestService").then((m) =>
-              m.createAppoinmentRequest(backendPayload),
-            );
+          const response = await import("@/services/admissionService").then((m) =>
+            m.createAdmission(backendPayload),
+          );
 
           if (!response || response.responseCode !== "INSERT_SUCCESS") {
             toast.error("Failed to submit the form. Please try again.");
             return;
           }
 
-          setAppointmentId(response.data?.id ?? null);
+          setAdmissionId(response.data?.id ?? null);
           setSubmittedData(formData);
           setShowSummary(true);
           setFormData(initialForm);
@@ -120,18 +127,6 @@ const RegistrationFormInner = () => {
   };
 
   const handleClear = () => setFormData(initialForm);
-
-  const updateStatus = async (status: "completed" | "failed" | "cancelled") => {
-    if (!appointmentId) return;
-    try {
-      const { updateAppoinmentStatus } = await import(
-        "@/services/appoinmentRequestService"
-      );
-      await updateAppoinmentStatus(appointmentId, status);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-2 mt-5">
@@ -193,9 +188,7 @@ const RegistrationFormInner = () => {
         show={showSummary}
         onClose={() => setShowSummary(false)}
         formData={submittedData}
-        onPaymentSuccess={() => updateStatus("completed")}
-        onPaymentFailure={() => updateStatus("failed")}
-        onPaymentCancel={() => updateStatus("cancelled")}
+        admissionId={admissionId}
       />
     </form>
   );

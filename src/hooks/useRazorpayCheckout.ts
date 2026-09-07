@@ -81,6 +81,7 @@ export function useRazorpayCheckout() {
         prefill,
         customerPhone,
         description,
+        admissionId,
         onSuccess,
         onFailure,
         onCancel,
@@ -89,6 +90,7 @@ export function useRazorpayCheckout() {
         prefill?: RazorpayPrefill;
         customerPhone?: string;
         description?: string;
+        admissionId?: string | number | null;
         onSuccess?: (verifyResponse: any) => void;
         onFailure?: (error: any) => void;
         onCancel?: () => void;
@@ -105,6 +107,7 @@ export function useRazorpayCheckout() {
             if (prefill?.email) orderPayload.customer_email = prefill.email;
             if (customerPhone) orderPayload.customer_phone = customerPhone;
             if (description) orderPayload.description = description;
+            if (admissionId != null && admissionId !== "") orderPayload.admission_id = admissionId;
 
             const order = await createPaymentOrder(orderPayload);
             const orderData = order.data;
