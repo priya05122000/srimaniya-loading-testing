@@ -10,6 +10,8 @@ interface RazorpayPayButtonProps {
   customerPhone?: string;
   description?: string;
   className?: string;
+  labelClassName?: string;
+  fillClassName?: string;
   onSuccess?: (verifyResponse: any) => void;
   onFailure?: (error: any) => void;
   onCancel?: () => void;
@@ -21,6 +23,8 @@ const RazorpayPayButton: React.FC<RazorpayPayButtonProps> = ({
   customerPhone,
   description,
   className,
+  labelClassName,
+  fillClassName,
   onSuccess,
   onFailure,
   onCancel,
@@ -34,7 +38,6 @@ const RazorpayPayButton: React.FC<RazorpayPayButtonProps> = ({
       customerPhone,
       description,
       onSuccess: (verifyResponse) => {
-        toast.success("Admission registered successfully");
         onSuccess?.(verifyResponse);
       },
       onFailure: (err) => {
@@ -57,10 +60,20 @@ const RazorpayPayButton: React.FC<RazorpayPayButtonProps> = ({
       disabled={processing}
       style={processing ? { pointerEvents: "none", opacity: 0.7 } : {}}
     >
-      <span className="relative gap-x-1 z-20 flex items-center justify-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)">
+      <span
+        className={
+          labelClassName ??
+          "relative gap-x-1 z-20 flex items-center justify-center text-center no-underline w-full text-(--yellow) transition-all duration-300 group-hover:text-(--blue)"
+        }
+      >
         {processing ? "Processing..." : "Pay Admission Fee"}
       </span>
-      <span className="absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10" />
+      <span
+        className={
+          fillClassName ??
+          "absolute left-0 top-0 w-full h-0 bg-(--yellow) transition-all duration-300 ease-in-out group-hover:h-full group-hover:top-auto group-hover:bottom-0 z-10"
+        }
+      />
     </button>
   );
 };
