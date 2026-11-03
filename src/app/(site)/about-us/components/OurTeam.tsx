@@ -117,14 +117,14 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
     <div className="grid grid-cols-1 md:grid-cols-2  bg-(--blue) text-white overflow-hidden " data-section>
       {/* Image */}
       <div
-        className={`relative w-full h-100 ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
+        className={`relative w-full h-full ${reverseSm ? "sm:order-2" : "sm:order-1"} ${reverseXl ? "xl:order-2" : "xl:order-1"}`}
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${profile_photo_url}`}
           alt="Team at Sri Maniya Institute of Hotel Management"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-          className="object-cover object-top image-tag"
+          className="object-cover  object-top image-tag"
           priority={priority}
           onLoad={onLoad}
         />

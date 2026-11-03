@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CoursesPage from "./CoursesPage";
 import { getAllCourses } from "@/services/courseService";
-import Script from "next/script";
 import { flattenHtml } from "@/utils/flattenHtml";
 
 const BASE_URL =
@@ -159,10 +158,14 @@ export default async function Page() {
   return (
     <>
       {/* ✅ JSON-LD SCHEMA */}
-      <Script
+      {/* Plain <script> so the JSON-LD is in the server HTML; next/script
+          only injects it after hydration. */}
+      <script
         id="course-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+        }}
       />
       {/* <section className="sr-only">
         <h1>Hotel Management Courses in Tamil Nadu</h1>

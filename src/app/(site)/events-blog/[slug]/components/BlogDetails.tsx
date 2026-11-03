@@ -22,6 +22,8 @@ type Blog = {
   description: string;
   faq?: string;
   created_by?: string;
+  author_id?: string | null;
+  author?: { id: string; name: string } | null;
   created_at: string;
   active: boolean;
   category_id: string;
@@ -49,16 +51,16 @@ const preloadImages = (blog: Blog) => {
 
 // Reusable SidebarRow
 const SidebarRow: React.FC<SidebarInfo> = memo(({ label, value }) => (
-  <div className="grid grid-cols-[auto_1fr] gap-2 items-start">
-    <div className="mt-2 hidden sm:block">
+  <div className="flex flex-col min-w-0 lg:grid lg:grid-cols-[auto_1fr] lg:gap-x-2 lg:items-center">
+    <div className="hidden lg:flex items-center">
       <hr className="border border-(--grey-custom) w-15" />
     </div>
-    <div>
-      <Paragraph size="lg" className="text-(--grey-light-custom)">
-        {label}
-      </Paragraph>
+    <Paragraph size="lg" className="text-(--grey-light-custom)">
+      {label}
+    </Paragraph>
+    <div className="min-w-0 lg:col-start-2">
       {typeof value === "string" ? (
-        <Paragraph size="lg" className="font-bold text-(--dark)">
+        <Paragraph size="lg" className="font-bold text-(--dark) break-words">
           {value}
         </Paragraph>
       ) : (
@@ -149,6 +151,12 @@ const BlogDetails: React.FC<{
   }, [categories, blog]);
 
   useEffect(() => {
+    // Author name is returned with the blog; fall back to the creator lookup.
+    if (blog?.author?.name) {
+      setAdminName(blog.author.name);
+      preloadImages(blog);
+      return;
+    }
     if (!blog?.created_by) return;
     const fetchAdmin = async () => {
       try {
@@ -161,7 +169,7 @@ const BlogDetails: React.FC<{
       }
     };
     fetchAdmin();
-  }, [blog?.created_by]);
+  }, [blog?.author?.name, blog?.created_by]);
 
   if (!blog) return null;
 
@@ -220,7 +228,7 @@ const BlogDetails: React.FC<{
       <div className="flex flex-col lg:flex-row gap-10 mt-6 md:mt-0">
         {/* Sidebar */}
         <aside className="w-full lg:w-[25%] xl:w-[20%] lg:border-r border-(--grey-custom)">
-          <div className="flex flex-row lg:flex-col justify-between lg:justify-start gap-4 lg:gap-15 md:pt-10 lg:py-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col lg:justify-start gap-6 lg:gap-15 md:pt-10 lg:py-16">
             {sidebarData.map((item) => (
               <SidebarRow
                 key={item.label}

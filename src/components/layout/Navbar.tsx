@@ -154,7 +154,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
       {/* Overlay for mobile menu */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-(--black)/30 z-30 md:hidden"
+          className="fixed inset-0 bg-(--black)/30 z-30 xl:hidden"
           onClick={() => setMenuOpen(false)}
         ></div>
       )}

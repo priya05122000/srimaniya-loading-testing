@@ -49,8 +49,8 @@ const preloadImages = (placements: Placement[]) => {
 
 // Student Card component for reuse
 const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
-  <div className="placement relative h-55 sm:h-50 flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
-    <div className="relative w-62.5 h-full">
+  <div className="placement relative min-h-50 flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
+    <div className="relative w-28 sm:w-32 lg:w-62.5 shrink-0 lg:shrink self-stretch">
       <Image
         src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
         className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
@@ -61,7 +61,7 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
         unoptimized
       />
     </div>
-    <div className="w-full flex flex-col justify-center items-start px-4">
+    <div className="w-full min-w-0 break-words flex flex-col justify-center items-start px-4">
       <div className="top flex justify-center">
         <div className="userDetails flex flex-col">
           <Paragraph

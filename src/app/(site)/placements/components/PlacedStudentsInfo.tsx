@@ -59,8 +59,8 @@ const preloadImages = (placements: Placement[]) => {
 
 // Student Card component for reuse
 const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
-  <div className="placement relative h-55 sm:h-50 flex flex-row bg-(--blue) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden" data-section>
-    <div className="relative w-62.5 h-full">
+  <div className="placement relative min-h-50 flex flex-row bg-(--blue) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden" data-section>
+    <div className="relative w-28 sm:w-32 lg:w-62.5 shrink-0 lg:shrink self-stretch">
       <Image
         src={placement.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.photo_url}` : PLACEHOLDER_IMAGE}
         className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
@@ -71,7 +71,7 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
         unoptimized
       />
     </div>
-    <div className="w-full flex flex-col justify-center items-start px-4">
+    <div className="w-full min-w-0 break-words flex flex-col justify-center items-start px-4">
       <div className="top flex justify-center">
         <div className="userDetails flex flex-col">
           <Paragraph
@@ -144,7 +144,7 @@ const PlacedStudentsInfo: React.FC = () => {
         >
           Full Time Placements
         </Heading>
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6 py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 py-10">
           {paginatedData.map((placement) => (
             <StudentCard key={placement.id} placement={placement} />
           ))}

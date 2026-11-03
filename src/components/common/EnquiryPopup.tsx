@@ -58,10 +58,10 @@ const EnquiryPopup: React.FC<EnquiryPopupProps> = ({ show, onClose }) => {
 
     return (
         <div
-            className="fixed inset-0 z-100 flex items-center justify-center bg-(--black)/60 p-6 animate-modal-overlay"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-(--black)/60 p-4 sm:p-6 animate-modal-overlay"
         >
             <div
-                className="bg-(--blue-overlay-custom) shadow-2xl p-6 w-[400px] relative backdrop-blur-md animate-modal-content"
+                className="bg-(--blue-overlay-custom) shadow-2xl p-6 w-full max-w-[400px] max-h-[90vh] overflow-y-auto relative backdrop-blur-md animate-modal-content"
             >
                 <button
                     className="absolute top-2 right-2 cursor-pointer text-xl text-(--bg-grey)"

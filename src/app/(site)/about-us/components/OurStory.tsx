@@ -90,7 +90,7 @@ const OurStory: React.FC = () => {
             alt="Our story of Sri Maniya Institute of Hotel Management"
             width={1000}
             height={1000}
-            className="w-full h-75 sm:h-100 lg:h-112.5 xl:h-147.5 object-cover object-top image-tag"
+            className="w-full h-full sm:h-100 lg:h-112.5 xl:h-147.5 object-cover object-top image-tag"
           />
         </div>
         {/* Right: Content */}
