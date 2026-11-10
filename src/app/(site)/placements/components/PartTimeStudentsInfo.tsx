@@ -9,6 +9,13 @@ import { useEffect } from "react";
 import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
 import Image from "next/image";
+import VerificationBadge, {
+  type VerificationDocument,
+  getVerifiedDocuments,
+  getViewableDocuments,
+} from "./VerificationBadge";
+import DocumentViewerModal from "./DocumentViewerModal";
+import PhotoDocumentSlider from "./PhotoDocumentSlider";
 
 type Placement = {
   id: string;
@@ -21,6 +28,7 @@ type Placement = {
   batch_year: string;
   profile_photo: string;
   status?: boolean;
+  verification_documents?: VerificationDocument[];
 };
 
 // Reusable constants
@@ -47,19 +55,45 @@ const preloadImages = (placements: Placement[]) => {
   );
 };
 
+const photoSrcFor = (placement: Placement) =>
+  placement.profile_photo
+    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.profile_photo}`
+    : PLACEHOLDER_IMAGE;
+
 // Student Card component for reuse
-const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
+const StudentCard: React.FC<{
+  placement: Placement;
+  onOpenDocument: (placement: Placement, index: number) => void;
+}> = ({ placement, onOpenDocument }) => {
+  // Badges: verified documents with a label. Thumbnail / viewer: ones with a file.
+  const badgeDocuments = getVerifiedDocuments(placement.verification_documents).filter(
+    (doc) => !!doc.verification_label?.trim()
+  );
+  const viewableDocuments = getViewableDocuments(placement.verification_documents);
+  const photoSrc = photoSrcFor(placement);
+
+  return (
   <div className="placement relative min-h-50 flex flex-row bg-(--white-custom) shadow-[15px_15px_60px_rgba(0,0,0,0.01)] p-4 overflow-hidden">
     <div className="relative w-28 sm:w-32 lg:w-62.5 shrink-0 lg:shrink self-stretch">
-      <Image
-        src={placement.profile_photo ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.profile_photo}` : PLACEHOLDER_IMAGE}
-        className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
-        alt="Hotel management placement at Sri Maniya Institute"
-        width={300}
-        height={150}
-        style={{ objectFit: "cover" }}
-        unoptimized
-      />
+      {viewableDocuments.length > 0 ? (
+        <PhotoDocumentSlider
+          photoSrc={photoSrc}
+          photoAlt="Hotel management placement at Sri Maniya Institute"
+          alumniName={placement.name}
+          documents={viewableDocuments}
+          onOpenDocument={(index) => onOpenDocument(placement, index)}
+        />
+      ) : (
+        <Image
+          src={photoSrc}
+          className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
+          alt="Hotel management placement at Sri Maniya Institute"
+          width={300}
+          height={150}
+          style={{ objectFit: "cover" }}
+          unoptimized
+        />
+      )}
     </div>
     <div className="w-full min-w-0 break-words flex flex-col justify-center items-start px-4">
       <div className="top flex justify-center">
@@ -79,6 +113,26 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
           {placement.company}
         </Span>
       </div>
+      {badgeDocuments.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mt-2">
+          {badgeDocuments.map((doc) => {
+            const viewerIndex = viewableDocuments.indexOf(doc);
+            return (
+              <VerificationBadge
+                key={doc.id}
+                variant="light"
+                label={doc.verification_label}
+                title={doc.document_type ?? undefined}
+                onClick={
+                  viewerIndex >= 0
+                    ? () => onOpenDocument(placement, viewerIndex)
+                    : undefined
+                }
+              />
+            );
+          })}
+        </div>
+      )}
       <div className="mt-2">
         <Span className="message text-(--dark)"><b>Placement :</b> {placement.designation}</Span>
       </div>
@@ -92,13 +146,22 @@ const StudentCard: React.FC<{ placement: Placement }> = ({ placement }) => (
       )}
     </div>
   </div>
-);
+  );
+};
 
 const PartTimeStudentsInfo = () => {
   const partPlacementRef = useRef<HTMLDivElement | null>(null);
   const [placementData, setPlacementData] = useState<Placement[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const [viewer, setViewer] = useState<{
+    placement: Placement;
+    index: number;
+  } | null>(null);
+
+  const openDocument = (placement: Placement, index: number) =>
+    setViewer({ placement, index });
+  const closeViewer = React.useCallback(() => setViewer(null), []);
 
   useSplitTextHeadingAnimation({
     trigger: partPlacementRef,
@@ -141,7 +204,11 @@ const PartTimeStudentsInfo = () => {
         </Heading>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 py-10">
           {paginatedData.map((placement) => (
-            <StudentCard key={placement.id} placement={placement} />
+            <StudentCard
+              key={placement.id}
+              placement={placement}
+              onOpenDocument={openDocument}
+            />
           ))}
         </div>
         {/* Pagination Controls */}
@@ -165,6 +232,16 @@ const PartTimeStudentsInfo = () => {
           </button>
         </div>
       </Section>
+
+      <DocumentViewerModal
+        open={viewer !== null}
+        onClose={closeViewer}
+        alumniName={viewer?.placement.name ?? ""}
+        alumniPhoto={viewer ? photoSrcFor(viewer.placement) : undefined}
+        designation={viewer?.placement.designation}
+        documents={getViewableDocuments(viewer?.placement.verification_documents)}
+        initialIndex={viewer?.index ?? 0}
+      />
     </div>
   );
 };

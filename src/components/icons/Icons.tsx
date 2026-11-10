@@ -89,6 +89,48 @@ export const Close = stroke(
     <line x1="6" y1="6" x2="18" y2="18" />
   </>,
 );
+export const CheckCircle = stroke(
+  <>
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="8 12.5 11 15.5 16 9.5" />
+  </>,
+);
+// Verified seal (scalloped badge with a check mark).
+export const BadgeCheck = stroke(
+  <>
+    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+    <path d="m9 12 2 2 4-4" />
+  </>,
+);
+export const Briefcase = stroke(
+  <>
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    <line x1="3" y1="13" x2="21" y2="13" />
+  </>,
+);
+export const ZoomIn = stroke(
+  <>
+    <circle cx="11" cy="11" r="7" />
+    <line x1="21" y1="21" x2="16" y2="16" />
+    <line x1="11" y1="8" x2="11" y2="14" />
+    <line x1="8" y1="11" x2="14" y2="11" />
+  </>,
+);
+export const ZoomOut = stroke(
+  <>
+    <circle cx="11" cy="11" r="7" />
+    <line x1="21" y1="21" x2="16" y2="16" />
+    <line x1="8" y1="11" x2="14" y2="11" />
+  </>,
+);
+export const ExternalLink = stroke(
+  <>
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </>,
+);
 export const Download = stroke(
   <>
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

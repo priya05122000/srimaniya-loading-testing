@@ -22,6 +22,10 @@
   --grey-custom: #c8c8c880;
   --grey-light-custom: #323131cc;
   --black-custom: #fffdfd0f;
+  /* Verified badges */
+  --green: #15803d;        /* text on light backgrounds */
+  --green-bright: #4ade80; /* text / border on the blue cards */
+  --green-light: #dcfce7;  /* badge fill on light backgrounds */
 }
 
 @theme inline {
