@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import 'swiper/css';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/navigation";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
@@ -40,13 +40,13 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
         const res = await getAllBlogPosts();
         const blogsData = Array.isArray(res?.data)
           ? res.data.filter((b: unknown) => {
-            return (
-              typeof b === "object" &&
-              b !== null &&
-              "active" in b &&
-              (b as { active: boolean }).active === true
-            );
-          })
+              return (
+                typeof b === "object" &&
+                b !== null &&
+                "active" in b &&
+                (b as { active: boolean }).active === true
+              );
+            })
           : [];
         const filteredBlogs = blogsData.filter((b: any) => b.id !== blog_id);
         setBlogs(filteredBlogs);
@@ -76,9 +76,9 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
     <LeftSpaceGridSection>
       <div className="pb-10 md:pb-16">
         <div className="mb-8">
-          <Heading level={6} className="text-(--blue) leading-tight mt-2">
+          <p className="text-(--blue) text-xl sm:text-2xl lg:text-3xl font-bold leading-tight mt-2">
             Recent Blogs
-          </Heading>
+          </p>
         </div>
 
         <Swiper
@@ -99,10 +99,9 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
           {blogs.map((blog, idx) => (
             <SwiperSlide key={idx}>
               <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
-
                 <div
                   className="overflow-hidden mx-auto relative cursor-pointer"
-                // onClick={() => router.push(`/events-blog/${blog.slug}`)}
+                  // onClick={() => router.push(`/events-blog/${blog.slug}`)}
                 >
                   <div className="w-full h-75 lg:h-87.5 aspect-3/2 sm:aspect-auto">
                     {blog.video_url ? (
@@ -155,7 +154,7 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                       <Paragraph
                         size="lg"
                         className="mb-1 font-medium"
-                      // {...ANIMATIONS.fadeZoomIn}
+                        // {...ANIMATIONS.fadeZoomIn}
                       >
                         {blog.sub_title.slice(0, 30)}...
                       </Paragraph>
@@ -165,18 +164,24 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                           size="lg"
                           className="font-bold"
                         >
-                          {new Date(blog.created_at).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                          })}
+                          {new Date(blog.created_at).toLocaleDateString(
+                            "en-GB",
+                            {
+                              day: "2-digit",
+                            }
+                          )}
                         </Paragraph>
                         <Paragraph
                           // {...ANIMATIONS.fadeZoomIn}
                           size="lg"
                           className="font-normal"
                         >
-                          {new Date(blog.created_at).toLocaleDateString("en-GB", {
-                            month: "long",
-                          })}
+                          {new Date(blog.created_at).toLocaleDateString(
+                            "en-GB",
+                            {
+                              month: "long",
+                            }
+                          )}
                         </Paragraph>
                       </div>
                     </div>
