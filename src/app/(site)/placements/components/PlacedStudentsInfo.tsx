@@ -7,9 +7,8 @@ import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllAlumniStories } from "@/services/alumniStoryService";
-import VerificationBadge, {
+import {
   type VerificationDocument,
-  getVerifiedDocuments,
   getViewableDocuments,
 } from "./VerificationBadge";
 import DocumentViewerModal from "./DocumentViewerModal";
@@ -70,10 +69,7 @@ const StudentCard: React.FC<{
   placement: Placement;
   onOpenDocument: (placement: Placement, index: number) => void;
 }> = ({ placement, onOpenDocument }) => {
-  // Badges: verified documents with a label. Thumbnail / viewer: ones with a file.
-  const badgeDocuments = getVerifiedDocuments(placement.verification_documents).filter(
-    (doc) => !!doc.verification_label?.trim()
-  );
+  // Verified badge is shown only inside the document dialog, not on the card.
   const viewableDocuments = getViewableDocuments(placement.verification_documents);
   const photoSrc = placement.photo_url
     ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${placement.photo_url}`
@@ -84,7 +80,7 @@ const StudentCard: React.FC<{
       <div className="relative w-28 sm:w-32 lg:w-62.5 shrink-0 lg:shrink self-stretch">
         {viewableDocuments.length > 0 ? (
           <PhotoDocumentSlider
-            photoSrc={photoSrc}
+            photoSrc={placement.photo_url ? photoSrc : null}
             photoAlt="Hospitality placement at Sri Maniya Institute"
             alumniName={placement.name}
             documents={viewableDocuments}
@@ -107,11 +103,10 @@ const StudentCard: React.FC<{
           <div className="userDetails flex flex-col">
             <Paragraph
               size="lg"
-              className="text-(--white-custom) leading-[1em] uppercase font-bold"
+              className="text-(--white-custom) leading-tight uppercase font-bold line-clamp-2"
+              title={placement.name}
             >
-              {placement.name.length > 15
-                ? placement.name.slice(0, 15) + "..."
-                : placement.name}
+              {placement.name}
             </Paragraph>
           </div>
         </div>
@@ -120,25 +115,6 @@ const StudentCard: React.FC<{
             {placement.company}
           </Span>
         </div>
-        {badgeDocuments.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {badgeDocuments.map((doc) => {
-              const viewerIndex = viewableDocuments.indexOf(doc);
-              return (
-                <VerificationBadge
-                  key={doc.id}
-                  label={doc.verification_label}
-                  title={doc.document_type ?? undefined}
-                  onClick={
-                    viewerIndex >= 0
-                      ? () => onOpenDocument(placement, viewerIndex)
-                      : undefined
-                  }
-                />
-              );
-            })}
-          </div>
-        )}
         <div className="mt-2">
           <Span className="message text-(--white-custom)"><b>Placement : </b> {placement.designation}</Span>
         </div>

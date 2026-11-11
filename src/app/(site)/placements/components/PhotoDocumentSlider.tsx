@@ -12,7 +12,11 @@ import {
 } from "./VerificationBadge";
 
 type PhotoDocumentSliderProps = {
-  photoSrc: string;
+  /**
+   * The student's real photo. Pass null when there is none: the slider then
+   * shows only the documents (starting with the PDF) instead of a placeholder.
+   */
+  photoSrc: string | null;
   photoAlt: string;
   alumniName: string;
   /** Verified documents that have a file. */
@@ -20,6 +24,10 @@ type PhotoDocumentSliderProps = {
   /** Opens the full viewer at this document index. */
   onOpenDocument: (index: number) => void;
 };
+
+type Slide =
+  | { kind: "photo"; src: string }
+  | { kind: "document"; doc: VerificationDocument; docIndex: number };
 
 const AUTOPLAY_MS = 4000;
 const TRANSITION_MS = 500;
@@ -29,12 +37,12 @@ const arrowClass =
   "flex items-center justify-center w-5 h-5 bg-(--blue-overlay-light) text-(--white-custom) text-[11px] cursor-pointer hover:bg-(--blue) transition-colors";
 
 /**
- * Student photo + verification documents as one endless slider, filling the
- * card's existing photo column so the card keeps its original size.
+ * Student photo (if any) + verification documents as one endless slider,
+ * filling the card's existing photo column so the card keeps its original size.
  *
- * Endless loop without rewinding: a copy of the photo slide sits after the
- * last document. Moving forward onto the copy is animated, then the track
- * jumps (without animation) back to the real photo, which looks identical.
+ * Endless loop without rewinding: a copy of the first slide sits after the
+ * last one. Moving forward onto the copy is animated, then the track jumps
+ * (without animation) back to the real first slide, which looks identical.
  */
 const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
   photoSrc,
@@ -43,8 +51,18 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
   documents,
   onOpenDocument,
 }) => {
-  const realCount = documents.length + 1; // photo + documents
-  // 0..realCount, where realCount is the photo copy at the end.
+  const slides: Slide[] = [
+    ...(photoSrc ? [{ kind: "photo" as const, src: photoSrc }] : []),
+    ...documents.map((doc, docIndex) => ({
+      kind: "document" as const,
+      doc,
+      docIndex,
+    })),
+  ];
+  const realCount = slides.length;
+  // A single slide (e.g. no photo + one PDF) does not slide at all.
+  const looping = realCount > 1;
+  // 0..realCount, where realCount is the copy of the first slide at the end.
   const [position, setPosition] = useState(0);
   const [animate, setAnimate] = useState(true);
   const [paused, setPaused] = useState(false);
@@ -63,7 +81,7 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
   }, []);
 
   const next = useCallback(() => {
-    if (moving.current) return;
+    if (moving.current || realCount < 2) return;
     if (reducedMotion) {
       setPosition((p) => (p + 1) % realCount);
       return;
@@ -74,7 +92,7 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
   }, [realCount, reducedMotion]);
 
   const prev = useCallback(() => {
-    if (moving.current) return;
+    if (moving.current || realCount < 2) return;
     if (reducedMotion) {
       setPosition((p) => (p - 1 + realCount) % realCount);
       return;
@@ -151,24 +169,71 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
     onOpenDocument(index);
   };
 
-  const renderPhoto = (key: string, isActive: boolean) => (
-    <div
-      key={key}
-      className="relative w-full h-full shrink-0"
-      aria-hidden={!isActive}
-    >
-      <Image
-        src={photoSrc}
-        className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
-        alt={photoAlt}
-        width={300}
-        height={150}
-        style={{ objectFit: "cover" }}
-        unoptimized
-        draggable={false}
-      />
-    </div>
-  );
+  const renderSlide = (slide: Slide, key: string, isActive: boolean) => {
+    if (slide.kind === "photo") {
+      return (
+        <div
+          key={key}
+          className="relative w-full h-full shrink-0"
+          aria-hidden={!isActive}
+        >
+          <Image
+            src={slide.src}
+            className="absolute top-0 image-tag left-0 w-full h-full object-cover object-top"
+            alt={photoAlt}
+            width={300}
+            height={150}
+            style={{ objectFit: "cover" }}
+            unoptimized
+            draggable={false}
+          />
+        </div>
+      );
+    }
+
+    const { doc, docIndex } = slide;
+    const url = documentUrl(doc.file_url as string);
+    const name =
+      doc.verification_label || doc.document_type || "Verification document";
+    return (
+      <button
+        key={key}
+        type="button"
+        onClick={() => openDocument(docIndex)}
+        className="relative w-full h-full shrink-0 bg-white cursor-zoom-in"
+        aria-label={`View ${name} document of ${alumniName}`}
+        aria-hidden={!isActive}
+        tabIndex={isActive ? 0 : -1}
+      >
+        {isPdfDocument(doc.file_url) ? (
+          <PdfPreview
+            url={url}
+            pages="first"
+            fit="contain"
+            className="h-full p-1"
+            fallback={
+              <span className="flex h-full items-center justify-center text-xs font-semibold font-inter text-(--blue)">
+                PDF
+              </span>
+            }
+          />
+        ) : (
+          <Image
+            src={url}
+            alt={`${name} — ${alumniName}`}
+            fill
+            sizes="(min-width: 1024px) 250px, 128px"
+            className="object-contain p-1"
+            unoptimized
+            draggable={false}
+          />
+        )}
+        <span className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 bg-(--blue-overlay-light) text-(--white-custom) text-[11px]">
+          <ZoomIn />
+        </span>
+      </button>
+    );
+  };
 
   return (
     <div
@@ -197,60 +262,21 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
         }}
         onTransitionEnd={onTransitionEnd}
       >
-        {/* Slide 1: student photo (unchanged look) */}
-        {renderPhoto("photo", activeIndex === 0)}
+        {/* Photo (if any) first, then the verification documents */}
+        {slides.map((slide, index) =>
+          renderSlide(
+            slide,
+            slide.kind === "photo" ? "photo" : `doc-${slide.doc.id}`,
+            activeIndex === index
+          )
+        )}
 
-        {/* Slides 2..n: verification documents */}
-        {documents.map((doc, index) => {
-          const url = documentUrl(doc.file_url as string);
-          const name =
-            doc.verification_label || doc.document_type || "Verification document";
-          const isActive = activeIndex === index + 1;
-          return (
-            <button
-              key={doc.id}
-              type="button"
-              onClick={() => openDocument(index)}
-              className="relative w-full h-full shrink-0 bg-white cursor-zoom-in"
-              aria-label={`View ${name} document of ${alumniName}`}
-              aria-hidden={!isActive}
-              tabIndex={isActive ? 0 : -1}
-            >
-              {isPdfDocument(doc.file_url) ? (
-                <PdfPreview
-                  url={url}
-                  pages="first"
-                  fit="contain"
-                  className="h-full p-1"
-                  fallback={
-                    <span className="flex h-full items-center justify-center text-xs font-semibold font-inter text-(--blue)">
-                      PDF
-                    </span>
-                  }
-                />
-              ) : (
-                <Image
-                  src={url}
-                  alt={`${name} — ${alumniName}`}
-                  fill
-                  sizes="(min-width: 1024px) 250px, 128px"
-                  className="object-contain p-1"
-                  unoptimized
-                  draggable={false}
-                />
-              )}
-              <span className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 bg-(--blue-overlay-light) text-(--white-custom) text-[11px]">
-                <ZoomIn />
-              </span>
-            </button>
-          );
-        })}
-
-        {/* Copy of the photo for the seamless loop */}
-        {renderPhoto("photo-loop", false)}
+        {/* Copy of the first slide for the seamless loop */}
+        {looping && renderSlide(slides[0], "loop-copy", false)}
       </div>
 
       {/* Small arrows, both in the bottom-right corner */}
+      {looping && (
       <div className="absolute bottom-1 right-1 z-10 flex gap-0.5">
         <button
           type="button"
@@ -269,6 +295,7 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
           <ArrowRight />
         </button>
       </div>
+      )}
     </div>
   );
 };
