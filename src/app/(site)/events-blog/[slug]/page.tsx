@@ -110,7 +110,7 @@ const page = async ({ params }: PageProps) => {
       name: "Sri Maniya Institute of Hotel Management",
       logo: {
         "@type": "ImageObject",
-        url: "https://srimaniyainstitute.in/logos/navbarlogo.png",
+        url: "https://srimaniyainstitute.in/logos/sri-maniya-institute-header-logo.png",
       },
     },
     mainEntityOfPage: {

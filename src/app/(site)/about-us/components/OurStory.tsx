@@ -86,7 +86,7 @@ const OurStory: React.FC = () => {
           className="flex items-center justify-center sm:w-[110%] lg:w-[106%] xl:w-[110%] z-10 h-full"
         >
           <Image
-            src="/about-us/ourstory-old.webp"
+            src="/about-us/mr-mani-founder-sri-maniya-institute.webp"
             alt="Our story of Sri Maniya Institute of Hotel Management"
             width={1000}
             height={1000}

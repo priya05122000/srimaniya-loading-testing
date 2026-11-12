@@ -11,7 +11,7 @@ import SafeEmail from "../common/SafeEmail";
 
 const COMPANY = {
   name: "Sri Maniya",
-  logo: "/logos/footerlogo.png",
+  logo: "/logos/sri-maniya-institute-footer-logo.png",
   homeUrl: "/",
 };
 

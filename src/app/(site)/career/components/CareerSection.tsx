@@ -7,7 +7,7 @@ import { ArrowNarrowRight } from "@/components/icons/Icons";
 import Span from "@/components/common/Span";
 
 // Reusable constants
-const CAREER_IMAGE = "/career/career.webp";
+const CAREER_IMAGE = "/career/sri-maniya-institute-graduation-2024-faculty-and-students.webp";
 const CAREER_IMAGE_PROPS = {
   src: CAREER_IMAGE,
   alt: "career opportunities in hotel management institutes",

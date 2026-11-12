@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: `${BASE_URL}/home/commitment-bg-1.webp`,
+        url: `${BASE_URL}/home/chef-with-hotel-management-interns-in-kitchen.webp`,
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute Placement",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Hotel Management Placement Support Collage in TN",
     description:
       "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
-    images: [`${BASE_URL}/home/commitment-bg-1.webp`],
+    images: [`${BASE_URL}/home/chef-with-hotel-management-interns-in-kitchen.webp`],
   },
 };
 

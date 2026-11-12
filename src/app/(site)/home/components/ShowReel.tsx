@@ -28,7 +28,7 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <div className="relative w-full h-full overflow-hidden">
       <img
-        src="/videos/reelvideo-poster.webp"
+        src="/videos/culinary-students-cooking-in-training-kitchen.webp"
         alt=""
         aria-hidden="true"
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoReady ? "opacity-0 pointer-events-none" : "opacity-100"}`}
@@ -36,7 +36,7 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
       {loadVideo && (
         <video
           src="/videos/reelvideo.mp4"
-          poster="/videos/reelvideo-poster.webp"
+          poster="/videos/culinary-students-cooking-in-training-kitchen.webp"
           autoPlay
           muted
           loop

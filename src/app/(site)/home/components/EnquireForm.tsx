@@ -12,7 +12,7 @@ const EnquireForm: React.FC = () => {
         {/* Left: Image */}
         <div className="sm:w-[110%] lg:w-[106%] xl:w-[104%] min-h-75">
           <Image
-            src="/home/enquireform.webp"
+            src="/home/students-at-sri-maniya-institute-campus-kanyakumari.webp"
             alt="Enquiry form for Sri Maniya Institute of Hotel Management"
             width={2000}
             height={2000}

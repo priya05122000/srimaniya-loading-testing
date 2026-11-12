@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/contact-us/contact.webp",
+        url: "https://srimaniyainstitute.in/contact-us/thiruvalluvar-statue-kanyakumari.webp",
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "Hotel Management Institute Near Me | Tamil Nadu",
     description:
       "Have questions about admissions or courses? Reach Sri Maniya Institute in Kanyakumari — we're just a call away. Contact us today!",
-    images: ["https://srimaniyainstitute.in/contact-us/contact.webp"],
+    images: ["https://srimaniyainstitute.in/contact-us/thiruvalluvar-statue-kanyakumari.webp"],
   },
 };
 

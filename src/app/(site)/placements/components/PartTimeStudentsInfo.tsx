@@ -32,7 +32,7 @@ type Placement = {
 
 // Reusable constants
 const ITEMS_PER_PAGE = 12;
-const PLACEHOLDER_IMAGE = "/about-us/profile.webp";
+const PLACEHOLDER_IMAGE = "/about-us/student-profile-placeholder.webp";
 
 // Salary formatter for reuse
 const formatSalary = (salary?: string) => {

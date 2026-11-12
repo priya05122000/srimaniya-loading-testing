@@ -15,7 +15,7 @@ const ApplyNow: React.FC = () => {
     >
       <div className="relative">
         <Image
-          src="/career/careerform.webp"
+          src="/career/hotel-job-interview-career-opportunity.webp"
           alt="Sri Maniya Institute careers"
           className="w-full h-87.5 sm:h-137.5 object-cover object-top image-tag"
           width={1200}

@@ -76,14 +76,14 @@ const VisionMission: FC = () => {
 
           <InfoBlock
             title="01  Vision"
-            imageUrl="/about-us/vision.webp"
+            imageUrl="/about-us/vision-and-mission-background.webp"
             htmlContent={siteInfo?.vision || ""}
             headingOrderClass="text-start sm:text-end sm:order-2 order-1"
             contentOrderClass="sm:order-1 order-2"
           />
           <InfoBlock
             title="02  Mission"
-            imageUrl="/about-us/mission.webp"
+            imageUrl="/about-us/vision-and-mission-background.webp"
             htmlContent={siteInfo?.mission || ""}
           />
         </div>

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/about-us/about-us.webp",
+        url: "https://srimaniyainstitute.in/about-us/hotel-management-students-culinary-competition-award-winners.webp",
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "About Sri Maniya Institute of Hotel Management",
     description:
       "Sri Maniya Institute, Kanyakumari — trusted by 2,000+ students for hands-on hotel management training, internships & 100% placement support. See why.",
-    images: ["https://srimaniyainstitute.in/about-us/about-us.webp"],
+    images: ["https://srimaniyainstitute.in/about-us/hotel-management-students-culinary-competition-award-winners.webp"],
   },
 };
 

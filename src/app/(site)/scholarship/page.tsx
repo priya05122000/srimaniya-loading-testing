@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: `${BASE_URL}/scholarship/scholarship.webp`,
+        url: `${BASE_URL}/scholarship/hotel-management-scholarship-award-ceremony.webp`,
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Hotel Management Scholarship Tamil Nadu",
     description:
       "Worried about fees? Sri Maniya has awarded ₹51 lakh in hotel management scholarships so far. Check if you qualify — apply today!",
-    images: ["https://srimaniyainstitute.in/scholarship/scholarship.webp"],
+    images: ["https://srimaniyainstitute.in/scholarship/hotel-management-scholarship-award-ceremony.webp"],
   },
 };
 

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Paragraph from "@/components/common/Paragraph";
 
 // Reusable constants for styling
-const BG_IMAGE = "/courses/courses.webp";
+const BG_IMAGE = "/courses/culinary-student-butter-sculpture-competition.webp";
 const GRID_CLASSES = [
   "grid",
   "grid-cols-1",

@@ -9,32 +9,46 @@ import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimati
 export type Feature = {
   number: string;
   title: string;
+  image: string;
 };
 
 export const features: Feature[] = [
-  { number: "01", title: "Internship from Day 1 with stipend" },
-  { number: "02", title: "100% Placement Support" },
-  { number: "03", title: "Affordable Fees with Flexible Payment Options" },
+  {
+    number: "01",
+    title: "Internship from Day 1 with stipend",
+    image: "/home/chef-with-hotel-management-interns-in-kitchen.webp",
+  },
+  {
+    number: "02",
+    title: "100% Placement Support",
+    image: "/home/hotel-front-office-reception-staff-with-guest.webp",
+  },
+  {
+    number: "03",
+    title: "Affordable Fees with Flexible Payment Options",
+    image: "/home/hotel-management-classroom-training.webp",
+  },
   {
     number: "04",
     title: "Strong Hotel Legacy Since 1984 - career opportunity",
+    image: "/home/hotel-housekeeping-towel-art-training.webp",
   },
 ];
 
 // --- Feature Card Components ---
-const FeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(
-  ({ feature, idx }) => (
+const FeatureCard: React.FC<{ feature: Feature }> = memo(
+  ({ feature }) => (
     <div className="min-h-62.5">
       <div
         className="flex flex-col justify-end items-end bg-cover bg-center relative w-full h-full overflow-hidden will-change-transform group"
         style={{
-          backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')`,
+          backgroundImage: `url('${feature.image}')`,
         }}
       >
         <div
           className="absolute inset-0 z-0 transition-all duration-300 group-hover:opacity-0"
           style={{
-            backgroundImage: `url('/home/commitment-bg-${idx + 1}.webp')`,
+            backgroundImage: `url('${feature.image}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "blur(10px) brightness(0.8)",
@@ -73,7 +87,7 @@ const MobileFeatureCard: React.FC<{ feature: Feature; idx: number }> = memo(
           <div
             className="absolute inset-0 z-0 transition-all duration-300 group-hover:opacity-0"
             style={{
-              backgroundImage: `url('/home/commitment-bg-1.webp')`,
+              backgroundImage: `url('/home/chef-with-hotel-management-interns-in-kitchen.webp')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               filter: "blur(10px) brightness(0.8)",
@@ -166,7 +180,7 @@ const CommitmentBanner: React.FC = () => {
         </div>
         <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-100 xl:min-h-105">
           {features.map((feature, idx) => (
-            <FeatureCard key={feature.number} feature={feature} idx={idx} />
+            <FeatureCard key={feature.number} feature={feature} />
           ))}
         </div>
         <div className="relative grid grid-cols-1 lg:hidden">

@@ -164,7 +164,7 @@ const Form: React.FC = () => {
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <Image
-            src="/logos/navbarlogo.png"
+            src="/logos/sri-maniya-institute-header-logo.png"
             alt="Logo"
             width={376}
             height={94}

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: `${BASE_URL}/scholarship/scholarship-banner.webp`,
+        url: `${BASE_URL}/scholarship/hotel-management-graduates-convocation.webp`,
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "Hotel Management Blogs & Events | Sri Maniya Institute",
     description:
       "Get hotel management career tips, placement stories & campus event updates from Sri Maniya Institute of Hotel Management, Kanyakumari. Read now.",
-    images: [`${BASE_URL}/scholarship/scholarship-banner.webp`],
+    images: [`${BASE_URL}/scholarship/hotel-management-graduates-convocation.webp`],
 
   },
 };
@@ -108,7 +108,7 @@ const page = async () => {
         description: blog.shortNote || blog.metaDescription,
         image: blog.imagePath
           ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.imagePath}`
-          : `${BASE_URL}/default-blog.webp`,
+          : `${BASE_URL}/scholarship/hotel-management-graduates-convocation.webp`,
         author: {
           "@type": "Organization",
           name: "Sri Maniya Institute",
@@ -118,7 +118,7 @@ const page = async () => {
           name: "Sri Maniya Institute",
           logo: {
             "@type": "ImageObject",
-            url: `${BASE_URL}/logo.png`,
+            url: `${BASE_URL}/logos/sri-maniya-institute-logo.png`,
           },
         },
         datePublished: blog.createdAt,

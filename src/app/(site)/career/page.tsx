@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: `${BASE_URL}/career/career.webp`,
+        url: `${BASE_URL}/career/sri-maniya-institute-graduation-2024-faculty-and-students.webp`,
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Hospitality Jobs at Sri Maniya, Tamil Nadu",
     description:
       "Want to shape future hoteliers? Sri Maniya Institute is hiring passionate faculty & hospitality professionals. Apply now!",
-    images: [`${BASE_URL}/career/career.webp`],
+    images: [`${BASE_URL}/career/sri-maniya-institute-graduation-2024-faculty-and-students.webp`],
   },
 };
 
@@ -97,7 +97,7 @@ const page = async () => {
       "@id": `${BASE_URL}/#organization`,
       name: "Sri Maniya Institute of Hotel Management",
       url: BASE_URL,
-      logo: `${BASE_URL}/logos/navbarlogo.png`,
+      logo: `${BASE_URL}/logos/sri-maniya-institute-header-logo.png`,
     },
     {
       "@context": "https://schema.org",

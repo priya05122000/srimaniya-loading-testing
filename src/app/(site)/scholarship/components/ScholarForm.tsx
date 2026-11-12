@@ -2,7 +2,7 @@ import Image from "next/image";
 import ScholarFormInner from "./ScholarFormInner";
 
 const IMAGE_PROPS = {
-  src: "/scholarship/scholarform.webp",
+  src: "/scholarship/hotel-management-students-studying-in-classroom.webp",
   alt: "Hotel management scholarship at Sri Maniya Institute",
   fill: true,
   sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw",

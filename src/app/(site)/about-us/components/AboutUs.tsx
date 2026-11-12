@@ -5,7 +5,7 @@ import React from 'react'
 
 const AboutUsImage: React.FC<{ className?: string; priority?: boolean }> = ({ className, priority }) => (
   <Image
-    src="/about-us/about-us.webp"
+    src="/about-us/hotel-management-students-culinary-competition-award-winners.webp"
     alt="About Sri Maniya Institute of Hotel Management"
     width={1200}
     height={1200}

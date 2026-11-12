@@ -87,7 +87,7 @@ const BrochureModal: FC<BrochureModalProps> = ({ open, onClose, form, onChange }
                     <Close aria-label="Close" />
                 </button>
                 <div className="mb-8 flex justify-center">
-                    <Image src="/logos/navbarlogo.png" alt="Sri Maniya Institute logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
+                    <Image src="/logos/sri-maniya-institute-header-logo.png" alt="Sri Maniya Institute logo" width={376} height={94} className="w-48 md:w-72 image-tag" priority />
                 </div>
                 <form className="flex flex-col gap-y-2" onSubmit={handleSubmit} autoComplete="off">
                     <AutofillSuppressionFields />

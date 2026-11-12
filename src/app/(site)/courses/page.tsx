@@ -77,7 +77,7 @@ export async function generateMetadata({
       siteName: "Sri Maniya Institute",
       images: [
         {
-          url: `${BASE_URL}/courses/courses.webp`,
+          url: `${BASE_URL}/courses/culinary-student-butter-sculpture-competition.webp`,
           width: 1200,
           height: 630,
           alt: readableTitle || "Sri Maniya Courses",
@@ -91,7 +91,7 @@ export async function generateMetadata({
       title: "Hotel Management Courses – Diploma, B.Sc & MBA",
       description:
         "Diploma, B.Sc or MBA — which hotel management course is right for you? Compare fees, duration & internship details. Download the brochure!",
-      images: [`${BASE_URL}/courses/courses.webp`],
+      images: [`${BASE_URL}/courses/culinary-student-butter-sculpture-competition.webp`],
     },
   };
 }

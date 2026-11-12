@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "Sri Maniya Institute",
     images: [
       {
-        url: "https://srimaniyainstitute.in/home/enquireform.webp",
+        url: "https://srimaniyainstitute.in/home/students-at-sri-maniya-institute-campus-kanyakumari.webp",
         width: 1200,
         height: 630,
         alt: "Sri Maniya Institute of Hotel Management",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Best Hotel Management Institute in Tamil Nadu",
     description:
       "Dreaming of a hotel management career? Sri Maniya Institute in Tamil Nadu offers internships from day 1 & 100% placement support. Enquire now!",
-    images: ["https://srimaniyainstitute.in/home/enquireform.webp"],
+    images: ["https://srimaniyainstitute.in/home/students-at-sri-maniya-institute-campus-kanyakumari.webp"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -84,7 +84,7 @@ export default function Home() {
     "@type": "EducationalOrganization",
     name: "Sri Maniya Institute of Hotel Management",
     url: "https://srimaniyainstitute.in/",
-    logo: "https://srimaniyainstitute.in/logos/navbarlogo.png",
+    logo: "https://srimaniyainstitute.in/logos/sri-maniya-institute-header-logo.png",
     address: {
       "@type": "PostalAddress",
       streetAddress: "No: 6/66-D1, Government Hospital Road",

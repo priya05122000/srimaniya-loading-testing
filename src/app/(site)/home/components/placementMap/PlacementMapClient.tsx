@@ -22,7 +22,7 @@ type Flag = {
 
 const flags: Flag[] = [
   {
-    img: "/map/India.webp",
+    img: "/map/india-flag-placements.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position:
@@ -30,28 +30,28 @@ const flags: Flag[] = [
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/Singapore.webp",
+    img: "/map/singapore-flag-placements.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[40%] xl:bottom-[36%] right-[18.5%] xl:right-[18%]",
     size: "w-10 h-10 xl:w-12 xl:h-12",
   },
   {
-    img: "/map/dubai.webp",
+    img: "/map/dubai-uae-flag-placements.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[40%] lg:top-[40%] left-[60%]",
     size: "w-8 h-8 xl:w-10 xl:h-10",
   },
   {
-    img: "/map/mauritius.webp",
+    img: "/map/mauritius-flag-placements.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "bottom-[25%] lg:bottom-[25%] right-[34%]",
     size: "w-12 h-12 xl:w-14 xl:h-14",
   },
   {
-    img: "/map/maldives.webp",
+    img: "/map/maldives-flag-placements.webp",
     placement: "100 student placed",
     ctc: "CTC Upto 1lac CSD+",
     position: "top-[55%] lg:top-[55%] right-[29%]",
@@ -259,7 +259,7 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
             {/* Background map */}
             <div className="shrink-0 h-[90vh] sm:h-[calc(100vh-80px)] flex items-center m-0 relative">
               <Image
-                src="/home/map.webp"
+                src="/home/hotel-management-placements-world-map.webp"
                 alt="Placement locations map of Sri Maniya Institute of Hotel Management"
                 width={2400}
                 height={1200}

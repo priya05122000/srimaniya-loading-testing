@@ -41,18 +41,18 @@ type AppointmentFormFieldsProps = {
 // --- Constants ---
 const COMPANY_LIST: CompanyInfoProps[] = [
   {
-    logoSrc: "/contact-us/seashore.webp",
+    logoSrc: "/contact-us/seashore-and-co-logo.webp",
     title: "Seashore & co",
     address: "2/12, East Car Street, Kanyakumari, Tamilnadu, India - 629702",
   },
   {
-    logoSrc: "/contact-us/gtholidays.webp",
+    logoSrc: "/contact-us/gt-holidays-logo.webp",
     title: "GT Holidays Pvt LTD",
     address:
       "No.1, Gemini Parsn, Kodambakkam High Road, Nungambakkam, Chennai - 600006 Tamil Nadu, India.",
   },
   {
-    logoSrc: "/contact-us/follicle.webp",
+    logoSrc: "/contact-us/follicle-logo.webp",
     title: "Follicle",
     address:
       "NO 2/75, Customs Colony, OPP TO JAIN COLLEGE, Omr Service Road Ellaiamman Nagar, Thoraipakkam-600097 (OPP TO JAIN COLLEGE).",
@@ -144,7 +144,7 @@ const MobileLayout: React.FC = () => {
           <div className="flex flex-col gap-4 h-full">
             <div className="w-full sm:h-40 bg-white flex items-center justify-center mb-4">
               <Image
-                src="/contact-us/contact.webp"
+                src="/contact-us/thiruvalluvar-statue-kanyakumari.webp"
                 alt="Contact Sri Maniya Institute of Hotel Management"
                 width={700}
                 height={700}
@@ -210,7 +210,7 @@ const DesktopLayout: React.FC = () => (
         <div className="flex flex-row gap-4 md:gap-0 h-full">
           <div className="w-full sm:w-[40%] lg:w-1/2 hidden md:block h-full">
             <Image
-              src="/contact-us/contact.webp"
+              src="/contact-us/thiruvalluvar-statue-kanyakumari.webp"
               alt="Contact Sri Maniya Institute of Hotel Management"
               width={700}
               height={700}

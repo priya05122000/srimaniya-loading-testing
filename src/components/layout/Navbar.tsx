@@ -142,7 +142,7 @@ const Navbar = ({ sticky = true }: NavbarProps) => {
           className="logo flex items-center justify-center order-2 pr-6 sm:pr-0"
         >
           <Image
-            src="/logos/navbarlogo.png"
+            src="/logos/sri-maniya-institute-header-logo.png"
             alt="Company Logo"
             width={500}
             height={500}
