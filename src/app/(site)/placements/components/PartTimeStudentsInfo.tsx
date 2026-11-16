@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import Section from "@/components/common/Section";
-import Paragraph from "@/components/common/Paragraph";
 import { useEffect } from "react";
 import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
@@ -40,6 +39,9 @@ const formatSalary = (salary?: string) => {
   return salary.endsWith(".00") ? salary.slice(0, -3) : salary;
 };
 
+// True when a field has real content (not null / empty / only spaces)
+const hasText = (value?: string | null) => Boolean(value && value.trim());
+
 // Helper: Preload images (reusable)
 const preloadImages = (placements: Placement[]) => {
   return Promise.all(
@@ -73,7 +75,7 @@ const StudentCard: React.FC<{
     <div className="relative w-28 sm:w-32 lg:w-62.5 shrink-0 lg:shrink self-stretch">
       {viewableDocuments.length > 0 ? (
         <PhotoDocumentSlider
-          photoSrc={placement.profile_photo ? photoSrc : null}
+          photoSrc={photoSrc}
           photoAlt="Hotel management placement at Sri Maniya Institute"
           alumniName={placement.name}
           documents={viewableDocuments}
@@ -94,31 +96,39 @@ const StudentCard: React.FC<{
     <div className="w-full min-w-0 break-words flex flex-col justify-center items-start px-4">
       <div className="top flex justify-center">
         <div className="userDetails flex flex-col">
-          <Paragraph
-            size="lg"
-            className="text-(--dark) leading-tight uppercase font-bold line-clamp-2"
+          <p
+            className="font-inter text-[15px] lg:text-base text-(--dark) leading-tight uppercase font-bold line-clamp-2"
             title={placement.name}
           >
             {placement.name}
-          </Paragraph>
+          </p>
         </div>
       </div>
-      <div>
-        <Span className="message text-(--dark) capitalize">
-          {placement.company}
-        </Span>
-      </div>
-      <div className="mt-2">
-        <Span className="message text-(--dark)"><b>Placement :</b> {placement.designation}</Span>
-      </div>
-      <div>
-        <Span className="message text-(--dark)"><b>Course : </b> {placement.course}{placement.batch_year && ` ( ${placement.batch_year} )`}</Span>
-      </div>
-      {formatSalary(placement.salary) && (
+      {hasText(placement.company) && (
         <div>
-          <Span className="message text-(--dark)"><b>Salary : </b> Rs. {formatSalary(placement.salary)}</Span>
+          <span className="message block font-inter mt-1 text-[13px] leading-relaxed text-(--dark) capitalize">
+            {placement.company}
+          </span>
         </div>
       )}
+      {/* Each detail row is shown only when it has data. */}
+      <div className="mt-2">
+        {hasText(placement.designation) && (
+          <div>
+            <Span className="message text-(--dark)"><b>Placement :</b> {placement.designation}</Span>
+          </div>
+        )}
+        {hasText(placement.course) && (
+          <div>
+            <Span className="message text-(--dark)"><b>Course : </b> {placement.course}{hasText(placement.batch_year) && ` ( ${placement.batch_year} )`}</Span>
+          </div>
+        )}
+        {formatSalary(placement.salary) && (
+          <div>
+            <Span className="message text-(--dark)"><b>Salary : </b> Rs. {formatSalary(placement.salary)}</Span>
+          </div>
+        )}
+      </div>
     </div>
   </div>
   );

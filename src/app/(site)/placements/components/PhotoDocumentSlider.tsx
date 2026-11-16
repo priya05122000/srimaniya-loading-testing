@@ -29,8 +29,8 @@ type Slide =
   | { kind: "photo"; src: string }
   | { kind: "document"; doc: VerificationDocument; docIndex: number };
 
-const AUTOPLAY_MS = 4000;
-const TRANSITION_MS = 500;
+const AUTOPLAY_MS = 2500;
+const TRANSITION_MS = 350;
 const SWIPE_THRESHOLD_PX = 30;
 
 const arrowClass =
@@ -238,10 +238,19 @@ const PhotoDocumentSlider: React.FC<PhotoDocumentSliderProps> = ({
   return (
     <div
       className="absolute inset-0 overflow-hidden touch-pan-y"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
+      // Pause only while a mouse is over the slider (a tap on a phone must not
+      // pause it forever), or while a keyboard user has focus inside it.
+      // Clicking an arrow focuses it, so plain focus must not pause autoplay.
+      onPointerEnter={(e) => e.pointerType === "mouse" && setPaused(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && setPaused(false)}
+      onFocusCapture={(e) => {
+        if ((e.target as HTMLElement).matches(":focus-visible")) setPaused(true);
+      }}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setPaused(false);
+        }
+      }}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => (pointerStartX.current = null)}

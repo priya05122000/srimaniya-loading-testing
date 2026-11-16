@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
-import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";
 import Image from "next/image";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
@@ -94,33 +93,27 @@ const InternCard: React.FC<{
         )}
       </div>
       <div className="w-full min-w-0 wrap-break-word flex flex-col justify-center items-start px-4">
-        <Paragraph
-          size="lg"
-          className="text-(--white-custom) leading-tight uppercase font-bold line-clamp-2"
-          title={internship.name}
-        >
-          {internship.name}
-        </Paragraph>
+        <p
+            className="font-inter text-[15px] lg:text-base text-(--white-custom) leading-tight uppercase font-bold line-clamp-2"
+            title={internship.name}
+          >
+            {internship.name}
+          </p>
         {internship.company && (
           <div>
-            <Span className="message text-(--white-custom) capitalize">
+            <span className="message block font-inter mt-1 text-[13px] leading-relaxed text-(--white-custom) capitalize">
               {internship.company}
-            </Span>
+            </span>
           </div>
         )}
         {internship.designation && (
           <div className="mt-2">
-            <Span className="message text-(--white-custom)">
-              <b>Role : </b> {internship.designation}
-            </Span>
+            <Span className="message text-(--white-custom)"><b>Role : </b> {internship.designation}</Span>
           </div>
         )}
         {internship.course && (
           <div>
-            <Span className="message text-(--white-custom)">
-              <b>Course : </b> {internship.course}{" "}
-              {internship.batch_year && `(${internship.batch_year})`}
-            </Span>
+            <Span className="message text-(--white-custom)"><b>Course : </b> {internship.course} {internship.batch_year && `(${internship.batch_year})`}</Span>
           </div>
         )}
         {internship.duration && (
