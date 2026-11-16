@@ -250,12 +250,12 @@ const BlogDetails: React.FC<{
           </div>
 
           {blog?.faq && (
-            <div className={styles["blog-content"]}>
-              <Paragraph size="xl" className="mb-4 font-bold text-(--dark)">
-                FAQ
-              </Paragraph>
+            <div>
+              <h3 className={`font-inter ${styles["faq-heading"]}`}>
+                Frequently Asked Questions
+              </h3>
               <div
-                className="blog-content text-(--dark)"
+                className={`text-(--dark) ${styles["blog-content"]} ${styles["faq-content"]}`}
                 dangerouslySetInnerHTML={{ __html: blog.faq }}
               />
             </div>
