@@ -210,11 +210,11 @@ const BlogDetails: React.FC<{
               />
               <div>
                 <Paragraph size="base" className="mt-2 font-bold line-clamp-2">
-                  {b.sub_title}
+                  {b.title}
                 </Paragraph>
-                <Span className="text-xs line-clamp-2">
-                  {b.description.replace(/<[^>]+>/g, "").slice(0, 60)}...
-                </Span>
+                {b.sub_title && (
+                  <Span className="text-xs line-clamp-2">{b.sub_title}</Span>
+                )}
               </div>
             </div>
           </Link>

@@ -153,10 +153,11 @@ const RecentBlogs: React.FC<{ blog_id?: string }> = ({ blog_id }) => {
                     <div className="p-3 h-20 z-10 relative">
                       <Paragraph
                         size="lg"
-                        className="mb-1 font-medium"
+                        className="mb-1 font-medium line-clamp-1"
+                        title={blog.title}
                         // {...ANIMATIONS.fadeZoomIn}
                       >
-                        {blog.sub_title.slice(0, 30)}...
+                        {blog.title}
                       </Paragraph>
                       <div className="flex gap-1 items-baseline">
                         <Paragraph

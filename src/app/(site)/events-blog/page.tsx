@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import EventsBlogPage from "./EventsBlogPage";
 import { getAllBlogPosts } from "@/services/blogPostService";
 import { getAllCategories } from "@/services/categoryService";
+import { getBlogMetaDescription } from "@/lib/blogMeta";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -105,9 +106,9 @@ const page = async () => {
         "@type": "BlogPosting",
         "@id": `${BASE_URL}/events-blog/${blog.slug}`,
         headline: blog.title,
-        description: blog.shortNote || blog.metaDescription,
-        image: blog.imagePath
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.imagePath}`
+        description: getBlogMetaDescription(blog),
+        image: blog.image_url
+          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`
           : `${BASE_URL}/scholarship/hotel-management-graduates-convocation.webp`,
         author: {
           "@type": "Organization",
@@ -121,8 +122,8 @@ const page = async () => {
             url: `${BASE_URL}/logos/sri-maniya-institute-logo.png`,
           },
         },
-        datePublished: blog.createdAt,
-        dateModified: blog.updatedAt || blog.createdAt,
+        datePublished: blog.created_at,
+        dateModified: blog.updated_at || blog.created_at,
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `${BASE_URL}/events-blog/${blog.slug}`,

@@ -158,17 +158,14 @@ const EventAndBlog = ({
                   <div className="pt-3  z-10 relative text-(--blue)">
                     <Link hrefLang="en" href={`/events-blog/${blog.slug}`}>
                       <p className="mb-3 text-base lg:text-lg font-medium underline underline-offset-6 decoration-1 cursor-pointer leading-snug">
-                        {blog.sub_title}
+                        {blog.title}
                       </p>
                     </Link>
 
-                    <span
-                      className="text-sm line-clamp-3"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          blog.description
-                      }}
-                    />
+                    {/* Card summary = subtitle (title is the heading above) */}
+                    {blog.sub_title && (
+                      <p className="text-sm line-clamp-3">{blog.sub_title}</p>
+                    )}
 
 
                     <div className="flex items-baseline mt-2">

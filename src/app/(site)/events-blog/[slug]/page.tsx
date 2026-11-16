@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import ViewPage from "./ViewPage";
+import { getBlogMetaDescription } from "@/lib/blogMeta";
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -29,13 +30,9 @@ export async function generateMetadata({
     };
   }
 
-  const cleanText = (html: string, limit = 160) => {
-    const text = html.replace(/<[^>]*>/g, "").trim();
-    return text.length > limit ? text.slice(0, limit) + "…" : text;
-  };
-
+  // Blog subtitle first; description text only as a fallback.
   const description =
-    cleanText(blog.description, 120) ||
+    getBlogMetaDescription(blog) ||
     `${blog.title} - Read blog from Sri Maniya Institute about hotel management and events.`;
 
   const imageUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/${blog.image_url}`;
@@ -86,12 +83,7 @@ const page = async ({ params }: PageProps) => {
     );
   }
 
-  const cleanText = (html: string, limit = 160) => {
-    const text = html.replace(/<[^>]*>/g, "").trim();
-    return text.length > limit ? text.slice(0, limit) + "…" : text;
-  };
-
-  const description = cleanText(blog.description, 60);
+  const description = getBlogMetaDescription(blog);
 
   const schema = {
     "@context": "https://schema.org",

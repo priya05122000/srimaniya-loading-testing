@@ -51,7 +51,7 @@ const BlogCard: React.FC<{ blog: Blog; idx: number }> = ({ blog, idx }) => (
         <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/designs/noise.svg')] opacity-50 mix-blend-overlay bg-cover bg-no-repeat" />
         <div className="p-3 z-10 relative flex flex-col justify-between">
           <Paragraph size="base" className="mb-1 font-medium leading-relaxed line-clamp-1">
-            {blog.sub_title}
+            {blog.title}
           </Paragraph>
           <div className="flex items-baseline">
             <span className="font-bold text-xs">
