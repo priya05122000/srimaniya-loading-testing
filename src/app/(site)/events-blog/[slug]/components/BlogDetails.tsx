@@ -212,9 +212,9 @@ const BlogDetails: React.FC<{
                 <Paragraph size="base" className="mt-2 font-bold line-clamp-2">
                   {b.title}
                 </Paragraph>
-                {b.sub_title && (
+                {/* {b.sub_title && (
                   <Span className="text-xs line-clamp-2">{b.sub_title}</Span>
-                )}
+                )} */}
               </div>
             </div>
           </Link>
