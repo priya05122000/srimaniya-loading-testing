@@ -9,7 +9,7 @@ import {
   ArrowNarrowRight,
   QuoteRight,
 } from "@/components/icons/Icons";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { AlumniStory } from "@/types";
 
@@ -202,12 +202,12 @@ const AlumniStories = ({ alumniData }: { alumniData: AlumniStory[] }) => {
               >
                 Student Success Stories
               </Paragraph>
-              <h3
+              <h2
                 ref={headingRef}
                 className="text-(--blue) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold uppercase leading-tight proof-title mt-1"
               >
                 Alumni Testimonials
-              </h3>
+              </h2>
               {/* <Paragraph
                 ref={paragraphRef}
                 size="lg"

@@ -1,6 +1,6 @@
 import Heading from '@/components/common/Heading'
 import Paragraph from '@/components/common/Paragraph'
-import Image from 'next/image'
+import Image from "@/components/common/SeoImage";
 import React from 'react'
 
 const AboutUsImage: React.FC<{ className?: string; priority?: boolean }> = ({ className, priority }) => (

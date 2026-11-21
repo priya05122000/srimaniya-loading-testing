@@ -29,8 +29,10 @@ const ShowReelVideo: React.FC<{ className?: string }> = ({ className }) => {
     <div className="relative w-full h-full overflow-hidden">
       <img
         src="/videos/culinary-students-cooking-in-training-kitchen.webp"
-        alt=""
-        aria-hidden="true"
+        alt="Culinary students cooking in the training kitchen at Sri Maniya Institute of Hotel Management"
+        title="Culinary students cooking in the training kitchen at Sri Maniya Institute of Hotel Management"
+        width={1920}
+        height={804}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${videoReady ? "opacity-0 pointer-events-none" : "opacity-100"}`}
       />
       {loadVideo && (
@@ -151,7 +153,7 @@ export default function ShowReel() {
           <div className="grid grid-cols-3 xl:grid-cols-[2fr_1fr_2fr] items-center gap-14 lg:gap-10">
             <div id="left-text" className="text-end">
               <Span className="text-(--blue)">Started in </Span>
-              <Heading level={3} className="text-(--blue)">
+              <Heading level={3} as="p" className="text-(--blue)">
                 1984
               </Heading>
             </div>
@@ -160,7 +162,7 @@ export default function ShowReel() {
               <Span className="text-(--blue)">
                 Institute of Hotel Management
               </Span>
-              <Heading level={3} className="text-(--blue)">
+              <Heading level={3} as="p" className="text-(--blue)">
                 Sri Maniya <br /> Institute
               </Heading>
             </div>
@@ -172,7 +174,7 @@ export default function ShowReel() {
       <Section className="block sm:hidden py-10 ">
         <div className="text-end">
           <Span className="text-(--blue)">Started in </Span>
-          <Heading level={3} className="text-(--blue)">
+          <Heading level={3} as="p" className="text-(--blue)">
             1984
           </Heading>
         </div>
@@ -181,7 +183,7 @@ export default function ShowReel() {
         </div>
         <div>
           <Span className="text-(--blue)">Institute of Hotel Management</Span>
-          <Heading level={3} className="text-(--blue)">
+          <Heading level={3} as="p" className="text-(--blue)">
             Sri Maniya Institute
           </Heading>
         </div>

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { getAllPartners } from "@/services/partnerService";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
 interface Partner {
@@ -89,7 +89,7 @@ export default function Partners() {
                   >
                     <Image
                       src={`${baseUrl}/${partner.logo_url}`}
-                      alt=""
+                      alt="Recruitment partner of Sri Maniya Institute of Hotel Management"
                       width={200}
                       height={100}
                       className="object-contain image-tag h-full w-full p-4 opacity-80 hover:opacity-100 transition"

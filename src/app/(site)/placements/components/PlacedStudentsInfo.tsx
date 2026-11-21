@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Heading from "@/components/common/Heading";
 import Section from "@/components/common/Section";
 import Span from "@/components/common/Span";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 import { getAllAlumniStories } from "@/services/alumniStoryService";
 import {
@@ -185,6 +185,7 @@ const PlacedStudentsInfo: React.FC = () => {
         <Heading
           ref={headingRef}
           level={4}
+          as={2}
           className="text-(--blue) uppercase block placed-students-info leading-tight"
         >
           Full Time Placements

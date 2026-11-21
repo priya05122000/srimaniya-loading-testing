@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 
 import Paragraph from "@/components/common/Paragraph";
 import Span from "@/components/common/Span";

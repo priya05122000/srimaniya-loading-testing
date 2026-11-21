@@ -46,13 +46,28 @@ const preloadImages = (blog: Blog | null) => {
   );
 };
 
-function BlogViewPageContent() {
+type Category = { id: string; name: string };
+
+interface ViewPageProps {
+  initialBlog?: Blog | null;
+  initialCategories?: Category[];
+}
+
+function BlogViewPageContent({ initialBlog = null, initialCategories = [] }: ViewPageProps) {
   const { slug } = useParams();
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
+  // Server-fetched data is used for the first render, so the H1, content and
+  // headings are in the HTML that search engines read (no JS needed).
+  const [blog, setBlog] = useState<Blog | null>(initialBlog);
+  const [categories, setCategories] = useState<Category[]>(initialCategories);
 
   useEffect(() => {
     if (!slug) return;
+
+    // Already have this blog from the server — only preload its images.
+    if (initialBlog && initialBlog.slug === slug && initialCategories.length) {
+      preloadImages(initialBlog);
+      return;
+    }
 
     const fetchBlog = async () => {
       try {
@@ -76,7 +91,7 @@ function BlogViewPageContent() {
     };
 
     fetchCategory();
-  }, [slug]);
+  }, [slug, initialBlog, initialCategories]);
 
   const additionalImages = getAdditionalImages(blog);
 
@@ -91,10 +106,10 @@ function BlogViewPageContent() {
   );
 }
 
-export default function ViewPage() {
+export default function ViewPage(props: ViewPageProps) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BlogViewPageContent />
+      <BlogViewPageContent {...props} />
     </Suspense>
   );
 }

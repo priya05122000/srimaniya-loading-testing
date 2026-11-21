@@ -19,6 +19,8 @@ import HeroServer from "./components/hero/HeroServer";
 const HomePage = () => {
   return (
     <div>
+      {/* Page H1 — server-rendered and first in the HTML, before any section heading */}
+      <h1 className="sr-only">Sri Maniya Institute of Hotel Management in Tamil Nadu</h1>
       {/* <Hero /> */}
       <HeroServer />
       <Partners />

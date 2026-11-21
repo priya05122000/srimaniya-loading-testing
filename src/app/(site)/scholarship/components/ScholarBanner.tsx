@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 
 import { getAllJobs } from "@/services/jobService";
 

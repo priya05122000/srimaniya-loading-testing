@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import Paragraph from "@/components/common/Paragraph";
 import Section from "@/components/common/Section";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { ArrowNarrowRight } from "@/components/icons/Icons";
 import Span from "@/components/common/Span";
 

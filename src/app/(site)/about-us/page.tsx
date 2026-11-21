@@ -7,7 +7,8 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/about-us`,
   },
 
-  title: "About Sri Maniya Institute of Hotel Management",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "About Sri Maniya Institute of Hotel Management" },
   description:
     "Sri Maniya Institute, Kanyakumari — trusted by 2,000+ students for hands-on hotel management training, internships & 100% placement support. See why.",
   keywords: [

@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/placements`,
   },
 
-  title: "Hotel Management Placement Support Collage in TN",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "Hotel Management Placements in Tamil Nadu | Sri Maniya" },
   description:
     "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
 
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Hotel Management Placement Support Collage in TN",
+    title: "Hotel Management Placement Support College in TN",
     description:
       "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
     url: `${BASE_URL}/placements`,
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Hotel Management Placement Support Collage in TN",
+    title: "Hotel Management Placement Support College in TN",
     description:
       "Will you really get a job after hotel management? Yes — with placements across India, Dubai, Maldives & more. See our placement record!",
     images: [`${BASE_URL}/home/chef-with-hotel-management-interns-in-kitchen.webp`],

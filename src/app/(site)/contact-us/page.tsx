@@ -7,7 +7,8 @@ export const metadata: Metadata = {
     canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/contact-us`,
   },
 
-  title: "Hotel Management Institute Near Me | Tamil Nadu",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "Hotel Management Institute Near Me | Sri Maniya Institute" },
   description:
     "Have questions about admissions or courses? Reach Sri Maniya Institute in Kanyakumari — we're just a call away. Contact us today!",
   keywords: [

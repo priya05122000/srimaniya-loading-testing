@@ -4,7 +4,7 @@ import Paragraph from "@/components/common/Paragraph";
 import ParagraphList from "@/components/common/ParagraphList";
 import Section from "@/components/common/Section";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import React, { useRef } from "react";
 
 // Reusable constants

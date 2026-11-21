@@ -3,7 +3,7 @@ import LeftSpaceGridSection from '@/components/common/LeftSpaceGridSection'
 import Paragraph from '@/components/common/Paragraph';
 import Span from '@/components/common/Span';
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
-import Image from 'next/image';
+import Image from "@/components/common/SeoImage";
 import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -35,6 +35,9 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => (
             src={testimonial.photo_url ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/${testimonial.photo_url}` : "/about-us/student-profile-placeholder.webp"}
             alt="Student testimonial at Sri Maniya Institute"
             fill
+            intrinsicWidth={960}
+            intrinsicHeight={1280}
+            sizes="48px"
             className="object-cover image-tag"
             unoptimized
           />

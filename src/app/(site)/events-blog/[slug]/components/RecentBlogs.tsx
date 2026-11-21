@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import LeftSpaceGridSection from "@/components/common/LeftSpaceGridSection";
 import Paragraph from "@/components/common/Paragraph";
 import Heading from "@/components/common/Heading";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import Span from "@/components/common/Span";
 import { ArrowLongLeft, ArrowLongRight } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";

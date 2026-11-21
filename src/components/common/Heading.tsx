@@ -5,6 +5,8 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: HeadingLevel;
+  /** Render a different tag than the level's (keeps the level's size). e.g. as={2} or as="p" */
+  as?: HeadingLevel | "p" | "div" | "span";
   children: React.ReactNode;
   className?: string;
   size?: "default" | "xl";
@@ -30,6 +32,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
     {
       level = 1,
+      as,
       children,
       className = "",
       size = "default",
@@ -39,7 +42,9 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref
   ) => {
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+    const Tag = (
+      typeof as === "number" ? `h${as}` : as ?? `h${level}`
+    ) as keyof JSX.IntrinsicElements;
 
     let baseClass = headingStyles[level];
     // Only override for level 1 and if size is not default

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import Paragraph from "@/components/common/Paragraph";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -225,12 +225,12 @@ const PlacementMap = ({ placements }: { placements: Placement[] }) => {
               >
                 Our Placement
               </Paragraph>
-              <h3
+              <h2
                 ref={headingRef}
                 className="text-(--blue) leading-tight uppercase mt-2 connecting-title text-3xl sm:text-4xl lg:text-5xl font-bold font-jakarta"
               >
                 Connecting <br /> Talent to <br /> Global Brands
-              </h3>
+              </h2>
             </div>
             <Paragraph
               size="lg"

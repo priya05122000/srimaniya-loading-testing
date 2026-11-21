@@ -2,7 +2,7 @@
 import React, { useRef } from "react";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 
 interface StorySectionProps {
   heading: string;

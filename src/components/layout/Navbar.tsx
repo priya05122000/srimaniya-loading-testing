@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { Download } from "@/components/icons/Icons";
 import Paragraph from "../common/Paragraph";
 import BrochureModal from "./BrochureModal";

@@ -7,7 +7,7 @@ import Section from "@/components/common/Section";
 import { useEffect } from "react";
 import { getAllPlacements } from "@/services/placementService";
 import Span from "@/components/common/Span";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import {
   type VerificationDocument,
   getViewableDocuments,
@@ -183,6 +183,7 @@ const PartTimeStudentsInfo = () => {
         <Heading
           ref={headingRef}
           level={4}
+          as={2}
           className="text-(--white-custom) uppercase leading-tight"
         >
           Part Time Placements

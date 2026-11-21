@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { ArrowRight, Instagram, Facebook, YouTube, LinkedIn } from "@/components/icons/Icons";
 import { getAllCourses } from "@/services/courseService";
 import Section from "../common/Section";

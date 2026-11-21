@@ -1,10 +1,12 @@
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import ScholarFormInner from "./ScholarFormInner";
 
 const IMAGE_PROPS = {
   src: "/scholarship/hotel-management-students-studying-in-classroom.webp",
   alt: "Hotel management scholarship at Sri Maniya Institute",
   fill: true,
+  intrinsicWidth: 935,
+  intrinsicHeight: 880,
   sizes: "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw",
   className: "object-cover object-top",
   priority: true,

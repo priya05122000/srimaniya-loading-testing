@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { toast } from "react-toastify";
 import { ArrowLeft } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";

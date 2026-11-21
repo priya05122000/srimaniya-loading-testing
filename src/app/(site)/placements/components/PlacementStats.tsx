@@ -100,7 +100,7 @@ const PlacementStats: React.FC = () => (
         <div className="flex flex-col sm:flex-row justify-evenly text-(--white-custom) gap-6 sm:gap-2 py-4 sm:py-8">
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center lg:py-6">
-              <Heading level={3} className="hidden sm:flex justify-center">
+              <Heading level={3} as="p" className="hidden sm:flex justify-center">
                 <span className="flex items-baseline">
                   <OdometerNumber value={parseInt(stat.value)} />
                   <span className="ml-1">+</span>

@@ -26,9 +26,8 @@ export const metadata: Metadata = {
     google: "MBrN2i_3C1_R_3fLCH95BtHXL-j9n2ipNYmByFZLu6w",
   },
 
-  alternates: {
-    canonical: "/",
-  },
+  // No site-wide canonical: each page sets its own. A canonical of "/" here was
+  // inherited by every page without one (e.g. /registration-form) and pointed it at the home page.
 
   openGraph: {
     title: "Sri Maniya Institute of Hotel Management",

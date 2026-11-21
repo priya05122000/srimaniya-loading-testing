@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import FormInner from "../subcomponents/FormInner";
 
 const EnquireForm: React.FC = () => {

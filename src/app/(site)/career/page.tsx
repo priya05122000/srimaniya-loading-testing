@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/career`,
   },
-  title: "Hospitality Jobs at Sri Maniya, Tamil Nadu",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "Hospitality Jobs at Sri Maniya Institute, Tamil Nadu" },
   description:
     "Want to shape future hoteliers? Sri Maniya Institute is hiring passionate faculty & hospitality professionals. Apply now!",
   keywords: [

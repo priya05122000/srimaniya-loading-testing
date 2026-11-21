@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import Section from "@/components/common/Section";
 import { useRouter } from "next/navigation";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";

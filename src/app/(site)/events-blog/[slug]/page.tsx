@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getBlogPostBySlug } from "@/services/blogPostService";
 import ViewPage from "./ViewPage";
-import { getBlogMetaDescription } from "@/lib/blogMeta";
+import { getBlogMetaDescription, getBlogMetaTitle } from "@/lib/blogMeta";
+import { getAllCategories } from "@/services/categoryService";
 
 export interface PageProps {
   params?: Promise<SegmentParams>;
@@ -42,7 +43,9 @@ export async function generateMetadata({
       canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/events-blog/${blog.slug}`,
     },
 
-    title: blog.title,
+    // ≤ 60 chars; absolute so the layout doesn't append "| Sri Maniya Institute" again.
+    // Social (OG / X) titles below keep the full blog title.
+    title: { absolute: getBlogMetaTitle(blog.title) || blog.title },
     description: description,
 
     openGraph: {
@@ -72,8 +75,12 @@ export async function generateMetadata({
 const page = async ({ params }: PageProps) => {
   const resolvedParams = params ? await params : undefined;
   const slug = resolvedParams?.slug;
-  const result = await getBlogPostBySlug(slug);
+  const [result, categoryResult] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getAllCategories().catch(() => null),
+  ]);
   const blog = result?.data;
+  const categories = categoryResult?.data ?? [];
 
   if (!blog) {
     return (
@@ -117,7 +124,7 @@ const page = async ({ params }: PageProps) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <ViewPage />
+      <ViewPage initialBlog={blog} initialCategories={categories} />
     </div>
   );
 };

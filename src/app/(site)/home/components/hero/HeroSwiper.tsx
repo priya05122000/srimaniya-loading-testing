@@ -20,7 +20,6 @@ const HeroSwiper = ({ banners, onReady }: { banners: Banner[]; onReady?: () => v
 
   return (
   <>
-    <h1 className="sr-only">Sri Maniya Institute of Hotel Management in TamilNadu</h1>
     <Swiper
       spaceBetween={30}
       effect="fade"

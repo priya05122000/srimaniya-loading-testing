@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   //   canonical: process.env.NEXT_PUBLIC_BASE_URL,
   // },
 
-  title:
-    "Best Hotel Management Institute in Tamil Nadu",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "Best Hotel Management Institute in Tamil Nadu | Sri Maniya" },
   description:
     "Dreaming of a hotel management career? Sri Maniya Institute in Tamil Nadu offers internships from day 1 & 100% placement support. Enquire now!",
   // keywords: [

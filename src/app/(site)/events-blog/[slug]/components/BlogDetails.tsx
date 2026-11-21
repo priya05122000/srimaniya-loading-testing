@@ -4,7 +4,7 @@ import { Facebook, LinkedIn } from "@/components/icons/Icons";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { getAdminById } from "@/services/authService";
 import { useRouter } from "next/navigation";
 import Span from "@/components/common/Span";

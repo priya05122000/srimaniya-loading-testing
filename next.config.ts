@@ -40,6 +40,9 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      // /home is a duplicate of the home page — send it (and its link signals) to "/"
+      { source: "/home", destination: "/", permanent: true },
+
       // Old image URLs → SEO-friendly names (keeps indexed images and shared links working)
       { source: "/about-us/about-us.webp", destination: "/about-us/hotel-management-students-culinary-competition-award-winners.webp", permanent: true },
       { source: "/about-us/mission.webp", destination: "/about-us/vision-and-mission-background.webp", permanent: true },

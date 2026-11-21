@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 
 import PdfPreview from "@/components/common/PdfPreview";
 import { ArrowLeft, ArrowRight, ZoomIn } from "@/components/icons/Icons";

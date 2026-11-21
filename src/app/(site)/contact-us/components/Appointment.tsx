@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { toast } from "react-toastify";
 import Heading from "@/components/common/Heading";
 import Paragraph from "@/components/common/Paragraph";

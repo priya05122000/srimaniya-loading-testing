@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/scholarship`,
   },
 
-  title: "Hotel Management Scholarship Tamil Nadu",
+  // absolute: full <title> as written (≤ 60 chars); the layout template is not added
+  title: { absolute: "Hotel Management Scholarship Tamil Nadu | Sri Maniya" },
   description:
     "Worried about fees? Sri Maniya has awarded ₹51 lakh in hotel management scholarships so far. Check if you qualify — apply today!",
   keywords: [

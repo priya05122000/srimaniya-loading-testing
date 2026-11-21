@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/events-blog`,
   },
-  title: "Hotel Management Blogs & Events | Sri Maniya Institute",
+  // absolute: the layout template already adds "| Sri Maniya Institute"
+  title: { absolute: "Hotel Management Blogs & Events | Sri Maniya Institute" },
   description:
     "Get hotel management career tips, placement stories & campus event updates from Sri Maniya Institute of Hotel Management, Kanyakumari. Read now.",
   keywords: [

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CoursesPage from "./CoursesPage";
 import { getAllCourses } from "@/services/courseService";
 import { flattenHtml } from "@/utils/flattenHtml";
+import { getBlogMetaTitle } from "@/lib/blogMeta";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://srimaniyainstitute.in";
@@ -44,9 +45,12 @@ export async function generateMetadata({
       canonical: `${BASE_URL}/courses`,
     },
 
-    title: readableTitle
-      ? `${readableTitle} | Sri Maniya Institute`
-      : "Hotel Management Courses – Diploma, B.Sc & MBA",
+    // absolute: ≤ 60 chars, layout template not added again
+    title: {
+      absolute: readableTitle
+        ? getBlogMetaTitle(readableTitle)
+        : "Hotel Management Courses – Diploma, B.Sc & MBA | Sri Maniya",
+    },
 
     description:
       "Diploma, B.Sc or MBA — which hotel management course is right for you? Compare fees, duration & internship details. Download the brochure!",

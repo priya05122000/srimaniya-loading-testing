@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent, useEffect } from "react";
 import { Close } from "@/components/icons/Icons";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import CommonEnquiryFields, { AutofillSuppressionFields } from "@/components/enquiry-validation/CommonEnquiryFields";
 import { validateEnquiryFormWithToast } from "@/components/enquiry-validation/enquiryFormValidation";
 import { toast } from "react-toastify";

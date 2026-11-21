@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, memo } from "react";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import Paragraph from "@/components/common/Paragraph";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
 
@@ -171,12 +171,12 @@ const CommitmentBanner: React.FC = () => {
           >
             Our commitment to build your trust
           </h2> */}
-          <h3
+          <h2
             ref={headingRef}
             className="text-(--white-custom) font-jakarta text-3xl sm:text-4xl lg:text-5xl font-bold text-right leading-tight commitment-title uppercase "
           >
             Why Choose Us
-          </h3>
+          </h2>
         </div>
         <div className="relative hidden lg:grid grid-cols-1 lg:grid-cols-4 flex-1 min-h-[60vh] sm:min-h-100 xl:min-h-105">
           {features.map((feature, idx) => (

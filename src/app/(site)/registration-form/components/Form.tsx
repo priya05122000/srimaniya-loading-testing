@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import { ArrowLeft } from "@/components/icons/Icons";
 import { useRouter } from "next/navigation";
 

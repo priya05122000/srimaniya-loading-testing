@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/privacy-policy`,
   },
 
-  title: "Privacy Policy - Sri Maniya Institute",
+  title: "Privacy Policy",
 
   description:
     "Read the privacy policy of Sri Maniya Institute of Hotel Management to understand how your personal information is collected, used, and protected.",
@@ -21,19 +21,29 @@ export const metadata: Metadata = {
   ],
 
   openGraph: {
-    title: "Privacy Policy - Sri Maniya Institute",
+    title: "Privacy Policy | Sri Maniya Institute",
     description:
       "Official privacy policy of Sri Maniya Institute of Hotel Management.",
     url: `${BASE_URL}/privacy-policy`,
     siteName: "Sri Maniya Institute",
+    locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "https://srimaniyainstitute.in/scholarship/hotel-management-graduates-convocation.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sri Maniya Institute of Hotel Management",
+      },
+    ],
   },
 
   twitter: {
-    card: "summary",
-    title: "Privacy Policy - Sri Maniya Institute",
+    card: "summary_large_image",
+    title: "Privacy Policy | Sri Maniya Institute",
     description:
-      "Official privacy policy of Sri Maniya Institute website.",
+      "How Sri Maniya Institute of Hotel Management collects, uses and protects your personal information.",
+    images: ["https://srimaniyainstitute.in/scholarship/hotel-management-graduates-convocation.webp"],
   },
 };
 

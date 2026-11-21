@@ -94,7 +94,6 @@ const HeroClient = ({ banners }: { banners: Banner[] }) => {
 
   return (
     <>
-      <h1 className="sr-only">Sri Maniya Institute of Hotel Management in TamilNadu</h1>
       {!swiperReady && <HeroPlaceholder banner={banners[0]} />}
       <HeroSwiper banners={banners} onReady={() => setSwiperReady(true)} />
     </>

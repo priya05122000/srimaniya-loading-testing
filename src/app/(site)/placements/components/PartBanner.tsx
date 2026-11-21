@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import Heading from "@/components/common/Heading";
 import { Banner } from "@/types";
 import BannerForm from "../subComponents/BannerForm";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 
 const SWIPER_CONFIG = {
   spaceBetween: 0,
@@ -60,6 +60,7 @@ export default function PartBanner({ banners }: { banners: Banner[] }) {
                     {banner.title && (
                       <Heading
                         level={6}
+                        as="p"
                         className="text-end font-bold leading-snug transition-colors duration-300 ease-in-out uppercase "
                       >
                         {banner.title}

@@ -1,6 +1,6 @@
 "use client";
 import Section from "@/components/common/Section";
-import Image from "next/image";
+import Image from "@/components/common/SeoImage";
 import React, { useRef, useEffect, useState } from "react";
 import Heading from "@/components/common/Heading";
 import { useSplitTextHeadingAnimation } from "@/hooks/useSplitTextHeadingAnimation";
@@ -63,6 +63,7 @@ const PartPlacementPartners = () => {
           <Heading
             ref={headingRef}
             level={4}
+            as={2}
             className="text-(--blue) uppercase our-recruitment-partners leading-tight"
           >
             Our recruitment partners

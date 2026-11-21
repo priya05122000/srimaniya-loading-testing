@@ -5,7 +5,7 @@ import Section from '@/components/common/Section';
 import Paragraph from '@/components/common/Paragraph';
 import Heading from '@/components/common/Heading';
 import { QuoteLeft, ArrowNarrowLeft, ArrowNarrowRight } from '@/components/icons/Icons';
-import Image from 'next/image';
+import Image from "@/components/common/SeoImage";
 import { useSplitTextHeadingAnimation } from '@/hooks/useSplitTextHeadingAnimation';
 
 // Types
