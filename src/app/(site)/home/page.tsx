@@ -21,6 +21,8 @@ const HomePage = () => {
     <div>
       {/* Page H1 — server-rendered and first in the HTML, before any section heading */}
       <h1 className="sr-only">Sri Maniya Institute of Hotel Management in Tamil Nadu</h1>
+      {/* Single H2 for the page; each section title below is an H3 under it */}
+      <h2 className="sr-only">Hotel Management Courses, Placements and Campus Life at Sri Maniya Institute</h2>
       {/* <Hero /> */}
       <HeroServer />
       <Partners />

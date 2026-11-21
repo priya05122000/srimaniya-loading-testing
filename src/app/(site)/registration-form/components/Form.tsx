@@ -98,6 +98,8 @@ const Form: React.FC = () => {
           <h1 className="text-3xl font-jakarta sm:text-4xl lg:text-5xl font-bold mb-8 ">
             Student Admission Form
           </h1>
+          {/* Section heading for the form (screen readers / SEO; design unchanged) */}
+          <h2 className="sr-only">Hotel Management Admission Application Form</h2>
           <RegistrationFormInner />
           <ContactInfo />
         </div>

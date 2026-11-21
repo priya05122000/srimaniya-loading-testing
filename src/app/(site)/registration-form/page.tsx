@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Form from './components/Form';
 
 const PAGE_URL = 'https://srimaniyainstitute.in/registration-form';
+const OG_IMAGE = 'https://srimaniyainstitute.in/scholarship/hotel-management-graduates-convocation.webp';
 
 export const metadata: Metadata = {
   // absolute: skip the layout's "%s | Sri Maniya Institute" template (avoids the name twice)
@@ -17,7 +18,25 @@ export const metadata: Metadata = {
     description:
       'Register for admission to hotel management courses at Sri Maniya Institute of Hotel Management, Kanyakumari.',
     url: PAGE_URL,
+    siteName: 'Sri Maniya Institute',
+    locale: 'en_IN',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: 'Sri Maniya Institute of Hotel Management admission',
+      },
+    ],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Admission Registration Form | Sri Maniya Institute',
+    description:
+      'Apply online for hotel management courses at Sri Maniya Institute of Hotel Management, Kanyakumari.',
+    images: [OG_IMAGE],
   },
 };
 
