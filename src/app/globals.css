@@ -273,3 +273,11 @@ body::after {
   object-fit: contain;
   padding: 0 8px;
 }
+/* First-load preloader (classes set by the boot script in app/layout.tsx). */
+html.preloading {
+  overflow: hidden;
+}
+
+html.preloader-skip #site-preloader {
+  display: none;
+}

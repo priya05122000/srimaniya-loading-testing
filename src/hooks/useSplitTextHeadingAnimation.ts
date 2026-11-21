@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { RefObject } from "react";
+import { waitForSiteReveal } from "@/lib/site-reveal";
 
 type UseSplitTextHeadingAnimationProps = {
   trigger: RefObject<HTMLElement | null> | string;
@@ -49,6 +50,9 @@ export function useSplitTextHeadingAnimation({
 
     const setup = async () => {
       await waitForFonts();
+      if (!mounted.current) return;
+      // Wait for the first-load preloader to fade so the animation is actually seen.
+      await waitForSiteReveal();
       if (!mounted.current) return;
 
       const { default: gsap } = await import("gsap");

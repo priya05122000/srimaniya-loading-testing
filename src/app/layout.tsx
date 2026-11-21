@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import GTM from "@/components/GTM";
+import SitePreloader from "@/components/SitePreloader";
+import { PRELOADER_BOOT_SCRIPT } from "@/lib/site-reveal";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://srimaniyainstitute.in"),
@@ -71,11 +73,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // The preloader boot script adds a class to <html> before hydration.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* First-load preloader boot — must run during parse, before paint. */}
+        <script dangerouslySetInnerHTML={{ __html: PRELOADER_BOOT_SCRIPT }} />
+      </head>
       <body
         className={`${plusJakarta.variable} ${inter.variable} font-inter antialiased`}
       >
         <GTM />
+
+        {/* Without JS nothing would ever dismiss the loader. */}
+        <noscript>
+          <style>{`#site-preloader{display:none}`}</style>
+        </noscript>
+        <SitePreloader />
 
         {children}
       </body>
